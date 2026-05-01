@@ -90,3 +90,10 @@
 .btn-col{
     background-color: #808080 !important;
 }
+
+.wrapped-checkbox {
+  width: 18px;
+  height: 18px;
+  padding: 4px; /* creates inner space effect */
+  box-sizing: content-box;
+}

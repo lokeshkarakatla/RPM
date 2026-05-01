@@ -117,17 +117,25 @@ ngOnInit() {
   }
 
 
-  getRangeStyle(value: number) {
-  let color = 'tomato';
+ getRangeStyle(value: number, index: number) {
 
-  if (value > 70) {
+  // ✅ First row = red
+  if (index === 0) {
+    return { 'accent-color': 'red' };
+  }
+
+  let color = 'gray';
+
+  if (value > 0 && value <= 40) {
     color = 'blue';
-  } else if (value > 25) {
-    color = 'orange';
+  } else if (value > 40 && value <= 93) {
+    color = '#FFC107';
+  } else if (value > 93) {
+    color = 'green';
   }
 
   return {
-    accentColor: color   // modern browsers support this
+    'accent-color': color
   };
 }
 

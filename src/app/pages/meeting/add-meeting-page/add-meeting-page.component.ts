@@ -56,4 +56,8 @@ export class AddMeetingPageComponent {
     // wire to service when ready
     this.router.navigate(['/app/complaints/meeting']);
   }
+
+  trackByIndex(index: number, item: any) {
+  return index;
+}
 }

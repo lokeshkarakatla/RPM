@@ -23,7 +23,7 @@ export class ActionGridViewComponent implements OnInit {
     });
    }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 
   data = [
@@ -33,7 +33,8 @@ export class ActionGridViewComponent implements OnInit {
       department: "QA",
       issue: "Engine Overheating",
       details: "enginee getting sound",
-      date: "2024-09-20",
+      date: "2024-09-30",
+      completion: "2024-08-20",
       status: "Open",
       actions: { edit: true, delete: true }
     },
@@ -43,7 +44,8 @@ export class ActionGridViewComponent implements OnInit {
       department: "Quality",
       issue: "Brakes Squeaking not working",
       details: "Brakes Squeaking not working",
-      date: "2024-09-24",
+      date: "2024-09-26",
+      completion: "2024-09-30",
       status: "Pending",
       actions: { edit: true, delete: true }
     },
@@ -53,7 +55,8 @@ export class ActionGridViewComponent implements OnInit {
       department: "QA",
       issue: "Transmission Slipping",
       details: "Transmission Slipping is not good",
-      date: "2024-09-24",
+      date: "2024-09-29",
+      completion: "2024-09-24",
       status: "WIP",
       actions: { edit: true, delete: true }
     },
@@ -63,7 +66,8 @@ export class ActionGridViewComponent implements OnInit {
       department: "Account",
       issue: "Transmission Slipping",
       details: "Transmission Slipping",
-      date: "2024-09-24",
+      date: "2024-09-20",
+      completion: "2024-09-24",
       status: "WIP",
       actions: { edit: true, delete: true }
     },
@@ -73,7 +77,8 @@ export class ActionGridViewComponent implements OnInit {
       department: "Developer",
       issue: "Battery Draining",
       details: "Battery Draining",
-      date: "2024-09-24",
+      date: "2024-09-19",
+      completion: "2024-09-24",
       status: "Pending",
       actions: { edit: true, delete: true }
     },
@@ -84,6 +89,7 @@ export class ActionGridViewComponent implements OnInit {
       issue: "Unusual Vibrations",
       details: "Unusual Vibrations",
       date: "2024-09-24",
+      completion: "2024-10-11",
       status: "Open",
       actions: { edit: true, delete: true }
     },
@@ -94,6 +100,7 @@ export class ActionGridViewComponent implements OnInit {
       issue: "Brakes Squeaking not working",
       details: "Brakes Squeaking not working",
       date: "2024-09-24",
+      completion: "2025-09-24",
       status: "Open",
       actions: { edit: true, delete: true }
     },
@@ -104,6 +111,7 @@ export class ActionGridViewComponent implements OnInit {
       issue: "Brakes Squeaking not getting",
       details: "Brakes Squeaking not working",
       date: "2024-09-24",
+      completion: "2024-09-24",
       status: "Pending",
       actions: { edit: true, delete: true }
     }
@@ -113,22 +121,24 @@ export class ActionGridViewComponent implements OnInit {
   //   this.router.navigate(['/app/complaints']);
   // }
   goBack() {
-    if (this.fromPage === 'meeting') {
-      this.router.navigate(['/app/complaints/meeting']);
-    } else {
-      this.router.navigate(['/app/complaints']);
-    }
+    
+      this.router.navigate(['/app/prts-part/prtsissuestatus/one-pager']);
+   
   }
 
-   public openCAPA(id: any) {
-      console.log('jkhksbdjk');
-      let dialogRef = this.dialog.open(AddCapaComponent, {
-        data: id,
-        height: 'auto',
-        width: '800px',
-      });
-      // dialogRef.afterClosed().subscribe((data: any) => {});
+   openCAPA(id: any, index?: number) {
+  let dialogRef = this.dialog.open(AddCapaComponent, {
+    data: id,
+    width: '800px'
+  });
+
+  dialogRef.afterClosed().subscribe((result: any) => {
+    if (result) {
+      // update your row
+      this.data[index!].completion = result.completion;
     }
+  });
+}
 
      deleteConfirmation() {
         let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -142,5 +152,16 @@ export class ActionGridViewComponent implements OnInit {
           }
         );
       }
+
+   isDueGreater(item: any): boolean {
+  const due = new Date(item.date);
+  const completion = new Date(item.completion);
+
+  if (isNaN(due.getTime()) || isNaN(completion.getTime())) {
+    return false;
+  }
+
+  return due > completion; // 👈 condition
+}
 
 }

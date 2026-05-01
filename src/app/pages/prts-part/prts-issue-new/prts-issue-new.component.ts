@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+
 enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 
 @Component({
@@ -12,7 +13,7 @@ enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 export class PrtsIssueNewComponent implements OnInit {
 
   check_box_type = CheckBoxType;
-  isRepeted: boolean = false;
+  isRepeted: boolean = true;
   addStep = 1;
   currentlyChecked: CheckBoxType;
   data: any;
@@ -47,14 +48,27 @@ export class PrtsIssueNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllCodes();
-    if (this.data != null) {
-      this.editLookupGroup.controls['LookupId'].setValue(this.data['LookupId']);
-      this.editLookupGroup.controls['LookupName'].setValue(this.data['LookupName']);
-      this.editLookupGroup.controls['CodeMasterId'].setValue(this.data['CodeMasterId']);
-    }
-    this.addNewInputField(3);
+  this.getAllCodes();
+
+  if (this.data != null) {
+    this.editLookupGroup.controls['LookupId'].setValue(this.data['LookupId']);
+    this.editLookupGroup.controls['LookupName'].setValue(this.data['LookupName']);
+    this.editLookupGroup.controls['CodeMasterId'].setValue(this.data['CodeMasterId']);
   }
+
+  this.addNewInputField(3);
+
+  // ✅ ADD THIS PART
+  this.filteredMachines = [...this.machines];
+
+  this.searchCtrl.valueChanges.subscribe(search => {
+    this.filteredMachines = this.machines.filter(machine =>
+      machine.viewValue.toLowerCase().includes(search?.toLowerCase() || '')
+    );
+  });
+}
+
+  
 
 
   getAllCodes() {
@@ -137,6 +151,18 @@ export class PrtsIssueNewComponent implements OnInit {
   close() {
 
   }
+
+  searchCtrl = new FormControl();
+
+  machines = [
+  { value: 'MCH-101', viewValue: 'CNC Lathe Machine' },
+  { value: 'MCH-102', viewValue: 'Hydraulic Press' },
+  { value: 'MCH-103', viewValue: 'Injection Molding Machine' },
+  { value: 'MCH-104', viewValue: 'Welding Robot' },
+  { value: 'MCH-105', viewValue: 'Packaging Line 3' }
+];
+
+filteredMachines = [...this.machines];
 
 
 }

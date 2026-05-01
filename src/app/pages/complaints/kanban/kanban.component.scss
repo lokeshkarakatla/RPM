@@ -346,3 +346,30 @@
    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   cursor: pointer;
 }
+
+.card-info {
+  display: flex;
+  align-items: center;
+  gap: 20px; // space between the two <p> items
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin: 0;
+  color: gray;
+  font-size: 12px;
+
+  mat-icon {
+    font-size: 18px;
+  }
+}
+
+::ng-deep .black-btn.mat-raised-button {
+  background-color: #808080 !important;
+  color: white !important;
+}
+
+
+

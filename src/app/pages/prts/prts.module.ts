@@ -55,12 +55,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MonitorDialogComponent } from './monitor/monitor-dialog/monitor-dialog.component';
+import { QuillModule } from 'ngx-quill';
+import { MitigationComponent } from './mitigation/mitigation.component';
 // import { DelayedComponent } from './delayed/delayed.component';
 
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "gridview", pathMatch: "full" },
+  { path: "", redirectTo: "moniter", pathMatch: "full" },
 
   {
     path: "action-grid-calender",
@@ -148,6 +151,11 @@ const routes: Routes = [
     path: "gridview",
     component: GridViewComponent,
     data: { breadcrumb: 'Grid veiw', description: "Grid view screen" }
+  },
+  {
+    path: "mitigation",
+    component: MitigationComponent,
+    data: { breadcrumb: 'Mitigation', description: "Mitigation screen" }
   },
   {
     path: "prts",
@@ -240,7 +248,7 @@ const routes: Routes = [
     path: "moniter",
     component: MonitorComponent,
     data: {
-      breadcrumb: 'PRTS(Archives/Subject/Matrix) ', description: "The list of 7D process steps appear here in a tabular layout and the raiser can navigate the workflow step by step while assigning each stage to a specific role.  There is a facility for the raiser to enter notes that can act as an initial input for the requested step."
+      breadcrumb: 'PRTS(Archives/Subject/Matrix)', description: "The list of 7D process steps appear here in a tabular layout and the raiser can navigate the workflow step by step while assigning each stage to a specific role.  There is a facility for the raiser to enter notes that can act as an initial input for the requested step."
     }
   },
   {
@@ -258,6 +266,11 @@ const routes: Routes = [
     component: SummaryComponent,
     data: { breadcrumb: 'PRTS(Archives/Subject/Summary) ', description: "Summary Screen" }
   },
+  // {
+  //   path: "monitordialog",
+  //   component: MonitorDialogComponent,
+  //   data: { breadcrumb: 'PRTS(Archives/Subject/Monitor Dialog) ', description: "Monitor Dialog Screen" }
+  // },
 
 ]
 @NgModule({
@@ -307,6 +320,8 @@ const routes: Routes = [
     WhyTwoComponent,
     ActionDeployTwoComponent,
     ActionMoniterTwoComponent,
+    MonitorDialogComponent,
+    MitigationComponent,
     // DelayedComponent
   ],
   imports: [
@@ -325,6 +340,8 @@ const routes: Routes = [
     MatSelectModule,
     MatCheckboxModule,
     NgxChartsModule,
+     QuillModule.forRoot(),
+ 
 
   ]
 })

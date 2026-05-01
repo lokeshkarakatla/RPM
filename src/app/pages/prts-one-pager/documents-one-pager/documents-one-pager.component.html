@@ -59,30 +59,43 @@
 <table matSort id="example2" class="table table-bordered table-hover">
     <thead class="tbl-head">
         <tr>
-            <th>Date</th>
-            <th>Subject</th>
-            <th class="text-center"> Document Type</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Time</th>
+           <th class="text-center subject-col">Subject</th>
+            <!-- <th class="text-center"> Document Type</th> -->
             <th class="theadcolor text-center">View</th>
             <th class="theadcolor text-center">Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of values">
+       <tr *ngFor="let item of values">
 
-            <td>{{item.date}}</td>
-            <td>{{item.subject}}</td>
-            <td style="color: cornflowerblue" class="text-center">2</td>
-            <td class=" text-center">
-                <mat-icon>library_books</mat-icon>
-            </td>
-            <td class="text-center editDel">
-                <a style="cursor: pointer;margin-right:10px; " matTooltip="Edit" (click)=" adddocument(null)">
-                    <i class="fa fa-edit" style="color: cornflowerblue"></i>
-                </a>
-                <a><i class="fa fa-trash red" matTooltip="Delete" style="cursor: pointer;"></i>
-                </a>
-            </td>
-        </tr>
+  <td class="text-center text-nowrap">
+    {{ item.date }}
+  </td>
+
+  <td class="text-center text-primary text-nowrap">
+    2
+  </td>
+
+  <td class="text-center subject-col">
+    {{ item.subject }}
+  </td>
+
+  <td class="text-center text-nowrap">
+    <mat-icon>library_books</mat-icon>
+  </td>
+
+  <td class="text-center text-nowrap">
+    <a class="me-2" matTooltip="Edit" (click)="adddocument(null)">
+      <i class="fa fa-edit text-primary"></i>
+    </a>
+    <a matTooltip="Delete">
+      <i class="fa fa-trash text-danger"></i>
+    </a>
+  </td>
+
+</tr>
     </tbody>
 </table>
 
@@ -91,8 +104,8 @@
     <div class="col-sm-3.5 pull-right mt-5">
 
 
-        <button type="button" class="btn btn-outline-success" style="margin-right: 10px; height: 41px;">Save
-            Draft</button>
+        <!-- <button type="button" class="btn btn-outline-success" style="margin-right: 10px; height: 41px;">Save
+            Draft</button> -->
         <button mat-raised-button class="mr-2" type="button"
             style="color: rgba(252, 253, 252, 0.926); background-color: #3262a8; margin-right: 10px;">
             <mat-icon>save</mat-icon>&nbsp; Submit

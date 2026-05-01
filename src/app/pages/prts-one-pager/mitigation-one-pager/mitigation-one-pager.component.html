@@ -36,20 +36,41 @@
                             <thead class="tbl-head">
                                 <tr>
 
+                                    <th class="text-center">Action</th>
                                     <th class="text-center">Risk Mitigation</th>
+                                    <th class="text-center">Description</th>
                                     <th class="text-center">Start Date</th>
-                                    <th class="text-center">Close Date</th>
-                                    <th class="text-center">Lead Name</th>
+                                    <th class="text-center">Completion Date</th>
+                                    <th class="text-center">Due Date</th>
+                                    <th class="text-center">Responsibility</th>
+                                    <th class="text-center">Done</th>
+
 
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let item of values">
+                                    <td>
+                                        <a style="cursor: pointer;margin-right:10px; " matTooltip="Edit"
+                                            (click)=" adddocument(null)">
+                                            <i class="fa fa-edit" style="color: cornflowerblue"></i>
+                                        </a>
+                                        <a><i class="fa fa-trash red" matTooltip="Delete" style="cursor: pointer;"></i>
+                                        </a>
+                                    </td>
+
                                     <td>{{item.risk}}</td>
+                                    <td></td>
                                     <td class="text-center">{{item.sdate}}</td>
                                     <td class="text-center">{{item.edate}}</td>
+
+                                    <td class="text-center">{{item.duedate}}</td>
+
                                     <td class="text-center">{{item.lead}}</td>
+                                    <td class="text-center">
+                                        <input type="checkbox">
+                                    </td>
 
                                 </tr>
                             </tbody>

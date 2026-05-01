@@ -261,10 +261,23 @@
           <tbody>
             <tr *ngFor="let item of values">
              
-               <td class="text-center editDel">
+               <!-- <td class="text-center editDel">
                 <a><i class="fa fa-archive" matTooltip="UnArchive" style="cursor: pointer"></i>
                 </a>
-              </td>
+              </td> -->
+
+            <td class="text-center editDel">
+  <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+    
+    <a matTooltip="Unarchive" (click)="unarchiveConfirmation()" style="cursor: pointer;">
+      <span class="material-symbols-outlined" 
+            style="color: #9966ff; font-size: 20px; line-height: 1; vertical-align: middle;">
+        unarchive
+      </span>
+    </a>
+
+  </div>
+</td>
 
               <!-- Status -->
               <td class="text-center">

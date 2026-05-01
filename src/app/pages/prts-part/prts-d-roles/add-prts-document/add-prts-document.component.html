@@ -1,5 +1,5 @@
 <div class="NewHeader">
-  <h1 mat-dialog-title>Add Document</h1>
+  <h1 mat-dialog-title>Documents Types</h1>
 </div>
 
 <div class="col-12">
@@ -7,13 +7,13 @@
     <div mat-dialog-content>
       <div class="form-group" *ngFor="let item of lookupControls; let i = index;">
         <label class="col-sm-3 mt-3" *ngIf="i === 0">
-          Add Documents:
+           Documents types:
         </label>
         <div class="col-sm-3 no-padding" *ngIf="i > 0"></div>
 
         <ng-container>
           <div class="col-sm-7 mt-2 no-padding">
-            <input type="text" class="form-control" placeholder="Add Document " [formControl]="item.get('LookupName')">
+            <input type="text" class="form-control" placeholder="document type " [formControl]="item.get('LookupName')">
           </div>
 
           <div class="col-sm-2 mt-2 d-flex align-items-center">

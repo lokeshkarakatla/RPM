@@ -44,7 +44,12 @@
             <td>{{ item.date }}</td>
             <td>{{ item.time }}</td>
             <td>{{ item.duration }}</td>
-            <td style="color: blue;" class="text-center">{{ item.meetingRef }}</td>
+           <td class="text-center">
+  <span style="color: blue; cursor: pointer;"
+        (click)="openMeetingDialog(item)">
+    {{ item.meetingRef }}
+  </span>
+</td>
             <!-- <td class="text-center">
               <a
                 [routerLink]="['/app/capa']"
@@ -64,8 +69,9 @@
               5/7
             </td>
 
-            <td>{{item.agenda}}</td>
-
+ <td class="agenda-cell center-cell" (click)="openAgendaDialog(item)">
+  {{ item.agenda }}
+</td>
 
             <!-- <td class="text-center" style="color: blue; cursor: pointer" (click)="Attendancecount()">
               2/7

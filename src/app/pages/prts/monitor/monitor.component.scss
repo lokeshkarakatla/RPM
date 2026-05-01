@@ -116,3 +116,7 @@
   width: 180px; /* adjust width */
   min-width: 180px;
 }
+
+.cdk-overlay-container {
+  z-index: 9999 !important;
+}

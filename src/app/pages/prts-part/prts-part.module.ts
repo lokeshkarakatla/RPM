@@ -30,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PrtsIssueStatusComponent } from './prts-issue-status/prts-issue-status.component';
 import { PrtsIssueNewComponent } from './prts-issue-new/prts-issue-new.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 // import { NgxChartsModule } from '@swimlane/ngx-charts';
 const routes: Routes = [
   { path: "", redirectTo: "newissue", pathMatch: "full" },
@@ -71,7 +72,8 @@ const routes: Routes = [
   {
     path: "newissue",
     component: PrtsIssueNewComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    data: { breadcrumb: 's2rhyjgntydhnbfg', description: "Alerts" }
     
   },
   {
@@ -113,9 +115,13 @@ const routes: Routes = [
     PrtsIssueNewComponent
   ],
   imports: [
+    MatSelectModule,
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule,
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
+    
     //NgxChartsModule,
     // OwlDateTimeModule,
     // OwlNativeDateTimeModule,

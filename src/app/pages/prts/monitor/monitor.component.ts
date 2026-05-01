@@ -8,22 +8,24 @@ import { PartsData } from '../PartsData';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { AddCapaComponent } from '../../capa/add-capa/add-capa.component';
 
+import { MonitorDialogComponent } from './monitor-dialog/monitor-dialog.component';
+
 @Component({
   selector: 'app-monitor',
   templateUrl: './monitor.component.html',
   styleUrls: ['./monitor.component.scss']
 })
 export class MonitorComponent implements OnInit {
-   totalSize = 0;
+  totalSize = 0;
   filterToggle: boolean = false;
-    fromPage: string | null = null;
-  constructor(private router: Router,  private route: ActivatedRoute,private dialog: MatDialog) {
-     this.route.queryParams.subscribe(params => {
+  fromPage: string | null = null;
+  constructor(private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
+    this.route.queryParams.subscribe(params => {
       this.fromPage = params['from'] || null;
     });
-   }
+  }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 
   data = [
@@ -120,29 +122,53 @@ export class MonitorComponent implements OnInit {
     }
   }
 
-   public openCAPA(id: any) {
-      console.log('jkhksbdjk');
-      let dialogRef = this.dialog.open(AddCapaComponent, {
-        data: id,
-        height: 'auto',
-        width: '800px',
-      });
-      // dialogRef.afterClosed().subscribe((data: any) => {});
-    }
+  public openCAPA(id: any) {
+    console.log('jkhksbdjk');
+    let dialogRef = this.dialog.open(AddCapaComponent, {
+      data: id,
+      height: 'auto',
+      width: '800px',
+    });
+    // dialogRef.afterClosed().subscribe((data: any) => {});
+  }
 
-     deleteConfirmation() {
-        let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-          width: 'auto',
-          data: { component: null, title: 'Delete Confirmation', content: 'Are you sure you want to Delete?', isConfirmation: true }
-        });
-        dialogRef.afterClosed().subscribe(
-          (data: any) => {
-            if (data) {
-            }
-          }
-        );
+  deleteConfirmation() {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: { component: null, title: 'Delete Confirmation', content: 'Are you sure you want to Delete?', isConfirmation: true }
+    });
+    dialogRef.afterClosed().subscribe(
+      (data: any) => {
+        if (data) {
+        }
       }
+    );
+  }
 
 
-      
+ 
+
+checked1: boolean = false;
+checked2: boolean = false;
+
+selectedRow: string = '';
+
+onCheckboxChange(row: string) {
+  this.selectedRow = row;
+
+  const dialogRef = this.dialog.open(MonitorDialogComponent, {
+    width: '400px'
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === false) {
+      // ❌ If NO clicked → uncheck checkbox
+      if (row === 'row1') this.checked1 = false;
+      if (row === 'row2') this.checked2 = false;
+    }
+  });
+}
+
+
+
 }

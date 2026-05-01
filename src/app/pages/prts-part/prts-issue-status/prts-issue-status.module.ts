@@ -13,12 +13,19 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PrtsComponent } from '../../prts/prts.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "psr", pathMatch: "full" },
 
   { path: 'psr', component: PsrIssueStatusComponent,  },
   { path: 'one-pager', component: OnepagerIssueStatusComponent,  },
+  // {
+  //               path: 'prtsnavbar', component: PrtsComponent, loadChildren: () =>
+  //                   import("../../prts/prts.module").then((m) => m.PrtsModule),
+
+
+  //           }
 
 ]
 

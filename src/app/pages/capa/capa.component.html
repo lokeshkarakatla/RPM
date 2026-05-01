@@ -1,45 +1,32 @@
-<div class="col-lg-12" style="overflow: hidden; ">
-    <!-- <div>
-        <h2 style="font-size:25px; font-weight:bold;margin-left: 4px;">CAPA</h2>
-        <hr style=" margin-left: 6px;" />
-    </div> -->
-    <!-- <div class="d-flex justify-content-end p-2">
-        <button style="background-color: gray; color: white" class="btn btn-grey d-flex align-items-center"
-            (click)="goBack()">
-            <mat-icon class="me-1">arrow_back</mat-icon> Back
+<div class="col-lg-12 main-container">
+
+    <div class="top-bar">
+        <button mat-raised-button class="black-btn"
+            (click)="filterToggle = !filterToggle">
+            <mat-icon>filter_list</mat-icon> Filter
         </button>
-    </div> -->
-   <div style="display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin: 30px 15px;">
-  <button mat-raised-button style="background-color: black; color:white;"
-    (click)="filterToggle = !filterToggle">
-    <mat-icon>filter_list</mat-icon> Filter
-  </button>
 
-  <!-- ✅ Toggle comes AFTER filter -->
-  <div class="switchToggle">
-    <input type="checkbox" id="maskInactiveSwitch" [(ngModel)]="maskInactive">
-    <label for="maskInactiveSwitch"></label>
-  </div>
+        <div class="switchToggle">
+            <input type="checkbox" id="maskInactiveSwitch" [(ngModel)]="maskInactive">
+            <label for="maskInactiveSwitch"></label>
+        </div>
 
-  <button mat-raised-button color="primary" (click)="openCAPA(null)">
-    <mat-icon>person_add</mat-icon> Add CAPA
-  </button>
+        <button mat-raised-button color="primary" (click)="openCAPA(null)">
+            <mat-icon>person_add</mat-icon> Add CAPA
+        </button>
 
-  <button mat-raised-button style="background-color: gray; color: white" (click)="goBack()">
-    <mat-icon>arrow_back</mat-icon> Back
-  </button>
+        <button mat-raised-button class="gray-btn" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon> Back
+        </button>
+    </div>
 
-</div>
-
-
-    <div class="col-lg-12" fxLayout="row wrap" *ngIf="filterToggle" style="margin-bottom: -5px;">
+    <div class="col-lg-12 filter-section" fxLayout="row wrap" *ngIf="filterToggle">
         <div fxFlex="100" class="flex-p w-100">
             <form>
-                <mat-card class="filter" style="width: 101.5%; margin-left: -15px;">
+                <mat-card class="filter filter-card">
                     <mat-card-content>
                         <div class="row col-lg-12 col-sm-12">
 
-                            <!-- Keyword -->
                             <div class="col-sm-4 row me-2 mt-3">
                                 <div class="col-sm-3 newMarginClass"><b>Keyword:</b></div>
                                 <div class="col-sm-9">
@@ -47,19 +34,16 @@
                                 </div>
                             </div>
 
-                            <!-- Country -->
                             <div class="col-sm-4 row me-2 mt-3">
                                 <div class="col-sm-3 newMarginClass"><b>Role:</b></div>
                                 <div class="col-sm-9">
                                     <mat-select placeholder="Select Role" class="form-control">
                                         <mat-option value="Albania">Shift Manage</mat-option>
                                         <mat-option value="Algeria">Shift Manage</mat-option>
-
                                     </mat-select>
                                 </div>
                             </div>
 
-                            <!-- department -->
                             <div class="col-sm-4 row me-2 mt-3">
                                 <div class="col-sm-3 newMarginClass"><b>Department:</b></div>
                                 <div class="col-sm-9">
@@ -73,44 +57,34 @@
                                 </div>
                             </div>
 
-                            <!-- Current Status -->
                             <div class="col-sm-4 row me-2 mt-3">
-                                <div style="white-space:nowrap" class="col-sm-3 newMarginClass"><b>Status:</b>
-                                </div>
+                                <div class="col-sm-3 newMarginClass"><b>Status:</b></div>
                                 <div class="col-sm-9">
                                     <mat-select placeholder="Select Status" class="form-control">
                                         <mat-option value="Opened">Opened</mat-option>
-
                                         <mat-option value="WIP">WIP</mat-option>
                                         <mat-option value="Pending">Pending</mat-option>
-
                                     </mat-select>
                                 </div>
                             </div>
 
-
                             <div class="col-sm-4 row me-2 mt-3">
                                 <div class="col-sm-3 newMarginClass"><b>From Date:</b></div>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control" placeholder="" />
+                                    <input type="date" class="form-control" />
                                 </div>
                             </div>
-
 
                             <div class="col-sm-4 row me-2 mt-3">
                                 <div class="col-sm-3 newMarginClass"><b>To Date:</b></div>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control" placeholder="" />
+                                    <input type="date" class="form-control" />
                                 </div>
                             </div>
 
-
-
-                            <!-- Buttons -->
-                            <div class="col-sm-12 pull-right mt-3" style="margin-left: -15px;">
-                                <a (click)="filterToggle = !filterToggle" class="pull-right"
-                                    style="font-size: 25px; cursor: pointer; margin-left: 5px">
-                                    <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+                            <div class="col-sm-12 pull-right mt-3 filter-actions">
+                                <a (click)="filterToggle = !filterToggle" class="pull-right toggle-icon">
+                                    <i class="fa fa-angle-double-up"></i>
                                 </a>
 
                                 <button mat-raised-button class="pull-right btn-default margin-right-10"
@@ -131,36 +105,28 @@
         </div>
     </div>
 
-
-    <!-- Table -->
-
-    <div class="col-sm-12" style="margin-top: 10px;">
-        <div class="table-responsive" id="grid-table-container" style="margin-left: -6px;">
-            <table class="table  table-bordered table-hover">
+    <div class="col-sm-12 table-wrapper">
+        <div class="table-responsive" id="grid-table-container">
+            <table class="table table-bordered table-hover">
 
                 <thead class="tbl-head">
                     <tr>
                         <th>Actions</th>
                         <th>Status</th>
-
-
-                        <th style="white-space:nowrap">Complaint (Reference)</th>
-                        <th style="white-space:nowrap">Meeting Ref</th>
+                        <th class="nowrap">Complaint (Reference)</th>
+                        <th class="nowrap">Meeting Ref</th>
                         <th>Role</th>
                         <th>Department</th>
                         <th>Subject</th>
                         <th>Description</th>
-                        <th style="white-space:nowrap">Due Date</th>
-                        <th style="white-space:nowrap">ETA </th>
-
-
-
-
+                        <th class="nowrap">Due Date</th>
+                        <th class="nowrap">ETA</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr *ngFor="let item of data">
-                        <td style="white-space:nowrap">
+                        <td class="nowrap">
                             <a matTooltip="Edit CAPA" (click)="openCAPA(null)">
                                 <i class="fa fa-edit"></i>
                             </a>
@@ -168,12 +134,11 @@
                                 <i class="fa fa-trash red"></i>
                             </a>
                         </td>
+
                         <td>
-                            <select style="font-size:14px" class="form-select">
-                                <!-- <option [selected]="item.status === 'Open'">Open</option> -->
+                            <select class="form-select small-select">
                                 <option [selected]="item.status === 'Pending'">Pending</option>
                                 <option [selected]="item.status === 'Process'">Process</option>
-                                <!-- <option [selected]="item.status === 'WIP'">WIP</option> -->
                                 <option [selected]="item.status === 'Hold'">Hold</option>
                                 <option [selected]="item.status === 'Closed'">Closed</option>
                             </select>
@@ -181,37 +146,31 @@
 
                         <td>
                             <ng-container *ngFor="let word of item.title.split(' '); let i = index">
-
-                                <span [style.color]="i === 0 ? 'blue' : 'black'"
-                                    [style.cursor]="i === 0 ? 'pointer' : 'default'"
+                                <span [ngClass]="{'clickable': i === 0}"
                                     (click)="i === 0 && goToAddComplaint()">
                                     {{ word }}
                                 </span>
-
                                 &nbsp;
                             </ng-container>
                         </td>
-                        <td style="color:blue"> {{item.meetingRef}} </td>
+
+                        <td class="link">{{ item.meetingRef }}</td>
                         <td>{{ item.role }}</td>
                         <td>{{ item.department }}</td>
                         <td>{{ item.issue }}</td>
                         <td>{{ item.details }}</td>
-                        <td>{{ item.date }}</td>
-                        <td>{{ item.eta }}</td>
-
-
+                      <td class="nowrap">{{ item.date }}</td>
+<td class="nowrap">{{ item.eta }}</td>
                     </tr>
                 </tbody>
 
             </table>
 
-            <!-- Pagination -->
-            <mat-paginator [length]="totalSize" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+            <mat-paginator [length]="totalSize" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 50, 100]"
                 showFirstLastButtons>
             </mat-paginator>
         </div>
-
     </div>
 
-    <!-- Table -->
 </div>

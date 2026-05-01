@@ -1,0 +1,21 @@
+
+::ng-deep .ql-toolbar {
+  border-radius: 6px 6px 0 0;
+}
+
+::ng-deep .ql-container {
+  border-radius: 0 0 6px 6px;
+  min-height: 350px;
+}
+
+.save-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}

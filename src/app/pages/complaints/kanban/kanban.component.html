@@ -1,9 +1,8 @@
 <div class="breadcrumb-back">
-    <button mat-raised-button class="back-btn btn-col" (click)="goBack()">
-        <mat-icon>arrow_back</mat-icon> Back
-    </button>
+  <button mat-raised-button class="back-btn btn-col black-btn" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
 </div>
-
 <div class="kanban-board" id="grid-table-container" cdkDropListGroup>
 
     <div *ngFor="let list of lists" class="kanban-list">
@@ -21,8 +20,8 @@
         </div>
 
         <!-- DROP AREA -->
-        <div cdkDropList [id]="list" [cdkDropListData]="cards[list]" 
-            (cdkDropListDropped)="drop($event, list)" class="drop-container">
+        <div cdkDropList [id]="list" [cdkDropListData]="cards[list]" (cdkDropListDropped)="drop($event, list)"
+            class="drop-container">
 
             <!-- CARDS -->
             <div *ngFor="let card of cards[list]; trackBy: trackByCard" cdkDrag class="kanban-card"
@@ -33,14 +32,24 @@
                     <span class="material-symbols-outlined icon" style="padding: 5px; cursor: pointer;"
                         (click)="toggleCard(card)">{{ card.expanded ? 'remove' : 'add' }}</span>
                 </div>
-                <p style="display: flex; align-items: center; gap: 5px; margin: 0; color: gray;">
-                    <mat-icon style="font-size: 18px;">business</mat-icon>
-                    <span style="font-size: 12px;">{{ card.LawFirm }}</span>
-                </p>
-                <p style="display: flex; align-items: center; gap: 5px; margin: 0; color: gray;">
-                    <mat-icon style="font-size: 18px;">calendar_today</mat-icon>
-                    <span style="font-size: 12px;">{{ card.createdDate }}</span>
-                </p>
+                <div class="card-info">
+                    <p class="info-item">
+                        <mat-icon>business</mat-icon>
+                        <span>{{ card.LawFirm }}</span>
+                    </p>
+
+                    <p class="info-item">
+                        <mat-icon>calendar_today</mat-icon>
+                        <span>{{ card.createdDate }}</span>
+                    </p>
+                </div>
+
+                <div class="card-info">
+                      <p class="info-item">
+                      <mat-icon class="status-icon">schedule</mat-icon>
+                        <span>{{ card.status }}</span>
+                    </p>
+                </div>
                 <hr>
 
                 <div
@@ -56,7 +65,7 @@
                 <div *ngIf="card.expanded" class="card-expanded-details">
                     <p><strong>Created By:</strong> {{ card.createdBy }}</p>
                     <p><strong>Assigned To:</strong> {{ card.assignedTo }}</p>
-                    <p><strong>Status:</strong> {{ card.status }}</p>
+                    <!-- <p><strong>Status:</strong> {{ card.status }}</p> -->
                     <p><strong>Expedite:</strong> {{ card.expedite ? 'Yes' : 'No' }}</p>
                     <div *ngIf="card.notes.length > 0">
                         <strong>Notes:</strong>

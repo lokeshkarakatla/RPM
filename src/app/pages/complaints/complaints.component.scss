@@ -1,103 +1,134 @@
-.toggle-container {
-    display: flex;
-    align-items: center;
-    width: 140px; /* Increased width */
-    height: 40px;
-    background-color: #ccc;
-    border-radius: 20px;
-    padding: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    color: black;
-    position: relative;
-    transition: background-color 0.3s ease-in-out;
-
-    .toggle-circle {
-      width: 30px;
-      height: 30px;
-      background-color: white;
-      border-radius: 50%;
-      position: absolute;
-      left: 5px;
-      top: 50%;
-      transform: translateY(-50%);
-      transition: left 0.3s ease-in-out;
-    }
-
-    .toggle-text {
-      width: 100%;
-      text-align: center;
-      transition: color 0.3s ease-in-out;
-    }
-
-    &.active {
-      background-color: blue;
-      color: white;
-
-      .toggle-circle {
-        left: calc(100% - 35px);
-      }
-    }
-  }
-
-
-  
-.mine {
-  margin: 5px;
-  background: #e0e0e0;
+// Container
+.col-lg-12 {
+  overflow: hidden;
 }
 
+// Action bar
+.action-bar {
+  margin: 30px 15px 30px 0;
+
+  button {
+    &.pull-right {
+      margin-right: 5px;
+    }
+
+    &.primary-btn mat-icon {
+      margin-right: 4px;
+    }
+
+    &.dark-btn {
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+// Filter section
+.filter-wrapper {
+  margin-bottom: -3px;
+
+  .filter-card {
+    width: 101.5%;
+    margin-left: -15px;
+  }
+
+  .newMarginClass {
+    white-space: nowrap;
+  }
+
+  .filter-actions {
+    margin-left: -21px;
+
+    .toggle-icon {
+      font-size: 25px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+  }
+}
+
+// Table styles
+.table-container {
+  margin-top: 10px;
+
+  #grid-table-container {
+    margin-left: -6px;
+  }
+
+  table {
+    th {
+      white-space: nowrap;
+      min-width: 80px;
+    }
+
+    td {
+      white-space: nowrap;
+      min-width: 80px;
+      vertical-align: middle;
+    }
+
+    td.problem-statement {
+      white-space: normal;
+      word-break: break-word;
+      max-width: 430px;
+    }
+
+    th.problem-statement-header {
+      min-width: 430px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .switchToggle {
+      text-align: center;
+      color: blue;
+      cursor: pointer;
+    }
+  }
+}
+
+// Range input (progress)
+input[type="range"] {
+  width: 100%;
+  cursor: default;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Tooltip fix
+::ng-deep .custom-tooltip {
+  margin-bottom: 1px;
+}
+
+// Floating buttons
 .mine {
   position: fixed;
   bottom: 80px;
   right: 40px;
-  background-color: #e6e6e6 !important;
+  background-color: #e6e6e6;
+  margin: 5px;
+
+  mat-icon {
+    color: #37474f;
+  }
 }
 
-
-
-/* Apply to table header cells */
-table th {
-  white-space: nowrap !important;
-  min-width: 80px; /* Adjust width */
+// Left button adjustment
+.left-btn {
+  margin-right: 78px;
 }
 
-/* Default: keep all td as single line */
-table td {
-  white-space: nowrap !important;
-  min-width: 80px;
-}
-
-/* Override only for Problem Statement column */
-table td.problem-statement {
-  white-space: normal !important;
-  word-break: break-word;
-  max-width: 430px;   /* Adjust as needed */
-}
-
-
-.problem-statement-header {
-  white-space: nowrap !important;
-  min-width: 430px !important; /* Adjust only for this column */
-}
-
-.switchToggle  {
+.link {
+  color: #1976d2; // Material blue
+  font-weight: 500;
   cursor: pointer;
+
+  &:hover {
+    color: #0d47a1;
+   
+  }
 }
-
-.range-cell {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.custom-tooltip {
-  transform: none;
-}
-
-::ng-deep .custom-tooltip {
-  margin-bottom: 1px;  /* small gap only */
-}
-
-

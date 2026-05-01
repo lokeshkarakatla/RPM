@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+// import { MeetingDialogComponent } from './meeting-dialog/meeting-dialog.component';
+
+
 import { Router } from '@angular/router';
 import { AddattendanceComponent } from 'src/app/addattendance/addattendance.component';
+import { AgendadetailsComponent } from 'src/app/agendadetails/agendadetails.component';
+import { MeetingrefComponent } from 'src/app/meetingref/meetingref.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -27,7 +32,7 @@ export class MeetingComponent {
       time:"10 AM",
       duration:"55 min",
       meetingRef:"(Meet/2025/10/02)",
-      agenda:'Review Q2 sales performance'
+      agenda:3,
     },
     {
       referenceNo: "FC/2026/04/06",
@@ -92,4 +97,17 @@ export class MeetingComponent {
     );
   }
 
+    openMeetingDialog(item: any) {
+    this.dialog.open(MeetingrefComponent, {
+      width: '900px',
+      data: item
+    });
+  }
+
+  openAgendaDialog(item: any) {
+    this.dialog.open(AgendadetailsComponent, {
+      width: '700px',
+      data: item
+    });
+  }
 }

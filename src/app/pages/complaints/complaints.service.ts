@@ -30,8 +30,9 @@ export class ComplaintsService {
       FailureDate: '12-09-2025',
       ExpectedFinishDate: '12-09-2025',
       ActualFinishDate: '10-09-2025',
-      steps:"3/15",
-      range:Math.round(3/15*100),
+      steps:"15/15",
+      complitionDate:'18-09-2025',
+      range:Math.round(15/15*100),
 
     },
     {
@@ -117,8 +118,8 @@ export class ComplaintsService {
       department: 'Test',
       criticality: 'Upper Level Critical',
       distributor: 'Raj',
-         steps:"13/15",
-         range:Math.round(13/15*100),
+         steps:"15/15",
+         range:Math.round(15/15*100),
     },
     {
       referenceNumber: 'FIELD/2024/09/23',

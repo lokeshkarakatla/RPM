@@ -11,7 +11,7 @@ enum CheckBoxType { APPLY_FOR_JOB, MODIFY_A_JOB, NONE };
 export class BaseInfoComponent implements OnInit {
   isRepeted: boolean = false;
   check_box_type = CheckBoxType;
-  currentlyChecked: CheckBoxType;
+  currentlyChecked?: CheckBoxType;
     myForm = new FormGroup({
      problemStatement: new FormControl('')
   });
@@ -26,7 +26,7 @@ export class BaseInfoComponent implements OnInit {
   lookup: any = false;
   codes: any = [];
   colors: Array<any> = [{ 'code': 'green', 'name': 'Green', 'colorClass': 'dot_green' }, { 'code': 'blue', 'name': 'Blue', 'colorClass': 'dot_blue' }, { 'code': 'grey', 'name': 'Grey', 'colorClass': 'dot_grey' }, { 'code': 'red', 'name': 'Red', 'colorClass': 'dot_red' }];
-  pageGroup: FormGroup;
+  pageGroup?: FormGroup;
   deleteLookupItemValue: any;
   index = 10;
   private _lookupService: any;
@@ -106,7 +106,7 @@ export class BaseInfoComponent implements OnInit {
   }
 
 
-  addNewInputField(val): void {
+  addNewInputField(val: number): void {
     console.log(val ,"test")
 
     if (val > 0) {
@@ -125,7 +125,7 @@ export class BaseInfoComponent implements OnInit {
 
   }
 
-  fnLookupDeleteItemModal(i) {
+  fnLookupDeleteItemModal(i: number) {
     this.index = i;
     this.removeInputField(this.index);
   }
@@ -134,14 +134,14 @@ export class BaseInfoComponent implements OnInit {
     const control = <FormArray>this.addLookupGroup.controls.lookupNameDetails;
     control.removeAt(i);
   }
-  repeted(event) {
+  repeted(event: any) {
     this.isRepeted = !this.isRepeted;
   }
 
-  repeted1(event) {
+  repeted1(event: any) {
 
   }
-  repeted2(event) {
+  repeted2(event: any) {
 
   }
 

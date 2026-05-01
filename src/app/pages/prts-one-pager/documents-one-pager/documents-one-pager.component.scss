@@ -4,3 +4,9 @@
     outline: #2196F3;
     outline-style: auto;
 }
+.subject-col {
+  max-width: 200px;        /* control width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* ... */
+}

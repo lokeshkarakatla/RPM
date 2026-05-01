@@ -80,7 +80,7 @@ import { CapaComponent } from './pages/capa/capa.component';
 import { AddCapaComponent } from './pages/capa/add-capa/add-capa.component';
 import { AttendanceComponent } from './pages/attendance/attendance.component';
 import { MeetingComponent } from './pages/meeting/meeting.component';
-import { AddMeetingComponent } from './pages/meeting/add-meeting/add-meeting.component';
+
 import { AddMeetingPageComponent } from './pages/meeting/add-meeting-page/add-meeting-page.component';
 import { RefernceNumberComponent } from './pages/refernce-number/refernce-number.component';
 import { AddtractorsComponent } from './addtractors/addtractors.component';
@@ -102,6 +102,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MDepartmentsComponent } from './pages/admin/masterdata/m-departments/m-departments.component';
 import { KanbanComponent } from './pages/complaints/kanban/kanban.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MeetingrefComponent } from './meetingref/meetingref.component';
+import { AgendadetailsComponent } from './agendadetails/agendadetails.component';
 
 
 
@@ -113,6 +115,8 @@ export function highchartsModules() {
 
 @NgModule({
   imports: [
+
+    
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -187,7 +191,7 @@ export function highchartsModules() {
     AddCapaComponent,
     AttendanceComponent,
     MeetingComponent,
-    AddMeetingComponent,
+    
     AddMeetingPageComponent,
     RefernceNumberComponent,
     AddtractorsComponent,
@@ -206,7 +210,9 @@ export function highchartsModules() {
     DashboardComponent,
     ComplaintsdashboardComponent,
     PopPieChartComponent,
-    KanbanComponent
+    KanbanComponent,
+    MeetingrefComponent,
+    AgendadetailsComponent
 
 
 

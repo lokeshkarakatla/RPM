@@ -19,14 +19,14 @@ export class ModelAstorComponent implements OnInit {
   showYAxisLabel1 = true;
   yAxisLabel1 = 'Demerit';
   single: any[] = [];
-  public three: any[];
-  public multi: any[];
+ public three: any[] = [];
+  public multi: any[]= [];
   public showLegend = true;
   public explodeSlices = false;
   public showLabels = true;
   public doughnut = false;
   public gradient = true;
-  public analytics: any[];
+  public analytics: any[]= [];
   view: any[] = [440, 220];
   public showLegends = false;
 
@@ -58,20 +58,20 @@ export class ModelAstorComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-  fnYearChange(event) {
+  fnYearChange(event:any) {
     event.value == '0' ? this.single = RadarData.Barchart1() : this.single = RadarData.Barchart2();
 
   }
 
-  onSelect(data): void {
+  onSelect(data:any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 
-  onActivate(data): void {
+  onActivate(data:any): void {
     console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
-  onDeactivate(data): void {
+  onDeactivate(data:any): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 

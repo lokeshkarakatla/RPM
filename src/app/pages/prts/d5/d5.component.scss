@@ -44,3 +44,16 @@ css .add-job-code {
 .button-gap {
   margin-right: 8px; /* or whatever spacing you prefer */
 }
+
+
+.custom-btn {
+  height: 41px;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 41px; /* keeps text vertically centered */
+}
+
+.custom-btn mat-icon {
+  font-size: 18px;
+  margin-right: 5px;
+}

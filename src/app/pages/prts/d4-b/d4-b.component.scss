@@ -44,3 +44,25 @@ css .add-job-code {
 .button-gap {
   margin-right: 8px; /* or whatever spacing you prefer */
 }
+
+div[style*="display: flex"] {
+  position: relative;
+  z-index: 1000;   /* ensures tab buttons sit above other blocks */
+}
+
+button {
+  pointer-events: auto; /* makes sure clicks are allowed */
+}
+
+
+.custom-btn {
+  height: 41px;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 41px; /* keeps text vertically centered */
+}
+
+.custom-btn mat-icon {
+  font-size: 18px;
+  margin-right: 5px;
+}

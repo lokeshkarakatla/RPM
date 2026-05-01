@@ -1,4 +1,4 @@
-<div class="breadcrumb-back">
+<div class="breadcrumb-back" style="margin-right: 15px;">
   <button mat-raised-button class="back-btn btn-col" (click)="goBack()">
     <mat-icon>arrow_back</mat-icon> Back
   </button>
@@ -48,15 +48,21 @@
 
     <!-- Due Date (Base Info only) -->
     <li class="form-item" *ngIf="isBaseInfoActive">
-      <label>Due Date</label>
+      <label>Due Date:</label>
       <input type="date" class="form-input m-1">
     </li>
 
     <!-- ETA (Base Info only) -->
     <li class="form-item" *ngIf="isBaseInfoActive">
-      <label>ETA</label>
+      <label>ETA:</label>
       <input type="date" class="form-input m-1">
     </li>
+
+       <li class="form-item" *ngIf="isBaseInfoActive">
+      <label>Priority:</label>
+      <input type="checkbox" class="form-input m-1 wrapped-checkbox">
+    </li>
+
 
 
   </ul>

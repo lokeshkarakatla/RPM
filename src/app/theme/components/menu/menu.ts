@@ -33,7 +33,7 @@ export const horizontalMenuItems = [
   new Menu(2, 'OBJ Audits', '/app/objective-audits', null, 'find_in_page', null, false, 0),
 
   new Menu(1, 'SUB Audits', '/app/subjective-audits', null, 'find_in_page', null, false, 0),
-  new Menu(6, '8D', '/app/prts-part', null, 'request_quote', null, false, 0),
+  new Menu(6, '7D', '/app/prts-part', null, 'request_quote', null, false, 0),
 
   new Menu(7, 'R&D', '/app/testing', null, 'engineering', null, false, 0),
 

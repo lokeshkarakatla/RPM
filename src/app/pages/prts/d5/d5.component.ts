@@ -61,7 +61,9 @@ export class D5Component implements OnInit {
      // });
    }
 
-   ngOnInit(): void {
+   totalSize: number = 0;
+
+  
      // if (environment.mode == 1) {
      //   this.values = PartsData.getd1();
      // }
@@ -75,10 +77,15 @@ export class D5Component implements OnInit {
 
      // }
 
+  ngOnInit(): void {
+  this.totalSize = this.values.length;
+  this.data = this.dataList;   // 👈 here
   this.addNewInputField(5);
+}
 
 
-   }
+
+   
  values = [
   { check:  '1. Are the correct tools/fixtures being used?' },
    { check: '2. Are the tools set to the specified torque?' },
@@ -324,6 +331,99 @@ check_box_type = {
      {date:'17/10/2020',refer:'MG/822441',Done:'Vishvajit jere'},
      {date:'17/10/2020',refer:'MG/822441',Done:'Vishvajit jere'}
    ]
+
+   dataList = [
+     {
+       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
+       role: "Tejaswi",
+       department: "QA",
+       issue: "Engine Overheating",
+       details: "enginee getting sound",
+       date: "2024-09-20",
+       status: "Open",
+       eta:"024-09-20",
+       meetingRef:"(Meet/2025/10/02)",
+       actions: { edit: true, delete: true }
+     },
+     {
+       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
+       role: "Hrithik",
+       department: "Quality",
+       issue: "Brakes Squeaking not working",
+       details: "Brakes Squeaking not working",
+       date: "2024-09-24",
+       status: "Pending",
+       eta:"024-09-20",
+        meetingRef:"(Meet/2025/10/03)",
+       actions: { edit: true, delete: true }
+     },
+     {
+       title: "This road hazard service is part of Bosch’s connected map issue (FIELD/2024/09/8)",
+       role: "Sai",
+       department: "QA",
+       issue: "Transmission Slipping",
+       details: "Transmission Slipping is not good",
+       date: "2024-09-24",
+       status: "WIP",
+        meetingRef:"(Meet/2025/10/03)",
+       actions: { edit: true, delete: true }
+     },
+     {
+       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
+       role: "Krishna",
+       department: "Account",
+       issue: "Transmission Slipping",
+       details: "Transmission Slipping",
+       date: "2024-09-24",
+       status: "WIP",
+        meetingRef:"(Meet/2025/10/04)",
+       actions: { edit: true, delete: true }
+     },
+     {
+       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
+       role: "Vishnu",
+       department: "Developer",
+       issue: "Battery Draining",
+       details: "Battery Draining",
+       date: "2024-09-24",
+       status: "Pending",
+        meetingRef:"(Meet/2025/10/05)",
+       actions: { edit: true, delete: true }
+     },
+     {
+       title: "Global fleet of connected vehicles (FIELD/2024/09/3)",
+       role: "Roshan",
+       department: "QA",
+       issue: "Unusual Vibrations",
+       details: "Unusual Vibrations",
+       date: "2024-09-24",
+       status: "Open",
+        meetingRef:"(Meet/2025/10/06)",
+       actions: { edit: true, delete: true }
+     },
+     {
+       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
+       role: "Mohit",
+       department: "Quality",
+       issue: "Brakes Squeaking not working",
+       details: "Brakes Squeaking not working",
+       date: "2024-09-24",
+       status: "Open",
+        meetingRef:"(Meet/2025/10/07)",
+       actions: { edit: true, delete: true }
+     },
+     {
+       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
+       role: "Satyarth",
+       department: "Quality",
+       issue: "Brakes Squeaking not getting",
+       details: "Brakes Squeaking not working",
+        meetingRef:"(Meet/2025/10/08)",
+       date: "2024-09-24",
+       status: "Pending",
+       actions: { edit: true, delete: true }
+     }
+   ];
 
  }
 

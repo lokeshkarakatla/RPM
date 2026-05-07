@@ -5,6 +5,11 @@ import { environment } from 'src/environments/environment';
 import { PartsData } from '../../prts/PartsData';
 import { AddDocumentsComponent } from './add-documents/add-documents.component';
 
+export interface DocumentItem {
+  date: string;
+  subject: string;
+}
+
 @Component({
   selector: 'app-documents-one-pager',
   templateUrl: './documents-one-pager.component.html',
@@ -15,17 +20,18 @@ export class DocumentsOnePagerComponent implements OnInit {
   constructor(public router: Router,
     public dialog: MatDialog) { }
 
+
+    values: DocumentItem[] = [];
+
   ngOnInit(): void {
     if (environment.mode == 1) {
-      this.values = PartsData.document();
+    this.values = PartsData.closur();
     }
     else {
 
     }
   }
-  values = [
 
-  ]
   next() {
     // this.router.navigate(['/app/prtsnavbar/summary']);
   }

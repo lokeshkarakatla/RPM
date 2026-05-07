@@ -57,3 +57,55 @@ css .add-job-code {
   font-size: 18px;
   margin-right: 5px;
 }
+
+
+button:not([mat-raised-button]) {
+  background-color: white;
+  border: none;
+  padding: 10px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.active-tab:not([mat-raised-button]) {
+  background-color: #546e7a;
+  color: white;
+  font-weight: bold;
+}
+.rectangle {
+    height: 15px;
+    width: 1150px;
+    background-color: #555;
+    margin-top: 18px;
+}
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-left: 50px solid #555;
+    border-bottom: 25px solid transparent;
+}
+css .add-job-code {
+    background: #fff !important;
+    cursor: pointer;
+    font-size: 16px !important;
+    color: rgba(5, 214, 68, 0.82) !important;
+}
+
+.delete-job-code {
+    background: #fff !important;
+    cursor: pointer;
+    font-size: 16px !important;
+    color: red !important;
+}
+
+.no-padding {
+    padding: 0px !important;
+}
+.button-gap {
+  margin-right: 8px; /* or whatever spacing you prefer */
+}
+.footer-actions {
+  margin-bottom: 30px;   /* 👈 actual bottom space */
+  padding-bottom: 20px;
+}

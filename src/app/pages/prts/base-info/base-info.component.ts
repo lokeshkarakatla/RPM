@@ -162,4 +162,11 @@ export class BaseInfoComponent implements OnInit {
   }
 
 
+  shouldShowBreadcrumb(): boolean {
+  const hiddenRoutes = ['/app/prtsnavbar/base-info',''];
+  return !hiddenRoutes.includes(this.router.url);
+}
+
+
+
 }

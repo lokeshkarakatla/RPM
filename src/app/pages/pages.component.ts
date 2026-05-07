@@ -30,43 +30,50 @@ export class PagesComponent implements OnInit {
   public toggleSearchBar: boolean = false;
   private defaultMenu!: string; //declared for return default menu when window resized
 
-  constructor(public appSettings: AppSettings, public router: Router, private menuService: MenuService) {
-    this.settings = this.appSettings.settings;
-      this.router.events
-    .pipe(filter(event => event instanceof NavigationEnd))
+ hiddenRoutes: string[] = [
+  // '/base-info',
+  // '/alert',
+  // '/updates',
+  // '/mitigation',
+  // '/document',
+  // '/grid-view',
+  // '/calenders',
+  // '/moniter',
+  // '/action-grid-calender/grid-meet',
+  // '/d1',
+  // '/d2',
+  // '/d3',
+  // '/d3-b',
+  // '/d4',
+  // '/d4-b',
+  // '/d5',
+  // '/d6',
+  // '/d7',
+  // '/closure'
+];
+
+constructor(
+  public appSettings: AppSettings,
+  public router: Router,
+  private menuService: MenuService
+) {
+
+  this.settings = this.appSettings.settings;
+
+  this.router.events
+    .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
     .subscribe((event: NavigationEnd) => {
 
-      const hiddenRoutes = [
-        '/base-info',     // 👈 your route
-        '/dashboard',
-        '/alert',
-           '/updates',
-            '/mitigation',
-              '/document',
-                "/grid-view",
-                "/calenders",
-                "/moniter",
-                "/action-grid-calender/grid-meet",
-                 "/d1",
-                 "/d2",
-                  "/d3",
-                  "/d3-b",
-                    "/d4",
-                    "/d4-b",
-                      "/d5",
-                      "/d6",
-                        "/d7",
-                        "/closure",
+      const currentUrl = event.urlAfterRedirects.split('?')[0];
 
-
-             // add more if needed
-      ];
-
-      this.showBreadcrumb = !hiddenRoutes.some(route =>
-        event.urlAfterRedirects.includes(route)
+      this.showBreadcrumb = !this.hiddenRoutes.some(route =>
+        currentUrl.startsWith(route)
       );
+
+      console.log('Current URL:', currentUrl);
+      console.log('Show Breadcrumb:', this.showBreadcrumb);
     });
-  }
+}
 
   ngOnInit() {
     if (window.innerWidth <= 768) {

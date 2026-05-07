@@ -34,7 +34,6 @@ import { MdataDeptsComponent } from './mdata-depts/mdata-depts.component';
 import { TestMasterDataComponent } from './test-master-data.component';
 import { DistributorComponent } from '../../admin/masterdata/distributor/distributor.component';
 import { AddDistributorComponent } from '../../admin/masterdata/distributor/add-distributor/add-distributor.component';
-import { StatusConfirmationDialogComponent } from '../../testing/testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
 
 
 
@@ -74,8 +73,7 @@ export const routes: Routes = [
    // MdataDeptsComponent,
     TestMasterDataComponent,
     AddDistributorComponent,
-    DistributorComponent,
-    StatusConfirmationDialogComponent
+    DistributorComponent
   ],
   imports: [
     CommonModule,

@@ -1,49 +1,35 @@
-
-<div class="page-header ms-5">
-  <h3 class="page-title">Mitigation </h3>
+<div class="page-header ms-2">
+  <h3 class="page-title">Mitigation</h3>
 </div>
 
+<div class="editor-container">
 
-<!-- Add Filter Tabs -->
-<div class="container-fluid" style="padding-right: 5px;
-  padding-left: 0px;">
-    <div class="w-100">
-        <div class="flex-p">
-            <div class="row wrap">
-                <div class="col-sm-12 no-padding">
-                    <div class="row-wrap">
-                        <div class="w-100">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <button mat-raised-button color="primary" class="pull-right"
-                                        (click)="addParameter(null)">
-                                        <mat-icon>person_add</mat-icon> Add Mitigation
-                                    </button>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Table -->
-<div class="container" style="padding-left:18px;">
-   <quill-editor
-  [(ngModel)]="content"
-  [modules]="modules"
-  [styles]="{height: '400px'}"
-  placeholder="Insert text here ...">
-</quill-editor>
-
-
-
-<button mat-raised-button class="mt-4 pull-right vamshi" type="button"
-        style="color: rgb(251, 253, 251); background-color:rgb(10, 93, 182);">
-        <mat-icon>save</mat-icon>
-        save
+  <!-- Top right Add Mitigation -->
+  <div class="d-flex justify-content-end mb-2" >
+    <button mat-raised-button color="primary"
+            (click)="addParameter(null)">
+      <mat-icon>person_add</mat-icon> Add Mitigation
     </button>
+  </div>
+  
+ 
+
+  <!-- Rich Text Editor -->
+  <div class="editor-box">
+    <quill-editor
+      [(ngModel)]="content"
+      [modules]="modules"
+      placeholder="Insert text here ...">
+    </quill-editor>
+  </div>
+
+  <!-- Bottom right Save -->
 </div>
+
+ <div class="d-flex justify-content-end mt-3 save-box" >
+    <button mat-raised-button type="button"
+            style="color:#fbfdfb; background-color:#0a5db6;">
+      <mat-icon >save</mat-icon>
+      Save
+    </button>
+  </div>

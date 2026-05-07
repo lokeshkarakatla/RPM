@@ -1,122 +1,53 @@
-<!-- 
-<div class="col-lg-12">
-   
-    <div class="col-xs-12" style="margin-top: 15px; margin-left: -16px; margin-bottom: 30px;">
-        <div class="pills">
-            <ul class="nav nav-pills" style="margin-left: 10px;">
-                <li>
-                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;" routerLinkActive="active"
-                        [routerLink]="['../d4']">
-                        Overview
-                    </a>
-                </li>
-                <li>
-                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;" [routerLink]="['../diagnosis']">
-                        Diagnosis
-                    </a>
-                </li>
-                <li>
-                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;" routerLinkActive="active"
-                        [routerLink]="['../fish']">
-                        Fish Bone Diagram
-                    </a>
-                </li>
-                <li>
-                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;" routerLinkActive="active"
-                        [routerLink]="['../why']">
-                        5 WHY
-                    </a>
-                </li>
-                <li>
-                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;" routerLinkActive="active"
-                        [routerLink]="['../actionmoniter']">
-                        Monitoring
-                    </a>
-                </li>
-                <li>
-                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;" routerLinkActive="active"
-                        [routerLink]="['../deploy']">
-                        Deployment
-                    </a>
-                </li>
-                <li>
-                    <a mat-raised-button class="navtabWidth"
-                        style="margin-top: 10px;background-color: #50636d ;color: rgb(245, 241, 241);"
-                        routerLinkActive="active" [routerLink]="['../actiondocumenttwo']">
-                        Document
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div> -->
-
-
-<div class="page-header ms-5">
-  <h3 class="page-title">Documents </h3>
+<div class="page-header ms-2">
+    <h3 class="page-title">Documents </h3>
 </div>
 
+<div class="table-section" style="width:700px;">
 
-<button mat-raised-button color="primary" class="pull-right  btn-primary  mt-3 mb-4 me-4  " (click)=" adddocument(null)">
-    <mat-icon>add</mat-icon> Add Document
-</button>
-
-
-<div class="table-wrapper">
-
-<table matSort id="example2" class="table table-bordered table-hover">
-    <thead class="tbl-head">
-        <tr>
-            <th class="text-center">Date</th>
-           
-           <th class="text-center subject-col">Subject</th>
-            <!-- <th class="text-center"> Document Type</th> -->
-            <th class="theadcolor text-center">View</th>
-            <th class="theadcolor text-center">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-       <tr *ngFor="let item of values">
-
-  <td class="text-center text-nowrap">
-    {{ item.date }} 
-  </td>
-
- 
-
-  <td class="text-center subject-col">
-    {{ item.subject }}
-  </td>
-
-  <td class="text-center text-nowrap">
-    <mat-icon>library_books</mat-icon>
-  </td>
-
-  <td class="text-center text-nowrap">
-    <a class="me-2" matTooltip="Edit" (click)="adddocument(null)">
-      <i class="fa fa-edit text-primary"></i>
-    </a>
-    <a matTooltip="Delete">
-      <i class="fa fa-trash text-danger"></i>
-    </a>
-  </td>
-
-</tr>
-    </tbody>
-</table>
-
-</div>
-
-
-<div class="col-lg-12 margin-top:50px">
-    <div class="col-sm-3.5 pull-right mt-5">
-
-
-        <!-- <button type="button" class="btn btn-outline-success" style="margin-right: 10px; height: 41px;">Save
-            Draft</button> -->
-        <button mat-raised-button class="" type="button"
-            style="color: rgba(252, 253, 252, 0.926); background-color: #3262a8; ">
-            <mat-icon>save</mat-icon>&nbsp; Submit
+    <!-- Button aligned right above the table -->
+    <div class="d-flex justify-content-end mb-2">
+        <button mat-raised-button color="primary" class="btn btn-primary" (click)="adddocument(null)">
+            <mat-icon>add</mat-icon> Add Document
         </button>
     </div>
+
+    <!-- Table -->
+    <div class="table-wrapper">
+        <table matSort id="example2" class="table table-bordered table-hover">
+            <thead class="tbl-head">
+                <tr>
+                    <th class="text-left">Date</th>
+                    <th class="text-left subject-col">Subject</th>
+                    <th class="theadcolor text-center">View</th>
+                    <th class="theadcolor text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of values">
+                    <td class="text-left text-nowrap">{{ item.date }}</td>
+                    <td class="text-left subject-col">{{ item.subject }}</td>
+                    <td class="text-center text-nowrap">
+                        <mat-icon>library_books</mat-icon>
+                    </td>
+                    <td class="text-center text-nowrap">
+                        <a class="me-2" matTooltip="Edit" (click)="adddocument(null)">
+                            <i class="fa fa-edit text-primary"></i>
+                        </a>
+                        <a matTooltip="Delete">
+                            <i class="fa fa-trash text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="d-flex justify-content-end mt-4">
+    <button mat-raised-button type="button"
+      style="color: rgba(252, 253, 252, 0.926); background-color: #3262a8;">
+      <mat-icon>save</mat-icon>&nbsp; Submit
+    </button>
+  </div>
+
 </div>

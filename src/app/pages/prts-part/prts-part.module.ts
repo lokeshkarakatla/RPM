@@ -40,51 +40,53 @@ const routes: Routes = [
     path: "prts-d-role",
     component: PrtsDRolesComponent,
     pathMatch: "full",
-
+    data:{hideBreadcrumb: true}
   },
   {
     path: "prtsdashboard",
     component: PrtsDashboardComponent,
     loadChildren: () =>
       import("./prts-dashboard/prts-dashboard.module").then((m) => m.PrtsDashboardModule),
-    data: { description: 'PRTS-Dashboard' }
+    data: { description: 'PRTS-Dashboard',hideBreadcrumb: true }
   },
   {
     path: "prtsnewissue",
     component: PrtsNewIssueComponent,
     loadChildren: () =>
       import("./prts-new-issue/prts-new-issue.module").then((m) => m.PrtsNewIssueModule),
-    data: { breadcrumb: 'PRTS-New Issue', description: "PRTS-New Issue" }
+    data: { breadcrumb: 'PRTS-New Issue', description: "PRTS-New Issue",hideBreadcrumb: true }
   },
   {
     path: "prtsissuestatus",
     component: PrtsIssueStatusComponent,
     loadChildren: () =>
       import("./prts-issue-status/prts-issue-status.module").then((m) => m.PrtsIssueStatusModule),
-
+  data:{hideBreadcrumb: true}
   },
   {
     path: "grid-one",
     component: GridViewComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Grid-View', description: "Grid-View" }
+    data: { breadcrumb: 'Grid-View', description: "Grid-View",hideBreadcrumb: true }
   },
   {
     path: "newissue",
     component: PrtsIssueNewComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    data:{hideBreadcrumb: true}
 
   },
   {
     path: "new-alerts",
     component: PrtsNewAlertsComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Alerts', description: "Alerts" }
+    data: { breadcrumb: 'Alerts', description: "Alerts",hideBreadcrumb: true }
   },
   {
     path: "new-archive",
     component: PrtsNewArchiveComponent,
     pathMatch: "full",
+    data:{hideBreadcrumb: true}
 
   },
   {
@@ -92,7 +94,7 @@ const routes: Routes = [
     component: PrtsSetupComponent,
     loadChildren: () =>
       import("./prts-setup/prts-setup.module").then((m) => m.PrtsSetupModule),
-    data: { breadcrumb: 'Setup', description: 'This page is used to Objective Setup' }
+    data: { breadcrumb: 'Setup', description: 'This page is used to Objective Setup',hideBreadcrumb: true }
   },
 ]
 

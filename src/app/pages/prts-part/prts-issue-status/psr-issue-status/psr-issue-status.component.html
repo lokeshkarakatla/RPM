@@ -300,7 +300,7 @@
             </div>
             <!-- Table -->
 
-          <div id="grid-table-container" class="table-responsive">
+            <div id="grid-table-container" class="table-responsive">
                 <table matSort id="example2" class="table table-bordered table-hover data-table">
                     <thead class="tbl-head">
                         <tr>
@@ -308,7 +308,7 @@
                             <th class="theadcolor text-center">Status</th>
                             <th class="theadcolor">Reference</th>
                             <th class="theadcolor">Subject</th>
-                                 <th class="theadcolor">Info</th>
+                            <th class="theadcolor">Info</th>
                             <th class="theadcolor">Description</th>
                             <th class="theadcolor">Assigned Date</th>
                             <th class="theadcolor text-center">Source</th>
@@ -345,27 +345,27 @@
                                 </a>
                             </td> -->
 
-                           
+
                             <td class="text-center editDel">
-  <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-    
-    <a matTooltip="Edit" (click)="addchecklistaudit(item)" style="cursor: pointer;">
-      <i class="fa fa-edit" style="color: cornflowerblue; font-size: 16px;"></i>
-    </a>
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
 
-    <a matTooltip="Delete" (click)="deleteConfirmation()" style="cursor: pointer;">
-      <i class="fa fa-trash red" style="font-size: 16px;"></i>
-    </a>
+                                    <a matTooltip="Edit" (click)="addchecklistaudit(item)" style="cursor: pointer;">
+                                        <i class="fa fa-edit" style="color: cornflowerblue; font-size: 16px;"></i>
+                                    </a>
 
-    <a matTooltip="Archive" (click)="archiveConfirmation()" style="cursor: pointer;">
-      <span class="material-symbols-outlined" 
-            style="color: gray; font-size: 20px; line-height: 1; vertical-align: middle;">
-        archive
-      </span>
-    </a>
+                                    <a matTooltip="Delete" (click)="deleteConfirmation()" style="cursor: pointer;">
+                                        <i class="fa fa-trash red" style="font-size: 16px;"></i>
+                                    </a>
 
-  </div>
-</td>
+                                    <a matTooltip="Archive" (click)="archiveConfirmation()" style="cursor: pointer;">
+                                        <span class="material-symbols-outlined"
+                                            style="color: gray; font-size: 20px; line-height: 1; vertical-align: middle;">
+                                            archive
+                                        </span>
+                                    </a>
+
+                                </div>
+                            </td>
                             <!-- Status -->
                             <td class="text-center">
                                 <mat-select class="form-control" [(ngModel)]="item.Status" placeholder="Select Status">
@@ -387,22 +387,18 @@
 
 
                             <!-- Info -->
-<td class="text-center">
-  <ng-container *ngIf="item.ref; else noInfo">
-    <mat-icon
-      matTooltip="Reference ID: {{item.Info}}"
-      matTooltipPosition="above"
-      color="primary"
-      style="cursor: pointer;"
-    >
-      info
-    </mat-icon>
-  </ng-container>
+                            <td class="text-center">
+                                <ng-container *ngIf="item.ref; else noInfo">
+                                    <mat-icon matTooltip="Reference ID: {{item.Info}}" matTooltipPosition="above"
+                                        color="primary" style="cursor: pointer;">
+                                        info
+                                    </mat-icon>
+                                </ng-container>
 
-  <ng-template #noInfo>
-    <span style="color: gray;">-</span>
-  </ng-template>
-</td>
+                                <ng-template #noInfo>
+                                    <span style="color: gray;">-</span>
+                                </ng-template>
+                            </td>
 
 
                             <!-- Description -->
@@ -464,7 +460,7 @@
                     <mat-icon style="color: #37474f">fast_rewind</mat-icon>
                 </button>
 
-                
+
             </div>
 
 

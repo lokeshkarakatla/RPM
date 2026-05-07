@@ -10,26 +10,32 @@ import { PartsData } from '../../PartsData';
 })
 export class FishboneComponent implements OnInit {
 
-  constructor(public router: Router,) { }
+  man: any[] = [];
+  material: any[] = [];
+  machines: any[] = [];
+  methods: any[] = [];
+  environment: any[] = [];
+  supply: any[] = [];
+
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
-    if (environment.mode == 1) {
-      this.values = PartsData.fish();
-    }
-    else {
-
+    if (environment.mode === 1) {
+      const fishData = PartsData.fish();
+      this.man = fishData.man;
+      this.material = fishData.material;
+      this.machines = fishData.machines;
+      this.methods = fishData.methods;
+      this.environment = fishData.environment;
+      this.supply = fishData.supply;
     }
   }
-  values = [
 
-
-
-  ]
   next() {
     this.router.navigate(['/app/prtsnavbar/why']);
   }
+
   back() {
     this.router.navigate(['/app/prtsnavbar/diagnosis']);
   }
-
 }

@@ -53,7 +53,7 @@
 
         <div id="main-content" class="inner-sidenav-content transition-2" perfectScrollbar
             (psScrollY)="onPsScrollY($event)">
-           <app-breadcrumb *ngIf="showBreadcrumb"></app-breadcrumb>
+            <app-breadcrumb *ngIf="showBreadcrumb"></app-breadcrumb>
             <div [class.has-footer]="settings.hasFooter">
                 <router-outlet></router-outlet>
             </div>

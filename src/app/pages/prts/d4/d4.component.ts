@@ -1,17 +1,16 @@
+import { AddCuaseComponent } from './../add-cuase/add-cuase.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { AddActionGridMeetComponent } from '../action-grid-calender/action-grid-meet/add-action-grid-meet/add-action-grid-meet.component';
-import { PartsData } from '../PartsData';
-import { AddCuaseComponent } from '../add-cuase/add-cuase.component';
-import { FormGroup, Validators, FormArray, FormBuilder, FormControl } from '@angular/forms';
-import { ActionDocumentTwoDialogComponent } from '../action-prts/action-document-two/action-document-two-dialog/action-document-two-dialog.component';
-import { ActionDocumentTwoTypeComponent } from '../action-prts/action-document-two/action-document-two-type/action-document-two-type.component';
+import { MatDialog } from '@angular/material/dialog';
+import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { LogauditresultComponent } from '../logauditresult/logauditresult.component';
 import { NoteComponent } from '../note/note.component';
+import { ActionDocumentTwoDialogComponent } from '../action-prts/action-document-two/action-document-two-dialog/action-document-two-dialog.component';
+import { ActionDocumentTwoTypeComponent } from '../action-prts/action-document-two/action-document-two-type/action-document-two-type.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { AddCapaComponent } from '../../capa/add-capa/add-capa.component';
+import { PartsData } from '../PartsData';
+
 @Component({
   selector: 'app-d4',
   templateUrl: './d4.component.html',
@@ -19,424 +18,107 @@ import { AddCapaComponent } from '../../capa/add-capa/add-capa.component';
 })
 export class D4Component implements OnInit {
 
-  data: any;
-   addLookupGroup: FormGroup;
-   editLookupGroup: FormGroup;
-   lookup: any = false;
-   codes: any = [];
-   colors: Array<any> = [{ 'code': 'green', 'name': 'Green', 'colorClass': 'dot_green' }, { 'code': 'blue', 'name': 'Blue', 'colorClass': 'dot_blue' }, { 'code': 'grey', 'name': 'Grey', 'colorClass': 'dot_grey' }, { 'code': 'red', 'name': 'Red', 'colorClass': 'dot_red' }];
-   pageGroup: FormGroup;
-   deleteLookupItemValue: any;
-   index: any;
-   private _lookupService: any;
-   alertService: any;
+  // Tab data
+  values: any[] = [];       // Overview
+  documents: any[] = [];    // Documents
+  dataList: any[] = [];     // CAPA
+  man: any[] = [];
+  material: any[] = [];
+  machines: any[] = [];
+  methods: any[] = [];
+  environment: any[] = [];
+  supply: any[] = [];
 
+  // Form for 5WHY
+  addLookupGroup: FormGroup;
 
+  activeTab: string = 'overview';
 
-   checked = false;
+  constructor(
+    public fb: FormBuilder,
+    public router: Router,
+    public dialog: MatDialog
+  ) {
+    this.addLookupGroup = this.fb.group({
+      CodeMasterId: new FormControl(''),
+      lookupNameDetails: this.fb.array([
+        this.initTechnologyFields()
+      ])
+    });
+  }
 
-   // constructor(public router: Router, public dialog: MatDialog,) {
-   //   this.addLookupGroup = this.fb.group({
-   //     CodeMasterId: new FormControl(''),
-   //     lookupNameDetails: this.fb.array([
-   //       this.initTechnologyFields()
-   //     ])
-   //   });
-   //  }
+  ngOnInit(): void {
+    // Start with 5 WHY inputs
+    this.addNewInputField(4);
 
-     constructor(
-     //public dialogRef: MatDialogRef<AddValidationComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-     public fb: FormBuilder, public router: Router,public dialog: MatDialog) {
-    // console.log(data);
-     this.addLookupGroup = this.fb.group({
-       CodeMasterId: new FormControl(''),
-       lookupNameDetails: this.fb.array([
-         this.initTechnologyFields()
-       ])
-     });
-     // this.editLookupGroup = this.fb.group({
-     //   LookupId: new FormControl(''),
-     //   CodeMasterId: new FormControl(''),
-     //   LookupName: new FormControl(null, Validators.compose([Validators.required]))
-     // });
-   }
+    // Fishbone categories for D4
+    const fishData = PartsData.fishD4a();
+    this.man = fishData.man;
+    this.material = fishData.material;
+    this.machines = fishData.machines;
+    this.methods = fishData.methods;
+    this.environment = fishData.environment;
+    this.supply = fishData.supply;
 
-   totalSize: number = 0;
+    // Other tabs
+    this.values = PartsData.getd4();        // Overview (D4-specific)
+    this.documents = PartsData.documentD4a(); // Documents (D4-specific)
+    this.dataList = PartsData.data();       // CAPA (shared dataset)
+  }
 
-   ngOnInit(): void {
-     // if (environment.mode == 1) {
-     //   this.values = PartsData.getd1();
-     // }
-     // else {
+  // Navigation
+  next() {
+    this.router.navigate(['/app/prtsnavbar/d4-b']);
+  }
+  back() {
+    this.router.navigate(['/app/prtsnavbar/d3-b']);
+  }
+  setTab(tab: string) {
+    this.activeTab = tab;
+  }
 
-     // }
-     //   if (environment.mode == 1) {
-     //   this.values = PartsData.fish();
-     // }
-     // else {
-
-     // }
-
-     this.totalSize = this.values.length;
-    this.data = this.dataList;
-
-  this.addNewInputField(5);
-
-
-   }
- values = [
-  { check: 'At which exact process step and condition does the defect originate (machine, operation, stage)?' },
-  { check: 'What specific process parameter(s)  deviate from standard during defect occurrence?' },
-  { check: 'What evidence  correlates process variation with the defect?' },
-  { check: 'Have structured RCA tools been applied specifically to process variables?' },
-  { check: 'Was the process operating within defined specifications at the time of defect generation? If not, why?' },
-  { check: 'Are there differences between “good” vs “defective” runs under the same process conditions?' },
-  { check: 'Have controlled trials or experiments been conducted to reproduce the defect under suspected conditions?' },
-  { check: 'Are machine-related factors  contributing to the issue?' },
-  { check: 'Are material variations  influencing process performance?' },
-  { check: 'Has the true occurrence root cause been validated with objective evidence and agreed upon by the cross-functional team?' }
-];
- valuess=[
-   {possible: 'Is the current Data/analysis data available?',short:'current Data'   },
-   {possible: 'Is the current Data/analysis data available?',short:'current Data'   },
-   {possible: 'Is the current Data/analysis data available?',short:'current Data'   },
-   {possible: 'Is the current Data/analysis data available?',short:'current Data'   },
- ];
- valuesss=[
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- ]
- valuesh=[
-  {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- ]
- valueshs=[
-  {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- ]
- valu=[
-  {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- ]
- val=[
-  {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- ]
- v=[
-  {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- ]
- va=[
-  {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- {issue:'Correct part numbers?'},
- ]
-
-
-   next() {
-     this.router.navigate(['/app/prtsnavbar/d4-b']);
-   }
-   back() {
-     this.router.navigate(['/app/prtsnavbar/d3-b']);
-   }
-   action() {
-     this.router.navigate(['/app/prtsnavbar/why-two']);
-   }
-   addchecklistaudit() {
-     let dialogRef = this.dialog.open(AddCuaseComponent, {
-
-       height: 'auto',
-       width: '600px'
-     });
-     dialogRef.afterClosed().subscribe(data => {
-     });
-
-   }
-   addMeeting(item) {
-     this.dialog.open(AddCapaComponent, {
-       data: item,
-       width: "850px",
-       height: "auto"
-     })
-   }
-
-         deleteConfirmation(item: any) {
-    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+  // Dialog actions
+  deleteConfirmation(item: any) {
+    this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
       data: { ProjectId: item.ProjectId, title: 'Delete Confirmation', content: 'Are you sure you want to Delete?' }
     });
-
-}
-check_box_type = {
-  APPLY_FOR_JOB: 'APPLY_FOR_JOB',
-  MODIFY_A_JOB: 'MODIFY_A_JOB'
-};
-   activeTab: string = 'overview';
-
-   setTab(tab: string) {
-     this.activeTab = tab;
-   }
-
- //  data: any;
- //   addLookupGroup: FormGroup;
- //   editLookupGroup: FormGroup;
- //   lookup: any = false;
- //   codes: any = [];
- //   colors: Array<any> = [{ 'code': 'green', 'name': 'Green', 'colorClass': 'dot_green' }, { 'code': 'blue', 'name': 'Blue', 'colorClass': 'dot_blue' }, { 'code': 'grey', 'name': 'Grey', 'colorClass': 'dot_grey' }, { 'code': 'red', 'name': 'Red', 'colorClass': 'dot_red' }];
- //   pageGroup: FormGroup;
- //   deleteLookupItemValue: any;
- //   index: any;
- //   private _lookupService: any;
- //   alertService: any;
-
-    //public dialogRef: MatDialogRef<AddValidationComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-
-
-
-
-   close(): void {
-     //this.dialogRef.close();
-   }
-
-   saveLookup() {
-     // if(this.data != null)
-     {
-       if (this.editLookupGroup.valid) {
-         // this._lookupService.EditLookups(this.editLookupGroup.value).subscribe(res => {
-         //   if(res != null) {
-         //     this.dialogRef.close(res['Data']);
-         //   }
-         //   else{
-         //     this.alertService.createAlert(res['Message'], 0);
-         //   }
-         // });
-       }
-     }
-
-     // else{
-     //   if (this.addLookupGroup.valid) {
-     //     this._lookupService.AddLookups(this.addLookupGroup.value).subscribe(res => {
-     //       if(res != null) {
-     //         this.dialogRef.close(res['Data']);
-     //       }
-     //       else{
-     //         this.alertService.createAlert(res['Message'], 0);
-     //       }
-     //     });
-     //   }
-
-     // }
-   }
-
-   initTechnologyFields(): FormGroup {
-     return this.fb.group({
-       LookupId: [],
-       LookupName: ['', Validators.required]
-     });
-   }
-
-   addNewInputField(val): void {
-     console.log(val, "test")
-
-     if (val > 0) {
-       for (let i = 0; i < val; i++) {
-         console.log("test")
-
-         const control = <FormArray>this.addLookupGroup.controls.lookupNameDetails;
-         control.push(this.initTechnologyFields());
-       }
-     }
-     else {
-       const control = <FormArray>this.addLookupGroup.controls.lookupNameDetails;
-       control.push(this.initTechnologyFields());
-     }
-
-
-   }
-
-   fnLookupDeleteItemModal(i) {
-     this.index = i;
-     this.removeInputField(this.index);
-   }
-
-   removeInputField(i: number): void {
-     const control = <FormArray>this.addLookupGroup.controls.lookupNameDetails;
-     control.removeAt(i);
-   }
-
-
- createItem() {
-   return this.fb.control(''); // Or a FormGroup if complex object
- }
-
+  }
+  addchecklistaudit() {
+    this.dialog.open(AddCuaseComponent, { height: 'auto', width: '600px' });
+  }
+  addMeeting(item: any) {
+    this.dialog.open(AddCapaComponent, { data: item, width: "850px", height: "auto" });
+  }
   note() {
+    this.dialog.open(NoteComponent, { height: 'auto', width: '600px' });
+  }
+  addlog() {
+    this.dialog.open(LogauditresultComponent, { height: 'auto', width: '1300px' });
+  }
+  public adddocument(auditdata: any) {
+    this.dialog.open(ActionDocumentTwoDialogComponent, { data: auditdata, height: 'auto', width: '600px' });
+  }
+  public adddocumenttype(audit: any) {
+    this.dialog.open(ActionDocumentTwoTypeComponent, { data: audit, height: 'auto', width: '600px' });
+  }
 
-     let dialogRef = this.dialog.open(NoteComponent, {
-
-       height: 'auto',
-       width: '600px'
-     });
-     dialogRef.afterClosed().subscribe(data => {
-     });
-   }
-   addlog() {
-     let dialogRef = this.dialog.open(LogauditresultComponent, {
-
-       height: 'auto',
-       width: '1300px'
-     });
-     dialogRef.afterClosed().subscribe(data => {
-     });
-
-   }
- selectCheckBox() {
-
-   }
- public adddocument(auditdata) {
-     let dialogRef = this.dialog.open(ActionDocumentTwoDialogComponent, {
-       data: auditdata,
-       height: 'auto',
-       width: '600px'
-     });
-     dialogRef.afterClosed().subscribe(data => {
-     });
-   }
-
-   public adddocumenttype(audit) {
-     let dialogRef = this.dialog.open(ActionDocumentTwoTypeComponent, {
-       data: audit,
-       height: 'auto',
-       width: '600px'
-     });
-     dialogRef.afterClosed().subscribe(data => {
-     });
-   }
-   valyes=[
-     {date:'17/10/2020',refer:'MG/822441',Done:'Vishvajit jere'},
-       {date:'17/10/2020',refer:'MG/822441',Done:'Vishvajit jere'},
-      {date:'17/10/2020',refer:'MG/822441',Done:'Vishvajit jere'},
-     {date:'17/10/2020',refer:'MG/822441',Done:'Vishvajit jere'},
-     {date:'17/10/2020',refer:'MG/822441',Done:'Vishvajit jere'}
-   ]
-
-   dataList = [
-     {
-       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
-       role: "Tejaswi",
-       department: "QA",
-       issue: "Engine Overheating",
-       details: "enginee getting sound",
-       date: "2024-09-20",
-       status: "Open",
-       eta:"024-09-20",
-       meetingRef:"(Meet/2025/10/02)",
-       actions: { edit: true, delete: true }
-     },
-     {
-       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
-       role: "Hrithik",
-       department: "Quality",
-       issue: "Brakes Squeaking not working",
-       details: "Brakes Squeaking not working",
-       date: "2024-09-24",
-       status: "Pending",
-       eta:"024-09-20",
-        meetingRef:"(Meet/2025/10/03)",
-       actions: { edit: true, delete: true }
-     },
-     {
-       title: "This road hazard service is part of Bosch’s connected map issue (FIELD/2024/09/8)",
-       role: "Sai",
-       department: "QA",
-       issue: "Transmission Slipping",
-       details: "Transmission Slipping is not good",
-       date: "2024-09-24",
-       status: "WIP",
-        meetingRef:"(Meet/2025/10/03)",
-       actions: { edit: true, delete: true }
-     },
-     {
-       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
-       role: "Krishna",
-       department: "Account",
-       issue: "Transmission Slipping",
-       details: "Transmission Slipping",
-       date: "2024-09-24",
-       status: "WIP",
-        meetingRef:"(Meet/2025/10/04)",
-       actions: { edit: true, delete: true }
-     },
-     {
-       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
-       role: "Vishnu",
-       department: "Developer",
-       issue: "Battery Draining",
-       details: "Battery Draining",
-       date: "2024-09-24",
-       status: "Pending",
-        meetingRef:"(Meet/2025/10/05)",
-       actions: { edit: true, delete: true }
-     },
-     {
-       title: "Global fleet of connected vehicles (FIELD/2024/09/3)",
-       role: "Roshan",
-       department: "QA",
-       issue: "Unusual Vibrations",
-       details: "Unusual Vibrations",
-       date: "2024-09-24",
-       status: "Open",
-        meetingRef:"(Meet/2025/10/06)",
-       actions: { edit: true, delete: true }
-     },
-     {
-       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
-       role: "Mohit",
-       department: "Quality",
-       issue: "Brakes Squeaking not working",
-       details: "Brakes Squeaking not working",
-       date: "2024-09-24",
-       status: "Open",
-        meetingRef:"(Meet/2025/10/07)",
-       actions: { edit: true, delete: true }
-     },
-     {
-       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
-       role: "Satyarth",
-       department: "Quality",
-       issue: "Brakes Squeaking not getting",
-       details: "Brakes Squeaking not working",
-        meetingRef:"(Meet/2025/10/08)",
-       date: "2024-09-24",
-       status: "Pending",
-       actions: { edit: true, delete: true }
-     }
-   ];
-
- }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // 5WHY FormArray helpers
+  get lookupNameDetails(): FormArray {
+    return this.addLookupGroup.get('lookupNameDetails') as FormArray;
+  }
+  initTechnologyFields(): FormGroup {
+    return this.fb.group({
+      LookupId: [],
+      LookupName: ['', Validators.required]
+    });
+  }
+  addNewInputField(count: number = 1): void {
+    for (let i = 0; i < count; i++) {
+      this.lookupNameDetails.push(this.initTechnologyFields());
+    }
+  }
+  fnLookupDeleteItemModal(i: number): void {
+    this.lookupNameDetails.removeAt(i);
+  }
+}

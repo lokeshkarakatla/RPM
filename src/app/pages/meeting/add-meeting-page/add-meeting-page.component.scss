@@ -1,12 +1,5 @@
 /* ── Back button aligned with "Add Meeting" breadcrumb ── */
-.breadcrumb-back {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: -52px;
-  padding-right: 15px;
-  height: 52px;
-  align-items: center;
-}
+
 
 .back-btn {
   display: inline-flex;
@@ -23,6 +16,9 @@
   padding: 16px 24px;
   background: #fff;
   border-bottom: 1px solid #e0e0e0;
+}
+.btn-col{
+    background-color: #808080 !important;
 }
 
 .am-info-fields {

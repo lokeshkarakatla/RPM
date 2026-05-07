@@ -1,12 +1,5 @@
 /* Back button pulled up to sit alongside the breadcrumb title */
-.breadcrumb-back {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: -52px;
-  padding-right: 15px;
-  height: 52px;
-  align-items: center;
-}
+
 
 .back-btn {
   display: inline-flex;
@@ -96,4 +89,30 @@
   height: 18px;
   padding: 4px; /* creates inner space effect */
   box-sizing: content-box;
+}
+
+.active a {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+
+
+
+.active-tab {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+.back-btn {
+    margin-left: auto; // extra safety to push right
+    white-space: nowrap; // prevents button text wrapping
+  }
+
 }

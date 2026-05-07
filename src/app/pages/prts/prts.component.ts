@@ -8,6 +8,8 @@ import { AddInitiativeComponent } from './add-initiative/add-initiative.componen
   templateUrl: './prts.component.html',
   styleUrls: ['./prts.component.scss']
 })
+
+
 export class PrtsComponent implements OnInit {
   gridCmp: any;
   Status = [{ name: 'Active', value: true }, { name: "Inactive", value: false }];
@@ -50,4 +52,7 @@ export class PrtsComponent implements OnInit {
 toggleNav() {
   this.isNavOpen = !this.isNavOpen;
 }
+
+
+
 }

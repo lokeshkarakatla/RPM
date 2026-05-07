@@ -25,35 +25,38 @@ import { TimelineComponent } from './timeline/timeline.component';
 
 
 const routes: Routes = [
-    { path: "", redirectTo: "base-info", pathMatch: "full" },
+    { path: "", redirectTo: "base-info", pathMatch: "full",
+        
+     }
+    ,
 
     {
         path: 'base-info', component: BaseInfoComponent,
-        data: { breadcrumb: 'Issues', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
+        data: { breadcrumb: 'Base Info', }
     },
     {
         path: 'summary', component: SummaryComponent,
-        data: { breadcrumb: 'Issues', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
+        data: { breadcrumb: 'Summary',  }
     },
     {
         path: 'updates', component: UpdatesComponent,
-        data: { breadcrumb: 'Issues', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
+        data: { breadcrumb: 'Updates', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
     },
     {
         path: 'capaa', component: CapaaaComponent,
-        data: { breadcrumb: 'Issues', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
+        data: { breadcrumb: 'Capa', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
     },
     {
         path: 'documnets', component: DocumentsComponent,
-        data: { breadcrumb: 'Issues', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
+        data: { breadcrumb: 'Documents', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
     },
     {
         path: 'notes', component: NotesComponent,
-        data: { breadcrumb: 'Issues', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
+        data: { breadcrumb: 'Notes', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
     },
     {
         path: 'timeline', component: TimelineComponent,
-        data: { breadcrumb: 'Issues', description: '' }
+        data: { breadcrumb: 'Timeline', description: '' }
     },
 
 

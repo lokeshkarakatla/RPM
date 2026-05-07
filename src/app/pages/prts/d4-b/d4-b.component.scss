@@ -44,6 +44,39 @@ css .add-job-code {
 .button-gap {
   margin-right: 8px; /* or whatever spacing you prefer */
 }
+
+.custom-btn {
+  height: 41px;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 41px; /* keeps text vertically centered */
+}
+
+.custom-btn mat-icon {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+
+
+textarea {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+
+.btn-footer-space {
+  margin-bottom: 20px;
+}
+
+/* give breathing space at bottom of page */
+.tab-content,
+.active-tab-container,
+.container-fluid {
+  padding-bottom: 80px;
+}
+
+
 .footer-actions {
   margin-bottom: 30px;   /* 👈 actual bottom space */
   padding-bottom: 20px;

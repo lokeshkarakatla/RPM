@@ -9,8 +9,10 @@ import { AddInitiativeComponent } from './add-initiative/add-initiative.componen
 import { BaseInfoComponent } from './base-info/base-info.component';
 import { D1Component } from './d1/d1.component';
 import { D2Component } from './d2/d2.component';
+
 import { D3Component } from './d3/d3.component';
 import { D4Component } from './d4/d4.component';
+import { D3BComponent } from './d3-b/d3-b.component';
 import { SummaryComponent } from './summary/summary.component';
 import { D4BComponent } from './d4-b/d4-b.component';
 import { D5Component } from './d5/d5.component';
@@ -32,7 +34,7 @@ import { ActionMoniterComponent } from './action-prts/action-moniter/action-moni
 import { ActionDeployComponent } from './action-prts/action-deploy/action-deploy.component';
 import { ClosurNoteComponent } from './closure/closur-note/closur-note.component';
 import { AddDocumentComponent } from './closure/closur-note/add-document/add-document.component';
-import { D3BComponent } from './d3-b/d3-b.component';
+
 import { SkipDialogComponent } from './skip-dialog/skip-dialog.component';
 import { AddCuaseComponent } from './add-cuase/add-cuase.component';
 import { DiagnosisComponent } from './action-prts/diagnosis/diagnosis.component';
@@ -70,116 +72,117 @@ const routes: Routes = [
     component: ActionGridCalenderComponent,
     loadChildren: () =>
       import("./action-grid-calender/action-grid-calender.module").then((m) => m.ActionGridCalenderModule),
-    data: { breadcrumb: 'Actions Grid view', description: 'This page is used to Actions' }
+    data: { breadcrumb: 'Actions Grid view', description: 'This page is used to Actions',hideBreadcrumb: true }
+    
   },
   {
     path: "action",
     component: ActionPrtsComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'PRTS(Archives/Subject/Actions) ', description: "Grid view screen" }
+    data: { breadcrumb: 'PRTS(Archives/Subject/Actions) ', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "alerts",
     component: AlertsComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Alerts', description: "Grid view screen for Alerts" }
+    data: { breadcrumb: 'Alerts', description: "Grid view screen for Alerts",hideBreadcrumb: true }
   },
   {
     path: "actionmoniter",
     component: ActionMoniterComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Monitering', description: "Grid view screen" }
+    data: { breadcrumb: 'Monitering', description: "Grid view screen",hideBreadcrumb: true }
   },
 
   {
     path: "actionmoniter-two",
     component: ActionMoniterTwoComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Monitering', description: "Grid view screen" }
+    data: { breadcrumb: 'Monitering', description: "Grid view screen",hideBreadcrumb: true }
   },
 
   {
     path: "actiondocument",
     component: ActionDocumentComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Document', description: "Grid View Screen" }
+    data: { breadcrumb: 'Document', description: "Grid View Screen",hideBreadcrumb: true }
   },
   {
     path: "fish",
     component: FishboneComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Fishbone', description: "Grid view screen" }
+    data: { breadcrumb: 'Fishbone', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "diagnosis",
     component: DiagnosisComponent,
-    data: { breadcrumb: 'Diagnosis', description: "Grid view screen" }
+    data: { breadcrumb: 'Diagnosis', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "actiondocumenttwo",
     component: ActionDocumentTwoComponent,
-    data: { breadcrumb: 'Document', description: "Grid view screen" }
+    data: { breadcrumb: 'Document', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "deploy",
     component: ActionDeployComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Deployment', description: "Grid view screen" }
+    data: { breadcrumb: 'Deployment', description: "Grid view screen",hideBreadcrumb: true }
   },
 
   {
     path: "deploy-two",
     component: ActionDeployTwoComponent,
-    data: { breadcrumb: 'Deployment', description: "Grid view screen" }
+    data: { breadcrumb: 'Deployment', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "grid",
     component: GridPrtsComponent,
-    data: { breadcrumb: 'Grid veiw', description: "Grid view screen" }
+    data: { breadcrumb: 'Grid veiw', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "intiative",
     component: AddintiativeComponent,
-    data: { breadcrumb: 'Add ', description: "Grid view screen" }
+    data: { breadcrumb: 'Add ', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "archive-prts",
     component: ArchivePrtsComponent,
-    data: { breadcrumb: 'Grid veiw', description: "Grid view screen" }
+    data: { breadcrumb: 'Grid veiw', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "gridview",
     component: GridViewComponent,
-    data: { breadcrumb: 'Grid veiw', description: "Grid view screen" }
+    data: { breadcrumb: 'Grid veiw', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "mitigation",
     component: MitigationComponent,
-    data: { breadcrumb: 'Mitigation', description: "Mitigation screen" }
+    data: { breadcrumb: 'Mitigation', description: "Mitigation screen",hideBreadcrumb: true }
   },
   {
     path: "prts",
     component: PrtsComponent,
-    data: { breadcrumb: 'Grid veiw', description: "Grid view screen" }
+    data: { breadcrumb: 'Grid veiw', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "base-info",
     component: BaseInfoComponent,
-    data: { breadcrumb: 'PRTS(Archives/Subject/Base Information)', description: "Base information screen" }
+    data: { breadcrumb: 'PRTS(Archives/Subject/Base Information)', description: "Base information screen",hideBreadcrumb: true }
   },
   {
     path: "d1",
     component: D1Component,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D1) ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+    ,hideBreadcrumb: true}
   },
   {
     path: "d2",
     component: D2Component,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D2)  ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+    ,hideBreadcrumb: true}
 
   },
   {
@@ -187,7 +190,7 @@ const routes: Routes = [
     component: D3Component,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D3-A)  ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+    ,hideBreadcrumb: true}
 
   },
   {
@@ -195,7 +198,7 @@ const routes: Routes = [
     component: D3BComponent,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D3-B)  ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+   ,hideBreadcrumb: true }
 
   },
   {
@@ -203,67 +206,68 @@ const routes: Routes = [
     component: D4Component,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D4-A) ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+    ,hideBreadcrumb: true}
   },
   {
     path: "d4-b",
     component: D4BComponent,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D4-B)  ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+    ,hideBreadcrumb: true}
   },
   {
     path: "d5",
     component: D5Component,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D5) ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+    ,hideBreadcrumb: true}
   },
   {
     path: "d6",
     component: D6Component,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D6) ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+    ,hideBreadcrumb: true}
   },
   {
     path: "d7",
     component: D7Component,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/D7) ', description: "This window is used to do analysis as per the checklist below and the exceptions are evaluated further on the next screen in terms of WHY WHY  Analysis, identification of root causes, monitoring and horizontal applications."
-    }
+    ,hideBreadcrumb: true}
   },
   {
     path: "why",
     component: WhyComponent,
-    data: { breadcrumb: 'PRTS 5 Why', description: "The summary information about the request comes here.  This cover %WH information as well as well meta data, issue description, assignment and containment details." }
+    data: { breadcrumb: 'PRTS 5 Why', description: "The summary information about the request comes here.  This cover %WH information as well as well meta data, issue description, assignment and containment details.",hideBreadcrumb: true }
   },
 
   {
     path: "why-two",
     component: WhyTwoComponent,
-    data: { breadcrumb: 'PRTS 5 Why', description: "The summary information about the request comes here.  This cover %WH information as well as well meta data, issue description, assignment and containment details." }
+    data: { breadcrumb: 'PRTS 5 Why', description: "The summary information about the request comes here.  This cover %WH information as well as well meta data, issue description, assignment and containment details.",hideBreadcrumb: true }
   },
   {
     path: "moniter",
     component: MonitorComponent,
     data: {
       breadcrumb: 'PRTS(Archives/Subject/Matrix)', description: "The list of 7D process steps appear here in a tabular layout and the raiser can navigate the workflow step by step while assigning each stage to a specific role.  There is a facility for the raiser to enter notes that can act as an initial input for the requested step."
-    }
+    ,hideBreadcrumb: true}
   },
   {
     path: "closure",
     component: ClosureComponent,
+    data:{hideBreadcrumb: true}
   },
   {
     path: "closure-note",
     component: ClosurNoteComponent,
-    data: { breadcrumb: ' Closure- Note', description: "Closure" }
+    data: { breadcrumb: ' Closure- Note', description: "Closure",hideBreadcrumb: true }
   },
   {
     path: "summary",
     component: SummaryComponent,
-    data: { breadcrumb: 'PRTS(Archives/Subject/Summary) ', description: "Summary Screen" }
+    data: { breadcrumb: 'PRTS(Archives/Subject/Summary) ', description: "Summary Screen",hideBreadcrumb: true }
   },
   // {
   //   path: "monitordialog",
@@ -274,12 +278,14 @@ const routes: Routes = [
 ]
 @NgModule({
   declarations: [
+    D3Component,
     PrtsComponent,
     AddInitiativeComponent,
     BaseInfoComponent,
     D1Component,
     D2Component,
-    D3Component,
+    
+    D3BComponent,
     D4Component,
     SummaryComponent,
     D4BComponent,

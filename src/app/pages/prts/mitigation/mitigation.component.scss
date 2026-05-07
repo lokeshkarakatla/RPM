@@ -19,3 +19,18 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+.editor-container {
+  width: 60%;              /* initial width (adjust as you like) */
+  max-width: 100%;   
+  min-width: 60%;      /* stop growing beyond full width */
+  display: inline-block;
+  text-align: left;
+  resize: horizontal;      /* allow drag to resize */
+  overflow: auto;
+}
+
+.editor-container .ql-toolbar,
+.editor-container .ql-container {
+  width: 100%;             /* toolbar matches editor width */
+}

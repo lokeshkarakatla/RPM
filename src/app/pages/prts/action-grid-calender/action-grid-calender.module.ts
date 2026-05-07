@@ -32,13 +32,13 @@ const routes: Routes = [
     path: "grid-meet",
     component: ActionGridMeetComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Action', description: "Grid view screen" }
+    data: { breadcrumb: 'Action', description: "Grid view screen",hideBreadcrumb: true }
   },
   {
     path: "calender",
     component: ActionCalendarComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Action', description: "Grid view screen" }
+    data: { breadcrumb: 'Action', description: "Grid view screen",hideBreadcrumb: true }
   },
 ]
 

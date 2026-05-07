@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AddPrtsDescriptionComponent implements OnInit {
 
-  myGroup: FormGroup;
+  myGroup!: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<AddPrtsDescriptionComponent>,

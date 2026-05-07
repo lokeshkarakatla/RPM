@@ -57,6 +57,26 @@ css .add-job-code {
   margin-right: 5px;
 }
 
+
+
+textarea {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+
+.btn-footer-space {
+  margin-bottom: 20px;
+}
+
+/* give breathing space at bottom of page */
+.tab-content,
+.active-tab-container,
+.container-fluid {
+  padding-bottom: 80px;
+}
+
+
 .footer-actions {
   margin-bottom: 30px;   /* 👈 actual bottom space */
   padding-bottom: 20px;

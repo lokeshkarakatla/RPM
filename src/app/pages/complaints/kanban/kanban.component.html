@@ -1,8 +1,10 @@
-<div class="breadcrumb-back">
-  <button mat-raised-button class="back-btn btn-col black-btn" (click)="goBack()">
+
+
+
+<button mat-raised-button class="back-btn btn-col" (click)="goBack()" style=" margin-left: 1120px;">
     <mat-icon>arrow_back</mat-icon> Back
   </button>
-</div>
+
 <div class="kanban-board" id="grid-table-container" cdkDropListGroup>
 
     <div *ngFor="let list of lists" class="kanban-list">

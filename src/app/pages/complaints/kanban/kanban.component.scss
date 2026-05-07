@@ -1,12 +1,5 @@
 /* Back button pulled up to sit alongside the breadcrumb title */
-.breadcrumb-back {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -52px;
-    padding-right: 15px;
-    height: 52px;
-    align-items: center;
-}
+
 
 .back-btn {
     display: inline-flex;
@@ -373,3 +366,8 @@
 
 
 
+
+
+.btn-col{
+    background-color: #808080 !important;
+}

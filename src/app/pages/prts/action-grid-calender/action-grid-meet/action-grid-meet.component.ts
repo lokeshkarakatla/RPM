@@ -32,7 +32,7 @@ export class ActionGridMeetComponent implements OnInit {
   ];
 
 
-  addMeeting(item) {
+  addMeeting(item:any) {
     this.dialog.open(AddCapaComponent, {
       data: item,
       width: "850px",

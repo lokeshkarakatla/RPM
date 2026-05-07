@@ -9,6 +9,12 @@ import { Router } from '@angular/router';
 })
 export class ActionPrtsComponent implements OnInit {
 
+    activeTab: string = 'overview';   // default tab
+
+  setTab(tab: string) {
+    this.activeTab = tab;
+  }
+
   next() {
     this.router.navigate(['/app/prtsnavbar/moniter']);
   }
@@ -18,7 +24,7 @@ export class ActionPrtsComponent implements OnInit {
   lookup: any = false;
   codes: any = [];
   colors: Array<any> = [{ 'code': 'green', 'name': 'Green', 'colorClass': 'dot_green' }, { 'code': 'blue', 'name': 'Blue', 'colorClass': 'dot_blue' }, { 'code': 'grey', 'name': 'Grey', 'colorClass': 'dot_grey' }, { 'code': 'red', 'name': 'Red', 'colorClass': 'dot_red' }];
-  pageGroup: FormGroup;
+  pageGroup!: FormGroup;
   deleteLookupItemValue: any;
   index = 10;
   private _lookupService: any;
@@ -100,7 +106,7 @@ export class ActionPrtsComponent implements OnInit {
     control.push(this.initTechnologyFields());
   }
 
-  fnLookupDeleteItemModal(i) {
+  fnLookupDeleteItemModal(i:any) {
     this.index = i;
     this.removeInputField(this.index);
   }

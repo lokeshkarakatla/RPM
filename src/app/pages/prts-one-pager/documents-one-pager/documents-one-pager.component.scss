@@ -1,17 +1,66 @@
-.vamshi1 {
-    font-size: 14px;
-    color: #2196F3 !important;
-    outline: #2196F3;
-    outline-style: auto;
-}
-.subject-col {
-  max-width: 200px;        /* control width */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* ... */
-}
+// // .vamshi1 {
+// //     font-size: 14px;
+// //     color: #2196F3 !important;
+// //     outline: #2196F3;
+// //     outline-style: auto;
+// // }
+// // .subject-col {
+// //   max-width: 200px;        /* control width */
+// //   white-space: nowrap;
+// //   overflow: hidden;
+// //   text-overflow: ellipsis; /* ... */
+// // }
 
-.table-wrapper {
-  width: 97%;        /* adjust: 60%, 50%, etc */
-  margin: 0 auto;    /* center the table */
-}
+// // .table-wrapper {
+// //   width: 97%;        /* adjust: 60%, 50%, etc */
+// //   margin: 0 auto;    /* center the table */
+// // }
+
+
+// .table-wrapper {
+//   margin-top: 10px;
+//   margin-bottom: 10px;
+//   text-align: left;
+// }
+
+// .left-table {
+//   margin-left: 0; /* flush left */
+// }
+
+// .left-table th.text-left,
+// .left-table td.text-left {
+//   text-align: left !important;
+// }
+
+// .subject-col {
+//   max-width: 250px;
+//   word-wrap: break-word;
+// }
+
+// .btn-submit {
+//   color: #fff;
+//   background-color: #3262a8;
+// }
+
+
+// .compact-table {
+//   width: 100%;
+//   table-layout: fixed;   /* prevents cells from stretching */
+// }
+
+// .compact-table th,
+// .compact-table td {
+//   padding: 8px 12px;
+//   overflow: hidden;      /* hide overflow */
+//   text-overflow: ellipsis; /* add ... for long text */
+//   white-space: nowrap;   /* keep text in one line */
+// }
+
+// .subject-col {
+//   max-width: 250px;      /* limit subject column width */
+// }
+
+// .text-left {
+//   text-align: left !important;
+// }
+

@@ -105,13 +105,94 @@ export class OnepagerIssueStatusComponent implements OnInit {
   breadcrumb = "Time Sheet"
 
 
-  values1 = [
-    { ref: 'H2022191', Date: '1-11-2021', VIN: 'Vivek Kele', AuditType: 'Paint sagging on Door', Checkpoints: 'Lorem lpsum', Demerits: 'Lorem lpsum', Location: 'Hyderabad', Auditor: 'Surya', Model: 'Hector', Variant: 'Manual', Interior_Trim: 'High', Colour: 'White', Transmission: 'Manual', Fuel_Type: 'Diesel', Status: true },
-    { ref: 'H2022191', Date: '12-11-2021', VIN: 'Vivek Kele', AuditType: 'Paint sagging on Door', Checkpoints: 'Lorem lpsum', Demerits: 'Lorem lpsum', Location: 'Banglore', Auditor: 'Siva', Model: 'Astor', Variant: 'Automatic', Interior_Trim: 'Low', Colour: 'Black', Transmission: 'AMT', Fuel_Type: 'Petrol', Status: true },
-    { ref: 'H2022191', Date: '15-11-2021', VIN: 'Vivek Kele', AuditType: 'Paint sagging on Door', Checkpoints: 'Lorem lpsum', Demerits: 'Lorem lpsum', Location: 'Mumbai', Auditor: 'Navin', Model: 'Gloster', Variant: 'Manual', Interior_Trim: 'High', Colour: 'Blue', Transmission: 'DCT', Fuel_Type: 'Petrol', Status: true },
-    { ref: 'H2022191', Date: '23-10-2021', VIN: 'Vivek Kele', AuditType: 'Paint sagging on Door', Checkpoints: 'Lorem lpsum', Demerits: 'Lorem lpsum', Location: 'Pune', Auditor: 'Ridhima', Model: 'Astor', Variant: 'Automatic', Interior_Trim: 'Medium', Colour: 'White', Transmission: 'AMT', Fuel_Type: 'Petrol', Status: true },
-    { ref: 'H2022191', Date: '5-08-2021', VIN: 'Vivek Kele', AuditType: 'Paint sagging on Door', Checkpoints: 'Lorem lpsum', Demerits: 'Lorem lpsum', Location: 'Raipur', Auditor: 'Siva', Model: 'Hector', Variant: 'Manual', Interior_Trim: 'Low', Colour: 'Orange', Transmission: 'Manual', Fuel_Type: 'Hybrid', Status: true },
-  ]
+ values1 = [
+  { 
+    ref: 'H2022191', 
+    Date: '01-11-2021', 
+    VIN: 'MH12AB1234', 
+    AuditType: 'Paint Sagging on Door', 
+    Checkpoints: 'Surface finish, gloss level', 
+    Demerits: 'Uneven paint thickness', 
+    Location: 'Hyderabad', 
+    Auditor: 'Surya', 
+    Model: 'Hector', 
+    Variant: 'Manual', 
+    Interior_Trim: 'High', 
+    Colour: 'White', 
+    Transmission: 'Manual', 
+    Fuel_Type: 'Diesel', 
+    Status: true 
+  },
+  { 
+    ref: 'H2022192', 
+    Date: '12-11-2021', 
+    VIN: 'KA05CD5678', 
+    AuditType: 'Door Alignment Issue', 
+    Checkpoints: 'Gap measurement, flushness', 
+    Demerits: 'Door not closing properly', 
+    Location: 'Bangalore', 
+    Auditor: 'Siva', 
+    Model: 'Astor', 
+    Variant: 'Automatic', 
+    Interior_Trim: 'Low', 
+    Colour: 'Black', 
+    Transmission: 'AMT', 
+    Fuel_Type: 'Petrol', 
+    Status: true 
+  },
+  { 
+    ref: 'H2022193', 
+    Date: '15-11-2021', 
+    VIN: 'MH01EF9012', 
+    AuditType: 'Paint Bubbling on Hood', 
+    Checkpoints: 'Surface inspection, adhesion test', 
+    Demerits: 'Paint blistering observed', 
+    Location: 'Mumbai', 
+    Auditor: 'Navin', 
+    Model: 'Gloster', 
+    Variant: 'Manual', 
+    Interior_Trim: 'High', 
+    Colour: 'Blue', 
+    Transmission: 'DCT', 
+    Fuel_Type: 'Petrol', 
+    Status: true 
+  },
+  { 
+    ref: 'H2022194', 
+    Date: '23-10-2021', 
+    VIN: 'MH14GH3456', 
+    AuditType: 'Interior Trim Defect', 
+    Checkpoints: 'Dashboard fit, panel alignment', 
+    Demerits: 'Loose trim panel', 
+    Location: 'Pune', 
+    Auditor: 'Ridhima', 
+    Model: 'Astor', 
+    Variant: 'Automatic', 
+    Interior_Trim: 'Medium', 
+    Colour: 'White', 
+    Transmission: 'AMT', 
+    Fuel_Type: 'Petrol', 
+    Status: true 
+  },
+  { 
+    ref: 'H2022195', 
+    Date: '05-08-2021', 
+    VIN: 'CG04IJ7890', 
+    AuditType: 'Rust Formation on Chassis', 
+    Checkpoints: 'Underbody inspection, corrosion test', 
+    Demerits: 'Rust spots detected', 
+    Location: 'Raipur', 
+    Auditor: 'Siva', 
+    Model: 'Hector', 
+    Variant: 'Manual', 
+    Interior_Trim: 'Low', 
+    Colour: 'Orange', 
+    Transmission: 'Manual', 
+    Fuel_Type: 'Hybrid', 
+    Status: true 
+  }
+];
+
 
   opendashboard() {
     window.open('/#/app/prtsonepager');
@@ -147,18 +228,18 @@ export class OnepagerIssueStatusComponent implements OnInit {
   }
 
 
-   scrollGrid(direction: string) {
-  const container = document.getElementById('grid-table-container');
-
-  if (!container) return;
+scrollGrid(direction: string) {
+  const el = document.querySelector('.table-scroll') as HTMLElement; 
+  if (!el) return;
 
   const scrollAmount = 200; // adjust as needed
-
   if (direction === 'right') {
-    container.scrollLeft += scrollAmount;
-  } else {
-    container.scrollLeft -= scrollAmount;
+    el.scrollLeft += scrollAmount;
+  } else if (direction === 'left') {
+    el.scrollLeft -= scrollAmount;
   }
 }
+
+
 
 }

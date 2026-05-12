@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { ExtendedModule } from "@angular/flex-layout";
 const routes: Routes = [
   { path: "", redirectTo: "grid-meet", pathMatch: "full" },
 
@@ -56,19 +57,19 @@ const routes: Routes = [
     // OwlDateTimeModule,
     // OwlNativeDateTimeModule,
     CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
+        provide: DateAdapter,
+        useFactory: adapterFactory,
     }),
     SharedModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-
     MatDialogModule,
     MatPaginatorModule,
     MatCardModule,
     MatSelectModule,
     MatCheckboxModule,
-  ]
+    ExtendedModule
+]
 })
 export class ActionGridCalenderModule { }

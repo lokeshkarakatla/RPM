@@ -202,7 +202,7 @@ export class OnepagerIssueStatusComponent implements OnInit {
   saveStatus() {
     //this.alertService.createAlert('Successfully saved.', 1);
   }
-  public addchecklistaudit(auditdata) {
+  public addchecklistaudit(auditdata:any) {
     // this.router.navigate(['./app/prts/intiative']);
     window.open('/#/app/prts-grid')
 
@@ -214,7 +214,7 @@ export class OnepagerIssueStatusComponent implements OnInit {
     //  dialogRef.afterClosed().subscribe(data => {
     //  });
   }
-  public grid(auditdata) {
+  public grid(auditdata:any) {
     // let dialogRef = this.dialog.open(GridColumnComponent, {
     //   data: auditdata,
     //   height: 'auto',
@@ -223,7 +223,7 @@ export class OnepagerIssueStatusComponent implements OnInit {
     // dialogRef.afterClosed().subscribe(data => {
     // });
   }
-  public onSelect(event) {
+  public onSelect(event:any) {
     // console.log(event);
   }
 

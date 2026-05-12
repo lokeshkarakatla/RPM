@@ -1,5 +1,41 @@
 @import "../theme/styles/variables";
 
+/* ── Page-header bar height token ── */
+$page-header-bar-height: 56px;
+
+/* ── Page header: breadcrumb title + back button ──
+   Sits between the toolbar and the scroll container; never scrolls.
+   position: absolute inside mat-sidenav-content (position: relative). */
+.page-header-bar {
+    position: absolute;
+    top: $toolbar-height;
+    left: 0;
+    right: 0;
+    height: $page-header-bar-height;
+    z-index: 6;
+    background-color: #fafafa;
+    display: flex;
+    align-items: center;
+    padding: 0 $inner-sidenav-content-padding;
+    box-sizing: border-box;
+
+    app-breadcrumb {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+}
+
+.page-back-btn {
+    flex-shrink: 0;
+    background-color: #808080 !important;
+    color: #fff !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    margin: 0;
+}
+
 .sidenav{
     width: $sidenav-width;
     overflow: hidden;
@@ -39,6 +75,13 @@
   right:0;
   padding: $inner-sidenav-content-padding;
   min-height: calc(100% - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2));
+
+  /* When the page-header-bar is visible, shift down so it is never covered. */
+  &.with-page-header {
+    top: $toolbar-height + $page-header-bar-height;
+    min-height: calc(100% - (#{$toolbar-height} + #{$page-header-bar-height} + #{$inner-sidenav-content-padding}*2));
+  }
+
   .has-footer{
     min-height: calc(100% - (45px + #{$footer-height}));
   }

@@ -1,66 +1,51 @@
-// // .vamshi1 {
-// //     font-size: 14px;
-// //     color: #2196F3 !important;
-// //     outline: #2196F3;
-// //     outline-style: auto;
-// // }
-// // .subject-col {
-// //   max-width: 200px;        /* control width */
-// //   white-space: nowrap;
-// //   overflow: hidden;
-// //   text-overflow: ellipsis; /* ... */
-// // }
+.page-header {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 20px 24px 10px 24px;
+}
 
-// // .table-wrapper {
-// //   width: 97%;        /* adjust: 60%, 50%, etc */
-// //   margin: 0 auto;    /* center the table */
-// // }
+.header-content {
+  display: flex;
+  flex-direction: column;
+}
 
+.page-title {
+  margin: 0;
+  font-size: 20px;
+ 
+  color: #222;
+}
 
-// .table-wrapper {
-//   margin-top: 10px;
-//   margin-bottom: 10px;
-//   text-align: left;
-// }
+.header-info {
+  margin: 3px 0 0 0;
+  font-size: 13px;
+  color: #5f6770;
+}
 
-// .left-table {
-//   margin-left: 0; /* flush left */
-// }
+.back-btn {
+  background: #8d8d8d;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin-top: 5px;
+}
 
-// .left-table th.text-left,
-// .left-table td.text-left {
-//   text-align: left !important;
-// }
+.back-btn i {
+  margin-right: 6px;
+}
 
-// .subject-col {
-//   max-width: 250px;
-//   word-wrap: break-word;
-// }
+.add-btn {
+  height: 42px;
+  margin-top: 5px;
+}
 
-// .btn-submit {
-//   color: #fff;
-//   background-color: #3262a8;
-// }
-
-
-// .compact-table {
-//   width: 100%;
-//   table-layout: fixed;   /* prevents cells from stretching */
-// }
-
-// .compact-table th,
-// .compact-table td {
-//   padding: 8px 12px;
-//   overflow: hidden;      /* hide overflow */
-//   text-overflow: ellipsis; /* add ... for long text */
-//   white-space: nowrap;   /* keep text in one line */
-// }
-
-// .subject-col {
-//   max-width: 250px;      /* limit subject column width */
-// }
-
-// .text-left {
-//   text-align: left !important;
-// }
-
+.table-wrapper {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}

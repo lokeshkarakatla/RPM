@@ -79,10 +79,6 @@
   line-height: 1.5;
 }
 /* Styles for Angular Material mat-select to match */
-.form-control.mat-mdc-select {
-  padding: 0;
-  height: 38px;
-}
 .form-control .mat-mdc-select-trigger {
   padding: 0 12px;
   height: 100%;
@@ -172,4 +168,63 @@
 .cancel-btn {
   border-color: #ced4da !important;
   color: #212529 !important;
+}
+
+
+// ::ng-deep .small-field .mat-form-field-flex {
+//   height: 36px;
+//   align-items: center;
+// }
+
+// ::ng-deep .small-field .mat-form-field-infix {
+//   padding: 4px 0 !important;
+// }
+
+::ng-deep ngx-mat-select-search input {
+  border: 1px solid #dee2e6 !important;
+  border-radius: 4px;
+  padding: 6px 10px;
+  height: 32px;
+  font-size: 13px;
+  outline: none;
+}
+
+::ng-deep ngx-mat-select-search input:focus {
+  border-color: #80bdff;
+  box-shadow: none;
+}
+
+/* Make labels follow same grid as inputs */
+.assignment-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+/* Clean label alignment */
+.assignment-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.important .form-control{
+  background-color: #fff9c4;
+  border: 2px solid #fdd835;
+}
+
+.page-container {
+  margin-top: -20px; /* adjust value as needed */
+}
+
+
+::ng-deep .page-header-bar {
+  display: none !important;
+}
+
+:host {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  margin-top: -56px; // cancel the page-header-bar height
 }

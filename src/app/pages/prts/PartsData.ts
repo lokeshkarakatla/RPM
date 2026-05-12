@@ -11,6 +11,128 @@
 export class PartsData {
 
 
+
+
+
+  static stepsData() {
+  let values = [
+    {
+      step: 'D1',
+      stepName: 'Process',
+      department: 'Quality Assurance',
+      assigned: 'Jane Smith',
+      status: 'In Progress',
+      lastUpdated: '2025-10-09',
+      updatedBy: 'Jane Smith',
+      startDate: '2025-10-01',
+      endDate: '2025-10-15',
+      done: false
+    },
+    {
+      step: 'D2',
+      stepName: 'Tools',
+      department: 'Production',
+      assigned: 'Peter Jones',
+      status: 'Not Started',
+      lastUpdated: '2025-10-08',
+      updatedBy: 'Admin',
+      startDate: '2025-10-16',
+      endDate: '2025-10-20',
+      done: false
+    },
+    {
+      step: 'D3a',
+      stepName: 'Production',
+      department: 'Manufacturing',
+      assigned: 'Mary Williams',
+      status: 'Pending Review',
+      lastUpdated: '2025-10-10',
+      updatedBy: 'Supervisor',
+      startDate: '2025-10-12',
+      endDate: '2025-10-18',
+      done: false
+    },
+    {
+      step: 'D3b',
+      stepName: 'Supplier Quality Management',
+      department: 'Supply Chain',
+      assigned: 'Peter Jones',
+      status: 'In Progress',
+      lastUpdated: '2025-10-11',
+      updatedBy: 'Quality Lead',
+      startDate: '2025-10-13',
+      endDate: '2025-10-19',
+      done: false
+    },
+    {
+      step: 'D4a',
+      stepName: 'Internal Quality Control',
+      department: 'QA',
+      assigned: 'Jane Smith',
+      status: 'Completed',
+      lastUpdated: '2025-10-07',
+      updatedBy: 'Auditor',
+      startDate: '2025-09-30',
+      endDate: '2025-10-05',
+      done: true
+    },
+    {
+      step: 'D4b',
+      stepName: 'Supplier Part Quality',
+      department: 'Procurement',
+      assigned: 'Mary Williams',
+      status: 'In Progress',
+      lastUpdated: '2025-10-09',
+      updatedBy: 'Supplier Manager',
+      startDate: '2025-10-14',
+      endDate: '2025-10-22',
+      done: false
+    },
+    {
+      step: 'D5',
+      stepName: 'Process Engineering',
+      department: 'Engineering',
+      assigned: 'Peter Jones',
+      status: 'Not Started',
+      lastUpdated: '2025-10-08',
+      updatedBy: 'Admin',
+      startDate: '2025-10-20',
+      endDate: '2025-10-25',
+      done: false
+    },
+    {
+      step: 'D6',
+      stepName: 'Product Design',
+      department: 'R&D',
+      assigned: 'Jane Smith',
+      status: 'In Progress',
+      lastUpdated: '2025-10-12',
+      updatedBy: 'Design Lead',
+      startDate: '2025-10-15',
+      endDate: '2025-10-28',
+      done: false
+    },
+    {
+      step: 'D7',
+      stepName: 'Cross Functional Team',
+      department: 'Operations',
+      assigned: 'Mary Williams',
+      status: 'Pending',
+      lastUpdated: '2025-10-10',
+      updatedBy: 'Coordinator',
+      startDate: '2025-10-18',
+      endDate: '2025-10-30',
+      done: false
+    }
+  ];
+  return values;
+}
+
+
+
+
+
+
     static GetD7tData() {
         let  values = [
   { check: 'Have all relevant process documents  been permanently updated to reflect the corrective actions?' },

@@ -1,19 +1,22 @@
-<div class="page-header ms-2">
+<div class="page-header ms-5">
   <h3 class="page-title">Mitigation</h3>
+  <p class="header-info mb-0">
+    <span class="fw-bold">Ref No:</span>
+    PSR-24001
+
+    <span class="ms-3 fw-bold">Subject:</span>
+    Paint Defect
+  </p>
 </div>
 
-<div class="editor-container">
-  <quill-editor
-    [(ngModel)]="content"
-    [modules]="modules"
-    placeholder="Insert text here ...">
+<div class="editor-container ms-5">
+  <quill-editor [(ngModel)]="content" [modules]="modules" placeholder="Insert text here ...">
   </quill-editor>
 </div>
 
 <!-- Button aligned below editor -->
 <div class="d-flex justify-content-end mt-3">
-  <button mat-raised-button type="button"
-          style="color: #fbfdfb; background-color: #0a5db6;">
+  <button mat-raised-button type="button" style="color: #fbfdfb; background-color: #0a5db6;">
     <mat-icon>save</mat-icon>
     Save
   </button>

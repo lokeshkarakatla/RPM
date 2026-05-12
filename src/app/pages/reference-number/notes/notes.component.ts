@@ -35,7 +35,7 @@ export class NotesComponent implements OnInit {
       // default data
       this.notes = [
         { id: 1, date: '24/09/2024', description: 'My car’s engine has been stalling unexpectedly while driving', status: 'Active' },
-        { id: 2, date: '24/09/2024', description: 'My brakes have been making a loud squeaking noise...', status: 'Active' },
+        { id: 2, date: '24/09/2024', description: 'My brakes have been making a loud squeaking noise.', status: 'Active' },
         { id: 3, date: '24/09/2024', description: 'Transmission in my car seems to slip between gears', status: 'Active' }
       ];
     }

@@ -75,7 +75,7 @@ export class PrtsDRolesComponent implements OnInit {
     //this.alertService.createAlert('Successfully saved.', 1);
   }
 
-  public addmodule(item) {
+  public addmodule(item:any) {
     this.dialog.open(AddPrtsRolesComponent, {
       data: item,
       width: "600px",
@@ -83,7 +83,7 @@ export class PrtsDRolesComponent implements OnInit {
     })
   }
 
-  public adddesc(item) {
+  public adddesc(item:any) {
     this.dialog.open(AddPrtsDescriptionComponent, {
       data: item,
       width: "600px",
@@ -91,7 +91,7 @@ export class PrtsDRolesComponent implements OnInit {
     })
   }
 
-  public addchecklist(item) {
+  public addchecklist(item:any) {
     this.dialog.open(AddPrtsPillarComponent, {
       data: item,
       width: "580px",
@@ -99,7 +99,7 @@ export class PrtsDRolesComponent implements OnInit {
     })
   }
 
-  public adddocument(item) {
+  public adddocument(item:any) {
     this.dialog.open(AddPrtsDocumentComponent, {
       data: item,
       width: "620px",

@@ -14,14 +14,14 @@ export class PsrComponent implements OnInit {
   check_box_type = CheckBoxType;
   isRepeted: boolean = false;
   addStep = 1;
-  currentlyChecked: CheckBoxType;
+  currentlyChecked!: CheckBoxType;
   data: any;
   addLookupGroup: FormGroup;
   editLookupGroup: FormGroup;
   lookup: any = false;
   codes: any = [];
   colors: Array<any> = [{ 'code': 'green', 'name': 'Green', 'colorClass': 'dot_green' }, { 'code': 'blue', 'name': 'Blue', 'colorClass': 'dot_blue' }, { 'code': 'grey', 'name': 'Grey', 'colorClass': 'dot_grey' }, { 'code': 'red', 'name': 'Red', 'colorClass': 'dot_red' }];
-  pageGroup: FormGroup;
+  pageGroup!: FormGroup;
   deleteLookupItemValue: any;
   index = 10;
   private _lookupService: any;
@@ -85,7 +85,7 @@ export class PsrComponent implements OnInit {
     });
   }
 
-  addNewInputField(val): void {
+  addNewInputField(val:any): void {
     console.log(val, "test")
 
     if (val > 0) {
@@ -104,7 +104,7 @@ export class PsrComponent implements OnInit {
 
   }
 
-  fnLookupDeleteItemModal(i) {
+  fnLookupDeleteItemModal(i:any) {
     this.index = i;
     this.removeInputField(this.index);
   }
@@ -122,10 +122,10 @@ export class PsrComponent implements OnInit {
 
     this.currentlyChecked = targetType;
   }
-  repeted(event) {
+  repeted(event:any) {
     this.isRepeted = !this.isRepeted;
   }
-  changeAddStep(value) {
+  changeAddStep(value:any) {
     this.addStep = value;
   }
   goback() {

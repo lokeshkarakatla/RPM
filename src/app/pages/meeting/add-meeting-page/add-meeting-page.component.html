@@ -1,7 +1,3 @@
-<button mat-raised-button class="back-btn btn-col" (click)="goBack()" style=" margin-left: 1130px;">
-    <mat-icon>arrow_back</mat-icon> Back
-  </button>
-
 <!-- ── Info bar: Date | Time | Duration + Save ── -->
 <div class="am-info-bar">
     <div class="am-info-fields">
@@ -50,21 +46,14 @@
             <span class="am-count-badge">{{ agendaCount }} items</span>
         </div>
 
-       <div class="am-agenda-list">
-  <div 
-    class="am-agenda-item" 
-    *ngFor="let item of agendaItems; let i = index; trackBy: trackByIndex"
-  >
-    <div class="am-agenda-num">{{ i + 1 }}</div>
+        <div class="am-agenda-list">
+            <div class="am-agenda-item" *ngFor="let item of agendaItems; let i = index; trackBy: trackByIndex">
+                <div class="am-agenda-num">{{ i + 1 }}</div>
 
-    <input
-      type="text"
-      class="am-agenda-input"
-      placeholder="Enter agenda item..."
-      [(ngModel)]="agendaItems[i]"
-    />
-  </div>
-</div>
+                <input type="text" class="am-agenda-input" placeholder="Enter agenda item..."
+                    [(ngModel)]="agendaItems[i]" />
+            </div>
+        </div>
 
         <button class="am-add-item-btn" (click)="addAgendaItem()">
             <mat-icon>add</mat-icon> <span class="btn-text">Add Agenda Item</span>

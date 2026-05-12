@@ -98,11 +98,11 @@ table {
 }
 
 .col-view, .cell-view {
-  width: 100px;
+  width: 50px;
 }
 
 .col-actions, .cell-actions {
-  width: 120px;
+  width: 70px;
 }
 
 /* SUBJECT TEXT HANDLING */
@@ -110,4 +110,10 @@ table {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.header-info {
+  margin: 3px 0px 0px 0px;
+  font-size: 13px;
+  color: #555;
 }

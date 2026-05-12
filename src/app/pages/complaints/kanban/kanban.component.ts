@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComplaintsService } from '../complaints.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { PageHeaderService } from '../../../shared/page-header.service';
 
 interface Note {
   text: string;
@@ -31,13 +32,14 @@ type Status = 'Pending' | 'Process' | 'Hold' | 'Closed';
   templateUrl: './kanban.component.html',
   styleUrls: ['./kanban.component.scss']
 })
-export class KanbanComponent implements OnInit {
+export class KanbanComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router, private complaintsService: ComplaintsService) { }
+  constructor(private router: Router, private complaintsService: ComplaintsService, private pageHeaderService: PageHeaderService) { }
   ngOnInit(): void {
+    this.pageHeaderService.showBackButton(() => this.goBack());
 
     localStorage.removeItem('kanbanData');
-     this.initializeKanbanData();
+    this.initializeKanbanData();
 
     const savedData = localStorage.getItem('kanbanData');
 
@@ -240,19 +242,23 @@ export class KanbanComponent implements OnInit {
   goBack() {
     this.router.navigate(['/app/complaints']);
   }
+
+  ngOnDestroy(): void {
+    this.pageHeaderService.hideBackButton();
+  }
   trackByCard(index: number, item: Card) {
     return item.id;
   }
 
   getColor(status: string): string {
-  switch (status) {
-    case 'Pending': return 'red';
-    case 'Process': return 'yellow';
-    case 'Hold': return 'blue';
-    case 'Closed': return 'green';
-    default: return 'gray';
+    switch (status) {
+      case 'Pending': return 'red';
+      case 'Process': return 'yellow';
+      case 'Hold': return 'blue';
+      case 'Closed': return 'green';
+      default: return 'gray';
+    }
   }
-}
 
 
 }

@@ -88,86 +88,96 @@
 </div> -->
 
 
-<div class="page-header ms-3">
+<div class="page-header ms-5">
   <h3 class="page-title">Closure</h3>
+
+  <p class="header-info mb-0">
+    <span class="fw-bold">Ref No:</span>
+    PSR-24001
+
+    <span class="ms-3 fw-bold">Subject:</span>
+    Paint Defect
+  </p>
 </div>
 
-<div class="top-section">
-  
+<div class="top-section ms-5">
+
   <!-- Tabs -->
   <div class="pills">
     <ul class="nav nav-pills">
       <li>
-        <a mat-raised-button class="navtabWidth active-tab"
-          [routerLink]="['../closure']">
+        <a mat-raised-button class="navtabWidth" [ngClass]="{'active-tab': activeTab === 'documents'}"
+          (click)="setTab('documents')">
           Documents
         </a>
       </li>
-
       <li>
-        <a mat-raised-button class="navtabWidth"
-          [routerLink]="['../closure-note']">
+        <a mat-raised-button class="navtabWidth" [ngClass]="{'active-tab': activeTab === 'notes'}"
+          (click)="setTab('notes')">
           Notes
         </a>
       </li>
     </ul>
   </div>
 
-  <!-- Add Button -->
-  <button mat-raised-button color="primary"
-    class="add-btn"
-    (click)="adddocument(null)">
-    <mat-icon>add</mat-icon> Add Document
-  </button>
-
 </div>
 
 
-<div class="table-wrapper">
-  <table matSort class="table table-bordered table-hover">
-    
-   <thead class="tbl-head">
-  <tr>
-    <th class="col-date">Date</th>
-    <th class="col-subject">Subject</th>
-    <th class="col-view">View</th>
-    <th class="col-actions">Actions</th>
-  </tr>
-</thead>
-
-<tbody>
-  <tr *ngFor="let item of values">
-
-    <td class="cell-date text-center">
-      {{ item.date }}
-    </td>
-
-    <td class="cell-subject">
-      {{ item.subject }}
-    </td>
-
-    <td class="cell-view text-center">
-      <mat-icon>library_books</mat-icon>
-    </td>
-
-    <td class="cell-actions text-center">
-      <a class="me-2" matTooltip="Edit" (click)="adddocument(null)">
-        <i class="fa fa-edit text-primary"></i>
-      </a>
-      <a matTooltip="Delete">
-        <i class="fa fa-trash text-danger"></i>
-      </a>
-    </td>
-
-  </tr>
-</tbody>
-
-  </table>
-</div>
+<div style="width: 800px;" class="ms-5">
+  <div class="text-end mb-3">
+    <button mat-raised-button color="primary" class="add-btn" (click)="adddocument(null)">
+      <mat-icon>add</mat-icon> Add Document
+    </button>
+  </div>
 
 
-<div class="footer-section">
-  <button mat-raised-button class="submit-btn">
-    <mat-icon>save</mat-icon> Submit
-  </button>
+
+  <div class="table-wrapper">
+    <table matSort class="table table-bordered table-hover">
+
+      <thead class="tbl-head">
+        <tr>
+          <th class="col-date">Date</th>
+          <th class="col-subject">Subject</th>
+          <th class="col-view text-center">View</th>
+          <th class="col-actions text-center">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of values">
+
+          <td class="cell-date text-center">
+            {{ item.date }}
+          </td>
+
+          <td class="cell-subject">
+            {{ item.subject }}
+          </td>
+
+          <td class="cell-view text-center">
+            <mat-icon>library_books</mat-icon>
+          </td>
+
+          <td class="cell-actions text-center">
+            <a class="me-2" matTooltip="Edit" (click)="adddocument(null)">
+              <i class="fa fa-edit text-primary"></i>
+            </a>
+            <a matTooltip="Delete">
+              <i class="fa fa-trash text-danger"></i>
+            </a>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+
+  <div class="d-flex justify-content-end mt-3">
+    <button mat-raised-button type="button" style="color: rgba(252, 253, 252, 0.926); background-color: #3262a8;">
+      <mat-icon>save</mat-icon>&nbsp; Submit
+    </button>
+  </div>
 </div>

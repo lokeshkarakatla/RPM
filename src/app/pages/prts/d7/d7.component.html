@@ -9,9 +9,24 @@
   </button>
 </div> -->
 
+<div class="page-header  ms-5 d-flex justify-content-between align-items-start" style="padding-top:0px ;">
+
+  <!-- Left Content -->
+  <div class="header-content">
+    <h3 class="page-title mb-1">D7 (CFT)</h3>
+
+     <p class="header-info mb-0">
+                <span class="fw-bold">Ref No:</span>
+               PSR-24001
+
+                <span class="ms-3 fw-bold">Subject:</span>
+               Paint Defect
+            </p>
+  </div>
+</div>
 
 
-<div style="display: flex; gap: 10px; padding: 10px;" class="mt-4">
+<div style="display: flex; gap: 10px; padding: 30px;" class="mt-4">
   <button style="font-weight: bold; border-radius: 5px" [ngClass]="{ 'active-tab': activeTab === 'overview' }"
     (click)="setTab('overview')">
     Overview
@@ -67,7 +82,7 @@
 
 </div>
 
-<hr />
+
 
 <!-- Overview  -->
 <div *ngIf="activeTab === 'overview'">
@@ -117,7 +132,7 @@
             <th class="theadcolor text-center">Yes / No</th>
             <th class="theadcolor text-center">NA</th>
             <th class="theadcolor text-center">Checklist</th>
-            <!-- <th class="theadcolor text-center">Actions</th> -->
+
           </tr>
         </thead>
         <tbody>
@@ -143,8 +158,8 @@
   </div>
 
 
-  <div class="col-sm-12 btn-footer-space clearfix mt-5">
-    <div class="d-flex justify-content-end gap-2 footer-actions">
+  <div class="col-sm-12 btn-footer-space clearfix mt-5" style="margin-right: 25px;">
+    <div class="d-flex justify-content-end gap-2 footer-actions mx-3">
 
       <button mat-raised-button (click)="back()" type="button" style="color: #070a07; background-color: #e0e0e0;">
         <mat-icon>fast_rewind</mat-icon> Back
@@ -337,7 +352,7 @@
 </div>
 
 <!-- Why -->
-<div *ngIf="activeTab === '5why'">
+<div *ngIf="activeTab === '5why'" style="margin-left: 25px;">
 
   <div class="row-wrap">
     <div class="w-100">
@@ -426,71 +441,73 @@
 
 
 <!-- Documents -->
-<div *ngIf="activeTab === 'documents'">
-  <button mat-raised-button color="primary" class="pull-right btn-primary mt-3 mb-4" (click)="adddocument(null)">
-    <mat-icon>add</mat-icon> Add Documents
-  </button>
-  <table matSort id="example2" class="table table-bordered table-hover">
+<!-- Documents -->
+<div *ngIf="activeTab === 'documents'" style="margin-left: 30px;">
+
+  <!-- Button row aligned above the table -->
+  <div style="width: auto; min-width: 800px; display: flex; justify-content: flex-end; margin-bottom: 8px; margin-right: 200px;">
+    <button mat-raised-button color="primary" class="btn-primary" (click)="adddocument(null)">
+      <mat-icon>add</mat-icon> Add Documents
+    </button>
+  </div>
+
+  <table matSort id="example2" class="table table-bordered table-hover"
+    style="table-layout: fixed; width: auto; min-width: 800px;">
     <thead class="tbl-head">
       <tr>
-        <th>Date</th>
-        <th>Refer</th>
-        <th>Done</th>
-        <th class="text-center">Document Type</th>
-        <th class="theadcolor text-center">View</th>
-        <th class="theadcolor text-center">Actions</th>
+        <th style="width: 100px;">Date</th>
+        <th style="width: 80px;">Refer</th>
+        <th style="width: 60px;" class="text-center">Done</th>
+        <th style="width: 150px;" class="text-center">Document Type</th>
+        <th style="width: 60px;" class="theadcolor text-center">View</th>
+        <th style="width: 80px;" class="theadcolor text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of documents">
-        <td>{{ item.date }}</td>
-        <td>{{ item.refer }}</td>
-        <td>{{ item.Done }}</td>
-        <td style="color: cornflowerblue" class="text-center" (click)="adddocumenttype(item)">
+        <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ item.date }}</td>
+        <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ item.refer }}</td>
+        <td class="text-center"><input type="checkbox"></td>
+        <td style="color: cornflowerblue; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+          class="text-center" (click)="adddocumenttype(item)">
           Containment Log.pdf
         </td>
         <td class="text-center"><mat-icon>library_books</mat-icon></td>
         <td class="text-center editDel">
-          <a style="cursor: pointer; margin-right: 10px" matTooltip="Edit" (click)="adddocument(item)">
-            <i class="fa fa-edit" style="color: cornflowerblue"></i>
+          <a style="cursor: pointer; margin-right: 10px;" matTooltip="Edit" (click)="adddocument(item)">
+            <i class="fa fa-edit" style="color: cornflowerblue;"></i>
           </a>
-          <a>
-            <i class="fa fa-trash red" matTooltip="Delete" style="cursor: pointer"
-              (click)="deleteConfirmation(item)"></i>
+          <a matTooltip="Delete" (click)="deleteConfirmation(item)" style="cursor: pointer;">
+            <i class="fa fa-trash red"></i>
           </a>
         </td>
       </tr>
-
     </tbody>
   </table>
 
-  <div class="col-lg-12 margin-top:50px">
-    <div class="col-sm-3.5 pull-right mt-5">
-      <button mat-raised-button (click)="back()" class="mr-2" type="button" style="
-          color: rgb(7, 10, 7);
-          background-color: #e0e0e0;
-          margin-right: 10px;
-        ">
-        <mat-icon>fast_rewind</mat-icon>Back
+  <div class="col-lg-12"  >
+    <div class="pull-right mt-5" style="margin-right: 170px;" >
+      <button mat-raised-button (click)="back()" class="mr-2" type="button"
+        style="color: rgb(7, 10, 7); background-color: #e0e0e0; margin-right: 10px;">
+        <mat-icon>fast_rewind</mat-icon> Back
       </button>
-      <button mat-raised-button class="mr-2" type="button" style="
-          color: rgba(252, 253, 252, 0.926);
-          background-color: #3262a8;
-          margin-right: 10px;
-        ">
-        <mat-icon>save</mat-icon>Save
+      <button mat-raised-button class="mr-2" type="button"
+        style="color: rgba(252, 253, 252, 0.926); background-color: #3262a8; margin-right: 10px;">
+        <mat-icon>save</mat-icon> Save
       </button>
       <button mat-raised-button (click)="next()" class="mr-2" type="button"
-        style="color: rgb(6, 6, 6); background-color: #e0e0e0">
-        Next<mat-icon>fast_forward</mat-icon></button>&nbsp;&nbsp;&nbsp;&nbsp;
+        style="color: rgb(6, 6, 6); background-color: #e0e0e0;">
+        Next <mat-icon>fast_forward</mat-icon>
+      </button>
     </div>
   </div>
+
 </div>
 
 
 <!-- capa -->
 
-<div *ngIf="activeTab === 'capa'" class="col-sm-12" style="margin-top: 10px;">
+<div *ngIf="activeTab === 'capa'" class="col-sm-12" style="margin-top: 10px; margin-left: 25px;">
   <div class="table-responsive" id="grid-table-container" style="width: 100%; margin-left: -7px;">
     <table class="table table-bordered table-hover">
       <thead class="tbl-head">
@@ -540,11 +557,11 @@
 
 <!-- update -->
 
-<div *ngIf="activeTab === 'update'">
+<div *ngIf="activeTab === 'update'" style="margin-left: 20px;">
 
   <div class="row">
     <div class="form-group">
-      <h2><label class="col-lg-12 control-label"> Root Cause Analysis: </label></h2>
+      <h2><label class="col-lg-12 control-label"style="font-size: 16px;"> Root Cause Analysis: </label></h2>
       <div class="col-lg-12">
         <textarea class="form-control" style="height: 131px; width: 27cm;" placeholder="Enter Root Cause Analysis"
           required></textarea>
@@ -552,7 +569,7 @@
     </div>
 
     <div class="form-group">
-      <h2><label class="col-lg-12 control-label"> Interim Corrective Action: </label></h2>
+      <h2><label class="col-lg-12 control-label"style="font-size: 16px;"> Interim Corrective Action: </label></h2>
       <div class="col-lg-12">
         <textarea class="form-control" style="height: 131px; width: 27cm;" placeholder="Enter Interim Corrective Action"
           required></textarea>
@@ -560,7 +577,7 @@
     </div>
 
     <div class="form-group">
-      <h2><label class="col-lg-12 control-label"> Permanent Corrective Action: </label></h2>
+      <h2><label class="col-lg-12 control-label"style="font-size: 16px;"> Permanent Corrective Action: </label></h2>
       <div class="col-lg-12">
         <textarea class="form-control" style="height: 131px; width: 27cm;"
           placeholder="Enter Permanent Corrective Action" required></textarea>
@@ -568,7 +585,7 @@
     </div>
   </div>
 
-  <div align="end" style="margin-top: 35px;">
+  <div align="end" style="margin-top: 35px; margin-right: 10px;margin-bottom: 20px;">
 
     <!-- <button mat-raised-button class="pull-right vamshi"
       style="color: white; background-color: rgb(10, 93, 182); margin-right: 160px;">

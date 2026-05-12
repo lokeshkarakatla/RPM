@@ -1,163 +1,89 @@
-  /* Main container for the table and its controls */
-  .table-section-container {
-    padding: 16px 24px;
-  }
-
-  /* Styles for the controls above the table */
-  .table-controls {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 16px;
-  }
-
-  .button-group {
-    display: flex;
-    gap: 8px;
-  }
-
-  /* Styling for the filter card */
-  .filter-card {
-    margin-bottom: 16px;
-  }
-  .filter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 16px;
-  }
-
-  /* This creates the scrollable area for the table */
-  .table-container {
-    overflow-x: auto; /* Allows horizontal scrolling for many columns */
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-  }
-
-  /* Main table styling */
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-
-
-  .data-table th,
-  .data-table td {
-    padding: 12px 16px; /* Proper spacing inside cells */
-    border-bottom: 1px solid #e0e0e0;
-    text-align: left;
-    white-space: nowrap; /* Prevents text from wrapping */
-  }
-
-  .data-table tbody tr:last-child td {
-    border-bottom: none;
-  }
-
-  .data-table tbody tr:hover {
-    background-color: #fafafa;
-  }
-
-  /* Styling for specific cells */
-  .action-cell {
-    display: flex;
-    gap: 4px;
-  }
-
-  td a {
-    cursor: pointer;
-    color: #3f51b5;
-    font-weight: 500;
-  }
-
-  .status-select {
-    font-size: 13px;
-    width: 150px; /* Give the select a reasonable width */
-  }
-
-  .no-data-cell {
-      text-align: center;
-      padding: 32px;
-      color: #999;
-  }
-
-  /* Paginator styling */
-  mat-paginator {
-    margin-top: 16px;
-  }
-
-  .mine {
-    position: fixed;
-    bottom: 80px;
-    right: 40px;
-    background-color: #e6e6e6 !important;
-}
-
-/* Fixed filter button */
-.filter-btn-fixed {
-  position: fixed;
-  top: 100px; /* adjust depending on your header height */
-  right: 40px;
-  z-index: 1050;
-  background-color: #3f51b5;
-  color: white;
-  border-radius: 50px;
-  padding: 10px 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: background-color 0.3s ease;
-}
-
-.filter-btn-fixed:hover {
-  background-color: #303f9f;
-}
-
-
-/* Target first column (Status) */
-.data-table th:nth-child(2),
-.data-table td:nth-child(2) {
-  width: 180px; /* adjust width */
-  min-width: 180px;
-}
-
-.cdk-overlay-container {
-  z-index: 9999 !important;
-}
-
-
-/* Make table cells handle inputs properly */
-.table td {
-  vertical-align: middle;
-  padding: 6px !important;
-  text-align: center;
-}
-
-/* Fix select inside table */
-.table td select.form-control {
+/* 1. Force fixed layout on the correct table class */
+.table {
+  table-layout: fixed !important;  /* your table uses .table, not .data-table */
   width: 100%;
-  min-width: 120px;   /* 👈 important */
-  height: 32px;
-  padding: 2px 6px;
-  font-size: 13px;
 }
 
-/* Prevent column shrink */
+/* 2. Define ALL column widths explicitly using nth-child */
+.table th:nth-child(1),  /* Execute */
+.table td:nth-child(1) {
+  width: 100px;
+}
+
+.table th:nth-child(2),  /* Step */
+.table td:nth-child(2) {
+  width: 55px;
+}
+
+.table th:nth-child(3),  /* Step Name */
+.table td:nth-child(3) {
+  width: 160px;
+}
+
+.table th:nth-child(4),  /* Notes */
+.table td:nth-child(4) {
+  width: 55px;
+}
+
+.table th:nth-child(5),  /* Department */
+.table td:nth-child(5) {
+  width: 140px;
+}
+
+.table th:nth-child(6),  /* Assigned */
+.table td:nth-child(6) {
+  width: 120px;
+}
+
+.table th:nth-child(7),  /* Status */
+.table td:nth-child(7) {
+  width: 110px;
+}
+
+.table th:nth-child(8),  /* Last Updated */
+.table td:nth-child(8) {
+  width: 110px;
+}
+
+.table th:nth-child(9),  /* Updated By */
+.table td:nth-child(9) {
+  width: 110px;
+}
+
+.table th:nth-child(10), /* Start Date */
+.table td:nth-child(10) {
+  width: 100px;
+}
+
+.table th:nth-child(11), /* End Date */
+.table td:nth-child(11) {
+  width: 100px;
+}
+
+.table th:nth-child(12), /* Done */
+.table td:nth-child(12) {
+  width: 55px;
+}
+
+/* 3. All cells truncate overflow cleanly */
 .table th,
 .table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px 6px;
 }
 
-/* Optional: give specific columns proper width */
-.table td:nth-child(5),
-.table td:nth-child(6),
-.table td:nth-child(7) {
-  min-width: 140px;
-}
-
-/* Improve table layout */
-.table {
-  table-layout: auto;
-}
-
-/* Fix responsive overflow cutting dropdown */
+/* 4. Keep horizontal scroll working */
 .table-responsive {
   overflow-x: auto;
-  overflow-y: visible; /* 👈 important */
+  overflow-y: visible;
+}
+
+.header-info {
+  margin: 3px 0px 0px 0px;
+  font-size: 13px;
+  color: #555;
 }

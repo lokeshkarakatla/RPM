@@ -17,15 +17,15 @@
   padding: 0;
 }
 
+/* Fixed toolbar: plain block outside any overflow container, never scrolls */
 .fixed-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #fff;
-  padding: 10px;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 12px;
+  padding: 10px 0;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
  .mine {
@@ -56,21 +56,9 @@
 }
 
 
-.fixed-toolbar {
-  position: sticky;   /* stays pinned inside its parent */
-  top: 0;             /* stick to the top */
-  z-index: 1000;      /* keep above table rows */
-  background: #fff;   /* solid background so rows don’t overlap */
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-
-  display: flex;      /* align buttons in a row */
-  gap: 15px;          /* spacing between buttons */
-}
-
+/* Scrollable table wrapper: scrollGrid() targets this */
 .table-scroll {
   overflow-x: auto;
   overflow-y: hidden;
-  white-space: nowrap;
   max-width: 100%;
 }

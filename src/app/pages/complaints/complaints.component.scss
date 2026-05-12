@@ -132,3 +132,33 @@ input[type="range"] {
    
   }
 }
+
+
+/* Make Status column wider */
+/* Make Status column wider */
+.status-col {
+  width: 100px;       /* adjust as needed */
+  min-width: 100px;   /* prevents shrinking */
+}
+
+.status-select {
+  width: 100%;        /* dropdown fills the cell */
+  min-width: 100px;   /* ensures options are visible */
+}
+
+
+.status-select {
+  width: 100%;
+  min-width: 100px;
+  font-size: 15px;   // select box text size
+  
+
+  option {
+    font-size: 16px; // dropdown option text size
+  }
+}
+
+
+select.status-select option {
+  font-size: 14px;
+}

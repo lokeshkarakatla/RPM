@@ -77,23 +77,19 @@
 
 
 
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-}
-
 .row.no-margin {
   display: flex;
-  height: 100vh;
-  overflow: hidden;
+  flex-wrap: nowrap;
+  min-height: 100%;
 }
 
 
 
 .sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   width: 220px;
-  height: 100%;
   background: #f3f3f3;
 
   overflow-y: auto;
@@ -105,8 +101,7 @@ html, body {
 
 .col-sm-10.no-padding {
   flex: 1;
-  height: 100%;
-  overflow-y: auto;
+  min-width: 0;
   overflow-x: hidden;
 }
 

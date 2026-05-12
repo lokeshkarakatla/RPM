@@ -19,16 +19,20 @@ export class MonitorComponent implements OnInit {
   totalSize = 0;
   filterToggle: boolean = false;
   fromPage: string | null = null;
-  constructor(private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
+
+  data: any[] = [];  
+    constructor(private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
     this.route.queryParams.subscribe(params => {
       this.fromPage = params['from'] || null;
     });
   }
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
+
+    this.data = PartsData.stepsData();
   }
 
-  data = [
+  dataD = [
     {
       title: "High-Performance Nissan Ariya NISMO Debuts on World EV (FIELD/2024/09/6)",
       role: "Shop Head",
@@ -153,21 +157,25 @@ checked2: boolean = false;
 
 selectedRow: string = '';
 
-onCheckboxChange(row: string) {
-  this.selectedRow = row;
+onCheckboxChange(index: number, event: Event) {
+  const input = event.target as HTMLInputElement;
+  const newValue = input.checked;
 
   const dialogRef = this.dialog.open(MonitorDialogComponent, {
     width: '400px'
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    if (result === false) {
-      // ❌ If NO clicked → uncheck checkbox
-      if (row === 'row1') this.checked1 = false;
-      if (row === 'row2') this.checked2 = false;
+    if (result === true) {
+      // ✅ User confirmed → keep the new value
+      this.data[index].done = newValue;
+    } else {
+      // ❌ User clicked NO → revert checkbox
+      this.data[index].done = !newValue;
     }
   });
 }
+
 
 
 

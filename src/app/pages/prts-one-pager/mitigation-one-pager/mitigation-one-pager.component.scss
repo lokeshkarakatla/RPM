@@ -1,3 +1,52 @@
+.page-header {
+  padding: 10px 24px 10px;
+  margin-bottom: 20px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 20px;
+ 
+  color: #222;
+}
+
+.header-info {
+  margin: 3px 0 0 0;
+  font-size: 13px;
+  color: #5f6770;
+}
+
+.add-btn {
+  height: 42px;
+  margin-top: 5px;
+}
+
+/* Editor */
+.editor-container {
+  width: 60%;
+  min-width: 60%;
+  max-width: 100%;
+  resize: horizontal;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-left: 24px;
+}
+
+.editor-box {
+  width: 100%;
+}
+
+.editor-container .ql-toolbar,
+.editor-container .ql-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 ::ng-deep .ql-toolbar {
   border-radius: 6px 6px 0 0;
 }
@@ -7,61 +56,13 @@
   min-height: 350px;
 }
 
-.editor-wrapper {
-  max-width: 100%;        /* keep everything inside viewport */
-  overflow-x: hidden;     /* prevent horizontal scrollbars */
+/* Save Button */
+.save-box {
+  padding-right: 24px;
 }
 
-
-
-
-
-/* Prevent page overflow */
-.container-fluid, .editor-wrapper {
-  max-width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
+.save-btn {
+  color: #fff !important;
+  background-color: #0a5db6 !important;
 }
-
-/* Editor sizing */
-.editor-container {
-  width: 60%;              /* initial width */
-  min-width: 60%;          /* don’t shrink below 60% */
-  max-width: 100%;         /* don’t grow beyond full width */
-  display: block;
-  margin-left: 0;          /* align left */
-  text-align: left;
-  resize: horizontal;      /* allow drag to resize */
-  overflow: hidden;        /* prevent content overflow */
-  box-sizing: border-box;
-}
-
-.editor-container .ql-toolbar,
-.editor-container .ql-container {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-
-.editor-container {
-  width: 60%;              /* initial width */
-  min-width: 60%;          /* don’t shrink below 60% */
-  max-width: 100%;         /* don’t grow beyond full width */
-  display: block;
-  margin-left: 0;          /* align left */
-  resize: horizontal;      /* allow drag to resize */
-  overflow: hidden;        /* prevent overflow */
-  box-sizing: border-box;
-}
-
-.editor-container .ql-toolbar,
-.editor-container .ql-container {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-
-
 

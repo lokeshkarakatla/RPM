@@ -51,9 +51,17 @@
             </div>
         </mat-toolbar> -->
 
-        <div id="main-content" class="inner-sidenav-content transition-2" perfectScrollbar
-            (psScrollY)="onPsScrollY($event)">
+        <!-- Page header bar: lives OUTSIDE the scrolling container so it never scrolls away.
+             Positioned absolutely at top = toolbar-height, full width. -->
+        <div class="page-header-bar" *ngIf="showBreadcrumb || showBackBtn">
             <app-breadcrumb *ngIf="showBreadcrumb"></app-breadcrumb>
+            <button *ngIf="showBackBtn" mat-raised-button class="page-back-btn" (click)="handleBack()">
+                <mat-icon>arrow_back</mat-icon> Back
+            </button>
+        </div>
+
+        <div id="main-content" class="inner-sidenav-content transition-2"
+            [class.with-page-header]="showBreadcrumb || showBackBtn" perfectScrollbar (psScrollY)="onPsScrollY($event)">
             <div [class.has-footer]="settings.hasFooter">
                 <router-outlet></router-outlet>
             </div>

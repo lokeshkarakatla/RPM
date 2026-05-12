@@ -3,13 +3,11 @@
     <!-- Action Buttons -->
     <div class="action-bar">
 
-        <button mat-raised-button color="primary" class="pull-right primary-btn"
-            (click)="goToAddComplaint()">
+        <button mat-raised-button color="primary" class="pull-right primary-btn" (click)="goToAddComplaint()">
             <mat-icon>person_add</mat-icon> Add Complaint
         </button>
 
-        <button mat-raised-button class="pull-right margin-right-10 dark-btn"
-            (click)="filterToggle = !filterToggle">
+        <button mat-raised-button class="pull-right margin-right-10 dark-btn" (click)="filterToggle = !filterToggle">
             <mat-icon>filter_list</mat-icon> Filter
         </button>
 
@@ -87,9 +85,11 @@
                                 <div class="col-sm-3 newMarginClass"><b>Distributor:</b></div>
                                 <div class="col-sm-9">
                                     <mat-select placeholder="Select Distributor" class="form-control">
-                                        <mat-option value="Global Distributors Pvt. Ltd">Global Distributors Pvt. Ltd</mat-option>
+                                        <mat-option value="Global Distributors Pvt. Ltd">Global Distributors Pvt.
+                                            Ltd</mat-option>
                                         <mat-option value="Prime Trade & Supply">Prime Trade & Supply</mat-option>
-                                        <mat-option value="Vertex Distribution Services">Vertex Distribution Services</mat-option>
+                                        <mat-option value="Vertex Distribution Services">Vertex Distribution
+                                            Services</mat-option>
                                     </mat-select>
                                 </div>
                             </div>
@@ -166,8 +166,8 @@
                         <th>Subject</th>
                         <th class="problem-statement-header">Description</th>
                         <th>Department</th>
-                        <th>CAPA</th>
-                        <th>Steps</th>
+                        <th class="text-center">CAPA</th>
+                        <th class="text-center">Steps</th>
                         <th>Progress</th>
                         <th class="nowrap">Country</th>
                         <th>City</th>
@@ -175,20 +175,20 @@
                         <th>Severity</th>
                         <th>Distributor</th>
                         <th>Serial No</th>
-                        <th>Status</th>
+                        <th class="status-col text-center">Status</th>
                         <th>Responsibility</th>
                         <th>Complaint Date</th>
                         <th>Customer</th>
-                        <th>Failure Date</th>
-                        <th>Due Date</th>
-                        <th>Completion Date</th>
+                        <th class="text-center">Failure Date</th>
+                        <th class="text-center">Due Date</th>
+                        <th class="text-center">Completion Date</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                   <tr *ngFor="let applicant of complaintsData; let i = index">
+                    <tr *ngFor="let applicant of complaintsData; let i = index">
 
-                       
+
                         <td class="nowrap">
                             <a matTooltip="Edit User" (click)="goToAddComplaint()">
                                 <i class="fa fa-edit"></i>
@@ -208,29 +208,25 @@
                         <td class="problem-statement">{{ applicant.problemSubject }}</td>
                         <td>{{ applicant.department }}</td>
 
-                      <td class="text-center link" (click)="openCAPA()">2</td>
-                        <td class="switchToggle" (click)="gotoupdate()">
+                        <td class="text-center link" (click)="openCAPA()">2</td>
+                        <td class="switchToggle text-center" (click)="gotoupdate()">
                             {{ applicant.steps }}
                         </td>
 
-                       <td [matTooltip]="applicant.range + '%'">
-  <input type="range"
-    [min]="0"
-    [max]="100"
-    [value]="applicant.range"
-    [ngStyle]="getRangeStyle(applicant.range, i)"
-    (mousedown)="$event.preventDefault()"
-    (touchstart)="$event.preventDefault()">
-</td>
+                        <td [matTooltip]="applicant.range + '%'">
+                            <input type="range" [min]="0" [max]="100" [value]="applicant.range"
+                                [ngStyle]="getRangeStyle(applicant.range, i)" (mousedown)="$event.preventDefault()"
+                                (touchstart)="$event.preventDefault()">
+                        </td>
 
                         <td class="text-center">{{ applicant.country }}</td>
                         <td>{{ applicant.City }}</td>
                         <td>{{ applicant.model }}</td>
                         <td>{{ applicant.criticality }}</td>
                         <td>{{ applicant.distributor }}</td>
-                        <td>{{ applicant.serialno }}</td>
+                        <td class="text-center">{{ applicant.serialno }}</td>
 
-                        <td>
+                        <td class="status-col">
                             <select class="form-select status-select">
                                 <option [selected]="applicant.status === 'Pending'">Pending</option>
                                 <option [selected]="applicant.status === 'Process'">Process</option>
@@ -244,7 +240,7 @@
                         <td>{{ applicant.TargetDate }}</td>
                         <td>{{ applicant.ExpectedFinishDate }}</td>
                         <td>{{ applicant.ActualFinishDate }}</td>
-                        <td>{{ applicant.complitionDate }}</td>
+                        <td class="text-center">{{ applicant.complitionDate }}</td>
 
                     </tr>
                 </tbody>
@@ -252,8 +248,7 @@
             </table>
         </div>
 
-        <mat-paginator [length]="totalSize" [pageSize]="10"
-            [pageSizeOptions]="[5, 10, 25, 50, 100]"
+        <mat-paginator [length]="totalSize" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50, 100]"
             showFirstLastButtons>
         </mat-paginator>
 

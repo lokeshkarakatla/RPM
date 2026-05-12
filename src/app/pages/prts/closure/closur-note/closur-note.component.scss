@@ -26,3 +26,84 @@ quill-editor {
   margin-top: 15px;
   clear: both;   /* 🔥 this is the key fix */
 }
+
+.editor-container {
+  width: 60%;              /* initial width */
+  min-width: 60%;          /* don’t shrink below 60% */
+  max-width: 100%;         /* don’t grow beyond full width */
+  display: inline-block;   /* keeps it left-aligned */
+  text-align: left;
+  resize: horizontal;      /* allow drag to resize */
+  overflow: hidden;        /* prevent overflow scrollbars */
+  box-sizing: border-box;  /* include padding/border in width calc */
+}
+
+.editor-container .ql-toolbar,
+.editor-container .ql-container {
+  width: 100%;             /* match parent width */
+  max-width: 100%;         /* stop at parent’s boundary */
+  box-sizing: border-box;
+}
+
+
+.editor-container {
+  width: 60%;       /* initial width */
+  min-width: 60%;
+  max-width: 100%;
+  display: block;
+}
+
+.editor-footer {
+  width: 60%;       /* match editor width */
+  margin-top: 15px;
+}
+
+
+
+
+.editor-container {
+  width: 60%;              /* initial width */
+  min-width: 60%;
+  max-width: 100%;
+  resize: horizontal;      /* allow drag to resize */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.editor-footer {
+  width: 100%;             /* match editor width */
+  display: flex;
+  justify-content: flex-end; /* align buttons to right */
+  margin-top: 15px;
+}
+
+.header-info {
+  margin: 3px 0px 0px 0px;
+  font-size: 13px;
+  color: #555;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.nav-pills {
+  display: flex;
+  gap: 10px;
+  padding-left: 0;
+}
+
+
+.navtabWidth {
+  background-color: #e0e0e0;
+}
+
+
+.active-tab {
+  background-color: #50636d !important;
+  color: white !important;
+}

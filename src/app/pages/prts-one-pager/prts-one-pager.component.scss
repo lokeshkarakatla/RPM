@@ -81,8 +81,10 @@
 
 .content {
   flex: 1;
+  min-width: 0;         /* prevent flex child from overflowing container */
+  overflow-x: hidden;   /* clip so inner table containers own the h-scroll */
   transition: all 0.3s ease;
-  padding: 15px;
+  padding: 16px 20px;   /* uniform padding for ALL tabs */
 
   margin-left: 220px; /* when sidebar open */
 }

@@ -82,7 +82,7 @@ import { AttendanceComponent } from './pages/attendance/attendance.component';
 import { MeetingComponent } from './pages/meeting/meeting.component';
 
 import { AddMeetingPageComponent } from './pages/meeting/add-meeting-page/add-meeting-page.component';
-import { RefernceNumberComponent } from './pages/refernce-number/refernce-number.component';
+import { ReferenceNumberComponent } from './pages/reference-number/reference-number.component';
 import { AddtractorsComponent } from './addtractors/addtractors.component';
 import { AddtestsComponent } from './addtests/addtests.component';
 import { MSectionsComponent } from './pages/admin/masterdata/m-sections/m-sections.component';
@@ -116,7 +116,7 @@ export function highchartsModules() {
 @NgModule({
   imports: [
 
-    
+
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -191,9 +191,9 @@ export function highchartsModules() {
     AddCapaComponent,
     AttendanceComponent,
     MeetingComponent,
-    
+
     AddMeetingPageComponent,
-    RefernceNumberComponent,
+    ReferenceNumberComponent,
     AddtractorsComponent,
     AddtestsComponent,
 

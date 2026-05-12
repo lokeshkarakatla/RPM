@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, HostListener, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
 import { MenuService } from '../theme/components/menu/menu.service';
 import { filter } from 'rxjs/operators';
+import { PageHeaderService } from '../shared/page-header.service';
 
 
 
@@ -17,6 +18,7 @@ import { filter } from 'rxjs/operators';
 })
 export class PagesComponent implements OnInit {
   showBreadcrumb = true;
+  showBackBtn = false;
   @ViewChild('sidenav') sidenav: any;
   @ViewChild('backToTop') backToTop: any;
   @ViewChildren(PerfectScrollbarDirective) pss!: QueryList<PerfectScrollbarDirective>;
@@ -30,50 +32,55 @@ export class PagesComponent implements OnInit {
   public toggleSearchBar: boolean = false;
   private defaultMenu!: string; //declared for return default menu when window resized
 
- hiddenRoutes: string[] = [
-  // '/base-info',
-  // '/alert',
-  // '/updates',
-  // '/mitigation',
-  // '/document',
-  // '/grid-view',
-  // '/calenders',
-  // '/moniter',
-  // '/action-grid-calender/grid-meet',
-  // '/d1',
-  // '/d2',
-  // '/d3',
-  // '/d3-b',
-  // '/d4',
-  // '/d4-b',
-  // '/d5',
-  // '/d6',
-  // '/d7',
-  // '/closure'
-];
+  hiddenRoutes: string[] = [
+    '/app/prts-part',
+    '/app/prtsnavbar',
+    '/app/prtsonepager',
+    // '/base-info',
+    // '/alert',
+    // '/updates',
+    // '/mitigation',
+    // '/document',
+    // '/grid-view',
+    // '/calenders',
+    // '/moniter',
+    // '/action-grid-calender/grid-meet',
+    // '/d1',
+    // '/d2',
+    // '/d3',
+    // '/d3-b',
+    // '/d4',
+    // '/d4-b',
+    // '/d5',
+    // '/d6',
+    // '/d7',
+    // '/closure'
+  ];
 
-constructor(
-  public appSettings: AppSettings,
-  public router: Router,
-  private menuService: MenuService
-) {
+  constructor(
+    public appSettings: AppSettings,
+    public router: Router,
+    private menuService: MenuService,
+    public pageHeaderService: PageHeaderService,
+    private cdr: ChangeDetectorRef
+  ) {
 
-  this.settings = this.appSettings.settings;
+    this.settings = this.appSettings.settings;
 
-  this.router.events
-    .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
-    .subscribe((event: NavigationEnd) => {
+    // Evaluate on every navigation, including the initial load
+    const checkUrl = (url: string) => {
+      const path = url.split('?')[0];
+      this.showBreadcrumb = !this.hiddenRoutes.some(route => path.startsWith(route));
+    };
 
-      const currentUrl = event.urlAfterRedirects.split('?')[0];
+    checkUrl(this.router.url);
 
-      this.showBreadcrumb = !this.hiddenRoutes.some(route =>
-        currentUrl.startsWith(route)
-      );
-
-      console.log('Current URL:', currentUrl);
-      console.log('Show Breadcrumb:', this.showBreadcrumb);
-    });
-}
+    this.router.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        checkUrl(event.urlAfterRedirects);
+      });
+  }
 
   ngOnInit() {
     if (window.innerWidth <= 768) {
@@ -88,6 +95,12 @@ constructor(
   }
 
   ngAfterViewInit() {
+    // Subscribe here — view is fully initialized, so detectChanges() is safe
+    this.pageHeaderService.backBtnVisible$.subscribe(v => {
+      this.showBackBtn = v;
+      this.cdr.detectChanges();
+    });
+
     setTimeout(() => { this.settings.loadingSpinner = false }, 300);
     this.backToTop.nativeElement.style.display = 'none';
     this.router.events.subscribe(event => {
@@ -114,49 +127,53 @@ constructor(
     this.settings.menuType = this.menuTypeOption;
   }
 
-  public changeTheme(theme:any) {
+  public changeTheme(theme: any) {
     this.settings.theme = theme;
+  }
+
+  public handleBack(): void {
+    this.pageHeaderService.triggerBack();
   }
 
   public toggleSidenav() {
     this.sidenav.toggle();
   }
 
- public onPsScrollY(event:any) {
-  (event.target.scrollTop > 300)
-    ? this.backToTop.nativeElement.style.display = 'flex'
-    : this.backToTop.nativeElement.style.display = 'none';
+  public onPsScrollY(event: any) {
+    (event.target.scrollTop > 300)
+      ? this.backToTop.nativeElement.style.display = 'flex'
+      : this.backToTop.nativeElement.style.display = 'none';
 
-  if (this.settings.menu == 'horizontal') {
-    const horizontalMenu = document.querySelector('#horizontal-menu');
+    if (this.settings.menu == 'horizontal') {
+      const horizontalMenu = document.querySelector('#horizontal-menu');
 
-    if (this.settings.fixedHeader) {
-      const currentScrollTop = (event.target.scrollTop > 56) ? event.target.scrollTop : 0;
+      if (this.settings.fixedHeader) {
+        const currentScrollTop = (event.target.scrollTop > 56) ? event.target.scrollTop : 0;
 
-      if (horizontalMenu) {
-        if (currentScrollTop > this.lastScrollTop) {
-          horizontalMenu.classList.add('sticky');
-          event.target.classList.add('horizontal-menu-hidden');
-        } else {
-          horizontalMenu.classList.remove('sticky');
-          event.target.classList.remove('horizontal-menu-hidden');
+        if (horizontalMenu) {
+          if (currentScrollTop > this.lastScrollTop) {
+            horizontalMenu.classList.add('sticky');
+            event.target.classList.add('horizontal-menu-hidden');
+          } else {
+            horizontalMenu.classList.remove('sticky');
+            event.target.classList.remove('horizontal-menu-hidden');
+          }
         }
-      }
 
-      this.lastScrollTop = currentScrollTop;
-    } else {
-      if (horizontalMenu) {
-        if (event.target.scrollTop > 56) {
-          horizontalMenu.classList.add('sticky');
-          event.target.classList.add('horizontal-menu-hidden');
-        } else {
-          horizontalMenu.classList.remove('sticky');
-          event.target.classList.remove('horizontal-menu-hidden');
+        this.lastScrollTop = currentScrollTop;
+      } else {
+        if (horizontalMenu) {
+          if (event.target.scrollTop > 56) {
+            horizontalMenu.classList.add('sticky');
+            event.target.classList.add('horizontal-menu-hidden');
+          } else {
+            horizontalMenu.classList.remove('sticky');
+            event.target.classList.remove('horizontal-menu-hidden');
+          }
         }
       }
     }
   }
-}
 
 
   public scrollToTop() {
@@ -167,7 +184,7 @@ constructor(
     });
   }
 
-  
+
   @HostListener('window:resize')
   public onWindowResize(): void {
     if (window.innerWidth <= 768) {

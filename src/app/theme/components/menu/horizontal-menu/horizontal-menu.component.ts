@@ -28,7 +28,7 @@ export class HorizontalMenuComponent implements OnInit {
     this.menuItems = this.menuService.getHorizontalMenuItems();
     this.menuItems = this.menuItems.filter(item => item.parentId == this.menuParentId);
 
-   // this.menuItems = this.menuService.getHorizontalMenuItems();
+    // this.menuItems = this.menuService.getHorizontalMenuItems();
     // this.menuItems = this.menuService.getHorizontalMenuItems();
     // let userModulePermissions = UserPermissionService.fnGetUserModuleMenu()
     // this.menuItems = this.menuItems.filter(x => userModulePermissions.indexOf(x.id) != -1 || (x.parentId != 0))
@@ -39,9 +39,23 @@ export class HorizontalMenuComponent implements OnInit {
     // }
 
     const isClient = localStorage.getItem('isClient');
-    if(isClient && JSON.parse(isClient) == true){
+    if (isClient && JSON.parse(isClient) == true) {
       this.menuItems = this.menuService.getClientMenuItems();
     }
+  }
+
+  /** Returns true when the given menu item should be highlighted as active.
+   *  Extends the normal prefix match to treat /app/prtsnavbar/* as belonging
+   *  to the /app/prts-part (7D) menu item so the active state is preserved
+   *  when the 7D detail view is opened in a new tab.
+   */
+  isMenuItemActive(menu: any): boolean {
+    const url = this.router.url;
+    if (url.startsWith(menu.routerLink)) return true;
+    // Both /app/prtsnavbar/* and /app/prtsonepager/* belong to the 7D (/app/prts-part) module
+    if (menu.routerLink === '/app/prts-part' && url.startsWith('/app/prtsnavbar')) return true;
+    if (menu.routerLink === '/app/prts-part' && url.startsWith('/app/prtsonepager')) return true;
+    return false;
   }
 
   ngAfterViewInit() {

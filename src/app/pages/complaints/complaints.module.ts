@@ -31,7 +31,6 @@ const routes: Routes = [
       { path: 'add-complaints', component: AddComplaintComponent },
       { path: 'capa', component: CapaComponent },
       { path: 'kanban', component: KanbanComponent },
-
       { path: 'attendance', component: AttendanceComponent },
       { path: 'meeting', component: MeetingComponent },
       { path: '', redirectTo: 'complaintsdashboard', pathMatch: 'full' },

@@ -28,7 +28,7 @@ import { CapaComponent } from './pages/capa/capa.component';
 import { AttendanceComponent } from './pages/attendance/attendance.component';
 import { MeetingComponent } from './pages/meeting/meeting.component';
 import { AddMeetingPageComponent } from './pages/meeting/add-meeting-page/add-meeting-page.component';
-import { RefernceNumberComponent } from './pages/refernce-number/refernce-number.component';
+import { ReferenceNumberComponent } from './pages/reference-number/reference-number.component';
 import { TestdashboardComponent } from './pages/dashboard/testdashboard/testdashboard.component';
 import { SetupsComponent } from './pages/setups/setups.component';
 import { ComplaintsdashboardComponent } from './pages/dashboard/complaintsdashboard/complaintsdashboard.component';
@@ -46,7 +46,7 @@ const routes: Routes = [
             {
                 path: "test-dashboard",
                 component: TestdashboardComponent,
-                
+
             },
             {
                 path: 'inner-form', component: LogissueInnerFormComponent,
@@ -121,9 +121,9 @@ const routes: Routes = [
             },
 
             {
-                path: 'complaints/reference-number', component: RefernceNumberComponent,
-                loadChildren: () => import("./pages/refernce-number/refernce-number.module").then((m) => m.ReferenceModule),
-                data: { breadcrumb: 'Reference Number' }
+                path: 'complaints/reference-number', component: ReferenceNumberComponent,
+                loadChildren: () => import("./pages/reference-number/reference-number.module").then((m) => m.ReferenceModule),
+                data: { breadcrumb: 'Base info' }
             },
 
 
@@ -147,12 +147,12 @@ const routes: Routes = [
             {
                 path: 'subjective-audits', component: SubjectiveAuditsComponent, loadChildren: () =>
                     import('./pages/subjective-audits/subjective-audits.module').then((m) => m.SubjectiveAuditsModule),
-                 
+
             },
             {
                 path: 'objective-audits', component: ObjectiveAuditsComponent, loadChildren: () =>
                     import('./pages/objective-audits/objective-audits.module').then((m) => m.ObjectiveAuditsModule),
-                
+
             },
 
             {
@@ -178,10 +178,10 @@ const routes: Routes = [
 
                 path: 'prts-grid', component: PrtsAddgridComponent, loadChildren: () =>
                     import("./pages/prts-addgrid/prts-addgrid.module").then((m) => m.PrtsAddgridModule),
-
+                   
 
             },
-            
+
             {
                 path: 'prtsnavbar', component: PrtsComponent, loadChildren: () =>
                     import("./pages/prts/prts.module").then((m) => m.PrtsModule),
@@ -200,7 +200,7 @@ const routes: Routes = [
                     import("./pages/parameter-dashboard/parameter-dashboard.module").then((m) => m.ParameterDashboardModule),
                 data: { breadcrumb: 'Objective Audit', description: 'Audits throught the application are managed here.' }
             },
-            
+
 
 
         ]

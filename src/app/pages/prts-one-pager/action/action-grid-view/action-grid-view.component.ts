@@ -164,4 +164,18 @@ export class ActionGridViewComponent implements OnInit {
   return due > completion; // 👈 condition
 }
 
+
+scrollGrid(direction: 'left' | 'right') {
+  const container = document.getElementById('capa-table-container');
+  if (container) {
+    const scrollAmount = 300; // adjust as needed
+    if (direction === 'right') {
+      container.scrollLeft += scrollAmount;
+    } else {
+      container.scrollLeft -= scrollAmount;
+    }
+  }
+}
+
+
 }

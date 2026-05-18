@@ -1,5 +1,5 @@
 /* ============================= */
-/* SIDEBAR LAYOUT (CLEAN FIX) */
+/* SIDEBAR LAYOUT (FINAL CLEAN) */
 /* ============================= */
 
 .layout-container {
@@ -13,7 +13,7 @@
   top: 64px;
   left: 0;
   height: calc(100vh - 64px);
-  background: #fff;
+  background: #f5f5f5;
   z-index: 1000;
 
   transition: width 0.3s ease;
@@ -43,24 +43,48 @@
   display: flex;
   align-items: center;
   gap: 10px;
-
   padding: 10px 16px;
-
   width: 100%;
-
   border-radius: 6px;
   cursor: pointer;
+  margin: 4px 0;
 }
 
 /* HOVER */
 .sidebar li a:hover {
-  background-color: #e6e6e6;
+  background-color: #e0e0e0;
 }
 
 /* ACTIVE */
 .sidebar li.active a {
-  background-color: #cfcfcf !important;
-  font-weight: 600;
+  background-color: #dfefff;
+  font-weight: bold;
+  color: #1976d2;
+  border-radius: 10px;
+}
+
+.sidebar li.active a mat-icon {
+  color: #1976d2;
+}
+
+/* COLLAPSED BEHAVIOR */
+.sidebar.nav-closed li a {
+  justify-content: center;
+  padding: 12px 0;
+  margin: 6px 0;
+  width: 48px;
+  height: 48px;
+}
+
+.sidebar.nav-closed li a span {
+  display: none;
+}
+
+.sidebar li a mat-icon {
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* TOGGLE BUTTON */
@@ -69,7 +93,6 @@
   border: none;
   background: transparent;
   cursor: pointer;
-
   display: flex;
   justify-content: flex-start;
   padding: 10px 12px;
@@ -81,11 +104,10 @@
 
 .content {
   flex: 1;
-  min-width: 0;         /* prevent flex child from overflowing container */
-  overflow-x: hidden;   /* clip so inner table containers own the h-scroll */
+  min-width: 0;
+  overflow-x: hidden;
   transition: all 0.3s ease;
-  padding: 16px 20px;   /* uniform padding for ALL tabs */
-
+  padding: 16px 20px;
   margin-left: 220px; /* when sidebar open */
 }
 
@@ -104,79 +126,4 @@ mat-toolbar,
   top: 0;
   width: 100%;
   z-index: 1100;
-}
-
-/* ============================= */
-/* REMOVE CONFLICTS */
-/* ============================= */
-
-/* ❌ DO NOT USE THESE ANYMORE */
-/*
-.sidebar { width: 16.666%; }
-.content-expanded { margin-left: 0; }
-.content-shrink { margin-left: 0; }
-width: calc(...) rules
-duplicate .sidebar blocks
-*/
-
-.content {
-  margin-left: 220px;
-}
-
-.sidebar.nav-closed + .content {
-  margin-left: 70px;
-}
-
-.sidebar.nav-closed li a {
-  justify-content: center;
-}
-
-.sidebar.nav-closed li a span {
-  display: none;
-}
-
-.sidebar.nav-closed ul {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sidebar.nav-closed li {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.sidebar.nav-closed li a {
-  justify-content: center;
-  padding: 12px 0;
-  margin: 6px 0;
-  width: 48px;   /* fixed size for perfect alignment */
-  height: 48px;
-}
-
-.sidebar li a mat-icon {
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.sidebar li.active a {
-  background-color: #d3d3d3 !important;
-  border-radius: 10px;
-}
-
-
-.sidebar li a {
-  margin: 4px 0;
-}
-
-.sidebar {
-  background: #f5f5f5;
-}
-
-.sidebar li a:hover {
-  background-color: #e0e0e0;
 }

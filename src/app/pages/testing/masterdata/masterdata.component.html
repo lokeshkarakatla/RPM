@@ -1,113 +1,36 @@
-<!-- <div class="flex-p">
- 
-   
-    <div class="col-sm-12 no-padding">
-        <div class="row-wrap">
-            <div class="w-100">
-                <div class="row">
-                    <div class="col-xs-12" style="margin-bottom: 15px;">
-                        <div class="pills">
-                            <ul class="nav nav-pills" style="margin-left: 10px;margin-bottom: -25px;">
-                                <li routerLinkActive="active" [routerLink]="['respareas']">
-                                    <a mat-raised-button style="margin-top: 10px;">
-                                        Responsible Section
-                                    </a>
-                                </li>
-                                <li routerLinkActive="active" [routerLink]="['sub-group']">
-                                    <a mat-raised-button style="margin-top: 10px;">
-                                        Sub Groups
-                                    </a>
-                                </li>
-                                <li routerLinkActive="active" [routerLink]="['category']">
-                                    <a mat-raised-button style="margin-top: 10px;">
-                                        Categories
-                                    </a>
-                                </li>
-                                <li routerLinkActive="active" [routerLink]="['detection']">
-                                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">
-                                        Detection
-                                    </a>
-                                </li>
-                                <li routerLinkActive="active" [routerLink]="['deparments']">
-                                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">
-                                        Departments
-                                    </a>
-                                </li>
-                                <li routerLinkActive="active" [routerLink]="['score-matrix']">
-                                    <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">
-                                        Score Matrix
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div class="nav-container" [ngClass]="{'nav-open': isNavOpen, 'nav-closed': !isNavOpen}">
-  <!-- Toggle Button with Hamburger Icon -->
+
+  <!-- Toggle Button -->
   <button (click)="toggleNav()" class="toggle-button">
-    <mat-icon class="toggle-icon">menu</mat-icon>
+    <mat-icon>menu</mat-icon>
   </button>
 
   <nav class="nav-links">
     <ul>
-      <!-- <li routerLinkActive="active" [routerLink]="['respareas']">
-      <a style="margin-top: 10px;">
-        <mat-icon class="nav-icon" *ngIf="!isNavOpen" matTooltip="Departments">apartment</mat-icon>
-        <span *ngIf="isNavOpen">Responsible Section</span>
-      </a>
-    </li>
-    <li routerLinkActive="active" [routerLink]="['sub-group']">
-      <a style="margin-top: 10px;">
-        <mat-icon class="nav-icon" *ngIf="!isNavOpen" matTooltip="Status Master">toggle_on</mat-icon>
-        <span *ngIf="isNavOpen"> Sub Groups</span>
-      </a>
-    </li> -->
-      <!-- <li routerLinkActive="active" [routerLink]="['sections']">
-      <a style="margin-top: 10px;">
-        <mat-icon class="nav-icon" *ngIf="!isNavOpen" matTooltip="Sections">view_week</mat-icon>
-        <span *ngIf="isNavOpen">Sections</span>
-      </a>
-    </li>
-    <li routerLinkActive="active" [routerLink]="['categories']">
-      <a style="margin-top: 10px;">
-        <mat-icon class="nav-icon" *ngIf="!isNavOpen" matTooltip="Categories">category</mat-icon>
-        <span *ngIf="isNavOpen">Categories</span>
-      </a>
-    </li> -->
-      <li routerLinkActive="active" [routerLink]="['category']">
-        <a style="margin-top: 10px;">
-          <mat-icon class="nav-icon" *ngIf="!isNavOpen" matTooltip="Categories">category</mat-icon>
+
+      <li routerLinkActive="active">
+        <a [routerLink]="['category']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Categories">category</mat-icon>
           <span *ngIf="isNavOpen">Categories</span>
         </a>
       </li>
 
-      <li routerLinkActive="active" [routerLink]="['detection']">
-        <a style="margin-top: 10px;">
-          <mat-icon class="nav-icon" *ngIf="!isNavOpen" matTooltip="Detection">search</mat-icon>
+      <li routerLinkActive="active">
+        <a [routerLink]="['detection']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Detection">search</mat-icon>
           <span *ngIf="isNavOpen">Detection</span>
         </a>
       </li>
 
-      <li routerLinkActive="active" [routerLink]="['score-matrix']">
-        <a style="margin-top: 10px;">
-          <mat-icon class="nav-icon" *ngIf="!isNavOpen" matTooltip="Score Matrix">assessment</mat-icon>
+      <li routerLinkActive="active">
+        <a [routerLink]="['score-matrix']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Score Matrix">assessment</mat-icon>
           <span *ngIf="isNavOpen">Score Matrix</span>
         </a>
       </li>
 
-      <!-- <li routerLinkActive="active" [routerLink]="['step']">
-      <a style="margin-top: 10px;">
-        <mat-icon class="nav-icon" *ngIf="!isNavOpen" matTooltip="Step">stairs</mat-icon>
-        <span *ngIf="isNavOpen">Steps</span>
-      </a>
-    </li> -->
     </ul>
   </nav>
-
 
 </div>
 

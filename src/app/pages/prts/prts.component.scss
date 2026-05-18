@@ -50,7 +50,7 @@
   }
 
   &.active {
-    background-color: #cfcfcf !important;
+    
     font-weight: 600;
   }
 
@@ -118,4 +118,14 @@
 
 .marg{
   margin-bottom: 50px;
+}
+
+.nav-item.active {
+  background-color: #dfefff;   /* highlight background */
+  font-weight: bold;
+  color: #1976d2;              /* active text color */
+}
+
+.nav-item.active .nav-icon {
+  color: #1976d2;              /* active icon color */
 }

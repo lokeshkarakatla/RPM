@@ -155,23 +155,22 @@
                       </a>
                     </td>
                     <td>
-                      <span><i class="fa fa-arrows" aria-hidden="true"></i>{{ item.modulename }}
+                      <span>
+                        <!-- <i class="fa fa-arrows" aria-hidden="true"></i> -->
+                        {{ item.modulename }}
                       </span>
                     </td>
-                    <td style="color:blue; cursor:pointer" class="text-center" (click)="openAuditTypes()">4/8</td>
+                    <td style="color:blue; cursor:pointer" class="text-center" (click)="openAuditTypes()">{{ item.audittype }}</td>
 
                     <td class="text-center">
-                      <span style="color: blue; cursor: pointer" (click)="modelspop()">4/8</span>
+                      <span style="color: blue; cursor: pointer" (click)="modelspop()">8/8</span>
                     </td>
 
                     <!-- ✅ Image Column -->
-<td class="text-center">
-  <a href="../../../../../assets/obj-door1.png" target="_blank">
-    <mat-icon matTooltip="View Image" style="color: cornflowerblue; cursor: pointer;">
-      image
-    </mat-icon>
-  </a>
-</td>
+                              <td class="text-center">
+                      <mat-icon style="cursor: pointer;" (click)="imageSource(item.image)">visibility
+                      </mat-icon>
+                    </td>
 
 
                   </tr>

@@ -24,3 +24,36 @@ button {
   float: right;
   margin-top: 20px;
 }
+
+
+.image-wrapper {
+  position: relative;
+  width: 600px;
+  display: inline-block;
+}
+
+.car-image {
+  width: 100%;
+  display: block;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.grid-cell {
+  border: 1px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+}
+
+.grid-cell:hover {
+  background: rgba(0, 123, 255, 0.3);
+}
+
+ 

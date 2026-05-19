@@ -7,6 +7,7 @@ import { ModelspopComponent } from './section-pop/modelspop/modelspop.component'
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { StatusConfirmationDialogComponent } from 'src/app/pages/testing/testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
 import { ObjSetupAudittypessComponent } from 'src/app/pages/objective-audits/prts-objective-setup/obj-setup-modules-checkpoints/obj-setup-audittypess/obj-setup-audittypess.component';
+import { ObjImageDialogComponent } from 'src/app/pages/objective-audits/prts-objective-setup/obj-setup-modules-checkpoints/obj-image-dialog/obj-image-dialog.component';
 
 @Component({
   selector: 'app-sub-setup-module-master',
@@ -37,11 +38,16 @@ export class SubSetupModuleMasterComponent implements OnInit {
   }
 
   values1 = [
-    { section: '2', Audit: 'Product Quality Audit', modulename: "BSO", status: true },
-    { section: '4', Audit: 'Product Quality Audit', modulename: "Door" },
-    { section: '3', Audit: 'Product Quality Audit', modulename: "Rear bumper", status: true },
-    { section: '1', Audit: 'Product Quality Audit', modulename: "Fuel Flap", status: true },
-    { section: '2', Audit: 'Product Quality Audit', modulename: "Upper trim" },
+    { section: '2', Audit: 'Product Quality Audit', modulename: "Rigth Fender", status: true,audittype : '4/9', image: "/assets/Right_fender.jpeg" },
+    { section: '4', Audit: 'Product Quality Audit', modulename: "Right Front Door",audittype : '5/9', image: "/assets/Right_Front_Door.jpeg" },
+    { section: '3', Audit: 'Product Quality Audit', modulename: "Right Rear Door", status: true,audittype : '5/9', image: "/assets/Right_Rear_Door.jpeg" },
+    { section: '1', Audit: 'Product Quality Audit', modulename: "Rear", status: true,audittype : '4/9', image: "/assets/Rear.jpeg" },
+    { section: '2', Audit: 'Product Quality Audit', modulename: "Left Rear Door",audittype : '6/9', image: "/assets/Left_Rear_Door.jpeg" },
+     { section: '4', Audit: 'Product Quality Audit', modulename: "Left Front Door",audittype : '5/9', image: "/assets/Left_Front_Door.jpeg" },
+    { section: '3', Audit: 'Product Quality Audit', modulename: "Left Fender  ", status: true,audittype : '5/9', image: "/assets/Left_Fender.jpeg" },
+    { section: '1', Audit: 'Product Quality Audit', modulename: "Roof", status: true ,audittype : '4/9', image: "/assets/Roof.jpeg"},
+    { section: '2', Audit: 'Product Quality Audit', modulename: "    Bonnet",audittype : '6/9', image: "/assets/Bonnet.jpeg" }, 
+
 
   ]
   statusOptions = [
@@ -97,5 +103,15 @@ export class SubSetupModuleMasterComponent implements OnInit {
           width: '600px'
         });
   
+      }
+
+      imageSource(val: string) {
+        this.dialog.open(ObjImageDialogComponent, {
+          width: 'auto',
+          height: 'auto',
+          data: {
+            image: val
+          }
+        });
       }
 }

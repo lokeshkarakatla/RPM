@@ -1,68 +1,65 @@
+.quill-wrapper {
+  min-height: 200px;
+  height: 500px;
+  border: 1px solid #ccc;
+  position: relative;
+
+  resize: vertical;
+  overflow: hidden;
+}
+.quill-wrapper ::ng-deep .ql-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background-color: #fafafa;
+  color: white;
+
+  border-bottom: 1px solid #ccc;
+}
+
+.quill-wrapper ::ng-deep .ql-container {
+  height: calc(100% - 42px);
+  border: none !important;
+  overflow: hidden;
+}
+
+.quill-wrapper ::ng-deep .ql-editor {
+  height: 100%;
+  overflow-y: auto;
+  font-size: 14px;
+}
+/* --- Page Header Container --- */
 .page-header {
-  padding: 10px 24px 10px;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
+/* --- Left Content Wrapper --- */
 .header-content {
   display: flex;
   flex-direction: column;
 }
 
+/* --- Title (H3 Element) --- */
 .page-title {
-  margin: 0;
+  margin: 0 0 0 !important;
   font-size: 20px;
- 
-  color: #222;
 }
 
+/* --- Reference & Subject Text --- */
 .header-info {
-  margin: 3px 0 0 0;
+  margin: 3px 0px 0px 0px;
   font-size: 13px;
-  color: #5f6770;
+  color: #555;
 }
 
-.add-btn {
-  height: 42px;
+/* --- Back Action Button --- */
+.back-btn {
+  background-color: gray;
+  color: white;
+  display: flex;
+  align-items: center;
+  height: 40px;
   margin-top: 5px;
 }
-
-/* Editor */
-.editor-container {
-  width: 60%;
-  min-width: 60%;
-  max-width: 100%;
-  resize: horizontal;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding-left: 24px;
-}
-
-.editor-box {
-  width: 100%;
-}
-
-.editor-container .ql-toolbar,
-.editor-container .ql-container {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-::ng-deep .ql-toolbar {
-  border-radius: 6px 6px 0 0;
-}
-
-::ng-deep .ql-container {
-  border-radius: 0 0 6px 6px;
-  min-height: 350px;
-}
-
-/* Save Button */
-.save-box {
-  padding-right: 24px;
-}
-
-.save-btn {
-  color: #fff !important;
-  background-color: #0a5db6 !important;
-}
-

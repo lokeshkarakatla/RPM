@@ -1,30 +1,10 @@
 <!-- Add Filter Tabs -->
 
-<div class="container-fluid" style="padding: 0 5px; margin-left: 7px;">
-    <div class="w-100">
-        <div class="flex-p">
-            <div class="row wrap" style="margin: 0;">
-                <div class="col-sm-12 no-padding">
-                    <div class="row-wrap">
-                        <div class="w-100">
-                            <div class="row" style="margin: 0;">
-                                <div class="col-sm-12 p-0">
-
-                                    <button mat-raised-btton
-                                        style="background-color:#37474f;color:white "
-                                        class="pull-right filters-hover  mt-3"
-                                        (click)="filterToggle = !filterToggle">
-                                        <mat-icon>filter_list</mat-icon> Filter
-                                    </button>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container-fluid">
+    <button mat-raised-button class="pull-right mt-3 me-3 filters-hover" style="background-color: #37474f; color: white;"
+        (click)="filterToggle = !filterToggle">
+        <mat-icon>filter_list</mat-icon> Filter
+    </button>
 </div>
 
 <!-- Filter UI -->
@@ -45,9 +25,7 @@
                                     <b>Keyword:</b>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text"
-                                        class="form-control"
-                                        placeholder="Enter Keyword" />
+                                    <input type="text" class="form-control" placeholder="Enter Keyword" />
                                 </div>
                             </div>
 
@@ -57,8 +35,7 @@
                                     <b>Role:</b>
                                 </div>
                                 <div class="col-sm-9">
-                                    <mat-select placeholder="Select Role"
-                                        class="form-control">
+                                    <mat-select placeholder="Select Role" class="form-control">
                                         <mat-option value="Albania">
                                             Shift Manage
                                         </mat-option>
@@ -75,9 +52,7 @@
                                     <b>Department:</b>
                                 </div>
                                 <div class="col-sm-9">
-                                    <mat-select
-                                        placeholder="Select Department"
-                                        class="form-control">
+                                    <mat-select placeholder="Select Department" class="form-control">
 
                                         <mat-option value="Developer">
                                             Developer
@@ -105,15 +80,12 @@
 
                             <!-- Status -->
                             <div class="col-sm-4 row me-2 mt-3">
-                                <div class="col-sm-3 newMarginClass"
-                                    style="white-space: nowrap;">
+                                <div class="col-sm-3 newMarginClass" style="white-space: nowrap;">
                                     <b>Status:</b>
                                 </div>
 
                                 <div class="col-sm-9">
-                                    <mat-select
-                                        placeholder="Select Status"
-                                        class="form-control">
+                                    <mat-select placeholder="Select Status" class="form-control">
 
                                         <mat-option value="Opened">
                                             Opened
@@ -138,8 +110,7 @@
                                 </div>
 
                                 <div class="col-sm-9">
-                                    <input type="date"
-                                        class="form-control" />
+                                    <input type="date" class="form-control" />
                                 </div>
                             </div>
 
@@ -150,26 +121,21 @@
                                 </div>
 
                                 <div class="col-sm-9">
-                                    <input type="date"
-                                        class="form-control" />
+                                    <input type="date" class="form-control" />
                                 </div>
                             </div>
 
                             <!-- Buttons -->
                             <div class="col-sm-12 mt-3 mb-2">
 
-                                <a (click)="filterToggle = !filterToggle"
-                                    class="pull-right"
-                                    style="font-size: 25px;
+                                <a (click)="filterToggle = !filterToggle" class="pull-right" style="font-size: 25px;
                                            cursor: pointer;
                                            margin-left: 5px">
 
-                                    <i class="fa fa-angle-double-up"
-                                        aria-hidden="true"></i>
+                                    <i class="fa fa-angle-double-up" aria-hidden="true"></i>
                                 </a>
 
-                                <button mat-raised-button
-                                    class="pull-right btn-default margin-right-10"
+                                <button mat-raised-button class="pull-right btn-default margin-right-10"
                                     (click)="clearFilter();getTests()">
 
                                     <mat-icon>
@@ -179,9 +145,7 @@
                                     Clear
                                 </button>
 
-                                <button mat-raised-button
-                                    color="primary"
-                                    class="pull-right margin-right-10"
+                                <button mat-raised-button color="primary" class="pull-right margin-right-10"
                                     (click)="getTests()">
 
                                     <mat-icon>search</mat-icon>
@@ -213,12 +177,9 @@
 
                 <div class="col-sm-12 p-0">
 
-                    <div id="grid-table-container"
-                        class="table-responsive">
+                    <div id="grid-table-container" class="table-responsive">
 
-                        <table matSort
-                            id="example2"
-                            class="table table-bordered table-hover">
+                        <table matSort id="example2" class="table table-bordered table-hover">
 
                             <thead class="tbl-head">
 
@@ -253,8 +214,7 @@
                                         Status
                                     </th>
 
-                                    <th class="text-center"
-                                        style="width: 80px !important;">
+                                    <th class="text-center" style="width: 80px !important;">
                                         Manage
                                     </th>
                                 </tr>
@@ -293,8 +253,7 @@
 
                                     <td class="text-center">
 
-                                        <select name="timeZone"
-                                            class="form-control">
+                                        <select name="timeZone" class="form-control">
 
                                             <option value="" selected>
                                                 --Select Status--
@@ -327,21 +286,16 @@
                                     <td class="text-center editDel">
 
                                         <a style="cursor: pointer;
-                                                  margin-right:10px;"
-                                            matTooltip="Edit"
-                                            (click)="addMeeting(item)">
+                                                  margin-right:10px;" matTooltip="Edit" (click)="addMeeting(item)">
 
-                                            <i class="fa fa-edit"
-                                                style="color: cornflowerblue">
+                                            <i class="fa fa-edit" style="color: cornflowerblue">
                                             </i>
 
                                         </a>
 
                                         <a>
 
-                                            <i class="fa fa-trash red"
-                                                matTooltip="Delete"
-                                                style="cursor: pointer;">
+                                            <i class="fa fa-trash red" matTooltip="Delete" style="cursor: pointer;">
                                             </i>
 
                                         </a>
@@ -354,12 +308,8 @@
 
                         </table>
 
-                        <mat-paginator
-                            [length]="totalSize"
-                            [pageIndex]="currentPage"
-                            [pageSize]="pageSize"
-                            [pageSizeOptions]="[5, 10, 25, 50, 100]"
-                            showFirstLastButtons>
+                        <mat-paginator [length]="totalSize" [pageIndex]="currentPage" [pageSize]="pageSize"
+                            [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons>
                         </mat-paginator>
 
                     </div>

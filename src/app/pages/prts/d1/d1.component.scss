@@ -13,7 +13,7 @@ button:not([mat-raised-button]) {
 }
 .rectangle {
     height: 15px;
-    width: 1150px;
+    width: 100%;         /* ← fix 1 */
     background-color: #555;
     margin-top: 18px;
 }
@@ -23,6 +23,13 @@ button:not([mat-raised-button]) {
     border-top: 25px solid transparent;
     border-left: 50px solid #555;
     border-bottom: 25px solid transparent;
+    // margin-right: 30px;
+    padding-right: 30px !important;
+    
+}
+
+.row {
+  align-items: center;
 }
 css .add-job-code {
     background: #fff !important;

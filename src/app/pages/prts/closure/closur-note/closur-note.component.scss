@@ -1,120 +1,8 @@
-
-
-::ng-deep .ql-toolbar {
-  border-radius: 6px 6px 0 0;
-}
-
-::ng-deep .ql-container {
-  border-radius: 0 0 6px 6px;
-  min-height: 350px;
-}
-
-.save-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-quill-editor {
-  display: block;
-  margin-top: 15px;
-  clear: both;   /* 🔥 this is the key fix */
-}
-
-.editor-container {
-  width: 60%;              /* initial width */
-  min-width: 60%;          /* don’t shrink below 60% */
-  max-width: 100%;         /* don’t grow beyond full width */
-  display: inline-block;   /* keeps it left-aligned */
-  text-align: left;
-  resize: horizontal;      /* allow drag to resize */
-  overflow: hidden;        /* prevent overflow scrollbars */
-  box-sizing: border-box;  /* include padding/border in width calc */
-}
-
-.editor-container .ql-toolbar,
-.editor-container .ql-container {
-  width: 100%;             /* match parent width */
-  max-width: 100%;         /* stop at parent’s boundary */
-  box-sizing: border-box;
-}
-
-
-.editor-container {
-  width: 60%;       /* initial width */
-  min-width: 60%;
-  max-width: 100%;
-  display: block;
-}
-
-.editor-footer {
-  width: 60%;       /* match editor width */
-  margin-top: 15px;
-}
-
-
-
-
-.editor-container {
-  width: 60%;              /* initial width */
-  min-width: 60%;
-  max-width: 100%;
-  resize: horizontal;      /* allow drag to resize */
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.editor-footer {
-  width: 100%;             /* match editor width */
-  display: flex;
-  justify-content: flex-end; /* align buttons to right */
-  margin-top: 15px;
-}
-
-.header-info {
-  margin: 3px 0px 0px 0px;
-  font-size: 13px;
-  color: #555;
-}
-
-.top-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 15px 0;
-}
-
-.nav-pills {
-  display: flex;
-  gap: 10px;
-  padding-left: 0;
-}
-
-
-.navtabWidth {
-  background-color: #e0e0e0;
-}
-
-
-.active-tab {
-  background-color: #50636d !important;
-  color: white !important;
-}
-
 .page-header {
   margin-top: 10px;
   margin-bottom: 20px;
   padding-top: 20px;
-
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
 }
 
@@ -124,49 +12,76 @@ quill-editor {
 }
 
 .page-title {
-  margin: 0 !important;
+  margin: 0;
   font-size: 20px;
   font-weight: 500;
 }
 
 .header-info {
-  margin: 3px 0 0 0;
+  margin-top: 3px;
   font-size: 13px;
   color: #555;
 }
 
 .back-btn {
-  background-color: gray;
-  color: white;
-
+  margin-left: auto;
+  margin-right: 3rem;
   display: flex;
   align-items: center;
-
   height: 40px;
   margin-top: 5px;
+  background-color: gray;
+  color: white;
 }
 
-/* Optional spacing replacements for Bootstrap classes */
-.ms-5 {
-  margin-left: 3rem;
+.top-section {
+  margin: 15px 0;
 }
 
-.me-5 {
-  margin-right: 3rem;
+.nav-pills {
+  display: flex;
+  gap: 10px;
+  padding-left: 0;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
+.navtabWidth {
+  min-width: 120px;
+  text-align: center;
+  background-color: #e0e0e0;
 }
 
-.mb-0 {
-  margin-bottom: 0;
+.active-tab {
+  background-color: #50636d !important;
+  color: white !important;
 }
 
-.ms-3 {
-  margin-left: 1rem;
+ .quill-wrapper {
+  min-height: 200px;
+  height: 500px;
+  border: 1px solid #ccc;
+  position: relative;
+
+  resize: vertical;
+  overflow: hidden;
 }
 
-.fw-bold {
-  font-weight: 700;
+.quill-wrapper ::ng-deep .ql-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  background-color: #fafafa;
+  border-bottom: 1px solid #ccc;
+}
+
+.quill-wrapper ::ng-deep .ql-container {
+  height: calc(100% - 42px);
+  border: none !important;
+  overflow: hidden;
+}
+
+.quill-wrapper ::ng-deep .ql-editor {
+  height: 100%;
+  overflow-y: auto;
+  font-size: 14px;
 }

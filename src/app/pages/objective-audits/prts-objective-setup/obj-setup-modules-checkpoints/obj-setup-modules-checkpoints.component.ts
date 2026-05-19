@@ -55,20 +55,20 @@ export class ObjSetupModulesCheckpointsComponent implements OnInit {
 
 
   values1 = [
-    { audit: '200', module: 'Left Fender', checkpoint: '50', min: '10x10', max: '10', status: true, image: "/assets/part1.png",model:'Fortuner' },
-    { audit: '961', module: 'Front', checkpoint: '35', min: '10x10', max: '10', status: true, image: "/assets/part1.png", model:'Toyota' },
-    { audit: '10', module: 'Right Fender', checkpoint: '45', min: '10x10', max: '10', status: true, image: "/assets/cardoor.png", model:'Toyota Fortuner' },
-    { audit: '50', module: 'Right Body', checkpoint: '40', min: '10x10', max: '10', image: "/assets/cardoor.png", model:'Hyundai' },
-    { audit: '290', module: 'Trunk', checkpoint: '27', min: '10x10', max: '10', status: true, image: "/assets/part1.png",model:'Ferrari' },
-    { audit: '982', module: 'Left Body', checkpoint: '33', min: '10x10', max: '10', status: true, image: "/assets/part1.png",model:'Toyota' },
-    { audit: '781', module: 'Left Frant Door', checkpoint: '38', min: '10x10', max: '10', status: true, image: "/assets/cardoor.png", model:'BMW' },
-    { audit: '108', module: 'Right Frant Door', checkpoint: '37', min: '10x10', max: '10', status: true, image: "/assets/cardoor.png",model:'Ruby' },
-
+    { audit: '200', module: 'Right Fender', checkpoint: '50', min: '10x10', max: '10', status: true, image: "/assets/Right_fender.jpeg" ,model:'Fortuner',audittype : '4/9' },
+    { audit: '961', module: 'Right Front Door', checkpoint: '35', min: '10x10', max: '10', status: true, image: "/assets/Right_Front_Door.jpeg", model:'Toyota',audittype : '6/9'  },
+    { audit: '10', module: 'Right Rear Door', checkpoint: '45', min: '10x10', max: '10', status: true, image: "/assets/Right_Rear_Door.jpeg", model:'Toyota Fortuner' ,audittype : '5/9'},
+    { audit: '50', module: 'Rear', checkpoint: '40', min: '10x10', max: '10', image: "/assets/Rear.jpeg", model:'Hyundai',audittype : '4/9' },
+    { audit: '290', module: 'Left Rear Door', checkpoint: '27', min: '10x10', max: '10', status: true, image: "/assets/Left_Rear_Door.jpeg",model:'Ferrari' ,audittype : '7/9'},
+    { audit: '982', module: 'Left Front Door', checkpoint: '33', min: '10x10', max: '10', status: true, image: "/assets/Left_Front_Door.jpeg",model:'Toyota' ,audittype : '6/9'},
+    { audit: '781', module: 'Left Fender', checkpoint: '38', min: '10x10', max: '10', status: true, image: "/assets/Left_Fender.jpeg", model:'BMW',audittype : '5/9' },
+    { audit: '108', module: ' Roof', checkpoint: '37', min: '10x10', max: '10', status: true, image: "/assets/Roof.jpeg",model:'Ruby',audittype : '4/9' },
+   { audit: '851', module: ' Bonnet', checkpoint: '39', min: '10x10', max: '10', status: true, image: "/assets/Bonnet.jpeg",model:'Ruby',audittype : '5/9' },
   ]
   opendashboard() {
-    window.open('/#/parameter-dashboard/issuelog-par');
+    window.open('/#/parameter-dashboard/issuelog-par'); 
   }
-
+ 
   addcheckpoint(item) {
     this.router.navigate(['/app/setup/subjective/overview']);
 
@@ -77,17 +77,15 @@ export class ObjSetupModulesCheckpointsComponent implements OnInit {
     // this.alertService.createAlert('Successfully saved.', 1);
   }
 
-  imageSource(val) {
-    this.Image = val;
-    this.hidden = true;
-    // this.hidden = !this.hidden;
-    //console.log(this.Image)
-    this.dialog.open(ObjImageDialogComponent, {
-      width: "600px",
-      height: "auto"
-    })
-
-  }
+imageSource(val: string) {
+  this.dialog.open(ObjImageDialogComponent, {
+    width: 'auto',
+    height: 'auto',
+    data: {
+      image: val
+    }
+  });
+}
          deleteConfirmation(item: any) {
     let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',

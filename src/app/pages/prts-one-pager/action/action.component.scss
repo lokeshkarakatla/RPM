@@ -1,37 +1,37 @@
+
+ 
 .page-header {
-  padding: 10px 24px 10px;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
+ 
 .header-content {
   display: flex;
   flex-direction: column;
 }
 
-.page-title {
-  margin: 0;
-  font-size: 22px;
  
-  color: #222;
+.page-title {
+  margin: 0 0 0 !important;
+  font-size: 20px;
 }
 
+ 
 .header-info {
-  margin: 3px 0 0 0;
+  margin: 3px 0px 0px 0px;
   font-size: 13px;
-  color: #5f6770;
+  color: #555;
 }
 
-.back-btn{
-  background: #8d8d8d;
-  color: #fff;
-  padding: 10px 18px;
-  border-radius: 6px;
-  border: none;
-  font-size: 16px;
-}
-
-.back-btn i{
-  margin-right: 6px;
+ 
+.back-btn {
+  background-color: gray;
+  color: white;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin-top: 5px;
 }
 
 

@@ -1,48 +1,22 @@
-::ng-deep .ql-toolbar {
-  border-radius: 6px 6px 0 0;
-}
-
-::ng-deep .ql-container {
-  border-radius: 0 0 6px 6px;
-
-  min-height: 700px;   /* initial height */
-  max-height: 1000px;  /* maximum height */
-
-  resize: vertical;
-  overflow-y: auto;
-}
-
-::ng-deep .ql-editor {
-  min-height: 700px;
-}
-.save-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.editor-container {
-  width: 60%;
-  max-width: 100%;
-  min-width: 60%;
- 
+.page-header {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-top: 20px;
 
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
 
-  text-align: left;
-  overflow: hidden;
+  width: 100%;
 }
 
-.editor-container .ql-toolbar,
-.editor-container .ql-container {
-  width: 100%;
+.header-content {
+  display: flex;
+  flex-direction: column;
+}
+.page-title {
+  margin: 0 !important;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .header-info {
@@ -51,28 +25,10 @@
   color: #555;
 }
 
-.page-header {
-  margin-top: 10px;
-  margin-bottom: 20px;
-  padding-top: 20px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.header-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.page-title {
-  margin: 0 !important;
-  font-size: 20px;
-  font-weight: 500;
-}
-
 .back-btn {
+  margin-left: auto;
+  margin-right: 60px;
+
   background-color: gray;
   color: white;
 
@@ -83,28 +39,33 @@
   margin-top: 5px;
 }
 
-/* Bootstrap spacing helpers */
+.quill-wrapper {
+  min-height: 200px;
+  height: 500px;
+  border: 1px solid #ccc;
+  position: relative;
 
-.ms-5 {
-  margin-left: 3rem;
+  resize: vertical;
+  overflow: hidden;
 }
 
-.me-5 {
-  margin-right: 3rem;
+.quill-wrapper ::ng-deep .ql-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  background-color: #fafafa;
+  border-bottom: 1px solid #ccc;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
+.quill-wrapper ::ng-deep .ql-container {
+  height: calc(100% - 42px);
+  border: none !important;
+  overflow: hidden;
 }
 
-.mb-0 {
-  margin-bottom: 0;
-}
-
-.ms-3 {
-  margin-left: 1rem;
-}
-
-.fw-bold {
-  font-weight: 700;
+.quill-wrapper ::ng-deep .ql-editor {
+  height: 100%;
+  overflow-y: auto;
+  font-size: 14px;
 }

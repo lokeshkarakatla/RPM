@@ -14,14 +14,15 @@
 
 /* --- Corrected Navigation Container --- */
 .nav-container {
-  padding: 10px;
+  // padding: 10px;
   position: fixed;
   /* === KEY CHANGE: Moves the bar to the left === */
   left: 0; 
   top: 56px; /* Adjust based on your header's height */
   height: 100vh;
   overflow-y: auto;
-  background-color: #fafafa;
+  // background-color: #fafafa;
+   background-color: #f0f0f0;
   transition: width 0.3s ease-in-out;
 }
 
@@ -50,6 +51,8 @@
   font-size: 28px;
   width: 28px;
   height: 28px;
+  padding-left: 14px;
+  
 }
 
 .nav-links ul {
@@ -66,7 +69,7 @@
   display: flex;
   align-items: center;
   padding: 8px;
-  border-radius: 5px;
+  // border-radius: 5px;
 }
 
 .nav-links li:hover {
@@ -84,6 +87,7 @@
   text-decoration: none;
   color: inherit;
   width: 100%;
+
 }
 
 .nav-icon {
@@ -94,10 +98,29 @@
 .nav-links span {
   white-space: nowrap;
   transition: opacity 0.3s ease;
+  padding-left: 8px;
 }
 
 .nav-closed .nav-links span {
   opacity: 0;
   width: 0;
   display: none;
+}
+
+ul li mat-icon {
+padding-left: 8px;
+}
+
+.nav-links li.active,
+.nav-links li.router-link-active {
+  background-color: #dfefff;  /* highlight background */
+    background-color: #dfefff;
+  font-weight: bold;
+  color: #1976d2;              /* <-- active text/icon color */
+}
+
+.nav-links li.active .nav-icon,
+.nav-links li.router-link-active .nav-icon {
+  color: #1976d2;              /* <-- active icon color */
+  background-color: #dfefff;  /* highlight background */
 }

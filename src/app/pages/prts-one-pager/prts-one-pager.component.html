@@ -1,104 +1,58 @@
-
-<!-- <div fxLayout="row wrap" class="breadcrumb" style="padding-bottom: 8px !important;" *ngIf="router.url != ''">
-    <div fxFlex="100" class="">
-
-        <div fxLayout="row" style="float: right !important;margin-top: 10px;" class="pull-right">
-
-           
-        </div>
-        <h3 style="margin-top:10px;margin-bottom:10px;margin-left: 15px;" class="pull-left">{{Header}}</h3>
-        <br>
-      
-    </div>
-</div> -->
+<div class="layout-container">
 
 
 
+  <!-- Sidebar -->
+  <div class="sidebar" [ngClass]="{'nav-open': isNavOpen, 'nav-closed': !isNavOpen}">
 
-<!-- <div>
-    <div class="container-fluid" style="padding-right: 7px; padding-left: 1px;">
-        <div class="w-100">
-            <div class="flex-p">
-                <div class="row wrap">
-                    <div class="col-sm-12 no-padding">
-                        <div class="row-wrap">
-                            <div class="w-100">
-                                <div class="row">
-                                    <div class="col-xs-6"></div>
-                                    <div class="col-xs-6">
-                                        <div class="col-xs-6"></div>
+    <!-- Toggle Button -->
+    <button (click)="toggleNav()" class="toggle-button ms-3">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-                                        <div class="col-xs-6" style="margin-left: -13px;">
-                                            <div class="">
+    <ul>
+      <li class="ms-3" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="base-info">
+        <a>
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Base Info">info</mat-icon>
+          <span *ngIf="isNavOpen">Base Info</span>
+        </a>
+      </li>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
+      <li class="ms-3" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="updates">
+        <a>
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Updates">update</mat-icon>
+          <span *ngIf="isNavOpen">Updates</span>
+        </a>
+      </li>
 
-   <div class="layout-container">
+      <li class="ms-3" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="action/grid-view">
+        <a>
+          <mat-icon *ngIf="!isNavOpen" matTooltip="CAPA">assignment</mat-icon>
+          <span *ngIf="isNavOpen">CAPA</span>
+        </a>
+      </li>
 
-        
+      <li class="ms-3" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="mitigation">
+        <a>
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Mitigation">build</mat-icon>
+          <span *ngIf="isNavOpen">Mitigation</span>
+        </a>
+      </li>
 
-     <!-- Sidebar -->
-<div class="sidebar" [ngClass]="{'nav-open': isNavOpen, 'nav-closed': !isNavOpen}">
+      <li class="ms-3" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="document">
+        <a>
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Documents">folder</mat-icon>
+          <span *ngIf="isNavOpen">Documents</span>
+        </a>
+      </li>
+    </ul>
 
-  <!-- Toggle Button -->
-  <button (click)="toggleNav()" class="toggle-button">
-    <mat-icon>menu</mat-icon>
-  </button>
+  </div>
 
-  <ul>
-    <li class="mx-2" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="base-info">
-      <a>
-        <mat-icon *ngIf="!isNavOpen" matTooltip="Base Info">info</mat-icon>
-        <span *ngIf="isNavOpen">Base Info</span>
-      </a>
-    </li>
-
-    <li  class="mx-2" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="updates">
-      <a>
-        <mat-icon *ngIf="!isNavOpen" matTooltip="Updates">update</mat-icon>
-        <span *ngIf="isNavOpen">Updates</span>
-      </a>
-    </li>
-
-    <li  class="mx-2" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="action/grid-view">
-      <a>
-        <mat-icon *ngIf="!isNavOpen" matTooltip="CAPA">assignment</mat-icon>
-        <span *ngIf="isNavOpen">CAPA</span>
-      </a>
-    </li>
-
-    <li  class="mx-2" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-        routerLink="mitigation">
-      <a>
-        <mat-icon *ngIf="!isNavOpen" matTooltip="Mitigation">build</mat-icon>
-        <span *ngIf="isNavOpen">Mitigation</span>
-      </a>
-    </li>
-
-    <li  class="mx-2" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="document">
-      <a>
-        <mat-icon *ngIf="!isNavOpen" matTooltip="Documents">folder</mat-icon>
-        <span *ngIf="isNavOpen">Documents</span>
-      </a>
-    </li>
-  </ul>
+  <!-- Content -->
+  <div class=" content">
+    <router-outlet></router-outlet>
+  </div>
 
 </div>
-
-<!-- Content -->
-<div class=" content">
-  <router-outlet></router-outlet>
-</div>
-
-    </div>
- 

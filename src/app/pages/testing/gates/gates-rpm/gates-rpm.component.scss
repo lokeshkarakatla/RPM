@@ -1,9 +1,5 @@
-
-
-
-
 .nav-container {
-  padding: 10px 0 10px 0;
+  padding: 10px 0;
   width: 220px;
   max-width: 220px;
   min-width: 60px;
@@ -15,7 +11,7 @@
   overflow-x: hidden;
   background-color: #f0f0f0;
   transition: all 0.3s ease-in-out;
-  box-shadow: -2px 0 8px rgba(0,0,0,0.04);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -23,11 +19,9 @@
   box-sizing: border-box;
 }
 
-
 .nav-open {
   width: 220px;
 }
-
 
 .nav-closed {
   width: 60px;
@@ -36,32 +30,35 @@
 
 .toggle-button {
   margin-top: 10px;
+  margin-bottom: 15px;
   background-color: #f0f0f0;
   border: none;
   font-size: 20px;
-  margin-bottom: 15px;
   cursor: pointer;
   width: 100%;
   text-align: left;
   padding: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .toggle-button:hover {
   background-color: #e0e0e0;
 }
 
+.toggle-button mat-icon {
+  margin-left: 10px;
+  font-size: 28px;
+  vertical-align: middle;
+}
 
 .nav-links ul {
   font-size: 17px;
-  padding-top: 20px;
   list-style-type: none;
   margin: 0;
-  padding-left: 0;
+  padding: 20px 0 0 0;
   width: 100%;
 }
-
-
-
 
 .nav-links li {
   margin: 12px 0;
@@ -73,70 +70,19 @@
   text-decoration: none;
   color: black;
   display: flex;
-  align-items: center;
-  padding: 8px 10px 8px 24px;
+  align-items: center;      // fixes icon/label vertical alignment
+  gap: 12px;                // replaces manual padding on span and mat-icon
+  padding: 8px 10px 8px 15px;
   border-radius: 4px;
   transition: all 0.2s ease;
   width: 100%;
   box-sizing: border-box;
 }
 
-
-.nav-links li a {
-  text-decoration: none;
-  color: black;
-  display: block;
-    padding: 8px 10px 8px 24px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  width: 100%;
-  box-sizing: border-box;
-
-.nav-links li a span {
-  padding-left: 12px;
-}
-
 .nav-links li a mat-icon {
-  padding-right: 12px;
-  margin-left: 0;
   font-size: 28px;
-  vertical-align: middle;
-}
-
-.toggle-button mat-icon {
-  margin-left: 12px;
-  font-size: 28px;
-  vertical-align: middle;
-}
-
-.nav-links li a:hover {
-  background-color: #e0e0e0;
-  color: grey;
-}
-
-.nav-links li.active a,
-.nav-links li.router-link-active a {
-  color: blue !important;
-  font-weight: bold;
-  background-color: #dfefff;
-}
-
-.nav-links li a span {
-  padding-left: 12px;
-}
-
-.nav-links li a mat-icon {
-  padding-right: 12px;
-  margin-left: 0;
-  font-size: 28px;
-  vertical-align: middle;
-}
-
-.toggle-button mat-icon {
-  margin-left: 12px;
-  font-size: 28px;
-  vertical-align: middle;
-}
+ 
+  flex-shrink: 0;           // prevents icon from squishing
 }
 
 .nav-links li a:hover {

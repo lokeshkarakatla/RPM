@@ -253,10 +253,7 @@
   margin-bottom: 20px;
 }
 
-.header-content {
-  display: flex;
-  flex-direction: column;
-}
+ 
 
 .page-title {
   margin: 0;
@@ -264,11 +261,11 @@
  
 }
 
-.header-info {
-  margin: 6px 0 0 0;
-  font-size: 15px;
-  color: #555;
-}
+// .header-info {
+//   margin: 6px 0 0 0;
+//   font-size: 15px;
+//   color: #c94e4e;
+// }
 
 .back-btn {
   background-color: gray;
@@ -317,11 +314,11 @@
   font-size: 20px;
 }
 
-.header-info {
-  margin: 3px 0px 0px 0px;
-  font-size: 13px;
-  color: #555;
-}
+// .header-info {
+//   margin: 3px 0px 0px 0px;
+//   font-size: 13px;
+//   color: #161515;
+// }
 
 .back-btn {
   background-color: gray;
@@ -481,4 +478,22 @@
 ::ng-deep ngx-mat-select-search input:focus {
   border-color: #80bdff;
   box-shadow: none;
+}
+/* Target the wrapper paragraph */
+.header-info {
+    margin-top: 6px;
+    display: inline-block;
+}
+
+/* Target the labels (Ref No:, Subject:) */
+.header-info .info-label {
+    font-size: 13px !important;  /* Change to your preferred size */
+    color: #555555 !important; 
+    font-weight: bold;  /* Change to your preferred color */
+}
+
+/* Target the values (PSR-24001, Paint Defect) */
+.header-info .info-value {
+    font-size: 13px !important;  /* Change to your preferred size */
+    color: #555555 !important;   /* Change to your preferred color */
 }

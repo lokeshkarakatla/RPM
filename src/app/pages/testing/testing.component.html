@@ -1,69 +1,70 @@
 <div class="pills">
-  <ul class="nav nav-pills" style="margin-left: 24px; padding-bottom: 10px;">
-    <li routerLinkActive="active"  #issuesTab="routerLinkActive" [routerLink]="['./test-dashboard']">
+  <ul class="nav nav-pills" style="
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-left: 24px;
+  padding-bottom: 10px;
+  gap: 4px;
+  /* border: 2px solid red; */
+  width: 97%;
+">
+    <li routerLinkActive="active" #issuesTab="routerLinkActive" [routerLink]="['./test-dashboard']">
       <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Radar</a>
     </li>
 
-
-     <li routerLinkActive="active" [routerLink]="['./projects']">
+    <li routerLinkActive="active" [routerLink]="['./projects']">
       <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Projects</a>
     </li>
 
-    <li routerLinkActive="active" [routerLink]="['./projcts']">
-      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Overview</a>
+    <li routerLinkActive="active" [routerLink]="['./stages']">
+      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Stages</a>
     </li>
 
-    <li routerLinkActive="active" [routerLink]="['./activity']">
-      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Activity</a>
-    </li>
+   
 
     <li routerLinkActive="active" [routerLink]="['./gates']">
       <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Gates</a>
     </li>
 
     <li routerLinkActive="active" [routerLink]="['./projcts']">
-      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Team</a>
+      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Teams</a>
     </li>
 
-    <!-- Add template ref for issues tab -->
-    <li routerLinkActive="active" [routerLink]="['./issues']">
+   
+     <li routerLinkActive="active" [routerLink]="['./tasks']">
+      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Tasks</a>
+    </li>
+
+     <li routerLinkActive="active" [routerLink]="['./actiy']">
+      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Kanban</a>
+    </li>
+
+     <li routerLinkActive="active" [routerLink]="['./issues']">
       <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Issues</a>
     </li>
 
-    <!-- <li routerLinkActive="active" [routerLink]="['./tractorstatus']">
-      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Equipment Status</a>
+     <li routerLinkActive="active" [routerLink]="['./isss']">
+      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">To Do</a>
     </li>
 
-    <li routerLinkActive="active" [routerLink]="['./teststatus']">
-      <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Test Status</a>
-    </li> -->
+
 
     <li routerLinkActive="active" [routerLink]="['./testing-masterData']">
       <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">Master Data</a>
     </li>
 
-   
-
     <!-- ✅ Show only if Issues tab is active -->
     <ng-container *ngIf="issuesTab.isActive">
-      <!-- <div class="col-sm-2" style="margin-top: 0.7%;
-    margin-left: 21.2%;">
-        <mat-select class="form-control" placeholder="Select Department">
-          <mat-option [value]="1">Human Resources</mat-option>
-          <mat-option [value]="2">Finance</mat-option>
-          <mat-option [value]="3">Engineering</mat-option>
-          <mat-option [value]="4">Marketing</mat-option>
-        </mat-select>
-      </div> -->
-
-      <div class="col-sm-2" style="margin-top: 0.7%;margin-left: 38.5%;">
-        <mat-select class="form-control" placeholder="Select Project Name">
+      <li style="margin-left: auto;">
+        <mat-select class="form-control" placeholder="Select Project Name" style="min-width: 200px;">
           <mat-option [value]="1">Apollo</mat-option>
           <mat-option [value]="2">Orion</mat-option>
           <mat-option [value]="3">Titan</mat-option>
           <mat-option [value]="4">Zephyr</mat-option>
         </mat-select>
-      </div>
+      </li>
     </ng-container>
   </ul>
 </div>

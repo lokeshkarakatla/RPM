@@ -1,0 +1,42 @@
+<div class="m-5">
+    <table matSort id="example2" class="table table-bordered table-hover" style="width: 70%;">
+        <thead class="tbl-head">
+            <tr>
+                <th class="text-center" style="width: 107px !important;">Actions</th>
+                <th class="text-center">Stage Name</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">WBS (Work Breakdown Structure)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tdata">
+                <td class="text-center">
+                    <a matTooltip="Edit Project" [ngClass]="{'disable-custom' : !canUpdate}"
+                        style="margin-right: 10px; cursor: pointer; color: cornflowerblue;"
+                        (click)="openEditDialog(item)">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a [ngClass]="{'disable-custom' : !canDelete || item.TotalUsed}">
+                        <i style="cursor: pointer;" matTooltip="Delete Project" class="fa fa-trash red"
+                            (click)="deleteConfirmation(item)"></i>
+                    </a>
+                </td>
+                <td class="text-center">{{ item.phase }}</td>
+                <td>{{ item.description }}</td>
+                <td>
+                    {{ item.tasks }}
+                    <!-- <ul class="mb-0 ps-3">
+                        <li *ngFor="let task of item.tasks">{{ task }}</li>
+                    </ul> -->
+                </td>
+            </tr>
+            <tr *ngIf="!tdata || tdata.length === 0">
+                <td colspan="4" class="text-center">No records found</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <mat-paginator style="width: 70%;" [length]="totalSize" [pageIndex]="currentPage" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20, 50, 100]" (page)="fnHandlePage($event)" showFirstLastButtons>
+    </mat-paginator>
+</div>

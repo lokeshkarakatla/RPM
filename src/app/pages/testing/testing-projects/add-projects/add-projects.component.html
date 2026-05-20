@@ -13,95 +13,89 @@
                         <a mat-raised-button class="nav-link text-left py-2 width ">Overview
                         </a>
                     </li>
-                    <li class="nav-item" style="margin-top: 10px;"
+                    <!-- <li class="nav-item" style="margin-top: 10px;"
                         [ngClass]=" addStep == 2 ? 'active nav-item': 'nav-item'" (click)="changeAddStep(2)"
                         routerLinkActive="active">
                         <a mat-raised-button class="nav-link text-left py-2 width">Section Leads
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
 
-        <div *ngIf="addStep == 1" class="col-sm-10" style="margin-top: 0px;padding-left:20px;">
-            <form>
-                <div>
-                    <div class="row" style="padding-left:30px;">
-                        <div class="row" style="margin-bottom: 12px;">
-                            <div class="col-sm-4 ">
-                                <label class="add-member-label  mt5 required " style="margin-top:5px;">Project
-                                    Name:</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <div>
-                                    <input type="text" maxlength="150" style="height:50px;" class="form-control back"
-                                        placeholder="Project Name">
-                                    <!-- <div *ngIf="isSubmitting && f.ProjectName.errors" class="error-text">
+      <div *ngIf="addStep == 1" class="col-sm-10" style="margin-top: 0px;padding-left:20px;">
+    <form>
+        <div>
+            <div class="row" style="padding-left:30px;">
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4 ">
+                        <label class="add-member-label mt5 required " style="margin-top:5px;">Project Title:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div>
+                            <input type="text" maxlength="150" style="height:35px;" class="form-control back" placeholder="Project Name">
+                        </div>
+                    </div>
+                </div>
 
-                                        </div> -->
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4 ">
+                        <label class="add-member-label mt5 required " style="margin-top:5px;">Description:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div>
+                            <input type="text" maxlength="150" style="height:35px;" class="form-control back" placeholder="Project Code">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4">
+                        <label class="add-member-label mt5 required" style="margin-top:5px;">Project Timeline:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label style="font-size: 12px; color: #666;">Start Date</label>
+                                    <input type="date" style="height:35px;" class="form-control back">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row" style="margin-bottom: 12px;">
-                            <div class="col-sm-4 ">
-                                <label class="add-member-label  mt5 required " style="margin-top:5px;">Project
-                                    Code:</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <div>
-                                    <input type="text" maxlength="150" style="height:50px;" class="form-control back"
-                                        placeholder="Project Code">
-                                    <!-- <div *ngIf="isSubmitting && f.ProjectName.errors" class="error-text">
-
-                                        </div> -->
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label style="font-size: 12px; color: #666;" class="required">Due Date</label>
+                                    <input type="date" style="height:35px;" class="form-control back">
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="row" style="margin-top: 10px;">
-                            <div class="col-lg-4 col-md- 4 col-sm-4 col-xs-4 ">
-                                <label class="control-label mt-1">Project Lead:</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <mat-select placeholder="Select Project Lead" class="form-control ">
-
-                                    <mat-option value="Shailaja">Shailaja</mat-option>
-                                    <mat-option value="Sai">Sai</mat-option>
-                                    <mat-option value="Satya">Satya</mat-option>
-                                </mat-select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- <div style="margin-top: 5px;margin-right:5px;">
-                            <div class="pull-right">
-                                <button mat-raised-button type="submit" class="save" color="primary" style="margin-right: 5px;"
-                                    (click)="upsertProjects()">
-                                    <mat-icon style="margin-top: 7px;">save</mat-icon> Save
-                                </button>
-                                <button mat-raised-button class="cancel" (click)="close()"
-                                    style=" background-color:  #e4e4e6!important; color: rgb(6, 6, 6);">
-                                    <mat-icon style="margin-top: 7px;">cancel</mat-icon>Cancel
-                                </button>
-                            </div>
-                        </div> -->
-            </form>
-            <mat-dialog-actions align="end" style="margin-top: 15px;">
 
-                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()"
-                    style="background-color: lightgray; color: red;margin-right: 5px;">
-                    <mat-icon>cancel</mat-icon>
-                    Close
-                </button>
-                <button mat-raised-button type="submit" class="save" color="primary" style="margin-right: 17px;"
-                    (click)="changeAddStep(2)">
-                    <mat-icon>save</mat-icon>Save & Next
-                </button>
-                <!-- <button mat-raised-button (click)="changeAddStep(2)"
-                    style="background-color:#229494 ;color: white;">Proceed</button> -->
-                
-            </mat-dialog-actions>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+                        <label class="control-label mt-1">Project Manager:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-select placeholder="Select Project Manager" class="form-control ">
+                            <mat-option value="Shailaja">Shailaja</mat-option>
+                            <mat-option value="Sai">Sai</mat-option>
+                            <mat-option value="Satya">Satya</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
         </div>
+    </form>
+
+    <mat-dialog-actions align="end" style="margin-top: 15px;">
+        <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red;margin-right: 5px;">
+            <mat-icon>cancel</mat-icon> Close
+        </button>
+        <button mat-raised-button type="submit" class="save" color="primary" style="margin-right: 17px;" (click)="changeAddStep(2)">
+            <mat-icon>save</mat-icon>Save & Next
+        </button>
+    </mat-dialog-actions>
+</div>
 
 
 

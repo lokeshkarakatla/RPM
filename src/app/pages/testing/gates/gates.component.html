@@ -1,0 +1,58 @@
+<div class="nav-container" [ngClass]="{'nav-open': isNavOpen, 'nav-closed': !isNavOpen}">
+
+  <!-- Toggle Button -->
+  <button (click)="toggleNav()" class="toggle-button">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <nav class="nav-links">
+   <ul>
+
+  <li routerLinkActive="active">
+    <a [routerLink]="['feasibility']">
+      <mat-icon *ngIf="!isNavOpen" matTooltip="Feasibility">analytics</mat-icon>
+      <span *ngIf="isNavOpen">Feasibility</span>
+    </a>
+  </li>
+
+  <li routerLinkActive="active">
+    <a [routerLink]="['design']">
+      <mat-icon *ngIf="!isNavOpen" matTooltip="Design">design_services</mat-icon>
+      <span *ngIf="isNavOpen">Design</span>
+    </a>
+  </li>
+
+  <li routerLinkActive="active">
+    <a [routerLink]="['prototyping']">
+      <mat-icon *ngIf="!isNavOpen" matTooltip="Prototyping">build</mat-icon>
+      <span *ngIf="isNavOpen">Prototyping</span>
+    </a>
+  </li>
+
+  <li routerLinkActive="active">
+    <a [routerLink]="['testing']">
+      <mat-icon *ngIf="!isNavOpen" matTooltip="Testing">bug_report</mat-icon>
+      <span *ngIf="isNavOpen">Testing</span>
+    </a>
+  </li>
+
+  <li routerLinkActive="active">
+    <a [routerLink]="['launch']">
+      <mat-icon *ngIf="!isNavOpen" matTooltip="Launch">rocket_launch</mat-icon>
+      <span *ngIf="isNavOpen">Launch</span>
+    </a>
+  </li>
+
+  <li routerLinkActive="active">
+    <a [routerLink]="['implementation']">
+      <mat-icon *ngIf="!isNavOpen" matTooltip="Implementation">settings_suggest</mat-icon>
+      <span *ngIf="isNavOpen">Implementation</span>
+    </a>
+  </li>
+
+</ul>
+  </nav>
+
+</div>
+
+<router-outlet></router-outlet>

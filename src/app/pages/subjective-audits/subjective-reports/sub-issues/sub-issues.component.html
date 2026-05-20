@@ -1,4 +1,3 @@
- 
 <div class="col-sm-12 mt-4" style="margin-left: -2px; margin-bottom: 15px;">
     <div class="col-lg-4 col-sm-4">
         <div class="form-group">
@@ -149,47 +148,47 @@
 </div> -->
 
 <!-- SINGLE VIEW -->
+<!-- SINGLE VIEW -->
 <div *ngIf="viewMode === 1">
-  <div *ngFor="let img of images 
-  " class="row mb-4" style="margin-top: 20px;">
-    <div class="col-sm-12 " style="margin-left: 31px;">
+  <div *ngFor="let img of images" class="row mb-4" style="margin-top: 20px;">
+    <div class="col-sm-12" style="margin-left: 31px;">
       <h2 style="margin-bottom: 20px;">{{ img.title }}</h2>
-      <img [src]="img.src" [alt]="img.title"
-           [ngStyle]="{'height.px': 506, 'width.%': 55, 'background': 'white'}">
+      
+      <!-- Wrap image and overlay here -->
+      <div class="image-grid-container" [ngStyle]="{'width.%': 55}">
+        <img [src]="img.src" [alt]="img.title"
+             [ngStyle]="{'height.px': 506, 'width.%': 100, 'background': 'white'}">
+        <div class="grid-overlay"></div>
+      </div>
            
     </div>
   </div>
 </div>
 
 <!-- DOUBLE VIEW -->
+<!-- DOUBLE VIEW -->
 <div *ngIf="viewMode === 2" style="margin-top: 80px;">
   <div class="row mb-4" *ngFor="let row of images | slice:0:images.length; let i = index">
     <ng-container *ngIf="i % 2 === 0">
+      
       <div class="col-sm-6 text-center" *ngIf="images[i]" style="margin-bottom: 30px;">
         <h2 style="margin-bottom: 20px;">{{ images[i].title }}</h2>
-        <img
-  [src]="images[i].src"
-  [alt]="images[i].title"
-  [ngStyle]="{
-    'height': images[i].height,
-    'width': images[i].width,
-    'background': 'white'
-  }">
+        <!-- Wrap Image 1 -->
+        <div class="image-grid-container" [ngStyle]="{'height': images[i].height, 'width': images[i].width}">
+          <img [src]="images[i].src" [alt]="images[i].title" style="width: 100%; height: 100%; background: white;">
+          <div class="grid-overlay"></div>
+        </div>
       </div>
+
       <div class="col-sm-6 text-center" *ngIf="images[i + 1]">
         <h2 style="margin-bottom: 20px;">{{ images[i + 1].title }}</h2>
-        <img
-  [src]="images[i + 1].src"
-  [alt]="images[i + 1].title"
-  [ngStyle]="{
-    'height': images[i + 1].height,
-    'width': images[i + 1].width,
-    'background': 'white'
-  }">
+        <!-- Wrap Image 2 -->
+        <div class="image-grid-container" [ngStyle]="{'height': images[i + 1].height, 'width': images[i + 1].width}">
+          <img [src]="images[i + 1].src" [alt]="images[i + 1].title" style="width: 100%; height: 100%; background: white;">
+          <div class="grid-overlay"></div>
+        </div>
       </div>
+
     </ng-container>
   </div>
 </div>
-
-
-

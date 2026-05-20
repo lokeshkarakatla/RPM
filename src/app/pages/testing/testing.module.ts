@@ -22,9 +22,8 @@ import { AddProjectsComponent } from './testing-projects/add-projects/add-projec
 import { TractorstatusComponent } from './tractorstatus/tractorstatus.component';
 import { TeststatusComponent } from './teststatus/teststatus.component';
 import { MasterdataComponent } from './masterdata/masterdata.component';
-// import { TestMasterDataComponent } from './test-master-data/test-master-data.component';
 import { StatusConfirmationDialogComponent } from './testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';           // ← add FormsModule here
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -32,70 +31,37 @@ import { TestdashboardComponent } from '../dashboard/testdashboard/testdashboard
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddProjectSectionComponent } from './testing-projects/add-project-section/add-project-section.component';
 import { ActivityRpmComponent } from './activity/activity-rpm/activity-rpm.component';
-import { GatesRpmComponent } from './gates/gates-rpm/gates-rpm.component';
-
-
+import { RpmStagesComponent } from './rpm-stages/rpm-stages.component';
+import { RpmTasksComponent } from './rpm-tasks/rpm-tasks.component';
+import { GatesComponent } from './gates/gates.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';          // ← add this
+import { MatNativeDateModule } from '@angular/material/core';                // ← add this
 
 const routes: Routes = [
     { path: "", redirectTo: "test-dashboard", pathMatch: "full" },
+    { path: 'test-dashboard', component: TestdashboardComponent, data: { breadcrum: 'Radar' } },
+    { path: 'issues', component: TestingIssuesComponent, data: { breadcrumb: 'Issues' } },
+    { path: 'tractorstatus', component: TractorstatusComponent, data: { breadcrumb: 'Tractor Status' } },
+    { path: 'teststatus', component: TeststatusComponent, data: { breadcrumb: 'Test Status' } },
+    { path: 'activity', component: ActivityRpmComponent, data: { breadcrumb: 'Activity' } },
+    { path: 'stages', component: RpmStagesComponent, data: { breadcrumb: 'Stages' } },
+    { path: 'tasks', component: RpmTasksComponent, data: { breadcrumb: 'Tasks' } },
+    { path: 'projects', component: TestingProjectsComponent, data: { breadcrumb: 'Projects' } },
     {
-        path: 'test-dashboard', component: TestdashboardComponent,
-        data: {breadcrum:'Radar'}
-       
-    },
-
-    {
-        path: 'issues', component: TestingIssuesComponent,
-        data: { breadcrumb: 'Issues', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
-    },
-
-    {
-        path: 'tractorstatus', component: TractorstatusComponent,
-        data: { breadcrumb: 'Tractor Status', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
+        path: "gates", component: GatesComponent,
+        loadChildren: () => import("./gates/gates.module").then((m) => m.GatesModule),
+        data: { breadcrumb: 'Feasibility', screenId: 4 }
     },
     {
-        path: 'teststatus', component: TeststatusComponent,
-        data: { breadcrumb: 'Test Status', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
+        path: "testing-masterData", component: MasterdataComponent,
+        loadChildren: () => import("./masterdata/masterdata.module").then((m) => m.MasterdataModule),
+        data: { breadcrumb: 'Master Data', screenId: 4 }
     },
-    {
-        path: 'activity', component: ActivityRpmComponent,
-        data: { breadcrumb: 'Activity', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
-    },
-    {
-        path: 'gates', component: GatesRpmComponent,
-        data: { breadcrumb: 'Gates', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
-    },
-
-    // {
-    //     path: 'testing-masterData', component: MasterdataComponent,
-    //     data: { breadcrumb: 'Testing', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
-    // },
-
-    {
-        path: "testing-masterData",
-        component: MasterdataComponent,
-        loadChildren: () =>
-            import("./masterdata/masterdata.module").then((m) => m.MasterdataModule
-            ),
-        data: {
-            breadcrumb: 'Master Data', screenId: 4,
-            description: "This screen covers Comprehensive list of Data across the application. New data can be added, deleted or modified according to fuctionality."
-        }
-    },
-    {
-        path: 'projects', component: TestingProjectsComponent,
-        data: { breadcrumb: 'Projects', description: 'Dashboard  based audits can be recorded here for a specific vehicle across a hierarchy of Categories  and checkpoints.  Issues are recorded and a demerit indicating the severity of the issue is recorded.  Demerit master varies with audit type.' }
-    },
-
-
-
-
 ]
 
 @NgModule({
     declarations: [
-
-
+        // ✅ ONLY components, directives, pipes go here
         TestingIssuesComponent,
         TestingProductsComponent,
         TestingTestsComponent,
@@ -107,17 +73,21 @@ const routes: Routes = [
         AddProjectsComponent,
         TractorstatusComponent,
         TeststatusComponent,
-
-        // TestMasterDataComponent,
         StatusConfirmationDialogComponent,
         TestdashboardComponent,
         AddProjectSectionComponent,
         ActivityRpmComponent,
-        GatesRpmComponent,
+        RpmStagesComponent,
+        RpmTasksComponent,
+        GatesComponent,
+        MasterdataComponent,
     ],
     imports: [
+        // ✅ ALL modules go here
         CommonModule,
         RouterModule.forChild(routes),
+        FormsModule,              // ← fixes [(ngModel)]
+        ReactiveFormsModule,
         MatIconModule,
         NgxChartsModule,
         MatButtonModule,
@@ -127,14 +97,12 @@ const routes: Routes = [
         MatToolbarModule,
         MatPaginatorModule,
         MatDialogModule,
-        ReactiveFormsModule,
-        MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
         MatCheckboxModule,
-        ReactiveFormsModule    
-        // DashboardModule
+        MatDatepickerModule,      // ← fixes mat-datepicker
+        MatNativeDateModule,      // ← required date adapter
     ]
 })
 export class TestingModule { }

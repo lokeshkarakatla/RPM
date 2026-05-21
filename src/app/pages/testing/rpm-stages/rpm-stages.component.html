@@ -3,14 +3,17 @@
         <thead class="tbl-head">
             <tr>
                 <th class="text-center" style="width: 107px !important;">Actions</th>
+                <th class="text-center">Status</th>
                 <th class="text-center">Stage Name</th>
                 <th class="text-center">Description</th>
-                <th class="text-center">WBS </th> 
-                <!-- (Work Breakdown Structure) -->
+                <th class="text-center">WBS</th> 
             </tr>
         </thead>
+        
         <tbody>
-            <tr *ngFor="let item of tdata">
+            <!-- Iterate over pagedData instead of tdata so pagination works -->
+            <tr *ngFor="let item of pagedData">
+                
                 <td class="text-center">
                     <a matTooltip="Edit Project" [ngClass]="{'disable-custom' : !canUpdate}"
                         style="margin-right: 10px; cursor: pointer; color: cornflowerblue;"
@@ -22,23 +25,37 @@
                             (click)="deleteConfirmation(item)"></i>
                     </a>
                 </td>
-                <td >{{ item.phase }}</td>
-                <td >{{ item.description }}</td>
+                
+                <td class="text-center" (click)="Confirmation(item)" style="cursor: pointer;"
+                    [style.color]="item.status === 'Active' ? 'blue' : (item.status === 'Inactive' ? 'red' : 'inherit')"> 
+                    {{ item.status }} 
+                </td>
+                
+                <td>{{ item.phase }}</td>
+                
+                <td>{{ item.description }}</td>
+                
                 <td class="text-center">
-                    <a href=""> {{ item.tasks }}</a>
-                   
-                    <!-- <ul class="mb-0 ps-3">
-                        <li *ngFor="let task of item.tasks">{{ task }}</li>
-                    </ul> -->
+                    <a routerLinkActive="active" [routerLink]="['/app/testing/stages/wbs']">
+                        {{ item.tasks }}
+                    </a>
                 </td>
             </tr>
-            <tr *ngIf="!tdata || tdata.length === 0">
-                <td colspan="4" class="text-center">No records found</td>
+
+            <!-- Empty state check also updated to look at pagedData -->
+            <tr *ngIf="!pagedData || pagedData.length === 0">
+                <td colspan="5" class="text-center">No records found</td> 
             </tr>
         </tbody>
     </table>
 
-    <mat-paginator style="width: 70%;" [length]="totalSize" [pageIndex]="currentPage" [pageSize]="pageSize"
-        [pageSizeOptions]="[5, 10, 20, 50, 100]" (page)="fnHandlePage($event)" showFirstLastButtons>
+    <!-- Paginator remains the same, but now it triggers fnHandlePage to slice the array -->
+    <mat-paginator style="width: 70%;" 
+        [length]="totalSize" 
+        [pageIndex]="currentPage" 
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20, 50, 100]" 
+        (page)="fnHandlePage($event)" 
+        showFirstLastButtons>
     </mat-paginator>
 </div>

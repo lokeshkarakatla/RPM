@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddTaskComponent } from './add-task/add-task.component';
+ 
 
 @Component({
   selector: 'app-rpm-tasks',
@@ -8,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class RpmTasksComponent implements OnInit {
   isNavOpen: boolean | undefined;
 
-  constructor() { }
+  constructor(private dialog :MatDialog) { }
 
 
   allProjects: any[] = []; // Replace with actual project model/interface
@@ -24,63 +27,32 @@ export class RpmTasksComponent implements OnInit {
     // Mock data fetch - replace with service/API call
 const mockData = [
   {
-    ProjectName: 'Project Alpha',
-    ProjectCode: 'PA001',
-    ProjectDescription: 'Alpha phase development',
-    IssueReporterLead: 'John Doe',
-    ReporterLead: 'Jane Smith',
-    VILead: 'Mark Taylor',
     IsActive: true,
-    TotalUsed: false,
-    StartDate: new Date('2024-01-01'),
-    FinishDate: new Date('2024-06-30'),
-    Duration: '6 months',
-    Effort: '120 hrs',
-    ETA: '2024-06-30',
-    Issues: 3,
+    TaskName: 'UI Design Implementation',
+    TaskType: 'Development',
+    Description: 'Implement the new dashboard UI layout.',
     Priority: 'High',
     Complexity: 'Medium',
-    Ambiguity: 'Low'
+    Template: 'Dev Template v1'
   },
   {
-    ProjectName: 'Project Beta',
-    ProjectCode: 'PB002',
-    ProjectDescription: 'Beta testing phase',
-    IssueReporterLead: 'Alice Johnson',
-    ReporterLead: 'Robert Brown',
-    VILead: 'Lisa White',
     IsActive: false,
-    TotalUsed: true,
-    StartDate: new Date('2024-02-01'),
-    FinishDate: new Date('2024-08-31'),
-    Duration: '7 months',
-    Effort: '200 hrs',
-    ETA: '2024-08-31',
-    Issues: 5,
+    TaskName: 'Database Optimization',
+    TaskType: 'Maintenance',
+    Description: 'Optimize slow running queries in production.',
     Priority: 'Medium',
     Complexity: 'High',
-    Ambiguity: 'Medium'
+    Template: 'DB Task Template'
   },
   {
-    ProjectName: 'Project Beta',
-    ProjectCode: 'PB002',
-    ProjectDescription: 'Beta testing phase',
-    IssueReporterLead: 'Alice Johnson',
-    ReporterLead: 'Robert Brown',
-    VILead: 'Lisa White',
-    IsActive: false,
-    TotalUsed: true,
-    StartDate: new Date('2024-02-01'),
-    FinishDate: new Date('2024-08-31'),
-    Duration: '7 months',
-    Effort: '200 hrs',
-    ETA: '2024-08-31',
-    Issues: 5,
-    Priority: 'Medium',
-    Complexity: 'High',
-    Ambiguity: 'Medium'
-  },
-  // ... repeat same pattern for other projects
+    IsActive: true,
+    TaskName: 'Update User Manual',
+    TaskType: 'Documentation',
+    Description: 'Draft new sections for the v2.0 release features.',
+    Priority: 'Low',
+    Complexity: 'Low',
+    Template: 'Doc Template Standard'
+  }
 ];
 
     // Simulate pagination
@@ -130,4 +102,22 @@ scrollLeft() {
 }
 
 
+addTask()
+{
+  this.dialog.open(AddTaskComponent, {
+    width: '550px',
+    data: {} // Pass any necessary data to the dialog
+  });
+}
+
+openPdf(fileName: string): void {
+    // Construct the path to the assets folder
+    const pdfUrl = `assets/${fileName}`; 
+    
+    // Open the URL in a new browser tab
+    window.open(pdfUrl, '_blank');
+  }
+
+
+ 
 }

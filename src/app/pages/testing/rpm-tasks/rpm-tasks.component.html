@@ -5,92 +5,97 @@
 
 <div class="col-lg-12" style="overflow: hidden; margin-top: 40px">
  
- 
+
 
   <div class="col-sm-12" style="margin-top: 10px">
+<div class="button-container" style="display: flex; justify-content: flex-end; margin-bottom: 15px; align-items: center; width: 100%;">
+    <button  mat-raised-button color="primary" class="top-btn" style="display: flex; justify-content: flex-end; margin-bottom: 15px; "  (click)="addTask()">
+    <mat-icon style="vertical-align: middle;">add</mat-icon>Add Task
+    </button>
+
+     
+   </div>
     <div class="table-responsive" id="grid-table-container">
       
 
 
-      <table mat-table class="table table-bordered table-hover">
+      <table matSort id="example2" mat-table class="table table-bordered table-hover">
         <thead class="tbl-head">
           <tr>
             <th mat-header-cell mat-sort-header class="text-center">Action</th>
-            <th mat-header-cell mat-sort-header class="text-center">Assigned</th>
-            <th mat-header-cell mat-sort-header class="text-center">Subject</th>
-            <th mat-header-cell mat-sort-header class="text-center"> Description</th>
-            <th mat-header-cell mat-sort-header class="text-center">Responsibility </th>
-            <th mat-header-cell mat-sort-header class="text-center">Start Date</th>
-            <th mat-header-cell mat-sort-header class="text-center">Finish Date</th>
-            <th mat-header-cell mat-sort-header class="text-center">Duration </th>
-            <th mat-header-cell mat-sort-header class="text-center">Effort </th>
+            <th mat-header-cell mat-sort-header class="text-center">Status</th>
+            <th mat-header-cell mat-sort-header class="text-center">Task Name</th>
+            <th mat-header-cell mat-sort-header class="text-center"> Task Type</th>
+            <th mat-header-cell mat-sort-header class="text-center">Description </th>
+            <th mat-header-cell mat-sort-header class="text-center">Priority  </th>
+            <th mat-header-cell mat-sort-header class="text-center">Complexity  </th>
+            <th mat-header-cell mat-sort-header class="text-center">Template </th>
+            <!-- <th mat-header-cell mat-sort-header class="text-center">Effort </th>
             <th mat-header-cell mat-sort-header class="text-center">ETA </th>
             <th mat-header-cell mat-sort-header class="text-center">Issues </th>
             <th mat-header-cell mat-sort-header class="text-center">Priority</th>
             <th mat-header-cell mat-sort-header class="text-center">Complexity</th>
-            <th mat-header-cell mat-sort-header class="text-center">Ambiguity</th>
+            <th mat-header-cell mat-sort-header class="text-center">Ambiguity</th> -->
             
           </tr>
         </thead>
 
        <tbody>
-  <tr *ngFor="let item of allProjects">
+  <tr *ngFor="let item of allProjects"> <!-- assuming 'allProjects' is assigned to mockData in TS -->
     <!-- Actions -->
     <td class="text-center">
-      <a matTooltip="Edit Project" (click)="openEditDialog(item)">
-        <i class="fa fa-edit"></i>
+      <a matTooltip="Edit Task" style="margin-right: 8px; cursor: pointer;" (click)="openEditDialog(item)">
+        <i class="fa fa-edit" style="color: cornflowerblue;"></i>
       </a>
-      <a matTooltip="Delete Project" (click)="deleteConfirmation(item)">
-        <i class="fa fa-trash red"></i>
+      <a matTooltip="Delete Task" style="cursor: pointer;" (click)="deleteConfirmation(item)">
+        <i class="fa fa-trash red" style="color: red;"></i>
       </a>
     </td>
 
-    <!-- Assigned (Active/Inactive toggle) -->
-    <td class="text-center">
-      <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color: red;">Inactive</span>
-      <span *ngIf="item.IsActive" (click)="Confirmation(item)" style="color: blue;">Active</span>
+    <!-- Status (Active/Inactive toggle) -->
+    <td class="text-center" style="cursor: pointer;">
+      <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color: red; font-weight: 500;">Inactive</span>
+      <span *ngIf="item.IsActive" (click)="Confirmation(item)" style="color: blue; font-weight: 500;">Active</span>
     </td>
 
-    <!-- Subject -->
-    <td class="text-center">{{ item.ProjectName }}</td>
+    <!-- Task Name -->
+    <td class="text-center">{{ item.TaskName }}</td>
+
+    <!-- Task Type -->
+    <td class="text-center">{{ item.TaskType }}</td>
 
     <!-- Description -->
-    <td class="text-center">{{ item.ProjectDescription }}</td>
+    <td class="text-center">{{ item.Description }}</td>
 
-    <!-- Responsibility -->
-    <td class="text-center">{{ item.IssueReporterLead }}</td>
+    <!-- Priority (Dropdown bound to data) -->
+    <td class="text-center" style="width: 7%;"> 
+        <mat-select placeholder="Select Priority" class="form-control" [(value)]="item.Priority">
+            <mat-option value="High">High</mat-option>
+            <mat-option value="Medium">Medium</mat-option>
+            <mat-option value="Low">Low</mat-option>
+        </mat-select>
+    </td>
 
-    <!-- Start Date -->
-    <td class="text-center">{{ item.StartDate | date:'yyyy-MM-dd' }}</td>
+    <!-- Complexity (Dropdown bound to data) -->
+    <td class="text-center">
+        <mat-select placeholder="Select Complexity" class="form-control" [(value)]="item.Complexity">
+            <mat-option value="High">High</mat-option>
+            <mat-option value="Medium">Medium</mat-option>
+            <mat-option value="Low">Low</mat-option>
+        </mat-select>
+    </td>
 
-    <!-- Finish Date -->
-    <td class="text-center">{{ item.FinishDate | date:'yyyy-MM-dd' }}</td>
-
-    <!-- Duration -->
-    <td class="text-center">{{ item.Duration }}</td>
-
-    <!-- Effort -->
-    <td class="text-center">{{ item.Effort }}</td>
-
-    <!-- ETA -->
-    <td class="text-center">{{ item.ETA }}</td>
-
-    <!-- Issues -->
-    <td class="text-center">{{ item.Issues }}</td>
-
-    <!-- Priority -->
-    <td class="text-center">{{ item.Priority }}</td>
-
-    <!-- Complexity -->
-    <td class="text-center">{{ item.Complexity }}</td>
-
-    <!-- Ambiguity -->
-    <td class="text-center">{{ item.Ambiguity }}</td>
+    <!-- Template -->
+    <td class="text-center"> 
+  <mat-icon style="cursor: pointer;" (click)="openPdf('sample-1.pdf')">
+    visibility
+  </mat-icon>
+</td>
   </tr>
 
   <!-- Empty state -->
   <tr *ngIf="!allProjects || allProjects.length === 0">
-    <td colspan="14" class="text-center">No records found</td>
+    <td colspan="8" class="text-center">No records found</td>
   </tr>
 </tbody>
 

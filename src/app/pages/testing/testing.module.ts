@@ -35,7 +35,11 @@ import { RpmStagesComponent } from './rpm-stages/rpm-stages.component';
 import { RpmTasksComponent } from './rpm-tasks/rpm-tasks.component';
 import { GatesComponent } from './gates/gates.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';          // ← add this
-import { MatNativeDateModule } from '@angular/material/core';                // ← add this
+import { MatNativeDateModule } from '@angular/material/core';
+import { RpmStagesWbsComponent } from './rpm-stages/rpm-stages-wbs/rpm-stages-wbs.component';
+import { AddModuleComponent } from './rpm-stages/rpm-stages-wbs/add-module/add-module.component';
+import { AddTaskComponent } from './rpm-tasks/add-task/add-task.component';
+// import { AddCriteriaComponent } from './rpm-tasks/add-criteria/add-criteria.component';                // ← add this
 
 const routes: Routes = [
     { path: "", redirectTo: "test-dashboard", pathMatch: "full" },
@@ -46,6 +50,7 @@ const routes: Routes = [
     { path: 'activity', component: ActivityRpmComponent, data: { breadcrumb: 'Activity' } },
     { path: 'stages', component: RpmStagesComponent, data: { breadcrumb: 'Stages' } },
     { path: 'tasks', component: RpmTasksComponent, data: { breadcrumb: 'Tasks' } },
+  { path: 'stages/wbs', component: RpmStagesWbsComponent, data: { breadcrumb: 'WBS' } },
     { path: 'projects', component: TestingProjectsComponent, data: { breadcrumb: 'Projects' } },
     {
         path: "gates", component: GatesComponent,
@@ -81,6 +86,10 @@ const routes: Routes = [
         RpmTasksComponent,
         GatesComponent,
         MasterdataComponent,
+        RpmStagesWbsComponent,
+        AddModuleComponent,
+        AddTaskComponent,
+        // AddCriteriaComponent,
     ],
     imports: [
         // ✅ ALL modules go here

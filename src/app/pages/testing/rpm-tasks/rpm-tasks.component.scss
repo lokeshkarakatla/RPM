@@ -29,7 +29,7 @@
 
 mat-paginator {
   flex-shrink: 0;
-  border-top: 1px solid #e2e8f0;
+  // border-top: 1px solid #e2e8f0;
   background: #fff;
   position: sticky;
   bottom: 0;
@@ -46,6 +46,7 @@ mat-paginator {
     bottom: 80px;
     right: 40px;
     background-color: #e6e6e6 !important;
+    z-index: 9999;
 }
 
 .scroll-controls {

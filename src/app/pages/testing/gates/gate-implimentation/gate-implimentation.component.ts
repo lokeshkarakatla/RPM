@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AddcriteriaComponent } from '../addcriteria/addcriteria.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-gate-implimentation',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GateImplimentationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -64,5 +66,21 @@ export class GateImplimentationComponent implements OnInit {
     answer: null
   }
 ];
+
+addCriteria(): void {
+  const dialogRef = this.dialog.open(AddcriteriaComponent, {
+    width: '850px',
+    height: 'auto',
+    disableClose: false,
+    data: {} // pass any data if needed
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      console.log('Criteria added:', result);
+      // push result into your list here
+    }
+  });
+}
 
 }

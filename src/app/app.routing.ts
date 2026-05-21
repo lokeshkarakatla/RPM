@@ -33,6 +33,8 @@ import { TestdashboardComponent } from './pages/dashboard/testdashboard/testdash
 import { SetupsComponent } from './pages/setups/setups.component';
 import { ComplaintsdashboardComponent } from './pages/dashboard/complaintsdashboard/complaintsdashboard.component';
 import { KanbanComponent } from './pages/complaints/kanban/kanban.component';
+import { GatesModule } from './pages/testing/gates/gates.module';
+
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -200,7 +202,11 @@ const routes: Routes = [
                     import("./pages/parameter-dashboard/parameter-dashboard.module").then((m) => m.ParameterDashboardModule),
                 data: { breadcrumb: 'Objective Audit', description: 'Audits throught the application are managed here.' }
             },
-
+            {
+    path: 'gates',
+    loadChildren: () => import('./pages/testing/gates/gates.module').then(m => m.GatesModule)
+    // ☝️ use whichever path actually exists on disk
+}
 
 
         ]

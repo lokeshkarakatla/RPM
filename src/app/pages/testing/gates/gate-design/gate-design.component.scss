@@ -1,0 +1,13 @@
+/* ✅ Outer wrapper — gives context for absolute positioning */
+.criteria-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ✅ Button row — floats to top-right corner of the wrapper */
+.criteria-btn-row {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}

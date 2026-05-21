@@ -1,27 +1,41 @@
-<div class="col-lg-8 col-sm-8 m-5">
+<div class="criteria-wrapper">
+
+  <!-- Table + Button share the same col width -->
+  <div class="col-lg-8 col-sm-8 ms-5">
+
+    <!-- Button aligned to right edge of the table -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
+      <button mat-raised-button color="primary" class="primary-btn" (click)="addCriteria()" >
+        <mat-icon>person_add</mat-icon> Add Criteria
+      </button>
+    </div>
+
+    <!-- Table -->
     <div class="table-responsive">
-  <table matSort id="example2" class="table table-bordered table-hover">
-    <thead class="tbl-head">
-      <tr>
-        <th class="theadcolor text-center"style="width: 30px">S.No</th>
-        <th class="theadcolor text-center">Feasibility Question</th>
-        <th class="theadcolor text-center">Yes / No</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of implementationStageQuestions  ">
-        <td class="text-center">{{ item.id }}</td>
-        <td>{{ item.question }}</td>
-        <td class="text-center">
-          <mat-radio-group
-            aria-label="Select an option"
-            [(ngModel)]="item.answer"
-          >
-            <mat-radio-button value="yes" style="margin-right: 10px"></mat-radio-button>
-            <mat-radio-button value="no"></mat-radio-button>
-          </mat-radio-group>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <table matSort id="example2" class="table table-bordered table-hover">
+        <thead class="tbl-head">
+          <tr>
+            <th class="theadcolor text-center" style="width: 30px">S.No</th>
+            <th class="theadcolor text-center">Implementation Question</th>
+            <th class="theadcolor text-center">Yes / No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of implementationStageQuestions
+          ">
+            <td class="text-center">{{ item.id }}</td>
+            <td>{{ item.question }}</td>
+            <td class="text-center">
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="item.answer">
+                <mat-radio-button value="yes" style="margin-right: 10px"></mat-radio-button>
+                <mat-radio-button value="no"></mat-radio-button>
+              </mat-radio-group>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
 </div>

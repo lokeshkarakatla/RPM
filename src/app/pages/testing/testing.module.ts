@@ -35,7 +35,10 @@ import { RpmStagesComponent } from './rpm-stages/rpm-stages.component';
 import { RpmTasksComponent } from './rpm-tasks/rpm-tasks.component';
 import { GatesComponent } from './gates/gates.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';          // ← add this
-import { MatNativeDateModule } from '@angular/material/core';                // ← add this
+import { MatNativeDateModule } from '@angular/material/core';
+import { TestingKanbanComponent } from './testing-kanban/testing-kanban.component';                // ← add this
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 const routes: Routes = [
     { path: "", redirectTo: "test-dashboard", pathMatch: "full" },
@@ -47,10 +50,18 @@ const routes: Routes = [
     { path: 'stages', component: RpmStagesComponent, data: { breadcrumb: 'Stages' } },
     { path: 'tasks', component: RpmTasksComponent, data: { breadcrumb: 'Tasks' } },
     { path: 'projects', component: TestingProjectsComponent, data: { breadcrumb: 'Projects' } },
+    { path: 'testing-kanban', component: TestingKanbanComponent, data: { breadcrumb: 'Kanban' } },
+    // {
+    //     path: "gates", component: GatesComponent,
+    //     loadChildren: () => import("./gates/gates.module").then((m) => m.GatesModule),
+    //     data: { breadcrumb: 'Gates', screenId: 4 }
+    // },
     {
-        path: "gates", component: GatesComponent,
-        loadChildren: () => import("./gates/gates.module").then((m) => m.GatesModule),
-        data: { breadcrumb: 'Feasibility', screenId: 4 }
+        path: "gates",
+        component: GatesComponent,
+        loadChildren: () =>
+            import("./gates/gates.module").then((m) => m.GatesModule),
+        data: { breadcrumb: 'Gates', screenId: 4 }
     },
     {
         path: "testing-masterData", component: MasterdataComponent,
@@ -79,8 +90,8 @@ const routes: Routes = [
         ActivityRpmComponent,
         RpmStagesComponent,
         RpmTasksComponent,
-        GatesComponent,
         MasterdataComponent,
+        TestingKanbanComponent,
     ],
     imports: [
         // ✅ ALL modules go here
@@ -103,6 +114,7 @@ const routes: Routes = [
         MatCheckboxModule,
         MatDatepickerModule,      // ← fixes mat-datepicker
         MatNativeDateModule,      // ← required date adapter
+        DragDropModule
     ]
 })
 export class TestingModule { }

@@ -104,7 +104,7 @@ import { KanbanComponent } from './pages/complaints/kanban/kanban.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MeetingrefComponent } from './meetingref/meetingref.component';
 import { AgendadetailsComponent } from './agendadetails/agendadetails.component';
-
+import { DragulaModule } from 'ng2-dragula';
 
 
 export function highchartsModules() {
@@ -166,7 +166,7 @@ export function highchartsModules() {
     HighchartsChartModule,
     ChartModule,
 
-
+DragulaModule.forRoot()
 
   ],
   declarations: [

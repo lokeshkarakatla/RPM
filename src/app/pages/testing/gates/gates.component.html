@@ -1,58 +1,170 @@
-<div class="nav-container" [ngClass]="{'nav-open': isNavOpen, 'nav-closed': !isNavOpen}">
+<div class="col-sm-12 col-lg-10">
 
-  <!-- Toggle Button -->
-  <button (click)="toggleNav()" class="toggle-button">
-    <mat-icon>menu</mat-icon>
-  </button>
+  <!-- ===================================================
+       MAIN TABLE VIEW — hidden when child route is active
+       =================================================== -->
+  <ng-container *ngIf="!isChildRouteActive">
 
-  <nav class="nav-links">
-   <ul>
+    <div class="container-fluid" style="padding-right: 1px; padding-left: 0px">
+      <div class="w-100">
+        <div class="flex-p">
+          <div class="row wrap">
+            <div class="col-sm-12 no-padding">
+              <div class="row-wrap">
+                <div class="w-100">
+                  <div class="row">
+                    <div class="col-xs-6"></div>
+                    <div class="col-xs-6" style="margin-left: 6px; margin-bottom: -6px;">
+                      <div class="col-xs-6"></div>
+                      <div class="col-xs-6">
+                        <!-- <button mat-raised-button class="pull-right mt-3" style="margin-left: 1px"
+                          (click)="addmodule(null)" color="primary">
+                          <mat-icon>add</mat-icon> Add Gates
+                        </button>
+                        <button mat-raised-button class="pull-right filters-hover margin-right-10 mt-3"
+                          style="background-color: black; color: white;" (click)="filterToggle = !filterToggle">
+                          <mat-icon>filter_list</mat-icon> Filter
+                        </button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <li routerLinkActive="active">
-    <a [routerLink]="['feasibility']">
-      <mat-icon *ngIf="!isNavOpen" matTooltip="Feasibility">analytics</mat-icon>
-      <span *ngIf="isNavOpen">Feasibility</span>
-    </a>
-  </li>
+    <!-- Filter Toggle -->
+    <div fxLayout="row wrap" *ngIf="filterToggle">
+      <div fxFlex="100" fxFlex.gt-sm fxFlex.sm class="flex-p w-100 margins">
+        <mat-card class="filter">
+          <mat-card-content>
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="col-sm-3">
+                  <label class="pull-right" style="margin-top: 6px">Gates Name:</label>
+                </div>
+                <div class="col-sm-6">
+                  <input type="text" placeholder="Search Gates Name" class="form-control" />
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="col-sm-3">
+                  <label class="pull-right" style="margin-top: 6px">Status:</label>
+                </div>
+                <div class="col-sm-6">
+                  <mat-select class="form-control" placeholder="Select Status" required>
+                    <mat-option *ngFor="let option of Status" [value]="option.value">
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </div>
 
-  <li routerLinkActive="active">
-    <a [routerLink]="['design']">
-      <mat-icon *ngIf="!isNavOpen" matTooltip="Design">design_services</mat-icon>
-      <span *ngIf="isNavOpen">Design</span>
-    </a>
-  </li>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-end align-items-center gap-3">
+                <button mat-raised-button color="primary" (click)="getTests()">
+                  <mat-icon>search</mat-icon> Search
+                </button>
+                <button mat-raised-button class="btn-default" (click)="clearFilter(); getTests()">
+                  <mat-icon>settings_backup_restore</mat-icon> Clear
+                </button>
+                <a (click)="filterToggle = !filterToggle" style="font-size: 25px; cursor: pointer;">
+                  <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
 
-  <li routerLinkActive="active">
-    <a [routerLink]="['prototyping']">
-      <mat-icon *ngIf="!isNavOpen" matTooltip="Prototyping">build</mat-icon>
-      <span *ngIf="isNavOpen">Prototyping</span>
-    </a>
-  </li>
+    <!-- Table -->
+    <div class="container-fluid" style="padding-right: 1px; padding-left: 0px">
+      <div fxLayout="row wrap" #resizedDiv>
+        <div class="flex-p w-100 sizeAlign">
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="grid-table-container" class="table-responsive">
+                <table matSort id="example2" class="table table-bordered table-hover">
+                  <thead class="tbl-head">
+                    <tr>
+                      <th class="text-center" style="width: 112px !important">Actions</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">Gates Name</th>
+                      <th class="text-center">Description</th>
+                      <th class="text-center" style="width: 160px">Acceptance Criteria</th>
+                    </tr>
+                  </thead>
 
-  <li routerLinkActive="active">
-    <a [routerLink]="['testing']">
-      <mat-icon *ngIf="!isNavOpen" matTooltip="Testing">bug_report</mat-icon>
-      <span *ngIf="isNavOpen">Testing</span>
-    </a>
-  </li>
+                  <tbody dragula="MONITORSTEPS" [dragulaModel]="stages" (dragulaModelChange)="stages = $event">
+                    <tr *ngFor="let item of stages">
 
-  <li routerLinkActive="active">
-    <a [routerLink]="['launch']">
-      <mat-icon *ngIf="!isNavOpen" matTooltip="Launch">rocket_launch</mat-icon>
-      <span *ngIf="isNavOpen">Launch</span>
-    </a>
-  </li>
+                      <td class="text-center editDel">
+                        <a style="cursor: pointer; margin-right: 0px; margin-left: -5px;" matTooltip="Edit"
+                          (click)="addmodule(item)">
+                          <i class="fa fa-edit" style="color: cornflowerblue"></i>
+                        </a>
+                        <a [ngClass]="{ 'disable-custom': !canDelete || item.TotalUsed }">
+                          <i style="cursor: pointer" matTooltip="Delete" class="fa fa-trash red"
+                            (click)="deleteConfirmation(item)"></i>
+                        </a>
+                      </td>
 
-  <li routerLinkActive="active">
-    <a [routerLink]="['implementation']">
-      <mat-icon *ngIf="!isNavOpen" matTooltip="Implementation">settings_suggest</mat-icon>
-      <span *ngIf="isNavOpen">Implementation</span>
-    </a>
-  </li>
+                      <td class="text-center">
+                        <a [ngStyle]="{ color: item.status ? 'blue' : 'red', cursor: canUpdate ? 'pointer' : 'default' }"
+                          [ngClass]="{ 'disable-custom': !canUpdate }">
+                          <span (click)="canUpdate && Confirmation(item)">
+                            {{ item.status ? 'Active' : 'Inactive' }}
+                          </span>
+                        </a>
+                      </td>
 
-</ul>
-  </nav>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.description }}</td>
+
+                      <!-- Click navigates to child route inside same module -->
+                      <td class="text-center primary tooltip-cell" style="color: blue; cursor: pointer;"
+                        (click)="navigateTo(item.route)">
+                        {{ item.count }}
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+                <mat-paginator [length]="totalSize" [pageIndex]="currentPage" [pageSize]="pageSize"
+                  [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons>
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+  <!-- END *ngIf="!isChildRouteActive" — table is completely hidden when child is open -->
+
+  <!-- ===================================================
+       CHILD ROUTE VIEW — shown only when a gate is opened
+       router-outlet is OUTSIDE the table ng-container so
+       the table never renders alongside the child.
+       =================================================== -->
+  <ng-container *ngIf="isChildRouteActive">
+
+    <!-- ✅ Back button pinned to the right -->
+    <div class="back-btn-row">
+      <button mat-raised-button style="background-color: #808080; color: white; margin-top: -75px;" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
+    </div>
+
+    <router-outlet></router-outlet>
+
+  </ng-container>
 
 </div>
-
-<router-outlet></router-outlet>

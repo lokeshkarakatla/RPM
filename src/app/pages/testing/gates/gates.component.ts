@@ -5,6 +5,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';   // ✅ Import Location
 import { filter } from 'rxjs/operators';
+import { AddGateComponent } from './add-gate/add-gate.component';
 
 @Component({
   selector: 'app-gates',
@@ -121,4 +122,23 @@ export class GatesComponent implements OnInit, OnDestroy {
   getTests(): void { }
 
   clearFilter(): void { }
+
+
+
+  addGate(): void {
+    const dialogRef = this.dialog.open(AddGateComponent, {
+      width: '500px',
+      height: 'auto',
+      disableClose: false,
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Gate added:', result);
+        // push result into your list here
+      }
+    });
+  }
+
 }

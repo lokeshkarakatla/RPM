@@ -21,6 +21,7 @@ import { GateLaunchComponent } from './gate-launch/gate-launch.component';
 import { GateImplimentationComponent } from './gate-implimentation/gate-implimentation.component';
 import { DragulaModule } from "ng2-dragula";
 import { AddcriteriaComponent } from './addcriteria/addcriteria.component';
+import { AddGateComponent } from './add-gate/add-gate.component';
 
 // ✅ routes definition was missing
 const routes: Routes = [
@@ -42,7 +43,8 @@ const routes: Routes = [
         GateTestingComponent,
         GateLaunchComponent,
         GateImplimentationComponent,
-        AddcriteriaComponent
+        AddcriteriaComponent,
+        AddGateComponent
     ],
     imports: [
         CommonModule,

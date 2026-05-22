@@ -17,12 +17,13 @@
           <tr>
             <th class="theadcolor text-center" style="width: 30px">S.No</th>
             <th class="theadcolor text-center">Testing Question</th>
-            <th class="theadcolor text-center">Yes / No</th>
+            <th class="theadcolor text-center"style="width: 100px">Yes / No</th>
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let item of testingStageQuestions
-          ">
+        
+        <!-- ✅ Dragula attributes added here -->
+        <tbody dragula="TESTING_ROWS" [dragulaModel]="testingStageQuestions" (dragulaModelChange)="testingStageQuestions = $event">
+          <tr *ngFor="let item of testingStageQuestions">
             <td class="text-center">{{ item.id }}</td>
             <td>{{ item.question }}</td>
             <td class="text-center">

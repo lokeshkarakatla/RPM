@@ -44,6 +44,7 @@ import { TestingKanbanComponent } from './testing-kanban/testing-kanban.componen
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AddTasksComponent } from './rpm-tasks/add-tasks/add-tasks.component';
 import { RpmTodoComponent } from './rpm-todo/rpm-todo.component';
+import { DragulaModule } from 'ng2-dragula';
 
 
 const routes: Routes = [
@@ -80,7 +81,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [
-        // ✅ ONLY components, directives, pipes go here
+      
         TestingIssuesComponent,
         TestingProductsComponent,
         TestingTestsComponent,
@@ -128,7 +129,8 @@ const routes: Routes = [
         MatCheckboxModule,
         MatDatepickerModule,      // ← fixes mat-datepicker
         MatNativeDateModule,      // ← required date adapter
-        DragDropModule
+        DragDropModule,
+        DragulaModule.forRoot()
     ]
 })
 export class TestingModule { }

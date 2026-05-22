@@ -10,10 +10,9 @@
             </tr>
         </thead>
         
-        <tbody>
-            <!-- Iterate over pagedData instead of tdata so pagination works -->
-            <tr *ngFor="let item of pagedData">
-                
+        <!-- ✅ Seamless model synchronization matching component 1 -->
+        <tbody dragula="STAGE_ROWS" [dragulaModel]="pagedData" (dragulaModelChange)="pagedData = $event">
+            <tr *ngFor="let item of pagedData" >
                 <td class="text-center">
                     <a matTooltip="Edit Project" [ngClass]="{'disable-custom' : !canUpdate}"
                         style="margin-right: 10px; cursor: pointer; color: cornflowerblue;"
@@ -32,7 +31,6 @@
                 </td>
                 
                 <td>{{ item.phase }}</td>
-                
                 <td>{{ item.description }}</td>
                 
                 <td class="text-center">
@@ -42,14 +40,12 @@
                 </td>
             </tr>
 
-            <!-- Empty state check also updated to look at pagedData -->
-            <tr *ngIf="!pagedData || pagedData.length === 0">
+            <tr *ngIf="!pagedData || pagedData.length === 0" class="no-drag">
                 <td colspan="5" class="text-center">No records found</td> 
             </tr>
         </tbody>
     </table>
 
-    <!-- Paginator remains the same, but now it triggers fnHandlePage to slice the array -->
     <mat-paginator style="width: 70%;" 
         [length]="totalSize" 
         [pageIndex]="currentPage" 

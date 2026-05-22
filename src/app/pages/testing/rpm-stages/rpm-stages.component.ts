@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator'; // 1. Import PageEvent
+import { PageEvent } from '@angular/material/paginator';
+import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
+
 import { StatusConfirmationDialogComponent } from '../testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
 
 @Component({
@@ -8,16 +11,17 @@ import { StatusConfirmationDialogComponent } from '../testing-projects/add-proje
   templateUrl: './rpm-stages.component.html',
   styleUrls: ['./rpm-stages.component.scss']
 })
-export class RpmStagesComponent implements OnInit {
+export class RpmStagesComponent implements OnInit, OnDestroy {
 
-  constructor(private dialog: MatDialog) { }
+  private subs = new Subscription();
 
-  // 2. Pagination variables
+  canUpdate = true;
+  canDelete = true;
+
   totalSize = 0; 
   currentPage = 0;
-  pageSize = 5; // Set default to 5 to match your first pageSizeOption
+  pageSize = 5; 
 
-  // 3. Your full data list
   tdata = [
     { phase: "Feasibility", description: "Evaluate project viability", tasks: 2, status:"Active" },
     { phase: "Design", description: "Create functional, technical", tasks: 3, status:"Active" },
@@ -27,33 +31,70 @@ export class RpmStagesComponent implements OnInit {
     { phase: "Implementation", description: "Execute full-scale adoption", tasks: 2, status:"Inactive" }
   ];
 
-  // 4. Array to hold the data for the active page
   pagedData: any[] = [];
 
+  constructor(private dialog: MatDialog, private dragulaService: DragulaService) {
+    if (this.dragulaService.find('STAGE_ROWS')) {
+      this.dragulaService.destroy('STAGE_ROWS');
+    }
+
+    this.dragulaService.createGroup('STAGE_ROWS', {
+      revertOnSpill: true,
+      moves: (el, container, handle) => {
+        // Prevents the empty state row from being draggable
+        return !el?.classList.contains('no-drag');
+      }
+    });
+
+    // ✅ Listen to dropModel to get the automatically reordered page slice
+    this.subs.add(
+  this.dragulaService.dropModel('STAGE_ROWS').subscribe(({ item }) => {
+    this.pagedData = [...item];
+    this.syncMasterArray();
+  })
+);
+  }
+
   ngOnInit(): void {
-    // 5. Initialize the total size and load the first page of data
     this.totalSize = this.tdata.length;
     this.updatePageData();
   }
 
-  // 6. Handle the page change event from the paginator
+  ngOnDestroy(): void {
+    this.dragulaService.destroy('STAGE_ROWS');
+    this.subs.unsubscribe();
+  }
+
   fnHandlePage(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
     this.updatePageData();
   }
 
-  // 7. Method to slice the main array based on page index and size
   updatePageData() {
     const startIndex = this.currentPage * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.pagedData = this.tdata.slice(startIndex, endIndex);
   }
 
+  // ✅ Clean, math-based replacement instead of unreliable DOM parsing
+  syncMasterArray() {
+    const startIndex = this.currentPage * this.pageSize;
+    
+    // Replace the modified segment inside the master data matrix
+    this.tdata.splice(startIndex, this.pageSize, ...this.pagedData);
+
+    // Refresh view data to keep everything completely in sync
+    this.updatePageData();
+  }
+
   Confirmation(item: any) {
-    let dialogRef = this.dialog.open(StatusConfirmationDialogComponent, {
+    this.dialog.open(StatusConfirmationDialogComponent, {
       width: 'auto',
       data: { TractorStatusId: item.TractorStatusId, title: 'Change Status', content: 'Are you sure you want to Change the Status ?' }
     });
   }
+
+  openEditDialog(item: any) { console.log('Edit:', item); }
+  deleteConfirmation(item: any) { console.log('Delete:', item); }
 }

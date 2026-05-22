@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddTaskComponent } from './add-task/add-task.component';
+import { AddTasksComponent } from './add-tasks/add-tasks.component';
  
 
 @Component({
@@ -104,8 +104,8 @@ scrollLeft() {
 
 addTask()
 {
-  this.dialog.open(AddTaskComponent, {
-    width: '550px',
+  this.dialog.open(AddTasksComponent, {
+    width: '850px',
     data: {} // Pass any necessary data to the dialog
   });
 }

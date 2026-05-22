@@ -43,7 +43,7 @@ export class GatesComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    private dragulaService: DragulaService,
+    private dragulaService: DragulaService, 
     private router: Router,
     private _activeRoute: ActivatedRoute,
     private location: Location   // ✅ Inject Location

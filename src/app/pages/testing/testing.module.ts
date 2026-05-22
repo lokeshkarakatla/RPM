@@ -42,6 +42,8 @@ import { AddTaskComponent } from './rpm-tasks/add-task/add-task.component';
 // import { AddCriteriaComponent } from './rpm-tasks/add-criteria/add-criteria.component';                // ← add this
 import { TestingKanbanComponent } from './testing-kanban/testing-kanban.component';                // ← add this
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AddTasksComponent } from './rpm-tasks/add-tasks/add-tasks.component';
+import { RpmTodoComponent } from './rpm-todo/rpm-todo.component';
 
 
 const routes: Routes = [
@@ -56,6 +58,7 @@ const routes: Routes = [
   { path: 'stages/wbs', component: RpmStagesWbsComponent, data: { breadcrumb: 'WBS' } },
     { path: 'projects', component: TestingProjectsComponent, data: { breadcrumb: 'Projects' } },
     { path: 'testing-kanban', component: TestingKanbanComponent, data: { breadcrumb: 'Kanban' } },
+       { path: 'todo', component: RpmTodoComponent, data: { breadcrumb: 'Todo' } },
     // {
     //     path: "gates", component: GatesComponent,
     //     loadChildren: () => import("./gates/gates.module").then((m) => m.GatesModule),
@@ -101,6 +104,8 @@ const routes: Routes = [
         AddTaskComponent,
         // AddCriteriaComponent,
         TestingKanbanComponent,
+        AddTasksComponent,
+        RpmTodoComponent,
     ],
     imports: [
         // ✅ ALL modules go here

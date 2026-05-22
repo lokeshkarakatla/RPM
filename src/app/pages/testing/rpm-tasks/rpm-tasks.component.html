@@ -54,8 +54,8 @@
 
     <!-- Status (Active/Inactive toggle) -->
     <td class="text-center" style="cursor: pointer;">
-      <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color: red; font-weight: 500;">Inactive</span>
-      <span *ngIf="item.IsActive" (click)="Confirmation(item)" style="color: blue; font-weight: 500;">Active</span>
+      <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color: red;">Inactive</span>
+      <span *ngIf="item.IsActive" (click)="Confirmation(item)" style="color: blue; ">Active</span>
     </td>
 
     <!-- Task Name -->

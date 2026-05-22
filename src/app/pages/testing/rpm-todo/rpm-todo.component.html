@@ -1,0 +1,92 @@
+<div class="col-lg-12" style="overflow: hidden; margin-top: 40px">
+  <div class="col-sm-12" style="margin-top: 10px">
+    <div class="button-container" style="display: flex; justify-content: flex-end; margin-bottom: 15px; align-items: center; width: 100%;">
+      <!-- <button mat-raised-button color="primary" class="top-btn" style="display: flex; justify-content: flex-end; margin-bottom: 15px;" (click)="addTask()">
+        <mat-icon style="vertical-align: middle;">add</mat-icon> Add Task
+      </button> -->
+    </div>
+
+    <!-- Added #tableContainer for horizontal scroll logic -->
+    <div class="table-responsive" id="grid-table-container" #tableContainer style="overflow-x: auto; white-space: nowrap;">
+      <table matSort id="example2" mat-table class="table table-bordered table-hover" style="width: 100%;">
+        <thead class="tbl-head">
+          <tr>
+            <th class="text-center">Action</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Subject</th>
+            <th class="text-center">Comments</th>
+            
+            <th class="text-center">Due Date</th>
+            <th class="text-center">Completion Date</th>
+            <th class="text-center">Responsibility</th>
+            <th class="text-center">Project Name</th>
+            <th class="text-center">Health Systems</th>
+            <th class="text-center">Sponsor</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of mockdata">
+            <!-- 1. Action -->
+            <td class="text-center">
+              <a matTooltip="Edit Task" style="margin-right: 8px; cursor: pointer;" (click)="openEditDialog(item)">
+                <i class="fa fa-edit" style="color: cornflowerblue;"></i>
+              </a>
+              <a matTooltip="Delete Task" style="cursor: pointer;" (click)="deleteConfirmation(item)">
+                <i class="fa fa-trash" style="color: red;"></i>
+              </a>
+            </td>
+            <!-- 4. Status (Active/Inactive toggle) -->
+            <td class="text-center" style="cursor: pointer;">
+              <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color: red;  ">Inactive</span>
+              <span *ngIf="item.IsActive" (click)="Confirmation(item)" style="color: blue; ">Active</span>
+            </td>
+
+            <!-- 2. Subject -->
+            <td class="text-center">{{ item.Subject }}</td>
+
+            <!-- 3. Comments -->
+            <td class="text-center">{{ item.Comments }}</td>
+
+            
+
+            <!-- 5. Due Date -->
+            <td class="text-center">{{ item.DueDate | date: 'mediumDate' }}</td>
+
+            <!-- 6. Completion Date -->
+            <td class="text-center">{{ item.CompletionDate ? (item.CompletionDate | date: 'mediumDate') : 'N/A' }}</td>
+
+            <!-- 7. Responsibility -->
+            <td class="text-center">{{ item.Responsibility }}</td>
+
+            <!-- 8. Project Name -->
+            <td class="text-center">{{ item.ProjectName }}</td>
+
+            <!-- 9. Health Systems -->
+            <td class="text-center">{{ item.HealthSystems }}</td>
+
+            <!-- 10. Sponsor -->
+            <td class="text-center">{{ item.Sponsor }}</td>
+          </tr>
+
+          <!-- Empty state -->
+          <tr *ngIf="!mockdata || mockdata.length === 0">
+            <td colspan="10" class="text-center">No records found</td>
+          </tr>
+        </tbody>
+      </table>
+
+      
+    </div>
+
+    <!-- Pagination -->
+    <mat-paginator [length]="totalSize" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+<!-- Scroll Buttons -->
+      <button class="mine" mat-fab style="position: absolute; right: 20px; z-index: 10;" (click)="scrollRight()">
+        <mat-icon style="color: #37474f">fast_forward</mat-icon>
+      </button>
+      <button class="mine" mat-fab style="position: absolute; right: 90px; z-index: 10;" (click)="scrollLeft()">
+        <mat-icon style="color: #37474f">fast_rewind</mat-icon>
+      </button>

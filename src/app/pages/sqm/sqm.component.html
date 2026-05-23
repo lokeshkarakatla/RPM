@@ -1,0 +1,58 @@
+<ul
+  class="nav nav-pills"
+  style="
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-left: 24px;
+    padding-bottom: 10px;
+    gap: 4px;
+    width: 97%;
+  "
+>
+  <li>
+    <a
+      mat-raised-button
+      class="navtabWidth"
+      style="margin-top: 10px"
+      routerLink="./sqmd"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      #rla1="routerLinkActive"
+      [color]="rla1.isActive ? 'primary' : ''"
+    >
+      Dashboard
+    </a>
+  </li>
+
+  <li>
+    <a
+      mat-raised-button
+      class="navtabWidth"
+      style="margin-top: 10px"
+      routerLink="./process"
+      routerLinkActive="active"
+      #rla2="routerLinkActive"
+      [color]="rla2.isActive ? 'primary' : ''"
+    >
+      Process Audits
+    </a>
+  </li>
+
+  <li>
+    <a
+      mat-raised-button
+      class="navtabWidth"
+      style="margin-top: 10px"
+      routerLink="./parts"
+      routerLinkActive="active"
+      #rla3="routerLinkActive"
+      [color]="rla3.isActive ? 'primary' : ''"
+    >
+      Parts Audits
+    </a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>

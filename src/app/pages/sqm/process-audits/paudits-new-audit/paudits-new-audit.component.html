@@ -1,0 +1,123 @@
+<div class="NewHeader">
+    <h3 style="padding-top:10px; padding-left: 20px;">Add Process Audit</h3>
+</div>
+
+<div>
+    <div fxLayout="row wrap" class="col-sm-12">
+        <div class="col-sm-12" style="margin-top: 0px; padding-left: 10px; padding-right: 20px;">
+            <form>
+                <div>
+                    
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Commodity :  </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-select placeholder="Select Parts Family" class="form-control">
+                                <mat-option value="family1">Family 1</mat-option>
+                                <mat-option value="family2">Family 2</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Supplier :  </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-select placeholder="Select Parts Family" class="form-control">
+                                <mat-option value="supplier1">Supplier 1</mat-option>
+                                <mat-option value="supplier2">Supplier 2</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">State:  </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-select placeholder="Select City" class="form-control">
+                                <mat-option value="state1">State 1</mat-option>
+                                <mat-option value="state2">State 2</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">City:  </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-select placeholder="Select City" class="form-control">
+                                <mat-option value="city1">City 1</mat-option>
+                                <mat-option value="city2">City 2</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Auditor : </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-select placeholder="Select Auditor Name" class="form-control">
+                                <mat-option value="auditor1">Auditor 1</mat-option>
+                                <mat-option value="auditor2">Auditor 2</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+    <div class="col-sm-4">
+        <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Audit Date : <span style="color: red;">*</span></label>
+    </div>
+    
+    <div class="col-sm-8" style="position: relative;">
+        
+        <input matInput [matDatepicker]="picker" 
+               style="height: 38px; width: 100%; padding-left: 12px; padding-right: 45px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: white;" 
+               placeholder="mm/dd/yyyy">
+        
+        <mat-datepicker-toggle matSuffix [for]="picker" 
+                               style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+        </mat-datepicker-toggle>
+        
+        <mat-datepicker #picker></mat-datepicker>
+    </div>
+</div>
+
+                    <div class="row" style="margin-top: 10px; margin-bottom: 25px;">
+    <div class="col-sm-4">
+        <label class="control-label mt-1" style="font-weight: bold;">Upload Parameters <span style="color: red;">*</span></label>
+    </div>
+    <div class="col-sm-8" style="text-align: center;">
+        
+        <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" multiple>
+        
+        <div style="border: 2px dashed #b5b5b5; border-radius: 4px; padding: 25px 20px; color: #666; background-color: #fafafa; cursor: pointer; position: relative; z-index: 0;" (click)="fileInput.click()">
+            Drag and drop files here, or click to select files
+        </div>
+        
+        <button mat-raised-button color="primary" type="button" class="save" style="margin-top: 6px; position: relative; z-index: 1; padding: 4px 20px; text-transform: none;" (click)="fileInput.click()">
+            Browse Files
+        </button>
+        
+    </div>
+</div>
+
+                </div>
+            </form>
+
+            <mat-dialog-actions align="end" style="margin-top: 20px; padding-bottom: 15px; display: flex; justify-content: flex-end;">
+                <button mat-raised-button type="button" class="save" color="primary" style="margin-right: 10px;">
+                    Save
+                </button>
+                <button mat-raised-button class="ms-2 btn-default" (click)="close()" style="background-color: #e0e0e0; color: #333;">
+                    Close
+                </button>
+            </mat-dialog-actions>
+            
+        </div>
+    </div>
+</div>

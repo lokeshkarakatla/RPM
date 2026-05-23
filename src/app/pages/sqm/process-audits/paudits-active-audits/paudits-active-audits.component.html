@@ -1,0 +1,82 @@
+<div class="active-audits-container">
+
+  <div class="charts-row">
+    <div class="chart-container">
+      <highcharts-chart [Highcharts]="Highcharts" [options]="commodityChartOptions" style="width: 80%; display: block;"></highcharts-chart>
+    </div>
+    <div class="chart-container">
+      <highcharts-chart [Highcharts]="Highcharts" [options]="auditorChartOptions" style="width: 80%; display: block;"></highcharts-chart>
+    </div>
+    <div class="chart-container">
+      <highcharts-chart [Highcharts]="Highcharts" [options]="statusChartOptions" style="width: 80%; display: block;"></highcharts-chart>
+    </div>
+  </div>
+
+  <div class="toolbar-row">
+    <button mat-raised-button class="btn-dark">
+      <mat-icon>grid_on</mat-icon> Grid View
+    </button>
+    <button mat-raised-button class="btn-dark">
+      <mat-icon>filter_list</mat-icon> Filter
+    </button>
+    <button mat-raised-button color="primary" class="btn-blue">
+      <mat-icon>person_add</mat-icon> Add Audit
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Audit Reference</th>
+          <th>Commodity</th>
+          <th>Location</th>
+          <th>Supplier</th>
+          <th>Auditor</th>
+          <th>Audit Date</th>
+          <th>Action</th>
+          <th>Score</th>
+          <th>Status</th>
+          <th>Done</th>
+          <th>Manage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let audit of auditData">
+         <td class="text-link">
+  <a [routerLink]="['../reference']">{{ audit.ref }}</a>
+</td>
+          <td>{{ audit.commodity }}</td>
+          <td>{{ audit.location }}</td>
+          <td>{{ audit.supplier }}</td>
+          <td>{{ audit.auditor }}</td>
+          <td>{{ audit.date }}</td>
+          <td class="text-link text-center">{{ audit.action }}</td>
+          <td class="text-link text-center">{{ audit.score }}</td>
+          <td class="text-center">
+            <select class="status-dropdown">
+              <option>Select Status</option>
+              <option>Completed</option>
+              <option>Pending</option>
+            </select>
+          </td>
+          <td class="text-center">
+            <mat-checkbox [checked]="audit.done" color="primary"></mat-checkbox>
+          </td>
+          <td class="text-center manage-icons">
+            <i class="fas fa-edit edit-icon" title="Edit"></i>
+            <i class="fas fa-trash delete-icon" title="Delete"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator 
+        [length]="auditData.length"
+        [pageSize]="4"
+        [pageSizeOptions]="[4, 10, 20]"
+        aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>

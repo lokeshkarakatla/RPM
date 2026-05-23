@@ -105,6 +105,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MeetingrefComponent } from './meetingref/meetingref.component';
 import { AgendadetailsComponent } from './agendadetails/agendadetails.component';
 import { DragulaModule } from 'ng2-dragula';
+import { SqmComponent } from './pages/sqm/sqm.component';
+ 
+
 
 
 export function highchartsModules() {
@@ -212,7 +215,10 @@ DragulaModule.forRoot()
     PopPieChartComponent,
     KanbanComponent,
     MeetingrefComponent,
-    AgendadetailsComponent
+    AgendadetailsComponent,
+    SqmComponent,
+     
+    
 
 
 

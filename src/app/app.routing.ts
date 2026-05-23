@@ -34,6 +34,7 @@ import { SetupsComponent } from './pages/setups/setups.component';
 import { ComplaintsdashboardComponent } from './pages/dashboard/complaintsdashboard/complaintsdashboard.component';
 import { KanbanComponent } from './pages/complaints/kanban/kanban.component';
 import { GatesModule } from './pages/testing/gates/gates.module';
+import { SqmComponent } from './pages/sqm/sqm.component';
 
 
 const routes: Routes = [
@@ -81,6 +82,11 @@ const routes: Routes = [
                 path: 'testing', component: TestingComponent,
                 loadChildren: () => import("./pages/testing/testing.module").then((m) => m.TestingModule),
                 data: { breadcrumb: 'Radar' }
+            },
+               {
+                path: 'sqm', component: SqmComponent,
+                loadChildren: () => import("./pages/sqm/sqm.module").then((m) => m.SqmModule),
+                data: { breadcrumb: 'Dashboard' }
             },
 
             {

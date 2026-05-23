@@ -20,13 +20,13 @@ export class RpmStagesWbsComponent implements OnInit {
   sidebarMenus = [
     { 
       name: 'Modules', 
-      count: 36, 
+      count: 3, 
       isOpen: false,
-      subItems: ['Module 1', 'Module 2', 'Module 3', 'Module 4', 'Module 5', 'Module 6', 'Module 7', 'Module 8']
+      subItems: ['Module 1', 'Module 2', 'Module 3', ]
     },
     { 
       name: 'Tasks', 
-      count: 34, 
+      count: 3, 
       isOpen: false,
       subItems: [' Task 1', 'Task 2', 'Task 3']
     },

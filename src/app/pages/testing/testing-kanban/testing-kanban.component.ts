@@ -4,8 +4,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { ComplaintsService } from '../../complaints/complaints.service';
 import { PageHeaderService } from 'src/app/shared/page-header.service';
 
-
-export type Status = 'Pending' | 'Process' | 'Hold' | 'Closed';
+export type Status = 'Pending' | 'Allocated' | 'Progress' | 'Hold' | 'Cancelled' | 'Completed';
 
 export interface Card {
   id: number;
@@ -21,7 +20,6 @@ export interface Card {
   status: Status;
 }
 
-
 @Component({
   selector: 'app-testing-kanban',
   templateUrl: './testing-kanban.component.html',
@@ -29,54 +27,61 @@ export interface Card {
 })
 export class TestingKanbanComponent implements OnInit {
 
-  constructor(private router: Router, private complaintsService: ComplaintsService, private pageHeaderService: PageHeaderService) { }
+  constructor(
+    private router: Router,
+    private complaintsService: ComplaintsService,
+    private pageHeaderService: PageHeaderService
+  ) {}
+
   ngOnInit(): void {
-    // this.pageHeaderService.showBackButton(() => this.goBack());
-
-    localStorage.removeItem('kanbanData');
-    this.initializeKanbanData();
-
     const savedData = localStorage.getItem('kanbanData');
-
     if (savedData) {
       this.cards = JSON.parse(savedData);
     } else {
       this.initializeKanbanData();
     }
   }
+
   data = [
-    { subject: 'Global fleet of connected vehicles', distributor: 'Mahindra', Lead: 'Ravi', status: 'Pending', TargetDate: '2026-04-25', FailureDate: '2026-04-20' },
-    { subject: 'Engine Overheating', distributor: 'Tata Motors', Lead: 'Sneha', status: 'Pending', TargetDate: '2026-04-22', FailureDate: '2026-04-18' },
-    { subject: 'Update Application Dependencies', distributor: 'Infosys', Lead: 'Kiran', status: 'Hold', TargetDate: '2026-04-30', FailureDate: '2026-04-21' },
-    { subject: 'Verify DLL Versions', distributor: 'Tesla', Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Bumper Issue', distributor: 'Tesla', Lead: 'Arjun', status: 'Hold', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing', distributor: 'Tesla', Lead: 'Arjun', status: 'Pending', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing', distributor: 'Tesla', Lead: 'Arjun', status: 'Hold', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing', distributor: 'Tesla', Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing', distributor: 'Tesla', Lead: 'Arjun', status: 'Closed', TargetDate: '2026-04-15', FailureDate: '2026-04-10' }
+    { subject: 'Global fleet of connected vehicles', distributor: 'Mahindra',   Lead: 'Ravi',  status: 'Pending', TargetDate: '2026-04-25', FailureDate: '2026-04-20' },
+    { subject: 'Engine Overheating',                 distributor: 'Tata Motors', Lead: 'Sneha', status: 'Pending', TargetDate: '2026-04-22', FailureDate: '2026-04-18' },
+    { subject: 'Update Application Dependencies',    distributor: 'Infosys',     Lead: 'Kiran', status: 'Hold',    TargetDate: '2026-04-30', FailureDate: '2026-04-21' },
+    { subject: 'Verify DLL Versions',                distributor: 'Tesla',       Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Bumper Issue',                       distributor: 'Tesla',       Lead: 'Arjun', status: 'Hold',    TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Error Testing A',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Pending', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Error Testing B',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Hold',    TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Error Testing C',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Error Testing D',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Closed',  TargetDate: '2026-04-15', FailureDate: '2026-04-10' }
   ];
 
-  lists: Status[] = ['Pending', 'Process', 'Hold', 'Closed'];
+  lists: Status[] = ['Pending', 'Allocated', 'Progress', 'Hold', 'Cancelled', 'Completed'];
 
   cards: Record<Status, Card[]> = {
-    Pending: [],
-    Process: [],
-    Hold: [],
-    Closed: []
+    Pending: [], Allocated: [], Progress: [],
+    Hold: [], Cancelled: [], Completed: []
   };
 
-  initializeKanbanData() {
+  // Maps legacy/mismatched status strings to valid Status values
+  private statusMap: Record<string, Status> = {
+    'Pending':   'Pending',
+    'Allocated': 'Allocated',
+    'Process':   'Progress',   // fix: 'Process' → 'Progress'
+    'Progress':  'Progress',
+    'Hold':      'Hold',
+    'Cancelled': 'Cancelled',
+    'Closed':    'Completed',  // fix: 'Closed' → 'Completed'
+    'Completed': 'Completed'
+  };
+
+  initializeKanbanData(): void {
     const grouped: Record<Status, Card[]> = {
-      Pending: [],
-      Process: [],
-      Hold: [],
-      Closed: []
+      Pending: [], Allocated: [], Progress: [],
+      Hold: [], Cancelled: [], Completed: []
     };
 
     this.data.forEach((item, index) => {
-      const status = item.status as Status;
-
-      const card: Card = {
+      const status: Status = this.statusMap[item.status] ?? 'Pending';
+      grouped[status].push({
         id: index + 1,
         subject: item.subject,
         LawFirm: item.distributor,
@@ -87,61 +92,17 @@ export class TestingKanbanComponent implements OnInit {
         expedite: false,
         notes: [],
         expanded: false,
-        status: status
-      };
-
-      grouped[status].push(card);
+        status
+      });
     });
 
     this.cards = grouped;
     localStorage.setItem('kanbanData', JSON.stringify(this.cards));
   }
 
-  // Toggle card expansion
-  toggleExpand(card: Card) {
-    card.expanded = !card.expanded;
-  }
-
-  // Check if the card is overdue
-  isOverdue(dueDate: string): boolean {
-    const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD
-    return dueDate < today;
-  }
-
-
-  // Function to assign a color based on the list name
-  getCardClass(list: string): string {
-    const statusClasses: { [key: string]: string } = {
-      'Pending': 'pending-card',
-      'Process': 'process-card',
-      'Hold': 'hold-card',
-      'Closed': 'closed-card'
-    };
-    return statusClasses[list] || 'default-card';
-  }
-
-  newNote = '';
-
-  //constructor(public dialog: MatDialog) { }
-
-  // drop(event: CdkDragDrop<Card[]>, targetList: string) {
-  //   const previousList = event.previousContainer.id;
-  //   const currentList = event.container.id;
-
-  //   if (previousList !== currentList) {
-  //     transferArrayItem(
-  //       this.cards[previousList],
-  //       this.cards[currentList],
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-  //   } else {
-  //     moveItemInArray(this.cards[targetList], event.previousIndex, event.currentIndex);
-  //   }
-  // }
-  drop(event: CdkDragDrop<Card[]>, targetList: Status) {
+  drop(event: CdkDragDrop<Card[]>, targetList: Status): void {
     const previousList = event.previousContainer.id as Status;
-    const currentList = event.container.id as Status;
+    const currentList  = event.container.id as Status;
 
     if (previousList !== currentList) {
       transferArrayItem(
@@ -150,109 +111,74 @@ export class TestingKanbanComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-
-      const movedCard = this.cards[currentList][event.currentIndex];
-      movedCard.status = currentList;
-
+      this.cards[currentList][event.currentIndex].status = currentList;
     } else {
-      moveItemInArray(
-        this.cards[targetList],
-        event.previousIndex,
-        event.currentIndex
-      );
+      moveItemInArray(this.cards[targetList], event.previousIndex, event.currentIndex);
     }
 
     this.cards = { ...this.cards };
     localStorage.setItem('kanbanData', JSON.stringify(this.cards));
   }
-  // openAddCardDialog(val: any) {
-  //   const dialogRef = this.dialog.open(AddCardDialogComponent, {
-  //     //data: card ? { ...card } : null
-  //     width: "500px"
-  //   });
 
-  //   dialogRef.afterClosed().subscribe((newCard: Card) => {
-  //     if (newCard) {
-
-  //       this.cards[val].push(newCard);
-
-  //     }
-  //   });
-  // }
-
-
-  // openAddNoteDialog(val: any) {
-  //   const dialogRef = this.dialog.open(AddNotesDialogComponent, {
-
-  //     width: "550px",
-  //     height: "570px",
-  //     data: val
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((newCard: Card) => {
-
-  //   });
-  // }
-
-  addNote(card: Card) {
-    if (this.newNote.trim()) {
-      card.notes.push({
-        text: this.newNote,
-        author: "Current User",
-        date: new Date().toLocaleString()
-      });
-      this.newNote = '';
-    }
-  }
-
-  // archiveCard(card: Card) {
-  //   Object.keys(this.cards).forEach(list => {
-  //     this.cards[list] = this.cards[list].filter(c => c.id !== card.id);
-  //   });
-  // }
-
-  // Toggle card expansion
-  toggleCard(card: Card) {
+  toggleCard(card: Card): void {
     card.expanded = !card.expanded;
   }
 
+  newNote = '';
 
-
-
-  scrollGrid(side: 'left' | 'right') {
-    const ele = document.getElementById('grid-table-container');
-    const scrollAmount = 300; // Adjust if necessary
-
-    if (ele) {
-      if (side === 'right') {
-        ele.scrollLeft += scrollAmount;
-      } else {
-        ele.scrollLeft -= scrollAmount;
-      }
+  addNote(card: Card): void {
+    if (this.newNote.trim()) {
+      card.notes.push({
+        text: this.newNote,
+        author: 'Current User',
+        date: new Date().toLocaleString()
+      });
+      this.newNote = '';
+      localStorage.setItem('kanbanData', JSON.stringify(this.cards));
     }
   }
 
-
-
-  goBack() {
-    this.router.navigate(['/app/complaints']);
-  }
-
-  // ngOnDestroy(): void {
-  //   this.pageHeaderService.hideBackButton();
-  // }
-  trackByCard(index: number, item: Card) {
-    return item.id;
+  isOverdue(dueDate: string): boolean {
+    const today = new Date().toISOString().split('T')[0];
+    return dueDate < today;
   }
 
   getColor(status: string): string {
-    switch (status) {
-      case 'Pending': return 'red';
-      case 'Process': return 'yellow';
-      case 'Hold': return 'blue';
-      case 'Closed': return 'green';
-      default: return 'gray';
+    const colors: Record<string, string> = {
+      'Pending':   '#e24b4a',
+      'Allocated': '#ef9f27',
+      'Progress':  '#378add',
+      'Hold':      '#f0995b',
+      'Cancelled': '#888780',
+      'Completed': '#639922'
+    };
+    return colors[status] ?? '#888780';
+  }
+
+  getCardClass(status: string): string {
+    const classes: Record<string, string> = {
+      'Pending':   'pending-card',
+      'Allocated': 'allocated-card',
+      'Progress':  'progress-card',
+      'Hold':      'hold-card',
+      'Cancelled': 'cancelled-card',
+      'Completed': 'completed-card'
+    };
+    return classes[status] ?? 'default-card';
+  }
+
+  scrollGrid(side: 'left' | 'right'): void {
+    const ele = document.getElementById('grid-table-container');
+    if (ele) {
+      ele.scrollLeft += side === 'right' ? 300 : -300;
     }
   }
 
+  goBack(): void {
+    this.router.navigate(['/app/complaints']);
+  }
+
+  trackByCard(index: number, item: Card): number {
+    return item.id;
+  }
 }

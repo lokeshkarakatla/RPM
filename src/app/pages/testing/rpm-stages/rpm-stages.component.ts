@@ -20,15 +20,15 @@ export class RpmStagesComponent implements OnInit, OnDestroy {
 
   totalSize = 0; 
   currentPage = 0;
-  pageSize = 5; 
+  pageSize = 10; 
 
   tdata = [
-    { phase: "Feasibility", description: "Evaluate project viability", tasks: 2, status:"Active" },
-    { phase: "Design", description: "Create functional, technical", tasks: 3, status:"Active" },
-    { phase: "Prototyping", description: "Develop an initial working.", tasks: 1, status:"Inactive" },
-    { phase: "Testing", description: "Validate functionality, quality", tasks: 4, status:"Active" },
-    { phase: "Launch", description: "Prepare and release the product", tasks: 5, status:"Inactive" },
-    { phase: "Implementation", description: "Execute full-scale adoption", tasks: 2, status:"Inactive" }
+    { phase: "Feasibility", description: "Evaluate project viability", tasks: 45, status:"Active" },
+    { phase: "Design", description: "Create functional, technical", tasks: 58, status:"Active" },
+    { phase: "Prototyping", description: "Develop an initial working.", tasks: 39, status:"Inactive" },
+    { phase: "Testing", description: "Validate functionality, quality", tasks: 51, status:"Active" },
+    { phase: "Launch", description: "Prepare and release the product", tasks: 41, status:"Inactive" },
+    { phase: "Implementation", description: "Execute full-scale adoption", tasks: 27, status:"Inactive" }
   ];
 
   pagedData: any[] = [];
@@ -47,9 +47,9 @@ export class RpmStagesComponent implements OnInit, OnDestroy {
     });
 
     // ✅ Listen to dropModel to get the automatically reordered page slice
-    this.subs.add(
-  this.dragulaService.dropModel('STAGE_ROWS').subscribe(({ item }) => {
-    this.pagedData = [...item];
+this.subs.add(
+  this.dragulaService.dropModel('STAGE_ROWS').subscribe(({ targetModel }) => {
+    this.pagedData = [...targetModel];  // ✅ full reordered array
     this.syncMasterArray();
   })
 );

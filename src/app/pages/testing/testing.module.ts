@@ -16,7 +16,6 @@ import { AddIssuesssComponent } from './testing-issues/add-issuesss/add-issuesss
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AddProductsComponent } from './testing-products/add-products/add-products.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { StatusModifyComponent } from './testing-products/status-modify/status-modify.component';
 import { AddTestsComponent } from './testing-tests/add-tests/add-tests.component';
 import { AddProjectsComponent } from './testing-projects/add-projects/add-projects.component';
 import { TractorstatusComponent } from './tractorstatus/tractorstatus.component';
@@ -45,6 +44,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AddTasksComponent } from './rpm-tasks/add-tasks/add-tasks.component';
 import { RpmTodoComponent } from './rpm-todo/rpm-todo.component';
 import { DragulaModule } from 'ng2-dragula';
+import { FreezepanesDialogComponent } from './testing-projects/freezepanes-dialog/freezepanes-dialog.component';
 
 
 const routes: Routes = [
@@ -88,7 +88,7 @@ const routes: Routes = [
         TestingProjectsComponent,
         AddIssuesssComponent,
         AddProductsComponent,
-        StatusModifyComponent,
+     
         AddTestsComponent,
         AddProjectsComponent,
         TractorstatusComponent,
@@ -107,6 +107,8 @@ const routes: Routes = [
         TestingKanbanComponent,
         AddTasksComponent,
         RpmTodoComponent,
+       
+        FreezepanesDialogComponent,
     ],
     imports: [
         // ✅ ALL modules go here

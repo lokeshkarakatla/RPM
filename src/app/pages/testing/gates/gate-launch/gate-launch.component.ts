@@ -13,18 +13,68 @@ export class GateLaunchComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
 
-  launchStageQuestions = [
-    { id: 1, question: 'Has final product approval been obtained from all required stakeholders?', answer: null },
-    { id: 2, question: 'Are manufacturing processes fully validated and ready for production scale-up?', answer: null },
-    { id: 3, question: 'Have all quality control and inspection procedures been established?', answer: null },
-    { id: 4, question: 'Are supply chain, procurement, and inventory plans in place for launch?', answer: null },
-    { id: 5, question: 'Have packaging, labeling, and product documentation been finalized and approved?', answer: null },
-    { id: 6, question: 'Have regulatory certifications and compliance approvals been completed?', answer: null },
-    { id: 7, question: 'Has production staff and operational teams been trained for product rollout?', answer: null },
-    { id: 8, question: 'Has a customer support, service, or maintenance plan been prepared?', answer: null },
-    { id: 9, question: 'Have launch risks, contingency plans, and escalation procedures been reviewed?', answer: null },
-    { id: 10, question: 'Has management provided final authorization for commercial launch or deployment?', answer: null }
-  ];
+ launchStageQuestions = [
+  {
+    id: 1,
+    question: 'Has final product approval been obtained from all required stakeholders?',
+    description: 'All stakeholders have reviewed and signed off on the final product.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 2,
+    question: 'Are manufacturing processes fully validated and ready for production scale-up?',
+    description: 'Production processes are validated and ready for full-scale output.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 3,
+    question: 'Have all quality control and inspection procedures been established?',
+    description: 'QC procedures and inspection checkpoints are defined and in place.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 4,
+    question: 'Are supply chain, procurement, and inventory plans in place for launch?',
+    description: 'Supply chain and inventory are ready to support the launch demand.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 5,
+    question: 'Have packaging, labeling, and product documentation been finalized and approved?',
+    description: 'All packaging, labels, and documents are approved and print-ready.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 6,
+    question: 'Have regulatory certifications and compliance approvals been completed?',
+    description: 'All required certifications and regulatory approvals are obtained.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 7,
+    question: 'Has production staff and operational teams been trained for product rollout?',
+    description: 'All teams are trained and ready to execute the product rollout.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 8,
+    question: 'Has a customer support, service, or maintenance plan been prepared?',
+    description: 'Support and service plans are documented and teams are briefed.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 9,
+    question: 'Have launch risks, contingency plans, and escalation procedures been reviewed?',
+    description: 'Risks and contingency plans are reviewed and escalation paths set.',
+    answer: null, priority: '', mandatory: false
+  },
+  {
+    id: 10,
+    question: 'Has management provided final authorization for commercial launch or deployment?',
+    description: 'Final management approval to proceed with commercial launch is confirmed.',
+    answer: null, priority: '', mandatory: false
+  }
+];
 
   constructor(private dragulaService: DragulaService, private dialog: MatDialog) {
     if (this.dragulaService.find('LAUNCH_ROWS')) {

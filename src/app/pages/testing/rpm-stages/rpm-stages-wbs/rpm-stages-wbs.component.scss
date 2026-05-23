@@ -9,7 +9,7 @@
 
 /* Sidebar Styles */
 .sidebar {
-  width: 250px;
+  width: 150px;
   flex-shrink: 0;
 }
 
@@ -51,7 +51,8 @@
 .accordion-content {
   background-color: #fff;
   border-top: 1px solid #ddd;
-  padding: 10px 15px;
+  // padding: 10px 15px;
+  padding-left: 10px;
 }
 
 .accordion-content ul {
@@ -125,12 +126,29 @@ tbody tr:nth-child(even) {
 }
 
 /* Footer & Pagination Styles */
+/* Update this block in your CSS file */
 .table-footer {
   padding: 15px 0;
-  display: flex;
-  justify-content: flex-end;
-  font-size: 13px;
-  color: #666;
+  display: block;   /* Changed from flex to block so children take up full width */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure the host element expands */
+mat-paginator, .mat-mdc-paginator {
+  width: 100% !important;
+  display: block;
+}
+
+/* Keep your existing deep rules below it */
+::ng-deep .mat-mdc-paginator-container {
+  justify-content: space-between !important; 
+  width: 100%;
+}
+
+::ng-deep .mat-paginator-container {
+  justify-content: space-between !important;
+  width: 100%;
 }
 
 .pagination-controls {
@@ -207,3 +225,32 @@ th
     bottom: 40px;
     right: 40px;
 }
+
+
+.dashboard-container {
+  display: flex;
+  align-items: flex-start; /* prevents height changes from affecting siblings */
+}
+
+.sidebar {
+  width: 220px;
+  min-width: 220px;  /* CRITICAL: locks width, prevents reflow */
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;      /* CRITICAL: prevents grid from expanding into sidebar */
+  overflow: hidden;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+
+  &.open {
+    max-height: 600px;
+  }
+}
+

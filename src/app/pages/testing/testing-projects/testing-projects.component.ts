@@ -2,11 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AddProjectsComponent } from './add-projects/add-projects.component';
-import { StatusModifyComponent } from '../testing-products/status-modify/status-modify.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { StatusConfirmationDialogComponent } from './add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { FreezepanesDialogComponent } from './freezepanes-dialog/freezepanes-dialog.component';
  
+export interface ProjectElement {
+  ProjectName: string;
+  ProjectCode: string;
+  ProjectLead: string;
+  Section: string;
+  SectionLead: string;
+  IsActive: boolean;
+}
  
 @Component({
   selector: 'app-testing-projects',
@@ -39,65 +47,121 @@ export class TestingProjectsComponent implements OnInit {
  
    getAllProjects(): void {
      // Mock data fetch - replace with service/API call
-     const mockData = [
-       {
-         ProjectName: 'Project Alpha',
-         ProjectCode: 'PA001',
-         IssueReporterLead: 'John Doe',
-         ReporterLead: 'Jane Smith',
-         VILead: 'Mark Taylor',
-         IsActive: true,
-         TotalUsed: false
-       },
-       {
-         ProjectName: 'Project Beta',
-         ProjectCode: 'PB002',
-         IssueReporterLead: 'Alice Johnson',
-         ReporterLead: 'Robert Brown',
-         VILead: 'Lisa White',
-         IsActive: false,
-         TotalUsed: true
-       },
- 
+  const mockData = [
+  {
+    ProjectName: 'Project Alpha',
+    ProjectCode: 'PA001',
+    ProjectLead: 'John Doe',
+    Section: 'Jane Smith',
+    SectionLead: 'Mark Taylor',
+    IsActive: true
+  },
+  {
+    ProjectName: 'Project Beta',
+    ProjectCode: 'PB002',
+    ProjectLead: 'Alice Johnson',
+    Section: 'Robert Brown',
+    SectionLead: 'Lisa White',
+    IsActive: false
+  },
   {
     ProjectName: 'Project Gamma',
     ProjectCode: 'PG003',
-    IssueReporterLead: 'Emily Clark',
-    ReporterLead: 'Michael Scott',
-    VILead: 'Sara Lee',
-    IsActive: true,
-    TotalUsed: false
+    ProjectLead: 'Emily Clark',
+    Section: 'Michael Scott',
+    SectionLead: 'Sara Lee',
+    IsActive: true
   },
   {
     ProjectName: 'Project Delta',
     ProjectCode: 'PD004',
-    IssueReporterLead: 'Nathan Drake',
-    ReporterLead: 'Elena Fisher',
-    VILead: 'Victor Sullivan',
-    IsActive: false,
-    TotalUsed: true
+    ProjectLead: 'Nathan Drake',
+    Section: 'Elena Fisher',
+    SectionLead: 'Victor Sullivan',
+    IsActive: false
   },
   {
     ProjectName: 'Project Epsilon',
     ProjectCode: 'PE005',
-    IssueReporterLead: 'Chloe Price',
-    ReporterLead: 'Max Caulfield',
-    VILead: 'Rachel Amber',
-    IsActive: true,
-    TotalUsed: true
+    ProjectLead: 'Chloe Price',
+    Section: 'Max Caulfield',
+    SectionLead: 'Rachel Amber',
+    IsActive: true
   },
   {
     ProjectName: 'Project Zeta',
     ProjectCode: 'PZ006',
-    IssueReporterLead: 'Bruce Wayne',
-    ReporterLead: 'Clark Kent',
-    VILead: 'Diana Prince',
-    IsActive: false,
-    TotalUsed: false
+    ProjectLead: 'Bruce Wayne',
+    Section: 'Clark Kent',
+    SectionLead: 'Diana Prince',
+    IsActive: false
+  },
+  {
+    ProjectName: 'Project Eta',
+    ProjectCode: 'PE007',
+    ProjectLead: 'Tony Stark',
+    Section: 'Steve Rogers',
+    SectionLead: 'Natasha Romanoff',
+    IsActive: true
+  },
+  {
+    ProjectName: 'Project Theta',
+    ProjectCode: 'PT008',
+    ProjectLead: 'Peter Parker',
+    Section: 'Miles Morales',
+    SectionLead: 'Gwen Stacy',
+    IsActive: false
+  },
+  {
+    ProjectName: 'Project Iota',
+    ProjectCode: 'PI009',
+    ProjectLead: 'Sherlock Holmes',
+    Section: 'John Watson',
+    SectionLead: 'Irene Adler',
+    IsActive: true
+  },
+  {
+    ProjectName: 'Project Kappa',
+    ProjectCode: 'PK010',
+    ProjectLead: 'Frodo Baggins',
+    Section: 'Samwise Gamgee',
+    SectionLead: 'Gandalf Grey',
+    IsActive: false
+  },
+  {
+    ProjectName: 'Project Lambda',
+    ProjectCode: 'PL011',
+    ProjectLead: 'Harry Potter',
+    Section: 'Ron Weasley',
+    SectionLead: 'Hermione Granger',
+    IsActive: true
+  },
+  {
+    ProjectName: 'Project Mu',
+    ProjectCode: 'PM012',
+    ProjectLead: 'Katniss Everdeen',
+    Section: 'Peeta Mellark',
+    SectionLead: 'Haymitch Abernathy',
+    IsActive: false
+  },
+  {
+    ProjectName: 'Project Nu',
+    ProjectCode: 'PN013',
+    ProjectLead: 'Neo',
+    Section: 'Morpheus',
+    SectionLead: 'Trinity',
+    IsActive: true
+  },
+  {
+    ProjectName: 'Project Xi',
+    ProjectCode: 'PX014',
+    ProjectLead: 'Lara Croft',
+    Section: 'Nathan Drake',
+    SectionLead: 'Sam Drake',
+    IsActive: false
   }
- 
- 
 ];
+
  
      // Simulate pagination
      this.totalSize = mockData.length;
@@ -130,11 +194,7 @@ export class TestingProjectsComponent implements OnInit {
       height: 'auto',
       width: '800px',
     });
-    // dialogRef.afterClosed().subscribe(data => {
-    //   //if () {
-    //     this.getAllProjects();
-    //  // }
-    // })
+    
   }
  
     deleteConfirmation(item: any) {
@@ -144,6 +204,14 @@ export class TestingProjectsComponent implements OnInit {
     });
  
  }
+
+    freezepanes() {
+    let dialogRef = this.dialog.open(FreezepanesDialogComponent, {
+      width: 'auto',
+      height: '560px',
+      data: {}
+    });
+  }
 }
  
  

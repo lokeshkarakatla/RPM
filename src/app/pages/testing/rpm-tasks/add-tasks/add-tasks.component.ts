@@ -17,4 +17,15 @@ export class AddTasksComponent implements OnInit {
      this.dialogRef.close();
    }
 
+   onFileSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    const file = input.files[0];
+    // handle the file
+    console.log('Selected file:', file);
+  }
+}
+
+activeStep: number = 1;
+
 }

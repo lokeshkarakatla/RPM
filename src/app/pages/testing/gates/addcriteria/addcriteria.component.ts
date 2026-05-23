@@ -17,4 +17,15 @@ export class AddcriteriaComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onFileSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    const file = input.files[0];
+    // handle the file — e.g. store it, upload it, etc.
+    console.log('Selected file:', file);
+  }
+}
+
+
+
 }

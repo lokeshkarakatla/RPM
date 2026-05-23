@@ -2,17 +2,21 @@
     <table matSort id="example2" class="table table-bordered table-hover" style="width: 70%;">
         <thead class="tbl-head">
             <tr>
+                <th class="text-center">Move</th>
                 <th class="text-center" style="width: 107px !important;">Actions</th>
                 <th class="text-center">Status</th>
-                <th class="text-center">Stage Name</th>
-                <th class="text-center">Description</th>
-                <th class="text-center">WBS</th> 
+                <th class="text-left">Stage Name</th>
+                <th class="text-left">Description</th>
+                <th class="text-center">WBS</th>
             </tr>
         </thead>
-        
+
         <!-- ✅ Seamless model synchronization matching component 1 -->
         <tbody dragula="STAGE_ROWS" [dragulaModel]="pagedData" (dragulaModelChange)="pagedData = $event">
-            <tr *ngFor="let item of pagedData" >
+            <tr *ngFor="let item of pagedData">
+                <td class="text-center">
+                    <mat-icon style="color: #9e9e9e; cursor: grab;">drag_indicator</mat-icon>
+                </td>
                 <td class="text-center">
                     <a matTooltip="Edit Project" [ngClass]="{'disable-custom' : !canUpdate}"
                         style="margin-right: 10px; cursor: pointer; color: cornflowerblue;"
@@ -24,34 +28,30 @@
                             (click)="deleteConfirmation(item)"></i>
                     </a>
                 </td>
-                
+
                 <td class="text-center" (click)="Confirmation(item)" style="cursor: pointer;"
-                    [style.color]="item.status === 'Active' ? 'blue' : (item.status === 'Inactive' ? 'red' : 'inherit')"> 
-                    {{ item.status }} 
+                    [style.color]="item.status === 'Active' ? 'blue' : (item.status === 'Inactive' ? 'red' : 'inherit')">
+                    {{ item.status }}
                 </td>
-                
+
                 <td>{{ item.phase }}</td>
                 <td>{{ item.description }}</td>
-                
+
                 <td class="text-center">
                     <a routerLinkActive="active" [routerLink]="['/app/testing/stages/wbs']">
                         {{ item.tasks }}
                     </a>
                 </td>
+
             </tr>
 
             <tr *ngIf="!pagedData || pagedData.length === 0" class="no-drag">
-                <td colspan="5" class="text-center">No records found</td> 
+                <td colspan="6" class="text-center">No records found</td>
             </tr>
         </tbody>
     </table>
 
-    <mat-paginator style="width: 70%;" 
-        [length]="totalSize" 
-        [pageIndex]="currentPage" 
-        [pageSize]="pageSize"
-        [pageSizeOptions]="[5, 10, 20, 50, 100]" 
-        (page)="fnHandlePage($event)" 
-        showFirstLastButtons>
+    <mat-paginator style="width: 70%;" [length]="totalSize" [pageIndex]="currentPage" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20, 50, 100]" (page)="fnHandlePage($event)" showFirstLastButtons>
     </mat-paginator>
 </div>

@@ -20,8 +20,7 @@
             <th class="text-center">Completion Date</th>
             <th class="text-center">Responsibility</th>
             <th class="text-center">Project Name</th>
-            <th class="text-center">Health Systems</th>
-            <th class="text-center">Sponsor</th>
+          
           </tr>
         </thead>
 
@@ -62,11 +61,7 @@
             <!-- 8. Project Name -->
             <td class="text-center">{{ item.ProjectName }}</td>
 
-            <!-- 9. Health Systems -->
-            <td class="text-center">{{ item.HealthSystems }}</td>
-
-            <!-- 10. Sponsor -->
-            <td class="text-center">{{ item.Sponsor }}</td>
+           
           </tr>
 
           <!-- Empty state -->
@@ -75,6 +70,14 @@
           </tr>
         </tbody>
       </table>
+       <div style="position: fixed; bottom: 10px; right: 40px; z-index: 999; display: flex; gap: 10px;">
+  <button class="mine" mat-fab (click)="scrollLeft()">
+    <mat-icon style="color: #37474f;">fast_rewind</mat-icon>
+  </button>
+  <button class="mine" mat-fab (click)="scrollRight()">
+    <mat-icon style="color: #37474f;">fast_forward</mat-icon>
+  </button>
+</div>
 
       
     </div>
@@ -84,9 +87,4 @@
   </div>
 </div>
 <!-- Scroll Buttons -->
-      <button class="mine" mat-fab style="position: absolute; right: 20px; z-index: 10;" (click)="scrollRight()">
-        <mat-icon style="color: #37474f">fast_forward</mat-icon>
-      </button>
-      <button class="mine" mat-fab style="position: absolute; right: 90px; z-index: 10;" (click)="scrollLeft()">
-        <mat-icon style="color: #37474f">fast_rewind</mat-icon>
-      </button>
+  

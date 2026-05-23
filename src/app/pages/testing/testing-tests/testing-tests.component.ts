@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddTestsComponent } from './add-tests/add-tests.component';
-import { StatusModifyComponent } from '../testing-products/status-modify/status-modify.component';
 
 @Component({
   selector: 'app-testing-tests',
@@ -139,7 +138,7 @@ export class TestingTestsComponent implements OnInit {
      }
  
      openConfirmDialog(applicant: any): void {
-       const dialogRef = this.dialog.open(StatusModifyComponent, {
+       const dialogRef = this.dialog.open(AddTestsComponent, {
          width: '300px',
          data: { status: applicant.status }
        });

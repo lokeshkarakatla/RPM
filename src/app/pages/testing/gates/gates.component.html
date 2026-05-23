@@ -5,7 +5,7 @@
        =================================================== -->
   <ng-container *ngIf="!isChildRouteActive">
 
-    <div class="container-fluid" style="padding-right: 1px; padding-left: 0px">
+    <div class="container-fluid col-lg-10 " style="padding-right: 1px; padding-left: 0px">
       <div class="w-100">
         <div class="flex-p">
           <div class="row wrap">
@@ -17,8 +17,8 @@
                     <div class="col-xs-6" style="margin-left: 6px; margin-bottom: -6px;">
                       <div class="col-xs-6"></div>
                       <div class="col-xs-6">
-                        <button mat-raised-button class="pull-right mt-3" style="margin-left: 1px"
-                         (click)="addGate()" color="primary">
+                        <button mat-raised-button class="pull-right mt-3" style="margin-left: 1px" (click)="addGate()"
+                          color="primary">
                           <mat-icon>add</mat-icon> Add Gate
                         </button>
                         <!-- <button mat-raised-button class="pull-right filters-hover margin-right-10 mt-3"
@@ -37,7 +37,7 @@
     </div>
 
     <!-- Filter Toggle -->
-    <div fxLayout="row wrap" *ngIf="filterToggle">
+    <!-- <div fxLayout="row wrap" *ngIf="filterToggle">
       <div fxFlex="100" fxFlex.gt-sm fxFlex.sm class="flex-p w-100 margins">
         <mat-card class="filter">
           <mat-card-content>
@@ -80,10 +80,10 @@
           </mat-card-content>
         </mat-card>
       </div>
-    </div>
+    </div> -->
 
     <!-- Table -->
-    <div class="container-fluid" style="padding-right: 1px; padding-left: 0px">
+    <div class="container-fluid col-lg-10 " style="padding-right: 1px; padding-left: 0px">
       <div fxLayout="row wrap" #resizedDiv>
         <div class="flex-p w-100 sizeAlign">
           <div class="row">
@@ -92,10 +92,11 @@
                 <table matSort id="example2" class="table table-bordered table-hover">
                   <thead class="tbl-head">
                     <tr>
+                      <th class="text-center">Move</th>
                       <th class="text-center" style="width: 112px !important">Actions</th>
                       <th class="text-center">Status</th>
-                      <th class="text-center">Gates Name</th>
-                      <th class="text-center">Description</th>
+                      <th class="text-left">Gate Name</th>
+                      <th class="text-left">Description</th>
                       <th class="text-center" style="width: 160px">Acceptance Criteria</th>
                     </tr>
                   </thead>
@@ -103,6 +104,13 @@
                   <tbody dragula="MONITORSTEPS" [dragulaModel]="stages" (dragulaModelChange)="stages = $event">
                     <tr *ngFor="let item of stages">
 
+                      <!-- 6. Move: drag handle -->
+                      <td class="text-center">
+                        <mat-icon style="color: #9e9e9e; cursor: grab;">drag_indicator</mat-icon>
+                      </td>
+
+
+                      <!-- 1. Actions: edit + delete -->
                       <td class="text-center editDel">
                         <a style="cursor: pointer; margin-right: 0px; margin-left: -5px;" matTooltip="Edit"
                           (click)="addmodule(item)">
@@ -114,6 +122,7 @@
                         </a>
                       </td>
 
+                      <!-- 2. Status -->
                       <td class="text-center">
                         <a [ngStyle]="{ color: item.status ? 'blue' : 'red', cursor: canUpdate ? 'pointer' : 'default' }"
                           [ngClass]="{ 'disable-custom': !canUpdate }">
@@ -123,14 +132,18 @@
                         </a>
                       </td>
 
+                      <!-- 3. Gates Name -->
                       <td>{{ item.name }}</td>
+
+                      <!-- 4. Description -->
                       <td>{{ item.description }}</td>
 
-                      <!-- Click navigates to child route inside same module -->
+                      <!-- 5. Acceptance Criteria -->
                       <td class="text-center primary tooltip-cell" style="color: blue; cursor: pointer;"
                         (click)="navigateTo(item.route)">
                         {{ item.count }}
                       </td>
+
 
                     </tr>
                   </tbody>

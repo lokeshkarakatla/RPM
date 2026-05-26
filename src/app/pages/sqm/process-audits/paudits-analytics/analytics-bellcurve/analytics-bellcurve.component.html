@@ -1,10 +1,12 @@
   <div class="filter-bar">
         <div class="filter-group right-align-group">
-            <label for="year-select">Select Year :</label>
-            <select id="year-select">
-                <option value="FY 2023 - 2024" selected>FY 2023 - 2024</option>
-                <option value="FY 2024 - 2025">FY 2024 - 2025</option>
-            </select>
+           <label class="filter-label mb-0">Select Year :</label>
+    <mat-select placeholder="Select Year" class="form-control" formControlName="year" style="width: auto; min-width: 120px;">
+     
+      <mat-option value="2023">2023</mat-option>
+      <mat-option value="2024">2024</mat-option>
+      <mat-option value="2025">2025</mat-option>
+    </mat-select>
         </div>
 
         <button class="go-btn">

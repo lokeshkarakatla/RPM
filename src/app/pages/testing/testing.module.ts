@@ -59,7 +59,7 @@ const routes: Routes = [
   { path: 'stages/wbs', component: RpmStagesWbsComponent, data: { breadcrumb: 'WBS' } },
     { path: 'projects', component: TestingProjectsComponent, data: { breadcrumb: 'Projects' } },
     { path: 'testing-kanban', component: TestingKanbanComponent, data: { breadcrumb: 'Kanban' } },
-       { path: 'todo', component: RpmTodoComponent, data: { breadcrumb: 'Todo' } },
+       { path: 'todo', component: RpmTodoComponent, data: { breadcrumb: 'To do' } },
     // {
     //     path: "gates", component: GatesComponent,
     //     loadChildren: () => import("./gates/gates.module").then((m) => m.GatesModule),

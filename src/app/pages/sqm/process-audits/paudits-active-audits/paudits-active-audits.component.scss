@@ -46,7 +46,7 @@
   overflow-x: auto;
   background-color: white;
   border: 1px solid #ddd;
-  border-radius: 4px; /* Optional: smooths the corners around table and paginator */
+/* Optional: smooths the corners around table and paginator */
 }
 
 .audit-table {
@@ -135,4 +135,69 @@
 .chart-container
 {
   width: 100%;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  width: 100%;
+  min-width: 0; // ← critical: prevents grid blowout
+}
+
+// Override the inline width on the Highcharts host element
+.chart-container ::ng-deep highcharts-chart {
+  display: block !important;
+  width: 100% !important;
+}
+
+.active-audits-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+/* Charts Grid */
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  width: 100%;
+  min-width: 0;
+
+  ::ng-deep highcharts-chart {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  // Force the inner SVG Highcharts renders to respect container width
+  ::ng-deep .highcharts-container,
+  ::ng-deep .highcharts-root {
+    width: 100% !important;
+  }
+
+  ::ng-deep svg.highcharts-root {
+    width: 100% !important;
+  }
+}
+
+.chart-container {
+  width: 100%;
+  min-width: 0;
+  height: 320px; /* ensures equal height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

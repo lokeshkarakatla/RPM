@@ -19,7 +19,7 @@ export class RpmStagesWbsComponent implements OnInit {
   // Sidebar Data
   sidebarMenus = [
     {
-      name: 'Scoping & Concept Generation',
+      name: 'Project Initiation & Planning',
       count: 15,
       isOpen: false,
       subItems: ['Define project initiation criteria and innovation goals', 'Conduct brainstorming sessions and ideation workshops', 'Complete initial market gap and trend analysis', 'TPerform high-level technical assessment of the concept', 'Screen ideas against corporate strategy alignment', 'Consolidate concepts into a preliminary project brief', 'Gate 1 Review: Evaluate concept viability and approve preliminary scoping budget', 'Define the final project scope and draft the Scope Statement', 'Build the Work Breakdown Structure (WBS) and WBS Dictionary', 'Estimate task durations and identify task dependencies', 'Develop the critical path and master Project Schedule (Gantt chart)', 'Estimate project costs and finalize the baseline Project Budget', 'Draft the Risk Management Plan and build the initial Risk Register', 'Establish the Project Change Management process and baseline metrics', 'Secure formal stakeholder approval on the master Project Management Plan']

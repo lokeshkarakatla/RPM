@@ -7,10 +7,11 @@
         <div class="col-sm-12" style="margin-top: 0px; padding-left: 10px; padding-right: 20px;">
             <form>
                 <div>
-                    
+
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
-                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Commodity :  </label>
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Commodity :
+                            </label>
                         </div>
                         <div class="col-sm-8">
                             <mat-select placeholder="Select Parts Family" class="form-control">
@@ -22,7 +23,8 @@
 
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
-                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Supplier :  </label>
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Supplier :
+                            </label>
                         </div>
                         <div class="col-sm-8">
                             <mat-select placeholder="Select Parts Family" class="form-control">
@@ -34,7 +36,8 @@
 
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
-                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">State:  </label>
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">State:
+                            </label>
                         </div>
                         <div class="col-sm-8">
                             <mat-select placeholder="Select City" class="form-control">
@@ -46,7 +49,8 @@
 
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
-                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">City:  </label>
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">City:
+                            </label>
                         </div>
                         <div class="col-sm-8">
                             <mat-select placeholder="Select City" class="form-control">
@@ -58,7 +62,8 @@
 
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
-                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Auditor : </label>
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Auditor :
+                            </label>
                         </div>
                         <div class="col-sm-8">
                             <mat-select placeholder="Select Auditor Name" class="form-control">
@@ -69,55 +74,84 @@
                     </div>
 
                     <div class="row" style="margin-bottom: 12px;">
-    <div class="col-sm-4">
-        <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Audit Date : <span style="color: red;">*</span></label>
-    </div>
-    
-    <div class="col-sm-8" style="position: relative;">
-        
-        <input matInput [matDatepicker]="picker" 
-               style="height: 38px; width: 100%; padding-left: 12px; padding-right: 45px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: white;" 
-               placeholder="mm/dd/yyyy">
-        
-        <mat-datepicker-toggle matSuffix [for]="picker" 
-                               style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
-        </mat-datepicker-toggle>
-        
-        <mat-datepicker #picker></mat-datepicker>
-    </div>
-</div>
+                        <div class="col-sm-4">
+                            <label class="add-member-label mt5" style="margin-top:5px; font-weight: bold;">Audit Date :
+                                <span style="color: red;"></span></label>
+                        </div>
+
+                        <div class="col-sm-8" style="position: relative;">
+
+                            <input matInput [matDatepicker]="picker"
+                                style="height: 38px; width: 100%; padding-left: 12px; padding-right: 45px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: white;"
+                                placeholder="mm/dd/yyyy">
+
+                            <mat-datepicker-toggle matSuffix [for]="picker"
+                                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+                            </mat-datepicker-toggle>
+
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                    </div>
 
                     <div class="row" style="margin-top: 10px; margin-bottom: 25px;">
-    <div class="col-sm-4">
-        <label class="control-label mt-1" style="font-weight: bold;">Upload Parameters <span style="color: red;">*</span></label>
-    </div>
-    <div class="col-sm-8" style="text-align: center;">
-        
-        <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" multiple>
-        
-        <div style="border: 2px dashed #b5b5b5; border-radius: 4px; padding: 25px 20px; color: #666; background-color: #fafafa; cursor: pointer; position: relative; z-index: 0;" (click)="fileInput.click()">
-            Drag and drop files here, or click to select files
-        </div>
-        
-        <button mat-raised-button color="primary" type="button" class="save" style="margin-top: 6px; position: relative; z-index: 1; padding: 4px 20px; text-transform: none;" (click)="fileInput.click()">
-            Browse Files
+  <div class="col-sm-4">
+    <label class="control-label mt-1" style="font-weight: bold;">
+      Upload Parameters: <span style="color: red;">*</span>
+    </label>
+  </div>
+  <div class="col-sm-8" style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+
+   <input type="file" #fileInput style="display: none;"
+  (change)="onFileSelected($event)" multiple>
+
+<div class="drag-drop-zone"
+  (click)="fileInput.click()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)">
+  <mat-icon style="font-size: 24px; height: 24px; width: 24px;">upload</mat-icon>
+  <span>Drag and drop files here</span>
+  <button mat-raised-button class="browse-btn primary"
+    type="button"
+    (click)="$event.stopPropagation(); fileInput.click()">
+    Browse Files
+  </button>
+</div>
+
+  
+
+    <div class="file-list" style="width: 100%;">
+      <div *ngFor="let file of selectedFiles; let i = index"
+        style="display: flex; align-items: center; gap: 8px;
+               padding: 5px 8px; font-size: 13px; border-radius: 4px;
+               background: #f5f5f5; margin-top: 4px;">
+        <mat-icon style="font-size: 16px;">insert_drive_file</mat-icon>
+        <span>{{ file.name }}</span>
+        <span style="color: #999; font-size: 12px;">({{ (file.size / 1024).toFixed(1) }} KB)</span>
+        <button mat-icon-button style="margin-left: auto;" (click)="removeFile(i)">
+          <mat-icon style="font-size: 16px;">close</mat-icon>
         </button>
-        
+      </div>
     </div>
+
+  </div>
 </div>
 
                 </div>
             </form>
 
-            <mat-dialog-actions align="end" style="margin-top: 20px; padding-bottom: 15px; display: flex; justify-content: flex-end;">
-                <button mat-raised-button type="button" class="save" color="primary" style="margin-right: 10px;">
-                    Save
-                </button>
-                <button mat-raised-button class="ms-2 btn-default" (click)="close()" style="background-color: #e0e0e0; color: #333;">
-                    Close
-                </button>
-            </mat-dialog-actions>
-            
+
+    <mat-dialog-actions align="end" style="margin-top: 15px; display: flex; justify-content: flex-end;margin-right: -20px;">
+        <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red;margin-right: 5px;">
+            <mat-icon>cancel</mat-icon> Close
+        </button>
+        <button mat-raised-button type="submit" class="save" color="primary" style="margin-right: 17px;" >
+            <mat-icon>save</mat-icon>Save
+        </button>
+    </mat-dialog-actions>
+
+           
+
         </div>
     </div>
 </div>

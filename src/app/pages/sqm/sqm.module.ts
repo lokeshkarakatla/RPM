@@ -45,6 +45,7 @@ const routes: Routes = [
        PartsAuditsComponent
     ],
     imports: [
+    
         CommonModule,
         RouterModule.forChild(routes),
         FormsModule,

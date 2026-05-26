@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import * as Highcharts from 'highcharts';
+import { PauditsNewAuditComponent } from '../paudits-new-audit/paudits-new-audit.component';
 
 @Component({
   selector: 'app-paudits-active-audits',
@@ -12,11 +14,12 @@ export class PauditsActiveAuditsComponent implements OnInit {
 
   // Pie Chart 1: Commodity Distribution
   commodityChartOptions: Highcharts.Options = {
-    chart: { type: 'pie', height: 300 },
+    chart: { type: 'pie', height: 300,spacing: [10,10,10,10] },
     title: { text: 'Commodity Distribution', style: { color: '#666', fontSize: '18px' } },
     credits: { enabled: false },
     plotOptions: {
       pie: {
+        size: '80%',
         innerSize: '0%', 
         dataLabels: { enabled: true, format: '{point.name}', style: { fontWeight: 'normal', color: '#666' } }
       }
@@ -40,12 +43,18 @@ export class PauditsActiveAuditsComponent implements OnInit {
     chart: { type: 'pie', height: 300 },
     title: { text: 'Auditor Distribution', style: { color: '#666', fontSize: '18px' } },
     credits: { enabled: false },
-    plotOptions: {
-      pie: {
-        innerSize: '0%',
-        dataLabels: { enabled: true, format: '{point.name}', style: { fontWeight: 'normal', color: '#666' } }
-      }
-    },
+   plotOptions: {
+  pie: {
+    size: '80%',        // fixes radius consistency
+    innerSize: '0%',   // donut style, same across charts
+    dataLabels: {
+      enabled: true,
+      format: '{point.name}',
+      style: { fontWeight: 'normal', color: '#666' }
+    }
+  }
+}
+,
     series: [{
       type: 'pie',
       name: 'Auditor',
@@ -65,6 +74,7 @@ export class PauditsActiveAuditsComponent implements OnInit {
     credits: { enabled: false },
     plotOptions: {
       pie: {
+        size: '80%',        // fixes radius consistency 
         innerSize: '0%',
         dataLabels: { enabled: true, format: '{point.name}', style: { fontWeight: 'normal', color: '#666' } }
       }
@@ -90,9 +100,21 @@ export class PauditsActiveAuditsComponent implements OnInit {
     { ref: '2024/Process/254865', commodity: 'Camshaft', location: 'Mumbai', supplier: 'DEF Automotive Ltd', auditor: 'Manoj Singh', date: '15-07-2024', action: '3/4', score: '95 %', done: true }
   ];
 
-  constructor() { }
+
 
   ngOnInit(): void {
   }
 
+constructor(private dialog:MatDialog) { } 
+
+
+openaudit() {
+    this.dialog.open(PauditsNewAuditComponent, {
+      width: '600px',
+      height: '600px'
+    });
+  }
+
+
+  
 }

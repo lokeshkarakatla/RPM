@@ -60,3 +60,11 @@
 .chart-wrapper {
     padding: 20px;
 }
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* ← this does it */
+  gap: 16px;
+  flex-wrap: wrap;
+}

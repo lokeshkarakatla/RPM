@@ -112,3 +112,35 @@ tr:nth-child(even) td {
   background-color: #2c5d8f !important;
   color: white !important;
 }
+
+.section-wrapper {
+  width: 100%;
+  padding: 0 15px; /* match your grid's gutter */
+}
+
+.section-title {
+  margin-bottom: 16px;
+}
+
+.section-wrapper {
+  width: 100%;
+  margin-bottom: 0; // spacing handled by .row's margin-bottom
+}
+
+.table-container {
+  flex: 1;       // takes ~33%
+}
+
+.chart-container {
+  flex: 2;       // takes ~67%
+  min-width: 0;  // ← critical: prevents flex child from overflowing
+}
+
+.chart-container {
+  flex: 2;
+  min-width: 0;        // prevents flex overflow
+  height: 400px;       // explicit height so Highcharts can calculate
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -3,147 +3,164 @@
     <hr />
 </div> -->
 
-<div class="col-lg-12" style="overflow: hidden; margin-top: 40px">
- 
+<div class="col-lg-12" style="overflow: hidden; margin-top: 40px;">
+
 
 
   <div class="col-sm-12" style="margin-top: 10px">
-<div class="button-container" style="display: flex; justify-content: flex-end; margin-bottom: -5px; align-items: center; width: 100%;">
-    <button  mat-raised-button color="primary" class="top-btn" style="display: flex; justify-content: flex-end; margin-bottom: 15px; "  (click)="addTask()">
-    <mat-icon style="vertical-align: middle;">add</mat-icon>Add Task
-    </button>
+    <div class="button-container"
+      style="display: flex; justify-content: flex-end; margin-bottom: -5px; align-items: center; width: 100%;">
+      <button mat-raised-button color="primary" class="top-btn"
+        style="display: flex; justify-content: flex-end; margin-bottom: 15px; " (click)="addTask()">
+        <mat-icon style="vertical-align: middle;">add</mat-icon>Add Task
+      </button>
 
-     
-   </div>
+
+    </div>
     <div class="table-responsive" id="grid-table-container">
-      
+
 
 
       <table matSort id="example2" mat-table class="table table-bordered table-hover">
-    <thead class="tbl-head">
-  <tr>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 90px;">Action</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 90px;">Status</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 180px; white-space: nowrap;">Task Name</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 130px; white-space: nowrap;">Task Type</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 160px; white-space: nowrap;">Responsibility</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 100px; white-space: nowrap;">Duration</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 90px; white-space: nowrap;">Effort</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 220px; white-space: nowrap;">Description</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">Plan Start</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">Plan End</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">Actual Start</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">Actual End</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">ETA</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">Status</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 130px; white-space: nowrap;">Priority</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 130px; white-space: nowrap;">Complexity</th>
-    <th mat-header-cell mat-sort-header class="text-center" style="min-width: 100px; white-space: nowrap;">Template</th>
-  </tr>
-</thead>
+        <thead class="tbl-head">
+          <tr>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 90px;">Action</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 90px;">Status</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 180px; white-space: nowrap;">Task
+              Name</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 130px; white-space: nowrap;">Task
+              Type</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 160px; white-space: nowrap;">
+              Responsibility</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 100px; white-space: nowrap;">
+              Duration</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 90px; white-space: nowrap;">Effort
+            </th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 220px; white-space: nowrap;">
+              Description</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">Plan
+              Start</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">Plan
+              End</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">
+              Actual Start</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">
+              Actual End</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">ETA
+            </th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 120px; white-space: nowrap;">
+              Status</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 130px; white-space: nowrap;">
+              Priority</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 130px; white-space: nowrap;">
+              Complexity</th>
+            <th mat-header-cell mat-sort-header class="text-center" style="min-width: 100px; white-space: nowrap;">
+              Template</th>
+          </tr>
+        </thead>
 
-  <tbody>
-  <tr *ngFor="let item of allProjects">
+        <tbody>
+          <tr *ngFor="let item of allProjects">
 
-    <!-- 1. Action -->
-    <td class="text-center">
-      <a matTooltip="Edit Task" style="margin-right: 8px; cursor: pointer;" (click)="openEditDialog(item)">
-        <i class="fa fa-edit" style="color: cornflowerblue;"></i>
-      </a>
-      <a matTooltip="Delete Task" style="cursor: pointer;" (click)="deleteConfirmation(item)">
-        <i class="fa fa-trash" style="color: red;"></i>
-      </a>
-    </td>
+            <!-- 1. Action -->
+            <td class="text-center">
+              <a matTooltip="Edit Task" style="margin-right: 8px; cursor: pointer;" (click)="openEditDialog(item)">
+                <i class="fa fa-edit" style="color: cornflowerblue;"></i>
+              </a>
+              <a matTooltip="Delete Task" style="cursor: pointer;" (click)="deleteConfirmation(item)">
+                <i class="fa fa-trash" style="color: red;"></i>
+              </a>
+            </td>
 
-    <!-- 2. Status (Active/Inactive toggle) -->
-    <td class="text-center" style="cursor: pointer;">
-      <span *ngIf="item.IsActive" (click)="Confirmation(item)" style="color: blue;">Active</span>
-      <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color: red;">Inactive</span>
-    </td>
+            <!-- 2. Status (Active/Inactive toggle) -->
+            <td class="text-center" style="cursor: pointer;">
+              <span *ngIf="item.IsActive" (click)="Confirmation(item)" style="color: blue;">Active</span>
+              <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color: red;">Inactive</span>
+            </td>
 
-    <!-- 3. Task Name -->
-    <td class="text-center">{{ item.TaskName }}</td>
+            <!-- 3. Task Name -->
+            <td class="text-center">{{ item.TaskName }}</td>
 
-    <!-- 4. Task Type -->
-    <td class="text-center">{{ item.TaskType }}</td>
+            <!-- 4. Task Type -->
+            <td class="text-center">{{ item.TaskType }}</td>
 
-    <!-- 5. Responsibility -->
-    <td class="text-center">{{ item.Responsibility }}</td>
+            <!-- 5. Responsibility -->
+            <td class="text-center">{{ item.Responsibility }}</td>
 
-    <!-- 6. Duration -->
-    <td class="text-center">{{ item.Duration }}</td>
+            <!-- 6. Duration -->
+            <td class="text-center">{{ item.Duration }}</td>
 
-    <!-- 7. Effort -->
-    <td class="text-center">{{ item.Effort }}</td>
+            <!-- 7. Effort -->
+            <td class="text-center">{{ item.Effort }}</td>
 
-    <!-- 8. Description -->
-    <td class="text-center">{{ item.Description }}</td>
+            <!-- 8. Description -->
+            <td class="text-center">{{ item.Description }}</td>
 
-    <!-- 9. Plan Start -->
-    <td class="text-center">{{ item.PlanStart }}</td>
+            <!-- 9. Plan Start -->
+            <td class="text-center">{{ item.PlanStart }}</td>
 
-    <!-- 10. Plan End -->
-    <td class="text-center">{{ item.PlanEnd }}</td>
+            <!-- 10. Plan End -->
+            <td class="text-center">{{ item.PlanEnd }}</td>
 
-    <!-- 11. Actual Start -->
-    <td class="text-center">{{ item.ActualStart }}</td>
+            <!-- 11. Actual Start -->
+            <td class="text-center">{{ item.ActualStart }}</td>
 
-    <!-- 12. Actual End -->
-    <td class="text-center">{{ item.ActualEnd }}</td>
+            <!-- 12. Actual End -->
+            <td class="text-center">{{ item.ActualEnd }}</td>
 
-    <!-- 13. ETA -->
-    <td class="text-center">{{ item.ETA }}</td>
+            <!-- 13. ETA -->
+            <td class="text-center">{{ item.ETA }}</td>
 
-    <!-- 14. Status -->
-   <td class="text-center">
-      <select [(ngModel)]="item.Status"
-        style="width: 100%; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; background-color: white; appearance: auto; cursor: pointer;">
-        <option value="" disabled hidden selected>Select</option>
-        <option value="Pending">Pending</option>
-        <option value="Allocation">Allocation</option>
-        <option value="Progress">Progress</option>
-        <option value="Hold">Hold</option>
-        <option value="Cancelled">Cancelled</option>
-        <option value="Completed">Completed</option>
-        
-      </select>
-    </td>
+            <!-- 14. Status -->
+            <td class="text-center">
+              <select [(ngModel)]="item.Status"
+                style="width: 100%; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; background-color: white; appearance: auto; cursor: pointer;">
+                <option value="" disabled hidden selected>Select</option>
+                <option value="Pending">Pending</option>
+                <option value="Allocation">Allocation</option>
+                <option value="Progress">Progress</option>
+                <option value="Hold">Hold</option>
+                <option value="Cancelled">Cancelled</option>
+                <option value="Completed">Completed</option>
 
-    <!-- 15. Priority -->
-    <td class="text-center">
-      <select [(ngModel)]="item.Priority"
-        style="width: 100%; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; background-color: white; appearance: auto; cursor: pointer;">
-        <option value="" disabled hidden selected>Select</option>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
-      </select>
-    </td>
+              </select>
+            </td>
 
-    <!-- 16. Complexity -->
-    <td class="text-center">
-      <select [(ngModel)]="item.Complexity"
-        style="width: 100%; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; background-color: white; appearance: auto; cursor: pointer;">
-        <option value="" disabled hidden selected>Select</option>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
-      </select>
-    </td>
+            <!-- 15. Priority -->
+            <td class="text-center">
+              <select [(ngModel)]="item.Priority"
+                style="width: 100%; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; background-color: white; appearance: auto; cursor: pointer;">
+                <option value="" disabled hidden selected>Select</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </td>
 
-    <!-- 17. Template -->
-    <td class="text-center">
-      <mat-icon style="cursor: pointer;" (click)="openPdf('sample-1.pdf')">visibility</mat-icon>
-    </td>
+            <!-- 16. Complexity -->
+            <td class="text-center">
+              <select [(ngModel)]="item.Complexity"
+                style="width: 100%; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; background-color: white; appearance: auto; cursor: pointer;">
+                <option value="" disabled hidden selected>Select</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </td>
 
-  </tr>
+            <!-- 17. Template -->
+            <td class="text-center">
+              <mat-icon style="cursor: pointer;" (click)="openPdf('sample-1.pdf')">visibility</mat-icon>
+            </td>
 
-  <!-- Empty state -->
-  <tr *ngIf="!allProjects || allProjects.length === 0">
-    <td colspan="17" class="text-center">No records found</td>
-  </tr>
+          </tr>
 
-</tbody>
+          <!-- Empty state -->
+          <tr *ngIf="!allProjects || allProjects.length === 0">
+            <td colspan="17" class="text-center">No records found</td>
+          </tr>
+
+        </tbody>
 
       </table>
 

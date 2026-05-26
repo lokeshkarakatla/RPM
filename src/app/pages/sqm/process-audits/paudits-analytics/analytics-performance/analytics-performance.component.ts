@@ -82,7 +82,11 @@ export class AnalyticsPerformanceComponent {
   // ── Charts ──────────────────────────────────────────────────────────────
 
   performancePieOptions: Highcharts.Options = {
-    chart: { type: 'pie', backgroundColor: 'transparent' },
+    chart: {
+      type: 'pie',
+      backgroundColor: 'transparent',
+      height: 400                         // ← added
+    },
     title: { text: '' },
     credits: { enabled: false },
     plotOptions: {
@@ -123,13 +127,17 @@ export class AnalyticsPerformanceComponent {
 
   private buildBarOptions(data: number[]): Highcharts.Options {
     return {
-      chart: { type: 'column', backgroundColor: 'transparent' },
+      chart: {
+        type: 'column',
+        backgroundColor: 'transparent',
+        height: 400                       // ← added
+      },
       title: { text: '' },
       credits: { enabled: false },
       exporting: { enabled: false },
       xAxis: {
         categories: this.supplierCategories,
-        labels: { rotation: -30, style: { fontSize: '11px' } }
+        labels: { rotation: -25, style: { fontSize: '11px' } }
       },
       yAxis: {
         min: 0,
@@ -146,7 +154,7 @@ export class AnalyticsPerformanceComponent {
       },
       series: [{
         type: 'column',
-        name: 'Excellent',
+        name: 'Score',
         data
       }]
     };
@@ -156,4 +164,3 @@ export class AnalyticsPerformanceComponent {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
-

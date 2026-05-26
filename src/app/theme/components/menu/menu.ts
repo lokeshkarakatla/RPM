@@ -37,7 +37,7 @@ export const horizontalMenuItems = [
 
   new Menu(7, 'R&D', '/app/testing', null, 'engineering', null, false, 0),
 
-  new Menu(9, 'SQM', '/app/sqm', null, 'settings_applications', null, false, 0),
+  new Menu(9, 'SQA', '/app/sqm', null, 'settings_applications', null, false, 0),
 
   new Menu(8, 'Complaints', '/app/complaints', null, 'settings', null, false, 0),
 //  new Menu(5, 'Setup', '/app/setups', null, 'build', null, true, 0),

@@ -13,8 +13,8 @@
       <button mat-raised-button class="menu-btn" routerLinkActive="active-btn" routerLink="alerts">Alerts (8)</button>
       <button mat-raised-button class="menu-btn" routerLinkActive="active-btn" routerLink="completed-audits">Completed Audits</button>
       <button mat-raised-button class="menu-btn" routerLinkActive="active-btn" routerLink="actions">Actions</button>
-      <button mat-raised-button class="menu-btn" routerLinkActive="active-btn" routerLink="user-manual">User Manual</button>
-      <button mat-raised-button class="menu-btn" routerLinkActive="active-btn" routerLink="help-desk">IT Help Desk</button>
+      <button mat-raised-button class="menu-btn"   (click)="openUserManual('sample-1.pdf')"  >User Manual</button>
+      <button mat-raised-button class="menu-btn" (click)="openHelpDesk()">IT Help Desk</button>
     </div>
   </mat-sidenav>
 

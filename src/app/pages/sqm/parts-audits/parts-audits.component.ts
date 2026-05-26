@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewAuditComponent } from './new-audit/new-audit.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PauditsHelpDeskComponent } from '../process-audits/paudits-help-desk/paudits-help-desk.component';
 
 @Component({
   selector: 'app-parts-audits',
@@ -34,6 +35,19 @@ export class PartsAuditsComponent implements OnInit {
     });
 }
 
- 
+
+openUserManual(fileName: string): void {
+   
+    const pdfUrl = `assets/${fileName}`; 
+    
+   
+    window.open(pdfUrl, '_blank');
+  }
+ openHelpDesk(){
+     this.dialog.open(PauditsHelpDeskComponent, {
+       width: '600px',
+       height: '350px'
+     });
+   }
 
 }

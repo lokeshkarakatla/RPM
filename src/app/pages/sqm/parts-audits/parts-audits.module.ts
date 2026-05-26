@@ -20,15 +20,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 // Component Imports
 import { PartsAuditsComponent } from './parts-audits.component';
-import { PartsSetupComponent } from './parts-setup/parts-setup.component';
-import { PartsAlertsComponent } from './parts-alerts/parts-alerts.component';
 import { PartsCompletedAuditsComponent } from './parts-completed-audits/parts-completed-audits.component';
 import { PartsActionsComponent } from './parts-actions/parts-actions.component';
 import { PartsUserManualComponent } from './parts-user-manual/parts-user-manual.component';
 import { HelpDeskComponent } from './help-desk/help-desk.component';
 import { NewAuditComponent } from './new-audit/new-audit.component';
 
-// ❌ REMOVED PartsActiveAuditsComponent and PartsReferenceComponent from imports
+// ❌ REMOVED PartsAlertsComponent and PartsAlertsDetailsComponent
 
 const routes: Routes = [
   {
@@ -44,9 +42,16 @@ const routes: Routes = [
         path: 'active-audits',
         loadChildren: () => import('./parts-active-audits/parts-active-audits.module').then(m => m.PartsActiveAuditsModule)
       },
+      { 
+        path: 'setup', 
+        loadChildren: () => import('./parts-setup/parts-setup.module').then(m => m.PartsSetupModule) 
+      },
+      // ✅ CHANGED: Lazy load the new Alerts module
+      {
+        path: 'alerts',
+        loadChildren: () => import('./parts-alerts/parts-alerts.module').then(m => m.PartsAlertsModule)
+      },
       { path: 'new-audit', component: NewAuditComponent },
-      { path: 'setup', component: PartsSetupComponent },
-      { path: 'alerts', component: PartsAlertsComponent },
       { path: 'completed-audits', component: PartsCompletedAuditsComponent },
       { path: 'actions', component: PartsActionsComponent },
       { path: 'user-manual', component: PartsUserManualComponent },
@@ -60,14 +65,12 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PartsAuditsComponent,
-    PartsSetupComponent,
-    PartsAlertsComponent,
     PartsCompletedAuditsComponent,
     PartsActionsComponent,
     PartsUserManualComponent,
     HelpDeskComponent,
     NewAuditComponent
-    // ❌ REMOVED PartsActiveAuditsComponent and PartsReferenceComponent from declarations
+    // ❌ REMOVED Alerts components from declarations
   ],
   imports: [
     CommonModule,

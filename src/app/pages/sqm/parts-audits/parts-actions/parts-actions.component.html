@@ -1,1 +1,117 @@
-outer action tab
+<div class="page-container p-3">
+
+  <div class="d-flex justify-content-end mb-3 gap-2">
+    <button mat-raised-button class="btn-black">
+      <mat-icon class="icon-sm">filter_list</mat-icon> Filter
+    </button>
+    <button mat-raised-button class="btn-black">
+      <mat-icon class="icon-sm">grid_on</mat-icon> Grid Column
+    </button>
+  </div>
+
+  <div class="table-responsive bg-white shadow-sm" #tableContainer>
+    <table class="custom-grid-table">
+      <thead>
+        <tr>
+          <th class="text-center">Manage</th>
+         <th class="text-center status-cell">Status</th>
+
+          <th class="text-center">Resolved</th>
+          <th class="text-center">Docs</th>
+          <th class="text-center">Photos</th>
+          <th>Action Subject</th>
+          <th>Supplier Name</th>
+          <th>Action Type</th>
+          <th>AUDIT Reference</th>
+          <th>Process Area</th>
+          <th>Process Category</th>
+          <th class="text-center">Description</th>
+          <th class="text-center">Supplier Remarks</th>
+          <th>Log Date</th>
+          <th>Due Date</th>
+          <th>Completion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of pagedData">
+
+          <td class="text-center manage-icons">
+            <mat-icon class="edit-icon" matTooltip="Edit">edit</mat-icon>
+            <mat-icon class="delete-icon" matTooltip="Delete">delete</mat-icon>
+          </td>
+
+          <!-- FIX 1: removed formControlName, added [(ngModel)] and correct class -->
+  <td class="text-center status-cell">
+  <mat-select 
+    [(ngModel)]="item.status"
+    style="width: 150px; min-width: 150px;">
+    <mat-option value="WIP">WIP</mat-option>
+    <mat-option value="Hold">Hold</mat-option>
+    <mat-option value="Done">Done</mat-option>
+    <mat-option value="Pending">Pending</mat-option>
+  </mat-select>
+</td>
+
+          <!-- FIX 4: mat-checkbox now uses only ngModel, no form conflict -->
+          <td class="text-center">
+            <mat-checkbox color="primary" [(ngModel)]="item.resolved"></mat-checkbox>
+          </td>
+
+          <td class="text-center text-link">{{ item.docs }}</td>
+          <td class="text-center text-link">{{ item.photos }}</td>
+          <td>{{ item.actionSubject }}</td>
+          <td>{{ item.supplierName }}</td>
+          <td>{{ item.actionType }}</td>
+          <td>{{ item.auditRef }}</td>
+          <td>{{ item.processArea }}</td>
+          <td>{{ item.processCategory }}</td>
+
+          <td class="text-center">
+            <mat-icon class="info-icon" matTooltip="View Description">info</mat-icon>
+          </td>
+          <td class="text-center">
+            <mat-icon class="info-icon" matTooltip="View Remarks">info</mat-icon>
+          </td>
+
+          <td class="date-text">{{ item.logDate }}</td>
+          <td class="date-text">{{ item.dueDate }}</td>
+          <td class="date-text">{{ item.completion }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- FIX 5: paginator wired with (page) event -->
+    <mat-paginator
+      [length]="tableData.length"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+
+  <div class="fab-wrapper d-flex justify-content-end  gap-3" style="margin-bottom:40px; z-index: 3;">
+    <button mat-fab color="accent" class="nav-fab" style="background-color: #fafafa;" (click)="scrollLeft()" matTooltip="Scroll Left">
+      <mat-icon style="color: #37474f;">fast_rewind</mat-icon>
+    </button>
+    <button mat-fab color="accent" class="nav-fab" style="background-color: #fafafa;" (click)="scrollRight()" matTooltip="Scroll Right">
+      <mat-icon style="color: #37474f;">fast_forward</mat-icon>
+    </button>
+  </div>
+
+  <!-- <div class="fab-wrapper" style="display: flex; justify-content: flex-end; gap: 12px; padding: 12px 4px 8px;">
+  <button mat-mini-fab 
+    style="background-color: #1a202e; box-shadow: 0 2px 6px rgba(0,0,0,0.2);" 
+    (click)="scrollLeft()" 
+    matTooltip="Scroll Left">
+    <mat-icon style="color: #ffffff; font-size: 20px;">chevron_left</mat-icon>
+  </button>
+  <button mat-mini-fab 
+    style="background-color: #1a202e; box-shadow: 0 2px 6px rgba(0,0,0,0.2);" 
+    (click)="scrollRight()" 
+    matTooltip="Scroll Right">
+    <mat-icon style="color: #ffffff; font-size: 20px;">chevron_right</mat-icon>
+  </button>
+</div> -->
+
+</div>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Third-party imports needed for these components
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -17,6 +17,10 @@ import { MatSelectModule } from '@angular/material/select';
 // Component Imports
 import { PartsActiveAuditsComponent } from './parts-active-audits.component';
 import { PartsReferenceComponent } from './parts-reference/parts-reference.component';
+import { PartsAddParameterComponent } from './parts-reference/parts-add-parameter/parts-add-parameter.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 const routes: Routes = [
   {
@@ -34,7 +38,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PartsActiveAuditsComponent,
-    PartsReferenceComponent
+    PartsReferenceComponent,
+    PartsAddParameterComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +51,18 @@ const routes: Routes = [
     MatIconModule,
     MatCheckboxModule,
     MatPaginatorModule,
-    MatSelectModule
+    MatSelectModule,
+        CommonModule,
+        RouterModule.forChild(routes),
+        SharedModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDialogModule,
+        MatPaginatorModule,
+        MatCardModule,
+        MatSelectModule,
+        MatCheckboxModule,
   ]
 })
 export class PartsActiveAuditsModule { }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { PartsAddParameterComponent } from './parts-add-parameter/parts-add-parameter.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-parts-reference',
@@ -7,60 +10,53 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartsReferenceComponent implements OnInit {
 
+
+   constructor(
+      public dialog: MatDialog,
+    ) { }
   // Top Categories
-  categories = ['CAT A (4)', 'CAT B (2)', 'CAT C (5)', 'CAT D (4)', 'CAT E (4)'];
-  selectedCategory = 'CAT D (4)';
-
-  // Process Steps Configuration
-  processSteps = [
-    { id: 1, tooltip: 'Casting (4)', status: 'green' },
-    { id: 2, tooltip: 'Forging (1)', status: 'green' },
-    { id: 3, tooltip: 'Machining (3)', status: 'green' },
-    { id: 4, tooltip: 'Non-Metallic (5)', status: 'red' },
-    { id: 5, tooltip: 'Sheet Metal (4)', status: 'green' },
-    { id: 6, tooltip: 'Proprietary (1)', status: 'green' },
-    { id: 7, tooltip: 'Steel Mills (3)', status: 'green' },
-    { id: 8, tooltip: 'Casting (4)', status: 'green' },
-    { id: 9, tooltip: 'Forging (1)', status: 'green' },
-    { id: 10, tooltip: 'Machining (3)', status: 'yellow' },
-    { id: 11, tooltip: 'Non-Metallic (5)', status: 'yellow' },
-    { id: 12, tooltip: 'Sheet Metal (4)', status: 'green' }
+  categories = [
+    'Dimensional Checks (4)', 
+    'Surface Finish (5)', 
+    'Performance (3)', 
+    'Metallurgical (5)', 
+    'Mechanical (4)'
   ];
-  selectedStep = 10;
+  selectedCategory = 'Dimensional Checks (4)';
 
-  // Form Controls Models
-  rating = '5';
-  
-  // Dropdown Options
-  severities = [
-    { value: '8', label: '8 - Primary Performance Failure' },
-    { value: '9', label: '9 - Safety/Regulatory' }
-  ];
-  occurrences = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  detections = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  pdcaStatuses = ['Plan', 'Do', 'Check', 'Act'];
-  actionTypes = ['Containment', 'Corrective', 'Preventive'];
+  // Pagination
+  pageSize = 4;
+  pageIndex = 0;
+  pagedData: any[] = [];
 
-  // Selected Values
-  selectedSeverity = '8';
-  selectedOccurrence = '4';
-  selectedDetection = '2';
-  pdcaStatus = '';
-  actionType = '';
-  isResolved = false;
-
-  // Image Gallery Mock Data
-  galleryImages = [
-    'assets/img8.jpg',
-    'assets/img12.jpeg',
-    'assets/img13.jpg',
-    'assets/img11.jpg',
-    'assets/img5.jpg'
+  // Table Data based on the image
+  tableData = [
+    { 
+      parameter: 'UTER DIAMETER', spec: '457.0±0.8', min: 23, max: 27, actionLink: 'View', special: 'General', method: 'Thermocouple',
+      s1: 24.5, s2: 25.0, s3: 26.0, s4: 25.5, s5: 24.8, okay: true 
+    },
+    { 
+      parameter: 'OTAL LENGTH', spec: '4.747 / 34.798', min: 6.5, max: 7.5, actionLink: 'View', special: 'General', method: 'pH Meter',
+      s1: 7.1, s2: 6.9, s3: 7.2, s4: 6.8, s5: 7.0, okay: true 
+    },
+    { 
+      parameter: 'WIDTH', spec: '20.0±0.2', min: 1000, max: 2000, actionLink: 'View', special: 'General', method: 'Conductivity Meter',
+      s1: 1400, s2: 1500, s3: 1600, s4: 1550, s5: 1450, okay: false 
+    },
+    { 
+      parameter: 'ACE TO HOLE CENTER', spec: '5.0±0.3', min: 7, max: 9, actionLink: 'View', special: 'General', method: 'DO Meter',
+      s1: 8.2, s2: 7.8, s3: 8.0, s4: 7.5, s5: 8.1, okay: true 
+    },
+    { 
+      parameter: 'ACE TO GROOVE CENTER', spec: '0.0±0.2', min: 0, max: 10, actionLink: 'View', special: 'General', method: 'MICROMETER',
+      s1: 3.0, s2: 4.5, s3: 5.0, s4: 2.5, s5: 3.5, okay: true 
+    }
   ];
 
-  constructor() { }
+ 
 
   ngOnInit(): void {
+    this.updatePage();
   }
 
   // Set active category tab
@@ -68,28 +64,25 @@ export class PartsReferenceComponent implements OnInit {
     this.selectedCategory = cat;
   }
 
-  // Set active process step
-  selectStep(id: number) {
-    this.selectedStep = id;
+  // Pagination Logic
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize  = event.pageSize;
+    this.updatePage();
   }
 
-  // Set rating
-  setRating(val: string) {
-    this.rating = val;
+  private updatePage(): void {
+    const start = this.pageIndex * this.pageSize;
+    this.pagedData = this.tableData.slice(start, start + this.pageSize);
   }
 
-  // Auto-calculated SOD Score
-  get sodScore(): string {
-    if (!this.selectedSeverity || !this.selectedOccurrence || !this.selectedDetection) return '';
-    return `${this.selectedSeverity}${this.selectedOccurrence}${this.selectedDetection}`;
-  }
-
-  // Auto-calculated Risk Rating based on SOD Score
-  get riskRating(): string {
-    const score = parseInt(this.sodScore, 10);
-    if (isNaN(score)) return '';
-    if (score >= 800) return 'High';
-    if (score >= 400) return 'Medium';
-    return 'Low';
-  }
+    addchecklistaudit(item: any) {
+      let dialogRef = this.dialog.open(PartsAddParameterComponent, {
+        
+        height: 'auto',
+        width: '850px'
+      });
+      dialogRef.afterClosed().subscribe(data => {
+      });
+    }
 }

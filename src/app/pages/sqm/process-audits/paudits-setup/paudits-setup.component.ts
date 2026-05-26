@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./paudits-setup.component.scss']
 })
 export class PauditsSetupComponent implements OnInit {
-
-  constructor() { }
+ constructor() { }
 
   ngOnInit(): void {
   }
-
 }

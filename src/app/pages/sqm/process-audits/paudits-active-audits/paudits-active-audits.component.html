@@ -43,9 +43,14 @@
       </thead>
       <tbody>
         <tr *ngFor="let audit of auditData">
-          <td class=" text-bold"style="color: #0000ee;">
-            <a [routerLink]="['../reference']" style="color: #0000ee;">{{ audit.ref }}</a>
-          </td>
+                  <td class="text-link">
+  <a 
+    [routerLink]="['../reference']"
+    target="_blank"
+  >
+    {{ audit.ref }}
+  </a>
+</td>
           <td>{{ audit.commodity }}</td>
           <td>{{ audit.location }}</td>
           <td>{{ audit.supplier }}</td>

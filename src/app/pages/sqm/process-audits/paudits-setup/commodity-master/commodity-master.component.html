@@ -1,0 +1,84 @@
+<div class="custom-layout-wrapper">
+
+  <div class="action-bar">
+    <button mat-raised-button class="btn-black" (click)="toggleFilters()">
+      <mat-icon class="icon-sm">filter_list</mat-icon> Filter
+    </button>
+    <button mat-raised-button color="primary" class="btn-add">
+      <mat-icon class="icon-sm">add</mat-icon> Add Commodity
+    </button>
+  </div>
+
+  <div class="filter-wrapper" *ngIf="showFilters">
+    <mat-card class="filter-card">
+      <mat-card-content>
+        <div class="filter-row">
+          
+          <div class="filter-group">
+            <label class="filter-label">Category:</label>
+            <mat-select class="custom-mat-select" placeholder="Select Category" [(ngModel)]="selectedCategory">
+              <mat-option [value]="null" disabled>Select Category</mat-option>
+              <mat-option value="cat1">Category 1</mat-option>
+              <mat-option value="cat2">Category 2</mat-option>
+              <mat-option value="cat3">Category 3</mat-option>
+            </mat-select>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Status:</label>
+            <mat-select class="custom-mat-select" placeholder="Select Status" [(ngModel)]="selectedStatus">
+              <mat-option value="active">Active</mat-option>
+              <mat-option value="inactive">Inactive</mat-option>
+            </mat-select>
+          </div>
+
+          <div class="button-group">
+            <button mat-raised-button class="btn-go" (click)="onGo()">
+              <mat-icon class="icon-sm">search</mat-icon> Go
+            </button>
+            <button mat-raised-button class="btn-clear" (click)="onClear()">
+              <mat-icon class="icon-sm">settings_backup_restore</mat-icon> Clear
+            </button>
+          </div>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="table-responsive bg-white shadow-sm">
+    <table class="custom-grid-table">
+      <thead>
+        <tr>
+          <th>Commodity Name</th>
+          <th class="text-center" style="width: 150px;">Status</th>
+          <th class="text-center" style="width: 150px;">Manages</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableData">
+          <td>{{ item.name }}</td>
+          <td class="text-center">
+            <a class="status-link" 
+               [ngClass]="item.status === 'Active' ? 'text-blue' : 'text-red'" 
+               matTooltip="Click to Change Status">
+               {{ item.status }}
+            </a>
+          </td>
+          <td class="text-center manage-icons">
+            <mat-icon class="edit-icon" matTooltip="Edit">edit</mat-icon>
+            <mat-icon class="delete-icon" matTooltip="Delete">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator 
+      [length]="tableData.length"
+      [pageSize]="4"
+      [pageSizeOptions]="[4, 10, 25, 50]"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+
+</div>

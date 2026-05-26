@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms'; // <-- ADDED for [(ngModel)]
+
 // Angular Material Imports
+import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { HighchartsChartModule } from 'highcharts-angular';
 import { MatPaginatorModule } from '@angular/material/paginator';
-// import { MatButtonModule } from '@angular/material/button';
-// import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox'; // <-- ADDED for <mat-checkbox>
+
+// Charting Modules
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { NgxChartsModule } from '@swimlane/ngx-charts'; // <-- ADDED for <ngx-charts-pie-chart>
 
 // Components
 import { ProcessAuditsComponent } from './process-audits.component';
@@ -27,27 +31,39 @@ import { PauditsHelpDeskComponent } from './paudits-help-desk/paudits-help-desk.
 import { PauditsUserManualComponent } from './paudits-user-manual/paudits-user-manual.component';
 import { PauditsActionsComponent } from './paudits-actions/paudits-actions.component';
 import { ActiveauditsReferenceComponent } from './paudits-active-audits/activeaudits-reference/activeaudits-reference.component';
+import { PauditsAlertsDetailsComponent } from './paudits-alerts/paudits-alerts-details/paudits-alerts-details.component';
+import { ProcessAuditsCategoriesComponent } from './paudits-setup/process-audits-categories/process-audits-categories.component';
+import { CommodityMasterComponent } from './paudits-setup/commodity-master/commodity-master.component';
+import { AddProcessCategoryPopComponent } from './paudits-setup/process-audits-categories/add-process-category-pop/add-process-category-pop.component';
+import { AddCommodityPopComponent } from './paudits-setup/commodity-master/add-commodity-pop/add-commodity-pop.component';
+import {  ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
     path: '',
     component: ProcessAuditsComponent,
     children: [
-      // DEFAULT REDIRECT: Opens Analytics automatically
       { path: '', redirectTo: 'analytics', pathMatch: 'full' },
-      
-      // ✅ LAZY LOAD THE ANALYTICS MODULE
-      // This tells Angular to look inside paudits-analytics.module.ts for the tab routes
       { 
         path: 'analytics', 
         loadChildren: () => import('./paudits-analytics/paudits-analytics.module').then(m => m.PauditsAnalyticsModule) 
       },
-      
-      // Child Routes (These load into the right-side content area)
       { path: 'new-audit', component: PauditsNewAuditComponent },
       { path: 'active-audits', component: PauditsActiveAuditsComponent },
       { path: 'reference', component: ActiveauditsReferenceComponent },
-      { path: 'setup', component: PauditsSetupComponent },
+      { path: 'details', component: PauditsAlertsDetailsComponent },
+     { 
+  path: 'setup', 
+  component: PauditsSetupComponent,
+  children: [
+    // Default redirect to Process Audit Categories when they click "Setup"
+    { path: '', redirectTo: 'process-cat', pathMatch: 'full' },
+    
+    // The two child tabs
+    { path: 'process-cat', component: ProcessAuditsCategoriesComponent },
+    { path: 'commodity', component: CommodityMasterComponent }
+  ]
+},
       { path: 'alerts', component: PauditsAlertsComponent },
       { path: 'completed-audits', component: PauditsCompletedAuditsComponent },
       { path: 'user-manual', component: PauditsUserManualComponent },
@@ -68,24 +84,31 @@ const routes: Routes = [
     PauditsUserManualComponent,
     PauditsHelpDeskComponent,
     PauditsActionsComponent,
-    ActiveauditsReferenceComponent
-    // Notice how all the Analytics child components are GONE from here!
-    // They belong in paudits-analytics.module.ts now.
+    ActiveauditsReferenceComponent,
+    PauditsAlertsDetailsComponent,
+    ProcessAuditsCategoriesComponent,
+    CommodityMasterComponent,
+    AddProcessCategoryPopComponent,
+    AddCommodityPopComponent
   ],
-imports: [
-  CommonModule,
-  RouterModule.forChild(routes),
-  MatSidenavModule,
-  MatButtonModule,
-  MatIconModule,
-  CanvasJSAngularChartsModule,
-  HighchartsChartModule,
-  MatPaginatorModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSelectModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    FormsModule,             // <-- ADDED
+    NgxChartsModule,         // <-- ADDED (Fixes your current error)
+    MatCheckboxModule,       // <-- ADDED
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    CanvasJSAngularChartsModule,
+    HighchartsChartModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule
+  ]
 })
 export class ProcessAuditsModule { }

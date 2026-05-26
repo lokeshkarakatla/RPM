@@ -1,1 +1,96 @@
-<p>paudits-actions works!</p>
+<div class="page-container p-3">
+  
+  <div class="d-flex justify-content-end mb-3 gap-2">
+    <button mat-raised-button class="btn-black">
+      <mat-icon class="icon-sm">filter_list</mat-icon> Filter
+    </button>
+    <button mat-raised-button class="btn-black">
+      <mat-icon class="icon-sm">grid_on</mat-icon> Grid Column
+    </button>
+  </div>
+
+  <div class="table-responsive bg-white shadow-sm" #tableContainer>
+    <table class="custom-grid-table">
+      <thead>
+        <tr>
+          <th class="text-center">Manage</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Resolved</th>
+          <th class="text-center">Docs</th>
+          <th class="text-center">Photos</th>
+          <th>Action Subject</th>
+          <th>Supplier Name</th>
+          <th>Action Type</th>
+          <th>AUDIT Reference</th>
+          <th>Process Area</th>
+          <th>Process Category</th>
+          <th class="text-center">Description</th>
+          <th class="text-center">Supplier Remarks</th>
+          <th>Log Date</th>
+          <th>Due Date</th>
+          <th>Completion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableData">
+          
+          <td class="text-center manage-icons">
+            <mat-icon class="edit-icon" matTooltip="Edit">edit</mat-icon>
+            <mat-icon class="delete-icon" matTooltip="Delete">delete</mat-icon>
+          </td>
+
+          <td class="text-center">
+             <mat-select class="custom-mat-select" [(ngModel)]="item.status">
+                <mat-option value="WIP">WIP</mat-option>
+                <mat-option value="Pending">Pending</mat-option>
+                <mat-option value="Resolved">Resolved</mat-option>
+             </mat-select>
+          </td>
+
+          <td class="text-center">
+            <mat-checkbox color="primary" [(ngModel)]="item.resolved"></mat-checkbox>
+          </td>
+
+          <td class="text-center text-link">{{ item.docs }}</td>
+          <td class="text-center text-link">{{ item.photos }}</td>
+
+          <td>{{ item.actionSubject }}</td>
+          <td>{{ item.supplierName }}</td>
+          <td>{{ item.actionType }}</td>
+          <td>{{ item.auditRef }}</td>
+          <td>{{ item.processArea }}</td>
+          <td>{{ item.processCategory }}</td>
+
+          <td class="text-center">
+            <mat-icon class="info-icon" matTooltip="View Description">info</mat-icon>
+          </td>
+          <td class="text-center">
+            <mat-icon class="info-icon" matTooltip="View Remarks">info</mat-icon>
+          </td>
+
+          <td class="date-text">{{ item.logDate }}</td>
+          <td class="date-text">{{ item.dueDate }}</td>
+          <td class="date-text">{{ item.completion }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator 
+      [length]="tableData.length"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+
+  <div class="fab-wrapper d-flex justify-content-end mt-4 gap-3">
+    <button mat-fab color="accent" class="nav-fab" (click)="scrollLeft()" matTooltip="Scroll Left">
+      <mat-icon style="color: #37474f;">fast_rewind</mat-icon>
+    </button>
+    <button mat-fab color="accent" class="nav-fab" (click)="scrollRight()" matTooltip="Scroll Right">
+      <mat-icon style="color: #37474f;">fast_forward</mat-icon>
+    </button>
+  </div>
+
+</div>

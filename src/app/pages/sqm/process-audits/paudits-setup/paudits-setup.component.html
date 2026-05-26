@@ -1,1 +1,23 @@
-<p>paudits-setup works!</p>
+<div class="page-container p-3">
+
+  <div class="d-flex mb-4 gap-2 top-tabs"  style="margin-left:32px;">
+    <button 
+      mat-raised-button 
+      class="tab-btn" 
+      routerLink="process-cat" 
+      routerLinkActive="active-tab">
+      Process Audit Categories
+    </button>
+    
+    <button 
+      mat-raised-button 
+      class="tab-btn" 
+      routerLink="commodity" 
+      routerLinkActive="active-tab">
+      Commodity Master
+    </button>
+  </div>
+
+  <router-outlet></router-outlet>
+
+</div>

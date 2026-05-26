@@ -1,6 +1,10 @@
 <mat-sidenav-container class="sidenav-container">
   
-  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+  <mat-sidenav 
+    #sidenav 
+    mode="side" 
+    [opened]="isSidenavOpen && !hideSidebar" 
+    class="sidenav">
     <div class="menu-container">
       <button mat-raised-button class="menu-btn" routerLinkActive="active-btn" routerLink="analytics">Analytics</button>
       <button mat-raised-button class="menu-btn" routerLinkActive="active-btn" (click)="openaudit()">New Audit</button>
@@ -16,8 +20,8 @@
 
   <mat-sidenav-content class="content-area">
     
-    <div class="header-toggle">
-      <mat-icon class="hamburger-icon" (click)="sidenav.toggle()">menu</mat-icon>
+    <div class="header-toggle" *ngIf="!hideSidebar">
+      <mat-icon class="hamburger-icon" (click)="toggleSidenav()">menu</mat-icon>
     </div>
 
     <router-outlet></router-outlet>

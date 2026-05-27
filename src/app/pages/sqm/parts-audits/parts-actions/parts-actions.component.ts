@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewDocPhotosComponent } from './view-doc-photos/view-doc-photos.component';
 
 @Component({
   selector: 'app-parts-actions',
@@ -8,10 +10,10 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class PartsActionsComponent implements OnInit {
 
-
   @ViewChild('tableContainer') tableContainer!: ElementRef;
 
-  // FIX 5: track current page slice separately
+  constructor(private dialog: MatDialog) {}
+
   pageSize = 5;
   pageIndex = 0;
   pagedData: any[] = [];
@@ -28,10 +30,9 @@ export class PartsActionsComponent implements OnInit {
     this.updatePage();
   }
 
-  // FIX 5: slice data on page change
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
-    this.pageSize  = event.pageSize;
+    this.pageSize = event.pageSize;
     this.updatePage();
   }
 
@@ -46,5 +47,13 @@ export class PartsActionsComponent implements OnInit {
 
   scrollRight(): void {
     this.tableContainer?.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
+  }
+
+  openDocsPopup(item: any): void {
+    this.dialog.open(ViewDocPhotosComponent, {
+      width: '600px',
+      height: '450px',
+      data: item
+    });
   }
 }

@@ -25,6 +25,7 @@ import { PartsActionsComponent } from './parts-actions/parts-actions.component';
 import { PartsUserManualComponent } from './parts-user-manual/parts-user-manual.component';
 import { HelpDeskComponent } from './help-desk/help-desk.component';
 import { NewAuditComponent } from './new-audit/new-audit.component';
+import { ViewDocPhotosComponent } from './parts-actions/view-doc-photos/view-doc-photos.component';
 
 // ❌ REMOVED PartsAlertsComponent and PartsAlertsDetailsComponent
 
@@ -69,7 +70,8 @@ const routes: Routes = [
     PartsActionsComponent,
     PartsUserManualComponent,
     HelpDeskComponent,
-    NewAuditComponent
+    NewAuditComponent,
+    ViewDocPhotosComponent
     // ❌ REMOVED Alerts components from declarations
   ],
   imports: [

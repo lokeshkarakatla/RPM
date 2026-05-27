@@ -57,8 +57,19 @@
             <mat-checkbox color="primary" [(ngModel)]="item.resolved"></mat-checkbox>
           </td>
 
-          <td class="text-center text-link">{{ item.docs }}</td>
-          <td class="text-center text-link">{{ item.photos }}</td>
+          <td class="text-center text-link">
+  <span class="clickable-link"
+        (click)="openDocsPopup(item)">
+    {{ item.docs }}
+  </span>
+</td>
+
+<td class="text-center text-link">
+  <span class="clickable-link"
+        (click)="openDocsPopup(item)">
+    {{ item.photos }}
+  </span>
+</td>
           <td>{{ item.actionSubject }}</td>
           <td>{{ item.supplierName }}</td>
           <td>{{ item.actionType }}</td>

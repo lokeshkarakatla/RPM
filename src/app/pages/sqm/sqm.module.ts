@@ -19,25 +19,26 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSidenavModule } from "@angular/material/sidenav";
 
 // ❌ REMOVED all the PartsAudits imports from here! 
 // They belong exclusively to PartsAuditsModule now.
 
 const routes: Routes = [
     { path: "", redirectTo: "sqmd", pathMatch: "full" }, 
-    { path: 'sqmd', component: SqmDashboardComponent, data: { breadcrumb: 'Dashboard' } }, 
+    { path: 'sqmd', component: SqmDashboardComponent, data: { breadcrumb: 'Dasgddhboard' ,hideBreadcrumb: true} }, 
     
     { 
         path: 'process', 
         loadChildren: () => import('./process-audits/process-audits.module').then(m => m.ProcessAuditsModule),
-        data: { breadcrumb: 'Process Audit' } 
+        data: { breadcrumb: 'Process Audit' ,hideBreadcrumb: true} 
     }, 
     
     // ✅ CHANGED: Lazy load the PartsAuditsModule instead of routing to the component directly
     { 
         path: 'parts', 
         loadChildren: () => import('./parts-audits/parts-audits.module').then(m => m.PartsAuditsModule),
-        data: { breadcrumb: 'Parts Audit' } 
+        data: { breadcrumb: 'Parts Audit' ,hideBreadcrumb: true} 
     }, 
 ]
 
@@ -66,6 +67,7 @@ const routes: Routes = [
         MatInputModule,
         MatDatepickerModule,
         MatNativeDateModule, 
+        MatSidenavModule
     ],
     providers: []
 })

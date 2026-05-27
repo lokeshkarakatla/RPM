@@ -106,6 +106,8 @@ import { MeetingrefComponent } from './meetingref/meetingref.component';
 import { AgendadetailsComponent } from './agendadetails/agendadetails.component';
 import { DragulaModule } from 'ng2-dragula';
 import { SqmComponent } from './pages/sqm/sqm.component';
+import { ProcessAuditRefComponent } from './pages/process-audit-ref/process-audit-ref.component';
+import { ProcessAuditDetailsComponent } from './pages/process-audit-details/process-audit-details.component';
  
 
 
@@ -217,6 +219,8 @@ DragulaModule.forRoot()
     MeetingrefComponent,
     AgendadetailsComponent,
     SqmComponent,
+    ProcessAuditRefComponent,
+    ProcessAuditDetailsComponent,
      
     
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { PartsAddParameterComponent } from './parts-add-parameter/parts-add-parameter.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ViewDocPhotosComponent } from '../../parts-actions/view-doc-photos/view-doc-photos.component';
 
 @Component({
   selector: 'app-parts-reference',
@@ -29,7 +30,7 @@ export class PartsReferenceComponent implements OnInit {
   pageIndex = 0;
   pagedData: any[] = [];
 
-  // Table Data based on the image
+  // Table Data based  
   tableData = [
     { 
       parameter: 'UTER DIAMETER', spec: '457.0±0.8', min: 23, max: 27, actionLink: 'View', special: 'General', method: 'Thermocouple',
@@ -76,7 +77,7 @@ export class PartsReferenceComponent implements OnInit {
     this.pagedData = this.tableData.slice(start, start + this.pageSize);
   }
 
-    addchecklistaudit(item: any) {
+    addchecklistaudit() {
       let dialogRef = this.dialog.open(PartsAddParameterComponent, {
         
         height: 'auto',
@@ -85,4 +86,15 @@ export class PartsReferenceComponent implements OnInit {
       dialogRef.afterClosed().subscribe(data => {
       });
     }
+
+
+    opendocpop() {
+       {
+    this.dialog.open(ViewDocPhotosComponent, {
+      width: '600px',
+      height: '450px',
+      
+    });
+  }
+}
 }

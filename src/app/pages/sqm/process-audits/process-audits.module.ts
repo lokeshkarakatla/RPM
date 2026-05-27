@@ -112,7 +112,8 @@ const routes: Routes = [
     MatNativeDateModule,
     ReactiveFormsModule,
     MatCardModule,     // ← Add this
-    MatDialogModule   // ← Add this
+    MatDialogModule,   // ← Add this
+    RouterModule
   ]
 })
 export class ProcessAuditsModule { }

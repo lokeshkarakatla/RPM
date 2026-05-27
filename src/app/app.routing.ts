@@ -86,7 +86,7 @@ const routes: Routes = [
                {
                 path: 'sqm', component: SqmComponent,
                 loadChildren: () => import("./pages/sqm/sqm.module").then((m) => m.SqmModule),
-                data: { breadcrumb: 'Dashboard' }
+                data: { breadcrumb: 'Dashboard',hideBreadcrumb: true }
             },
 
             {

@@ -22,6 +22,7 @@ import { PartsMasterComponent } from './parts-master/parts-master.component';
 import { AddPartCategoryComponent } from './audit-categories/add-part-category/add-part-category.component';
 import { AddPartsFamilypopComponent } from './parts-families/add-parts-familypop/add-parts-familypop.component';
 import { AddPartspopComponent } from './parts-master/add-partspop/add-partspop.component';
+import { SharedModule } from "src/app/shared/shared.module";
 
 const routes: Routes = [
   {
@@ -51,7 +52,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    
     // ✅ ADDED: Include the new modules here
     FormsModule,
     MatButtonModule,
@@ -60,7 +60,10 @@ const routes: Routes = [
     MatSelectModule,
     MatCheckboxModule,
     MatCardModule,
-    MatTooltipModule
-  ]
+    MatTooltipModule,
+    MatButtonModule,
+    MatIconModule,
+    SharedModule
+]
 })
 export class PartsSetupModule { }

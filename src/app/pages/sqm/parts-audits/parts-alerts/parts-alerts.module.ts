@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 // Component Imports
 import { PartsAlertsComponent } from './parts-alerts.component';
 import { PartsAlertsDetailsComponent } from './parts-alerts-details/parts-alerts-details.component';
+import { MatCardModule } from "@angular/material/card";
 
 const routes: Routes = [
   {
@@ -45,7 +46,8 @@ const routes: Routes = [
     MatButtonModule,
     MatSelectModule,
     MatInputModule,
-    MatDatepickerModule
-  ]
+    MatDatepickerModule,
+    MatCardModule
+]
 })
 export class PartsAlertsModule { }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { NewAuditComponent } from './new-audit/new-audit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PauditsHelpDeskComponent } from '../process-audits/paudits-help-desk/paudits-help-desk.component';
@@ -9,34 +9,49 @@ import { PauditsHelpDeskComponent } from '../process-audits/paudits-help-desk/pa
   templateUrl: './parts-audits.component.html',
   styleUrls: ['./parts-audits.component.scss']
 })
-export class PartsAuditsComponent implements OnInit {
-  // Properties required by your HTML template
+export class PartsAuditsComponent implements OnInit, AfterViewInit {
   isSidenavOpen: boolean = true;
   hideSidebar: boolean = false;
 
-  constructor(private router: Router,private dialog: MatDialog) { }
-
-  ngOnInit(): void {
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private cdr: ChangeDetectorRef
+  ) { 
+    // Listen to route changes to hide the sidebar on the reference page
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const isHiddenRoute = event.urlAfterRedirects.includes('reference') || event.urlAfterRedirects.includes('details');
+        this.hideSidebar = isHiddenRoute;
+        this.isSidenavOpen = !isHiddenRoute;
+      }
+    });
   }
 
-  // Method to toggle the sidenav state
+  ngOnInit(): void {
+    // Check initial route in case it is loaded directly from a new tab
+    const isHiddenRoute = this.router.url.includes('reference') || this.router.url.includes('details');
+    this.hideSidebar = isHiddenRoute;
+    this.isSidenavOpen = !isHiddenRoute;
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.cdr.detectChanges();
+    }, 0);
+  }
+
   toggleSidenav(): void {
     this.isSidenavOpen = !this.isSidenavOpen;
   }
 
-  // Method triggered by the "New Audit" button
   openaudit(): void {
-    // If you want it to route to the new-audit component:
     this.dialog.open(NewAuditComponent, {
-        width: '600px',
+      width: '600px',
       height: '600px'
-      // You can pass data to the
-     
     });
-}
-
-
-openUserManual(fileName: string): void {
+  }
+  openUserManual(fileName: string): void {
    
     const pdfUrl = `assets/${fileName}`; 
     
@@ -49,5 +64,4 @@ openUserManual(fileName: string): void {
        height: '350px'
      });
    }
-
 }

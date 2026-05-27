@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-
+import { MatCardModule } from '@angular/material/card';
 // Angular Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -40,6 +40,10 @@ const routes: Routes = [
     RouterModule.forChild(routes), // Important: Add the routes here
     FormsModule,
     ReactiveFormsModule, // Required for your FormBuilder in the details component
+    
+    // ✅ ADDED HERE: Added MatCardModule to the Angular imports context
+    MatCardModule, 
+    
     MatCheckboxModule,
     MatPaginatorModule,
     MatIconModule,

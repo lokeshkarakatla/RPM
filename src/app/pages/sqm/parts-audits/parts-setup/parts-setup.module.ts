@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // ✅ ADDED: FormsModule is required for [(ngModel)] in your dropdowns and checkboxes
 import { FormsModule } from '@angular/forms';
-
+ import { MatDialogModule } from '@angular/material/dialog';
 // ✅ ADDED: All required Material Imports for your setup components
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -54,8 +54,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     // ✅ ADDED: Include the new modules here
     FormsModule,
-    MatButtonModule,
-    MatIconModule,
+    
     MatPaginatorModule,
     MatSelectModule,
     MatCheckboxModule,
@@ -65,5 +64,9 @@ const routes: Routes = [
     MatIconModule,
     SharedModule
 ]
+    MatCardModule,
+MatDialogModule,
+CommonModule
+  ]
 })
 export class PartsSetupModule { }

@@ -63,6 +63,7 @@ const routes: Routes = [
         MatCardModule,
         MatSelectModule,
         MatCheckboxModule,
+        MatCardModule
   ]
 })
 export class PartsActiveAuditsModule { }

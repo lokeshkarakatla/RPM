@@ -41,7 +41,7 @@ export class ProcessAuditsComponent implements OnInit {
   openaudit() {
     this.dialog.open(PauditsNewAuditComponent, {
       width: '600px',
-      height: '600px'
+      height: 'auto'
     });
   }
 

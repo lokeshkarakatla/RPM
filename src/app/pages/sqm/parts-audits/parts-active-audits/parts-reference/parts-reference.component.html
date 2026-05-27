@@ -1,11 +1,8 @@
 <div class="page-container p-3">
 
   <div class="d-flex mb-3 gap-2">
-    <button mat-raised-button 
-            *ngFor="let cat of categories"
-            (click)="selectCategory(cat)"
-            [ngClass]="selectedCategory === cat ? 'tab-active' : 'tab-inactive'"
-            class="top-tab-btn">
+    <button mat-raised-button *ngFor="let cat of categories" (click)="selectCategory(cat)"
+      [ngClass]="selectedCategory === cat ? 'tab-active' : 'tab-inactive'" class="top-tab-btn">
       {{ cat }}
     </button>
   </div>
@@ -19,7 +16,8 @@
     </button>
   </div>
 
-<div class="table-responsive bg-white shadow-sm" style="border: 1px solid #e0e0e0; border-radius: 4px; overflow: hidden;">
+  <div class="table-responsive bg-white shadow-sm"
+    style="border: 1px solid #e0e0e0; border-radius: 4px; overflow: hidden;">
     <table class="custom-grid-table">
       <thead>
         <tr>
@@ -54,29 +52,27 @@
           <td class="text-center">{{ item.s3 | number:'1.1-1' }}</td>
           <td class="text-center">{{ item.s4 | number:'1.1-1' }}</td>
           <td class="text-center">{{ item.s5 | number:'1.1-1' }}</td>
-          
+
           <td class="text-center">
             <mat-icon style="color: blue; font-size: 20px; cursor: pointer;" matTooltip="View Remarks">info</mat-icon>
           </td>
-          
+
           <td class="text-center">
             <mat-icon *ngIf="item.okay" style="color: green; font-size: 20px;">done</mat-icon>
             <mat-icon *ngIf="!item.okay" style="color: red; font-size: 20px;">close</mat-icon>
           </td>
-          
+
           <td class="text-center manage-icons">
-            <mat-icon class="edit-icon" matTooltip="Edit" style="color: cornflowerblue; font-size: 18px; margin-right: 8px; cursor: pointer;">edit</mat-icon>
-            <mat-icon class="delete-icon" matTooltip="Delete" style="color: red; font-size: 18px; cursor: pointer;">delete</mat-icon>
+            <mat-icon class="edit-icon" matTooltip="Edit"
+              style="color: cornflowerblue; font-size: 18px; margin-right: 8px; cursor: pointer;">edit</mat-icon>
+            <mat-icon class="delete-icon" matTooltip="Delete"
+              style="color: red; font-size: 18px; cursor: pointer;">delete</mat-icon>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <mat-paginator 
-      [length]="tableData.length" 
-      [pageSize]="4" 
-      [pageSizeOptions]="[4, 10, 25, 50]" 
-      showFirstLastButtons
+    <mat-paginator [length]="tableData.length" [pageSize]="4" [pageSizeOptions]="[4, 10, 25, 50]" showFirstLastButtons
       (page)="onPageChange($event)">
     </mat-paginator>
   </div>

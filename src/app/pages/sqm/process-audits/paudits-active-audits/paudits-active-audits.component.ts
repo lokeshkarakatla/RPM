@@ -169,7 +169,7 @@ constructor(private dialog:MatDialog) { }
 openaudit() {
     this.dialog.open(PauditsNewAuditComponent, {
       width: '600px',
-      height: '600px'
+      height: 'auto'
     });
   }
 

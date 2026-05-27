@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // ✅ ADDED: FormsModule is required for [(ngModel)] in your dropdowns and checkboxes
 import { FormsModule } from '@angular/forms';
- import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 // ✅ ADDED: All required Material Imports for your setup components
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,7 +32,7 @@ const routes: Routes = [
       { path: 'parts-cat', component: AuditCategoriesComponent },
       { path: 'families', component: PartsFamiliesComponent },
       { path: 'master', component: PartsMasterComponent },
-      
+
       // Makes "Parts Audit Categories" open by default
       { path: '', redirectTo: 'parts-cat', pathMatch: 'full' }
     ]
@@ -54,7 +54,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     // ✅ ADDED: Include the new modules here
     FormsModule,
-    
+
     MatPaginatorModule,
     MatSelectModule,
     MatCheckboxModule,
@@ -63,10 +63,8 @@ const routes: Routes = [
     MatButtonModule,
     MatIconModule,
     SharedModule
-]
-    MatCardModule,
-MatDialogModule,
-CommonModule
   ]
+
+
 })
 export class PartsSetupModule { }

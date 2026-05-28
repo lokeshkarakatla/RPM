@@ -45,16 +45,7 @@
     vertical-align: middle;
   }
 
-  th {
-    color: #FFFFFF;
-    background-color: #296596; 
-    font-weight: 500;
-    text-align: left;
-    
-    &.text-center {
-      text-align: center;
-    }
-  }
+ 
 
   td {
     color: #333;
@@ -234,12 +225,7 @@
     border: 1px solid #dee2e6; 
   }
 
-  th {
-    /* Styles for header */
-    color: #FFFFFF;
-    background-color: #296596; /* Matched to the blue header in your image */
-    font-weight: 500;
-  }
+ 
 
   td {
     /* Styles for cells */
@@ -335,4 +321,21 @@
 
 .btn-go {
   font-weight: 500;
+}
+
+
+td {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid #dee2e6;
+    vertical-align: middle;
+  }
+
+  th {
+  background-color: #3f3f3f;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #e1e1e1;  /* already correct */
 }

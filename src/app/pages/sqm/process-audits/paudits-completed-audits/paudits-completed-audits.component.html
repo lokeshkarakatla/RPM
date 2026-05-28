@@ -61,7 +61,7 @@
           <td>{{ item.date }}</td>
           <td class="text-link text-center">{{ item.issues }}</td>
           <td class="text-link text-center">{{ item.capa }}</td>
-          <td class="text-link text-center">{{ item.score }}</td>
+          <td class="text-link text-center" ><a routerLink="/app/inner-screens/process-completed-ref">{{ item.score }}</a></td>
           <td class="text-center">
             <mat-select class="mat-select form-control" placeholder="Select Status" [(ngModel)]="item.status">
 

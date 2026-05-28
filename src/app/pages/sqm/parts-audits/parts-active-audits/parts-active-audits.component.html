@@ -43,32 +43,41 @@
       </thead>
       <tbody>
         <tr *ngFor="let audit of auditData">
-                  <td class="text-link">
-  <a routerLink="/app/inner-screens/parts-audit-ref">
-    {{ audit.ref }}
-  </a>
-</td>
+          <td class="text-link">
+            <a routerLink="/app/inner-screens/parts-audit-ref">
+              {{ audit.ref }}
+            </a>
+          </td>
           <td>{{ audit.commodity }}</td>
           <td>{{ audit.location }}</td>
           <td>{{ audit.supplier }}</td>
           <td>{{ audit.auditor }}</td>
           <td>{{ audit.date }}</td>
           <td class="text-link text-center">{{ audit.action }}</td>
-          <td class="text-link text-center">{{ audit.score }}</td>
-          <td class="text-center">
-            <select class="status-dropdown">
-              <option>Select Status</option>
-              <option>Completed</option>
-              <option>Pending</option>
-            </select>
+          <td class="text-link text-center"><a routerLink="/app/inner-screens/parts-audit-ref">{{ audit.score }}</a></td>
+          
+          <td class="text-center status-cell">
+             <mat-select
+  class="mat-select form-control" style="width:120px"  [(ngModel)]="audit.status" 
+  placeholder="Select Status"
+ >
+
+  <mat-option value="Pending">Completed</mat-option>
+  <mat-option value="WIP">Pending</mat-option>
+  <mat-option value="Completed">In Progress</mat-option>
+  <mat-option value="WIP">On Hold</mat-option>
+ 
+
+</mat-select>
           </td>
- <td class="text-center">
-  <mat-checkbox 
-    [checked]="audit.done" 
-    (change)="audit.done = $event.checked" 
-    color="primary">
-  </mat-checkbox>
-</td>
+
+          <td class="text-center">
+            <mat-checkbox 
+              [checked]="audit.done" 
+              (change)="audit.done = $event.checked" 
+              color="primary">
+            </mat-checkbox>
+          </td>
           <td class="text-center manage-icons">
             <i class="fas fa-edit edit-icon" title="Edit"></i>
             <i class="fas fa-trash delete-icon" title="Delete"></i>

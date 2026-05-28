@@ -39,11 +39,11 @@ export class PauditsActionsComponent implements OnInit {
     this.pagedData = this.tableData.slice(start, start + this.pageSize);
   }
 
-  scrollLeft(): void {
-    this.tableContainer?.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
-  }
+scrollLeft(): void {
+  this.tableContainer.nativeElement.scrollLeft -= 350;
+}
 
-  scrollRight(): void {
-    this.tableContainer?.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
-  }
+scrollRight(): void {
+  this.tableContainer.nativeElement.scrollLeft += 350;
+}
 }

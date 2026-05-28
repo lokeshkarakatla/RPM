@@ -9,88 +9,78 @@
     </button>
   </div>
 
-  <div class="table-responsive bg-white shadow-sm" #tableContainer>
-    <table class="custom-grid-table">
-      <thead>
-        <tr>
-          <th class="text-center">Manage</th>
-         <th class="text-center status-cell">Status</th>
-
-          <th class="text-center">Resolved</th>
-          <th class="text-center">Docs</th>
-          <th class="text-center">Photos</th>
-          <th>Action Subject</th>
-          <th>Supplier Name</th>
-          <th>Action Type</th>
-          <th>AUDIT Reference</th>
-          <th>Process Area</th>
-          <th>Process Category</th>
-          <th class="text-center">Description</th>
-          <th class="text-center">Supplier Remarks</th>
-          <th>Log Date</th>
-          <th>Due Date</th>
-          <th>Completion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of pagedData">
-
-          <td class="text-center manage-icons">
-            <mat-icon class="edit-icon" matTooltip="Edit">edit</mat-icon>
-            <mat-icon class="delete-icon" matTooltip="Delete">delete</mat-icon>
-          </td>
-
-          <!-- FIX 1: removed formControlName, added [(ngModel)] and correct class -->
-  <td class="text-center status-cell">
-  <mat-select 
-    [(ngModel)]="item.status"
-    style="width: 150px; min-width: 150px;">
-    <mat-option value="WIP">WIP</mat-option>
-    <mat-option value="Hold">Hold</mat-option>
-    <mat-option value="Done">Done</mat-option>
-    <mat-option value="Pending">Pending</mat-option>
-  </mat-select>
-</td>
-
-          <!-- FIX 4: mat-checkbox now uses only ngModel, no form conflict -->
-          <td class="text-center">
-            <mat-checkbox color="primary" [(ngModel)]="item.resolved"></mat-checkbox>
-          </td>
-
-          <td class="text-center text-link">{{ item.docs }}</td>
-          <td class="text-center text-link">{{ item.photos }}</td>
-          <td>{{ item.actionSubject }}</td>
-          <td>{{ item.supplierName }}</td>
-          <td>{{ item.actionType }}</td>
-          <td>{{ item.auditRef }}</td>
-          <td>{{ item.processArea }}</td>
-          <td>{{ item.processCategory }}</td>
-
-          <td class="text-center">
-            <mat-icon class="info-icon" matTooltip="View Description">info</mat-icon>
-          </td>
-          <td class="text-center">
-            <mat-icon class="info-icon" matTooltip="View Remarks">info</mat-icon>
-          </td>
-
-          <td class="date-text">{{ item.logDate }}</td>
-          <td class="date-text">{{ item.dueDate }}</td>
-          <td class="date-text">{{ item.completion }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- FIX 5: paginator wired with (page) event -->
-    <mat-paginator
+ <div class="bg-white shadow-sm mb-4">
+    
+    <div class="table-responsive" #tableContainer>
+      <table class="custom-grid-table">
+        <thead>
+          <tr>
+            <th class="text-center">Manage</th>
+            <th class="text-center status-cell">Status</th>
+            <th class="text-center">Resolved</th>
+            <th class="text-center">Docs</th>
+            <th class="text-center">Photos</th>
+            <th>Action Subject</th>
+            <th>Supplier Name</th>
+            <th>Action Type</th>
+            <th>Audit Reference</th>
+            <th>Process Area</th>
+            <th>Process Category</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Supplier Remarks</th>
+            <th>Log Date</th>
+            <th>Due Date</th>
+            <th>Completion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pagedData">
+            <td class="text-center manage-icons">
+              <mat-icon class="edit-icon" matTooltip="Edit">edit</mat-icon>
+              <mat-icon class="delete-icon" matTooltip="Delete">delete</mat-icon>
+            </td>
+            <td class="text-center status-cell">
+              <mat-select [(ngModel)]="item.status" style="max-width: 120px; min-width: 120px; border:0.5px solid black; border-radius: 4px; padding: 4px;">
+                <mat-option value="WIP">WIP</mat-option>
+                <mat-option value="Hold">Hold</mat-option>
+                <mat-option value="Done">Done</mat-option>
+                <mat-option value="Pending">Pending</mat-option>
+              </mat-select>
+            </td>
+            <td class="text-center">
+              <mat-checkbox color="primary" [(ngModel)]="item.resolved"></mat-checkbox>
+            </td>
+            <td class="text-center text-link">{{ item.docs }}</td>
+            <td class="text-center text-link">{{ item.photos }}</td>
+            <td>{{ item.actionSubject }}</td>
+            <td>{{ item.supplierName }}</td>
+            <td>{{ item.actionType }}</td>
+            <td>{{ item.auditRef }}</td>
+            <td>{{ item.processArea }}</td>
+            <td>{{ item.processCategory }}</td>
+            <td class="text-center">
+              <mat-icon class="info-icon" matTooltip="View Description">info</mat-icon>
+            </td>
+            <td class="text-center">
+              <mat-icon class="info-icon" matTooltip="View Remarks">info</mat-icon>
+            </td>
+            <td class="date-text">{{ item.logDate }}</td>
+            <td class="date-text">{{ item.dueDate }}</td>
+            <td class="date-text">{{ item.completion }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> <mat-paginator
       [length]="tableData.length"
       [pageSize]="5"
       [pageSizeOptions]="[5, 10, 25, 50]"
       showFirstLastButtons
       (page)="onPageChange($event)">
     </mat-paginator>
+
   </div>
 
-  <div class="fab-wrapper d-flex justify-content-end  gap-3" style="margin-bottom:40px; z-index: 3;">
+<div class="fab-wrapper" style="margin-bottom:40px; z-index: 3;">
     <button mat-fab color="accent" class="nav-fab" style="background-color: #fafafa;" (click)="scrollLeft()" matTooltip="Scroll Left">
       <mat-icon style="color: #37474f;">fast_rewind</mat-icon>
     </button>

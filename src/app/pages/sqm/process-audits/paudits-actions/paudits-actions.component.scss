@@ -1,63 +1,20 @@
-.page-container {
-  background-color: #f8f9fa;
-  min-height: 100vh;
-}
-
-/* Top Buttons */
-.btn-black {
-  background-color: #1a202e !important; 
-  color: #ffffff !important;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  
-  .icon-sm {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-    margin-right: 6px;
-  }
-}
-
-.gap-2 {
-  gap: 10px;
-}
-
-/* Table Wrapper */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  border: none;
-}
-
-/* Custom Table Styling */
 .custom-grid-table {
-  width: 100%;
+  min-width: 2200px;
   border-collapse: collapse;
-  white-space: nowrap; 
+  white-space: nowrap;
+}
 
   th, td {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 13px;
-    padding: 8px 12px;
+    font-family: Roboto, sans-serif; /* Updated based on image */
+    font-size: 14px; /* Updated from 13px to 14px */
+    padding: 8px; /* Updated from 8px 12px to exactly 8px */
     border: 1px solid #dee2e6;
     vertical-align: middle;
   }
-
-  th {
-    color: #FFFFFF;
-    background-color: #296596; 
-    font-weight: 500;
-    text-align: left;
-    
-    &.text-center {
-      text-align: center;
-    }
-  }
+ 
 
   td {
-    color: #333;
+    color: #212529; /* Updated from #333 to match image */
     text-align: left;
 
     &.text-center {
@@ -74,7 +31,7 @@
     background-color: white !important;
     border: 1px solid #ccc !important;
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 14px; /* Matched to new 14px table font size */
     min-width: 150px;
     display: block; /* Ensure it takes up space */
 
@@ -88,7 +45,7 @@
     
     /* Force the text span to be visible */
     ::ng-deep .mat-select-value {
-      color: #333 !important;
+      color: #212529 !important; /* Matched to new td color */
       visibility: visible !important;
       opacity: 1 !important;
       display: block !important;
@@ -126,60 +83,49 @@
   }
 
   .date-text {
-    font-size: 13px;
+    font-size: 14px; /* Matched to table font size */
     color: #555;
   }
+
+
+
+.fab-wrapper 
+{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+} 
+
+th {
+  background-color: #3f3f3f;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #e1e1e1;  /* already correct */
+}
+/* Table Wrapper */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  scroll-behavior: smooth;
 }
 
-/* Remove the ::ng-deep from INSIDE .custom-grid-table */
-/* Add these at the BOTTOM of your SCSS file, at root level */
+/* FAB Wrapper for Scroll Buttons */
+.fab-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex !important; /* Forces flexbox so gap works */
+  gap: 16px !important;     /* Creates the space between buttons */
+  z-index: 1000;            /* Ensures it stays above the table */
+} 
 
-/* Status cell width */
-.status-cell {
-  min-width: 160px;
-  width: 130px;
+th {
+  background-color: #3f3f3f;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #e1e1e1;
 }
-
-/* Style the mat-select wrapper */
-::ng-deep td .mat-mdc-select,
-::ng-deep td .mat-select {
-  width: 150px !important;
-  min-width: 150px !important;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 4px 8px;
-  background: #fff;
-  display: inline-flex !important;
-  align-items: center;
-}
-
-/* Make the trigger row fully visible */
-::ng-deep td .mat-mdc-select-trigger,
-::ng-deep td .mat-select-trigger {
-  display: flex !important;
-  align-items: center !important;
-  width: 150px !important;
-  height: 32px !important;
-  overflow: visible !important;
-}
-
-/* Force the selected value text to show */
-::ng-deep td .mat-mdc-select-value,
-::ng-deep td .mat-select-value {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: #333 !important;
-  overflow: visible !important;
-  white-space: nowrap !important;
-  max-width: 120px !important;
-  text-overflow: ellipsis;
-}
-
-/* Arrow icon */
-::ng-deep td .mat-mdc-select-arrow-wrapper,
-::ng-deep td .mat-select-arrow-wrapper {
-  display: flex !important;
-  align-items: center !important;
-}
-

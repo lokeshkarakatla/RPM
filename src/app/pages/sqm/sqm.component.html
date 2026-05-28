@@ -1,64 +1,249 @@
-<mat-sidenav-container class="sidenav-container">
+<!-- <mat-sidenav-container class="sidenav-container">
 
   <mat-sidenav #sidenav mode="side" [opened]="isSidenavOpen && !hideSidebar" class="sidenav">
-    
 
-    <div class="header-toggle" *ngIf="!hideSidebar && activeTab !== 'sqmd'">
-      <mat-icon class="hamburger-icon" (click)="toggleSidenav()">menu</mat-icon>
-    </div>
     <div class="menu-container" *ngIf="activeTab === 'process'">
-      <button mat-raised-button class="menu-btn" routerLink="./process/analytics" routerLinkActive="active-btn">Analytics</button>
-      <button mat-raised-button class="menu-btn" (click)="openaudit('process')">New Audit</button>
-      <button mat-raised-button class="menu-btn" routerLink="./process/active-audits" routerLinkActive="active-btn">Active Audits</button>
-      <button mat-raised-button class="menu-btn" routerLink="./process/setup" routerLinkActive="active-btn">Setup</button>
-      <button mat-raised-button class="menu-btn" routerLink="./process/alerts" routerLinkActive="active-btn">Alerts (8)</button>
-      <button mat-raised-button class="menu-btn" routerLink="./process/completed-audits" routerLinkActive="active-btn">Completed Audits</button>
-      <button mat-raised-button class="menu-btn" routerLink="./process/actions" routerLinkActive="active-btn">Actions</button>
-      <button mat-raised-button class="menu-btn" (click)="openUserManual('sample-1.pdf')">User Manual</button>
-      <button mat-raised-button class="menu-btn" (click)="openHelpDesk()">IT Help Desk</button>
+      <button mat-raised-button class="menu-btn" routerLink="./process/analytics" routerLinkActive="active-btn">
+        <mat-icon>bar_chart</mat-icon> Analytics
+      </button>
+      <button mat-raised-button class="menu-btn" (click)="openaudit('process')">
+        <mat-icon>add_circle_outline</mat-icon> New Audit
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./process/active-audits" routerLinkActive="active-btn">
+        <mat-icon>pending_actions</mat-icon> Active Audits
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./process/setup" routerLinkActive="active-btn">
+        <mat-icon>settings</mat-icon> Setup
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./process/alerts" routerLinkActive="active-btn">
+        <mat-icon>notifications</mat-icon> Alerts (8)
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./process/completed-audits" routerLinkActive="active-btn">
+        <mat-icon>task_alt</mat-icon> Completed Audits
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./process/actions" routerLinkActive="active-btn">
+        <mat-icon>play_circle_outline</mat-icon> Actions
+      </button>
+      <button mat-raised-button class="menu-btn" (click)="openUserManual('sample-1.pdf')">
+        <mat-icon>menu_book</mat-icon> User Manual
+      </button>
+      <button mat-raised-button class="menu-btn" (click)="openHelpDesk()">
+        <mat-icon>support_agent</mat-icon> IT Help Desk
+      </button>
     </div>
 
     <div class="menu-container" *ngIf="activeTab === 'parts'">
-      <button mat-raised-button class="menu-btn" routerLink="./parts/analytics" routerLinkActive="active-btn">Analytics</button>
-      <button mat-raised-button class="menu-btn" (click)="openaudit('parts')">New Audit</button>
-      <button mat-raised-button class="menu-btn" routerLink="./parts/active-audits" routerLinkActive="active-btn">Active Audits</button>
-      <button mat-raised-button class="menu-btn" routerLink="./parts/setup" routerLinkActive="active-btn">Setup</button>
-      <button mat-raised-button class="menu-btn" routerLink="./parts/alerts" routerLinkActive="active-btn">Alerts (8)</button>
-      <button mat-raised-button class="menu-btn" routerLink="./parts/completed-audits" routerLinkActive="active-btn">Completed Audits</button>
-      <button mat-raised-button class="menu-btn" routerLink="./parts/actions" routerLinkActive="active-btn">Actions</button>
-      <button mat-raised-button class="menu-btn" (click)="openUserManual('sample-1.pdf')">User Manual</button>
-      <button mat-raised-button class="menu-btn" (click)="openHelpDesk()">IT Help Desk</button>
+      <button mat-raised-button class="menu-btn" routerLink="./parts/analytics" routerLinkActive="active-btn">
+        <mat-icon>bar_chart</mat-icon> Analytics
+      </button>
+      <button mat-raised-button class="menu-btn" (click)="openaudit('parts')">
+        <mat-icon>add_circle_outline</mat-icon> New Audit
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./parts/active-audits" routerLinkActive="active-btn">
+        <mat-icon>pending_actions</mat-icon> Active Audits
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./parts/setup" routerLinkActive="active-btn">
+        <mat-icon>settings</mat-icon> Setup
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./parts/alerts" routerLinkActive="active-btn">
+        <mat-icon>notifications</mat-icon> Alerts (8)
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./parts/completed-audits" routerLinkActive="active-btn">
+        <mat-icon>task_alt</mat-icon> Completed Audits
+      </button>
+      <button mat-raised-button class="menu-btn" routerLink="./parts/actions" routerLinkActive="active-btn">
+        <mat-icon>play_circle_outline</mat-icon> Actions
+      </button>
+      <button mat-raised-button class="menu-btn" (click)="openUserManual('sample-1.pdf')">
+        <mat-icon>menu_book</mat-icon> User Manual
+      </button>
+      <button mat-raised-button class="menu-btn" (click)="openHelpDesk()">
+        <mat-icon>support_agent</mat-icon> IT Help Desk
+      </button>
     </div>
 
   </mat-sidenav>
 
   <mat-sidenav-content class="content-area">
+
     
+    <div class="header-toggle" *ngIf="activeTab !== 'sqmd' && !hideSidebar">
+      <mat-icon class="hamburger-icon" (click)="toggleSidenav()">menu</mat-icon>
+    </div>
+
     <ul class="nav nav-pills">
       <li>
-        <a mat-raised-button class="navtabWidth" routerLink="./sqmd" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          Dashboard
-        </a>
+        <a mat-raised-button class="navtabWidth" routerLink="./sqmd" routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
       </li>
       <li>
-        <a mat-raised-button class="navtabWidth" routerLink="./process" routerLinkActive="active">
-          Process Audits
-        </a>
+        <a mat-raised-button class="navtabWidth" routerLink="./process" routerLinkActive="active">Process Audits</a>
       </li>
       <li>
-        <a mat-raised-button class="navtabWidth" routerLink="./parts" routerLinkActive="active">
-          Parts Audits
-        </a>
+        <a mat-raised-button class="navtabWidth" routerLink="./parts" routerLinkActive="active">Parts Audits</a>
       </li>
     </ul>
-
-    <!-- <div class="header-toggle" *ngIf="!hideSidebar && activeTab !== 'sqmd'">
-      <mat-icon class="hamburger-icon" (click)="toggleSidenav()">menu</mat-icon>
-    </div> -->
 
     <div class="page-content">
       <router-outlet></router-outlet>
     </div>
 
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
+
+<div class="sqm-wrapper">
+
+  <!-- SIDEBAR -->
+  <div class="nav-container" [ngClass]="isSidenavOpen ? 'nav-open' : 'nav-closed'"
+       *ngIf="activeTab !== 'sqmd' && !hideSidebar">
+
+    <button (click)="toggleSidenav()" class="toggle-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <!-- PROCESS NAV -->
+    <nav class="nav-links" *ngIf="activeTab === 'process'">
+      <ul>
+        <li routerLinkActive="active" routerLink="./process/analytics">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Analytics">bar_chart</mat-icon>
+            <span *ngIf="isSidenavOpen">Analytics</span>
+          </a>
+        </li>
+        <li (click)="openaudit('process')">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="New Audit">add_circle_outline</mat-icon>
+            <span *ngIf="isSidenavOpen">New Audit</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./process/active-audits">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Active Audits">pending_actions</mat-icon>
+            <span *ngIf="isSidenavOpen">Active Audits</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./process/setup">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Setup">settings</mat-icon>
+            <span *ngIf="isSidenavOpen">Setup</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./process/alerts">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Alerts">notifications</mat-icon>
+            <span *ngIf="isSidenavOpen">Alerts (8)</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./process/completed-audits">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Completed Audits">task_alt</mat-icon>
+            <span *ngIf="isSidenavOpen">Completed Audits</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./process/actions">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Actions">play_circle_outline</mat-icon>
+            <span *ngIf="isSidenavOpen">Actions</span>
+          </a>
+        </li>
+        <li (click)="openUserManual('sample-1.pdf')">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="User Manual">menu_book</mat-icon>
+            <span *ngIf="isSidenavOpen">User Manual</span>
+          </a>
+        </li>
+        <li (click)="openHelpDesk()">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="IT Help Desk">support_agent</mat-icon>
+            <span *ngIf="isSidenavOpen">IT Help Desk</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- PARTS NAV -->
+    <nav class="nav-links" *ngIf="activeTab === 'parts'">
+      <ul>
+        <li routerLinkActive="active" routerLink="./parts/analytics">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Analytics">bar_chart</mat-icon>
+            <span *ngIf="isSidenavOpen">Analytics</span>
+          </a>
+        </li>
+        <li (click)="openaudit('parts')">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen"  matTooltip="New Audit">add_circle_outline</mat-icon>
+            <span *ngIf="isSidenavOpen">New Audit</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./parts/active-audits">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Active Audits">pending_actions</mat-icon>
+            <span *ngIf="isSidenavOpen">Active Audits</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./parts/setup">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Setup">settings</mat-icon>
+            <span *ngIf="isSidenavOpen">Setup</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./parts/alerts">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Alerts">notifications</mat-icon>
+            <span *ngIf="isSidenavOpen">Alerts (8)</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./parts/completed-audits">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Completed Audits">task_alt</mat-icon>
+            <span *ngIf="isSidenavOpen">Completed Audits</span>
+          </a>
+        </li>
+        <li routerLinkActive="active" routerLink="./parts/actions">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Actions">play_circle_outline</mat-icon>
+            <span *ngIf="isSidenavOpen">Actions</span>
+          </a>
+        </li>
+        <li (click)="openUserManual('sample-1.pdf')">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="User Manual">menu_book</mat-icon>
+            <span *ngIf="isSidenavOpen">User Manual</span>
+          </a>
+        </li>
+        <li (click)="openHelpDesk()">
+          <a>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="IT Help Desk">support_agent</mat-icon>
+            <span *ngIf="isSidenavOpen">IT Help Desk</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content"
+       [ngClass]="(activeTab !== 'sqmd' && !hideSidebar) ? (isSidenavOpen ? 'content-shrink' : 'content-expanded') : 'content-full'">
+
+    <ul class="nav nav-pills">
+      <li>
+        <a mat-raised-button class="navtabWidth" routerLink="./sqmd" routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      </li>
+      <li>
+        <a mat-raised-button class="navtabWidth" routerLink="./process" routerLinkActive="active">Process Audits</a>
+      </li>
+      <li>
+        <a mat-raised-button class="navtabWidth" routerLink="./parts" routerLinkActive="active">Parts Audits</a>
+      </li>
+    </ul>
+
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</div>

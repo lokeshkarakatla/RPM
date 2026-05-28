@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as Highcharts from 'highcharts';
 import { PauditsNewAuditComponent } from '../paudits-new-audit/paudits-new-audit.component';
+import { GridColumnComponent } from 'src/app/pages/prts/grid-prts/grid-column/grid-column.component';
+import { ActiveGridDialogComponent } from './activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
 
 @Component({
   selector: "app-paudits-active-audits",
@@ -13,13 +15,13 @@ export class PauditsActiveAuditsComponent implements OnInit {
 
   // Pie Chart 1: Commodity Distribution
   commodityChartOptions: Highcharts.Options = {
-    chart: { type: 'pie', height: 300,spacing: [10,10,10,10] },
+    chart: { type: 'pie', height: 300, spacing: [10, 10, 10, 10] },
     title: { text: 'Commodity Distribution', style: { color: '#666', fontSize: '18px' } },
     credits: { enabled: false },
     plotOptions: {
       pie: {
         size: '80%',
-        innerSize: '0%', 
+        innerSize: '0%',
         dataLabels: { enabled: true, format: '{point.name}', style: { fontWeight: 'normal', color: '#666' } }
       }
     },
@@ -47,18 +49,18 @@ export class PauditsActiveAuditsComponent implements OnInit {
       style: { color: "#666", fontSize: "18px" },
     },
     credits: { enabled: false },
-   plotOptions: {
-  pie: {
-    size: '80%',        // fixes radius consistency
-    innerSize: '0%',   // donut style, same across charts
-    dataLabels: {
-      enabled: true,
-      format: '{point.name}',
-      style: { fontWeight: 'normal', color: '#666' }
+    plotOptions: {
+      pie: {
+        size: '80%',        // fixes radius consistency
+        innerSize: '0%',   // donut style, same across charts
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}',
+          style: { fontWeight: 'normal', color: '#666' }
+        }
+      }
     }
-  }
-}
-,
+    ,
     series: [{
       type: 'pie',
       name: 'Auditor',
@@ -161,18 +163,27 @@ export class PauditsActiveAuditsComponent implements OnInit {
 
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-constructor(private dialog:MatDialog) { } 
+  constructor(private dialog: MatDialog) { }
 
 
-openaudit() {
+  openaudit() {
     this.dialog.open(PauditsNewAuditComponent, {
       width: '600px',
       height: 'auto'
     });
   }
 
+  openGridView() {
+    this.dialog.open(ActiveGridDialogComponent, {
+      width: '650px',
+      height: 'auto',
+        maxHeight: '90vh',
+          panelClass: 'no-scroll-dialog' 
+    });
+  }
 
-  
+
+
 }

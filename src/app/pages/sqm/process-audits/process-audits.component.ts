@@ -38,13 +38,13 @@ export class ProcessAuditsComponent implements OnInit {
     this.isSidenavOpen = !this.isSidenavOpen;
   }
 
-  openaudit() {
-    this.dialog.open(PauditsNewAuditComponent, {
-      width: '600px',
-      height: 'auto'
-    });
-  }
-
+ openaudit() {
+  this.dialog.open(PauditsNewAuditComponent, {
+    width: '600px',
+    height: '400px',
+    panelClass: 'no-scroll-dialog'
+  });
+}
 //   openUserManual() {
 //   window.open('assets\sample-1.pdf', '_blank');
 // }

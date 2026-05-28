@@ -18,6 +18,7 @@ export class SqmComponent implements OnInit {
   isSidenavOpen = true;
   activeTab = 'sqmd'; // Can be 'sqmd', 'process', or 'parts'
 
+
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -36,24 +37,7 @@ export class SqmComponent implements OnInit {
       });
   }
 
-  updateLayout(url: string) {
-    // Hide sidebar on specific details/reference pages
-    this.hideSidebar = url.includes('reference') || url.includes('details');
 
-    // Update active tab for *ngIf conditions
-    if (url.includes('/process')) {
-      this.activeTab = 'process';
-      this.isSidenavOpen = !this.hideSidebar;
-    } else if (url.includes('/parts')) {
-      this.activeTab = 'parts';
-      this.isSidenavOpen = !this.hideSidebar;
-    } else {
-      // Default dashboard view
-      this.activeTab = 'sqmd';
-      this.isSidenavOpen = false; 
-    }
-    this.cdr.detectChanges();
-  }
 
   toggleSidenav() {
     this.isSidenavOpen = !this.isSidenavOpen;
@@ -62,9 +46,9 @@ export class SqmComponent implements OnInit {
   // Pass the module string from the template to open the correct dialog
   openaudit(module: string) {
     if (module === 'process') {
-      this.dialog.open(PauditsNewAuditComponent, { width: '600px', height: '600px' });
+      this.dialog.open(PauditsNewAuditComponent, { width: '600px', height: 'auto' });
     } else if (module === 'parts') {
-      this.dialog.open(PartsNewAuditComponent, { width: '600px', height: '600px' });
+      this.dialog.open(PartsNewAuditComponent, { width: '600px', height: 'auto' });
     }
   }
 
@@ -75,4 +59,25 @@ export class SqmComponent implements OnInit {
   openHelpDesk() {
     this.dialog.open(PauditsHelpDeskComponent, { width: '600px', height: '350px' });
   }
+
+updateLayout(url: string) {
+  this.hideSidebar = url.includes('reference') || url.includes('details');
+
+  const newTab = url.includes('/process') ? 'process'
+               : url.includes('/parts')   ? 'parts'
+               : 'sqmd';
+
+  // Only auto-set isSidenavOpen when the TAB changes, not on every nav within same tab
+  if (newTab !== this.activeTab) {
+    this.isSidenavOpen = newTab !== 'sqmd' && !this.hideSidebar;
+  }
+
+  // Always hide if sidebar is forcibly hidden
+  if (this.hideSidebar) {
+    this.isSidenavOpen = false;
+  }
+
+  this.activeTab = newTab;
+  this.cdr.detectChanges();
+}
 }

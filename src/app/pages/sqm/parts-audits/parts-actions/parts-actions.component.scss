@@ -1,191 +1,175 @@
-.page-container {
-  background-color: #f8f9fa;
-  min-height: 100vh;
-}
-
-/* Top Buttons */
-.btn-black {
-  background-color: #1a202e !important; 
-  color: #ffffff !important;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  
-  .icon-sm {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-    margin-right: 6px;
-  }
-}
-
-.gap-2 {
-  gap: 10px;
-}
-
-/* Table Wrapper */
+ /* --- TABLE WRAPPER FOR HORIZONTAL SCROLLING --- */
 .table-responsive {
   width: 100%;
   overflow-x: auto;
-  border: none;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+  border: 1px solid #dee2e6;
+  margin-bottom: 10px;
 }
 
-/* Custom Table Styling */
-.custom-grid-table {
+/* Ensure the table itself expands completely */
+table.table {
   width: 100%;
   border-collapse: collapse;
-  white-space: nowrap; 
-
-  th, td {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 13px;
-    padding: 8px 12px;
-    border: 1px solid #dee2e6;
-    vertical-align: middle;
-  }
-
- 
-
-  td {
-    color: #333;
-    text-align: left;
-
-    &.text-center {
-      text-align: center;
-    }
-  }
-
-  tbody tr:nth-child(even) { background-color: #f9f9f9; }
-  tbody tr:nth-child(odd) { background-color: #ffffff; }
-  tbody tr:hover { background-color: #f1f5f9; }
-
-  /* FIXED: Safely targeting internal Mat-Select elements so text doesn't disappear */
-  .custom-mat-select {
-    background-color: white !important;
-    border: 1px solid #ccc !important;
-    border-radius: 4px;
-    font-size: 13px;
-    min-width: 150px;
-    display: block; /* Ensure it takes up space */
-
-    /* Reach inside to format the trigger box without breaking the text */
-    ::ng-deep .mat-select-trigger {
-      height: 30px !important;
-      padding: 0 8px !important;
-      display: flex !important;
-      align-items: center !important;
-    }
-    
-    /* Force the text span to be visible */
-    ::ng-deep .mat-select-value {
-      color: #333 !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      display: block !important;
-    }
-  }
-
-  .text-link {
-    color: #0d6efd;
-    cursor: pointer;
-    font-weight: 500;
-    
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  .manage-icons {
-    mat-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-      margin: 0 6px;
-    }
-    .edit-icon { color: #5c85d6; } 
-    .delete-icon { color: #dc3545; } 
-  }
-
-  .info-icon {
-    color: #0000ff; 
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-
-  .date-text {
-    font-size: 13px;
-    color: #555;
-  }
 }
 
-/* Remove the ::ng-deep from INSIDE .custom-grid-table */
-/* Add these at the BOTTOM of your SCSS file, at root level */
-
-/* Status cell width */
-.status-cell {
-  min-width: 160px;
-  width: 130px;
-}
-
-/* Style the mat-select wrapper */
-::ng-deep td .mat-mdc-select,
-::ng-deep td .mat-select {
-  width: 150px !important;
-  min-width: 150px !important;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 4px 8px;
-  background: #fff;
-  display: inline-flex !important;
-  align-items: center;
-}
-
-/* Make the trigger row fully visible */
-::ng-deep td .mat-mdc-select-trigger,
-::ng-deep td .mat-select-trigger {
-  display: flex !important;
-  align-items: center !important;
-  width: 150px !important;
-  height: 32px !important;
-  overflow: visible !important;
-}
-
-/* Force the selected value text to show */
-::ng-deep td .mat-mdc-select-value,
-::ng-deep td .mat-select-value {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: #333 !important;
-  overflow: visible !important;
+/* Base column styling - stops text wrapping and shrinking */
+th[mat-header-cell],
+td[mat-cell],
+th, td {
   white-space: nowrap !important;
-  max-width: 120px !important;
-  text-overflow: ellipsis;
+  min-width: 150px;
+  padding: 10px 16px;
+  vertical-align: middle;
 }
 
-/* Arrow icon */
-::ng-deep td .mat-mdc-select-arrow-wrapper,
-::ng-deep td .mat-select-arrow-wrapper {
-  display: flex !important;
-  align-items: center !important;
+/* Specific column overrides (Actions and Info Icons) */
+th[mat-header-cell]:nth-child(1),
+td[mat-cell]:nth-child(1) {
+  min-width: 70px !important; 
+  max-width: 100px !important;
+  text-align: center; 
 }
 
-td {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 14px;
-    padding: 10px 12px;
-    border: 1px solid #dee2e6;
-    vertical-align: middle;
-  }
+th[mat-header-cell]:nth-child(13),
+td[mat-cell]:nth-child(13) {
+  min-width: 50px !important;
+  max-width: 220px !important;
+  text-align: center; 
+}
 
-  th {
-  background-color: #3f3f3f;
-  color: white;
-  padding: 12px;
-  font-size: 14px;
-  border: 1px solid #e1e1e1;  /* already correct */
+/* Action Icons Spacing */
+.fa-edit {
+  margin-right: 12px;
+  color: #5c85d6;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.fa-trash {
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* --- FAB SCROLL BUTTONS --- */
+.mine {
+  position: fixed;
+  bottom: 80px;
+  background-color: #e6e6e6 !important;
+  z-index: 100;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.mine-right {
+  right: 40px;
+}
+
+/* Adjusted the left button to sit slightly next to the right button */
+.mine-left {
+  right: 110px; 
+}
+
+
+/* --- UTILITIES & MISC --- */
+.outerDivFull {
+  margin: 50px;
+}
+
+.flexible-column {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.head {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* --- SWITCH TOGGLE (from your original code) --- */
+.switchToggle input[type=checkbox] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+.switchToggle label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 100px;
+  max-width: 100px;
+  height: 30px;
+  background: #d1d1d1;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.switchToggle label:after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+.switchToggle input:checked+label,
+.switchToggle input:checked+input+label {
+  background: #3f51b5;
+}
+
+.switchToggle input+label:before,
+.switchToggle input+input+label:before {
+  content: 'Expand';
+  position: absolute;
+  top: 5px;
+  left: 35px;
+  width: 26px;
+  height: 26px;
+  border-radius: 90px;
+  transition: 0.3s;
+  text-indent: 0;
+  color: black;
+}
+
+.switchToggle input:checked+label:before,
+.switchToggle input:checked+input+label:before {
+  content: 'Collapse';
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 90px;
+  transition: 0.3s;
+  text-indent: 0;
+  color: #fff;
+}
+
+.switchToggle input:checked+label:after,
+.switchToggle input:checked+input+label:after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+.switchToggle label:active:after {
+  width: 60px;
+}
+
+.toggle-switchArea {
+  margin: 10px 0 10px 0;
+}
+
+.example-card {
+  max-width: 400px;
+  margin-bottom: 8px;
 }

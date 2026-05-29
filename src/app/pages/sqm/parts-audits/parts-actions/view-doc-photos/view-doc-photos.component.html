@@ -6,7 +6,7 @@
     <form class="form-horizontal">
         
         <div class="row align-items-center mb-3">
-            <div class="col-sm-3 text-right text-end pr-0">
+            <div class="col-sm-3">
                 <label class="control-label font-weight-bold mb-0">
                     Doc Title:<span class="text-danger">*</span>
                 </label>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="row align-items-center mb-3">
-            <div class="col-sm-3 text-right text-end pr-0">
+            <div class="col-sm-3">
                 <label class="control-label font-weight-bold mb-0">
                     Upload Doc:<span class="text-danger">*</span>
                 </label>
@@ -28,10 +28,11 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-sm-12 text-right text-end d-flex justify-content-end">
-                <button mat-raised-button class="save-btn">
-                    Save
-                </button>
+            <div class="col-sm-12 d-flex justify-content-end">
+                <button mat-raised-button color="primary" class="save-btn">
+    <mat-icon style="font-size: 20px; height: 20px; width: 20px; margin-right: 4px;">save</mat-icon>
+    Save
+</button>
             </div>
         </div>
 
@@ -59,9 +60,7 @@
                         <i class="fa fa-trash delete-icon" matTooltip="Delete" style="color: red; cursor: pointer; font-size: 16px;"></i>
                     </td>
                 </tr>
-                <tr *ngIf="pagedDocs.length === 0">
-                    <td colspan="4" class="text-center text-muted">No documents found.</td>
-                </tr>
+             
             </tbody>
         </table>
 

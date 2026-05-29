@@ -1,33 +1,22 @@
-<!-- <div style="margin-top:-100px; margin-left:20px">
-    <h2 style="font-size:25px; font-weight:bold">Testing</h2>
-    <hr />
-</div> -->
-
-
-
-<div style="width: 52%;display: flex; justify-content: flex-end; margin-bottom: 10px;margin-left:10px;">
-
+<div style="width: 100%; display: flex; justify-content: flex-end; margin-bottom: 10px; padding-right: 20px;">
   <button mat-raised-button matTooltip="Filter" style="background-color: black; color: white"
     class="filter-hover margin-right-10" (click)="filterToggle = !filterToggle">
     <mat-icon class="">filter_list</mat-icon> Filter
   </button>
 
-  <button mat-raised-button style="background-color: black; color: white; " matTooltip="Grid Columns">
+  <button mat-raised-button style="background-color: black; color: white; " matTooltip="Grid Columns" (click)="processgrid()">
     <mat-icon>grid_on</mat-icon> Grid Columns
   </button>
-
-
 </div>
 
-<div class="col-sm-12" style="overflow: hidden; margin-left:-10px; width: 68%;margin-right: 50px;">
+<div class="col-sm-12" style="overflow: hidden; width: 100%;">
 
   <div class="col-sm-12" fxLayout="row wrap" *ngIf="filterToggle" style="margin-bottom: 0px;">
-    <div style="margin-top: 10px; width: 79%;">
+    <div style="margin-top: 10px; width: 100%;">
       <form [formGroup]="myGroup">
         <mat-card class="filter">
           <mat-card-content>
             <div class="row col-lg-12 col-sm-12">
-              <!-- Row 1 -->
               <div class="col-sm-4 row me-2 mt-3">
                 <div class="col-sm-4 newMarginClass"><b>Keyword:</b></div>
                 <div class="col-sm-8">
@@ -47,7 +36,6 @@
                 </div>
               </div>
 
-
               <div class="col-sm-4 row me-2 mt-3">
                 <div class="col-sm-4 newMarginClass">
                   <b>Responsible Section:</b>
@@ -62,7 +50,6 @@
                 </div>
               </div>
 
-              <!-- Row 2 -->
               <div class="col-sm-4 row me-2 mt-3">
                 <div class="col-sm-4 newMarginClass">
                   <b>Responsible Section Lead:</b>
@@ -99,7 +86,6 @@
                 </div>
               </div>
 
-              <!-- Row 3 -->
               <div class="col-sm-4 row me-2 mt-3">
                 <div class="col-sm-4 newMarginClass"><b>New / Regular:</b></div>
                 <div class="col-sm-8">
@@ -134,12 +120,10 @@
                 </div>
               </div>
 
-              <!-- Row 4 -->
               <div class="col-sm-4 row me-2 mt-4">
                 <div class="col-sm-4 newMarginClass"><b>Part Code:</b></div>
                 <div class="col-sm-8">
-                  <input type="text" formControlName="PartCode" class="form-control"
-                    placeholder="Search by Part Code" />
+                  <input type="text" formControlName="PartCode" class="form-control" placeholder="Search by Part Code" />
                 </div>
               </div>
 
@@ -175,7 +159,6 @@
                 </div>
               </div>
 
-              <!-- Buttons -->
               <div class="col-sm-12 pull-right mt-3" style="margin-left: -15px;">
                 <a (click)="filterToggle = !filterToggle" class="pull-right"
                   style="font-size: 25px; cursor: pointer; margin-left: 5px">
@@ -194,13 +177,10 @@
         </mat-card>
       </form>
     </div>
-
   </div>
 
-  <div class="col-sm-10" style="margin-top: 10px">
-    <div class="table-responsive" id="grid-table-container" style="width:95%">
-
-
+  <div class="col-sm-12" style="margin-top: 10px; width: 100%; padding: 0;">
+    <div class="table-responsive" id="grid-table-container">
 
       <table mat-table class="table table-bordered table-hover">
         <thead class="tbl-head">
@@ -221,14 +201,13 @@
             <th mat-header-cell mat-sort-header class="text-center">Log Date</th>
             <th mat-header-cell mat-sort-header class="text-center"> Due Date</th>
             <th mat-header-cell mat-sort-header class="text-center">Complition</th>
-
           </tr>
         </thead>
 
         <tbody>
           <tr *ngFor="let applicant of tableList">
             <td class="text-center">
-              <a matTooltip="Edit" (click)="addTests(applicant)">
+              <a matTooltip="Edit" (click)="editrow()">
                 <i class="fa fa-edit"></i>
               </a>
               <a matTooltip="Delete" (click)="deleteConfirmation(applicant)">
@@ -245,11 +224,11 @@
                 <mat-option value="Completed">Completed</mat-option>
               </mat-select>
             </td>
-    <td class="text-center">
-  <mat-checkbox [checked]="applicant.resolved === true" ></mat-checkbox>
-</td>
-            <td class="text-center" style="color: blue;" (click)="docsPhoto()" >{{ applicant.docs }}</td>
-            <td class="text-center" style="color: blue;" (click)="docsPhoto()">{{ applicant.photos }}</td>
+            <td class="text-center">
+              <mat-checkbox [checked]="applicant.resolved === true"></mat-checkbox>
+            </td>
+            <td class="text-center" style="color: blue; cursor: pointer;" (click)="docsPhoto()">{{ applicant.docs }}</td>
+            <td class="text-center" style="color: blue; cursor: pointer;" (click)="docsPhoto()">{{ applicant.photos }}</td>
             <td class="text-center">{{ applicant.actionSubject }}</td>
             <td class="text-center">{{ applicant.supplierName }}</td>
             <td class="text-center">{{ applicant.actionType }}</td>
@@ -270,19 +249,16 @@
         </tbody>
       </table>
 
-
-      <!-- Pagination -->
-
-
-      <!-- Scroll Buttons -->
-      <button class="mine" mat-fab (click)="scrollRight()">
+      <button class="mine mine-right" mat-fab (click)="scrollRight()">
         <mat-icon style="color: #37474f">fast_forward</mat-icon>
       </button>
-      <button class="mine" mat-fab style="margin-right: 78px !important" (click)="scrollLeft()">
+      <button class="mine mine-left" mat-fab (click)="scrollLeft()">
         <mat-icon style="color: #37474f">fast_rewind</mat-icon>
       </button>
+
     </div>
-    <div style="width:95%">
+    
+    <div style="width: 100%;">
       <mat-paginator [length]="totalSize" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons>
       </mat-paginator>
     </div>

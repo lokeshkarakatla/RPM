@@ -7,6 +7,9 @@ import { AddIssuesssComponent } from 'src/app/pages/testing/testing-issues/add-i
 import { IssuesGridColumnsComponent } from 'src/app/pages/testing/testing-issues/issues-grid-columns/issues-grid-columns.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { ActionDescRemarksComponent } from './action-desc-remarks/action-desc-remarks.component';
+import { ProcessActionsGridComponent } from './process-actions-grid/process-actions-grid.component';
+import { ProcessActionsEditComponent } from './process-actions-edit/process-actions-edit.component';
+import { ProcessDocPopComponent } from './process-doc-pop/process-doc-pop.component';
 
 @Component({
   selector: 'app-paudits-actions',
@@ -356,6 +359,34 @@ export class PauditsActionsComponent implements OnInit {
       { CategoryId: 'C003', CategoryName: 'Detection 3' }
     ];
   
+processgrid()
+{
+  this.dialog.open(ProcessActionsGridComponent, {
+      width: '650px',
+      height: 'auto',
+        maxHeight: '90vh',
+          panelClass: 'no-scroll-dialog' 
+})}
+
+
+editrow()
+{
+  this.dialog.open(ProcessActionsEditComponent, {
+      width: '650px',
+      height: 'auto',
+        maxHeight: '90vh',
+          panelClass: 'no-scroll-dialog' 
+})}
+
+
+docsPhoto()
+{
+  this.dialog.open(ProcessDocPopComponent, {
+      width: '650px',
+      height: 'auto',
+        maxHeight: '90vh',
+          panelClass: 'no-scroll-dialog' 
+})}
 
 
 }

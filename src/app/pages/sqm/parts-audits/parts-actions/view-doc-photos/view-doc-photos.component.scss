@@ -13,17 +13,17 @@
     }
 }
 
-/* Button Styling */
 .save-btn {
-    background-color: #008000 !important; /* Green save button */
     color: white !important;
     font-weight: 500;
     padding: 0 24px;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
 }
 
 .close-btn {
-    background-color: #e4e4e6 !important; /* Light gray */
+    background-color: #ffffff !important; /* Light gray */
     color: black !important;
     font-weight: 500;
     display: flex;

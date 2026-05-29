@@ -101,6 +101,10 @@
   display: flex;
   flex-direction: column;
   transition: margin-left 0.3s ease-in-out;
+  
+  /* CRITICAL FIXES FOR HORIZONTAL SCROLLING: */
+  min-width: 0; 
+  overflow-x: hidden; 
 }
 
 .content-shrink   { margin-left: 200px; }
@@ -144,4 +148,8 @@
 /* --- PAGE CONTENT --- */
 .page-content {
   padding: 0 20px;
+  
+  /* CRITICAL FIXES FOR HORIZONTAL SCROLLING: */
+  min-width: 0;
+  width: 100%;
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-action-desc-remarks',
   templateUrl: './action-desc-remarks.component.html',
-  styleUrls: ['./action-desc-remarks.component.scss']
+  styleUrls: ['./action-desc-remarks.component.scss'],
+ 
 })
 export class ActionDescRemarksComponent implements OnInit {
 

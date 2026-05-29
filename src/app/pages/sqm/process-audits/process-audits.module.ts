@@ -40,6 +40,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ActionDescRemarksComponent } from './paudits-actions/action-desc-remarks/action-desc-remarks.component';
+import { ProcessActionsGridComponent } from './paudits-actions/process-actions-grid/process-actions-grid.component';
+import { ProcessActionsEditComponent } from './paudits-actions/process-actions-edit/process-actions-edit.component';
+import { ProcessDocPopComponent } from './paudits-actions/process-doc-pop/process-doc-pop.component';
 
 
 const routes: Routes = [
@@ -94,7 +97,10 @@ const routes: Routes = [
     AddProcessCategoryPopComponent,
     AddCommodityPopComponent,
     PauditsNewAuditComponent,
-    ActionDescRemarksComponent
+    ActionDescRemarksComponent,
+    ProcessActionsGridComponent,
+    ProcessActionsEditComponent,
+    ProcessDocPopComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-process-doc-pop',
@@ -7,9 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProcessDocPopComponent implements OnInit {
 
-  constructor() { }
+  
+  // Mock data to match the screenshot
+  documents = [
+    { title: 'Document check', date: '12-07-2024' }
+  ];
+
+  pagedDocs: any[] = [];
+  pageSize = 5;
+  pageIndex = 0;
+
+  constructor(public dialogRef: MatDialogRef<ProcessDocPopComponent>) { }
 
   ngOnInit(): void {
+    this.updatePage();
+  }
+
+  // Handle Pagination
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updatePage();
+  }
+
+  updatePage(): void {
+    const start = this.pageIndex * this.pageSize;
+    this.pagedDocs = this.documents.slice(start, start + this.pageSize);
+  }
+
+  // Close the dialog
+  closeDialog(): void {
+    this.dialogRef.close();
   }
 
 }

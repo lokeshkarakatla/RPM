@@ -1,10 +1,32 @@
-
-<div class="back-btn" style="display: flex; justify-content: flex-end;">
-  <button _ngcontent-utt-c603="" mat-raised-button="" class="mat-focus-indicator mat-raised-button mat-button-base" style="background-color: #808080; color: white; ;margin-right: 10px;"><span class="mat-button-wrapper" (click)="goBack()"><mat-icon _ngcontent-utt-c603="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">arrow_back</mat-icon> Back </span><span matripple="" class="mat-ripple mat-button-ripple" ng-reflect-disabled="false" ng-reflect-centered="false" ng-reflect-trigger="[object HTMLButtonElement]"></span><span class="mat-button-focus-overlay"></span></button>
-</div>
-<div class="container-fluid p-3 audit-container">
+<div class="back-btn ps-4 mb-4" style="display: flex; justify-content: flex-end; font-size: 18px; font-weight:500">
   
-  <div class="row mb-4">
+  <div class="col-sm-6 " style="border:2px solid rgb(255, 255, 255) ">
+     <span style="color: blue; cursor: pointer; margin-left:5px" (click)="goBack()">Active Audit </span> > Audit Reference
+  </div>
+  
+ <div class="col-sm-6" style="display: flex; justify-content: flex-end; ">
+  </div>
+ 
+</div>
+
+<div class="container-fluid p-3 audit-container ps-5">
+  
+  <div class="row mb-3 pb-4">
+    <div class="col-sm-6 d-flex gap-2">
+      <button mat-raised-button class="category-btn category-btn-active">
+        Process Audit (System(19))
+      </button>
+      <button mat-raised-button class="category-btn category-btn-inactive">
+          Process Audit (Capability(25))
+      </button>
+    </div>
+    <div class="col-sm-6" style="display: flex; justify-content: flex-end; ">
+    <button _ngcontent-utt-c603="" mat-raised-button="" class="mat-focus-indicator mat-raised-button mat-button-base" style="background-color: #808080; color: white; ;margin-right: 10px;"><span class="mat-button-wrapper" (click)="goBack()"><mat-icon _ngcontent-utt-c603="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">arrow_back</mat-icon> Back </span><span matripple="" class="mat-ripple mat-button-ripple" ng-reflect-disabled="false" ng-reflect-centered="false" ng-reflect-trigger="[object HTMLButtonElement]"></span><span class="mat-button-focus-overlay"></span></button>
+  </div>
+
+  </div>
+
+  <div class="row mb-4 pb-4">
     <div class="col-12 d-flex gap-2">
       <button mat-raised-button 
               *ngFor="let cat of categories"
@@ -20,7 +42,7 @@
     <div class="col-12 d-flex flex-wrap gap-2 align-items-center">
       <div *ngFor="let step of processSteps" 
            (click)="selectStep(step.id)"
-           class="step-box"
+           class="step-box "
            [title]="step.tooltip"
            [ngClass]="{
              'bg-green text-white': step.status === 'green' && selectedStep !== step.id,
@@ -65,7 +87,7 @@
       <div class="form-group row align-items-center mb-3">
         <label class="col-sm-4 col-form-label fw-bold">Severity :</label>
         <div class="col-sm-8">
-          <mat-select class="form-control custom-mat-select" [(value)]="selectedSeverity" placeholder="Select Severity">
+          <mat-select class="custom-mat-select" [(value)]="selectedSeverity" placeholder="Select Severity">
             <mat-option *ngFor="let sev of severities" [value]="sev.value">{{ sev.label }}</mat-option>
           </mat-select>
         </div>
@@ -74,7 +96,7 @@
       <div class="form-group row align-items-center mb-3">
         <label class="col-sm-4 col-form-label fw-bold">Occurrence :</label>
         <div class="col-sm-8">
-          <mat-select class="form-control custom-mat-select" [(value)]="selectedOccurrence" placeholder="Select Occurrence">
+          <mat-select class="custom-mat-select" [(value)]="selectedOccurrence" placeholder="Select Occurrence">
             <mat-option *ngFor="let occ of occurrences" [value]="occ">{{ occ }}</mat-option>
           </mat-select>
         </div>
@@ -83,7 +105,7 @@
       <div class="form-group row align-items-center mb-3">
         <label class="col-sm-4 col-form-label fw-bold">Detection :</label>
         <div class="col-sm-8">
-          <mat-select class="form-control custom-mat-select" [(value)]="selectedDetection" placeholder="Select Detection">
+          <mat-select class="custom-mat-select" [(value)]="selectedDetection" placeholder="Select Detection">
             <mat-option *ngFor="let det of detections" [value]="det">{{ det }}</mat-option>
           </mat-select>
         </div>
@@ -137,7 +159,7 @@
       <div class="form-group row align-items-center mb-3">
         <label class="col-sm-4 col-form-label fw-bold">PDCA Status :</label>
         <div class="col-sm-8">
-          <mat-select class="form-control custom-mat-select" [(value)]="pdcaStatus" placeholder="Select PDCA Status">
+          <mat-select class="custom-mat-select" [(value)]="pdcaStatus" placeholder="Select PDCA Status">
             <mat-option *ngFor="let status of pdcaStatuses" [value]="status">{{ status }}</mat-option>
           </mat-select>
         </div>
@@ -153,7 +175,7 @@
       <div class="form-group row align-items-center mb-4">
         <label class="col-sm-4 col-form-label fw-bold">Action Type :</label>
         <div class="col-sm-8">
-          <mat-select class="form-control custom-mat-select" [(value)]="actionType" placeholder="Select Action Type">
+          <mat-select class="custom-mat-select" [(value)]="actionType" placeholder="Select Action Type">
             <mat-option *ngFor="let type of actionTypes" [value]="type">{{ type }}</mat-option>
           </mat-select>
         </div>
@@ -181,7 +203,7 @@
     
     <div class="col-md-10">
       <div class="gallery-container d-flex align-items-center p-2">
-        <div class="gallery-item add-btn text-white d-flex justify-content-center align-items-center cursor-pointer me-2">
+        <div class="gallery-item add-btn text-white d-flex justify-content-center align-items-center cursor-pointer me-2" (click)="addImage()">
           <mat-icon>add</mat-icon>
         </div>
         <div *ngFor="let img of galleryImages" class="gallery-item me-2 border cursor-pointer bg-white">
@@ -191,9 +213,12 @@
     </div>
     
     <div class="col-md-2 text-end">
-      <button mat-raised-button class="save-btn w-100 fw-bold">
-        Save
-      </button>
+      <button mat-raised-button class="custom-save-btn" style="background-color: rgb(0, 153, 255);">
+  <span class="mat-button-wrapper" style=" color: rgb(255, 255, 255);">
+    <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">save</mat-icon>
+    Save 
+  </span>
+</button>
     </div>
 
   </div>

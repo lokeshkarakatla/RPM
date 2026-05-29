@@ -95,6 +95,33 @@
   font-size: 13px;
 }
 
+  .btn-dark {
+    background-color: #111 !important;
+    color: #fff !important;
+  }
+  .toolbar-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 15px;
+
+  /* Overriding mat-raised-button colors */
+  .btn-dark {
+    background-color: #111 !important;
+    color: #fff !important;
+  }
+
+  .btn-blue {
+    background-color: #0d8add !important; /* Light blue from image */
+    color: #fff !important;
+  }
+  
+  /* Centers the icon properly with text inside a mat-button */
+  ::ng-deep .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
 th {
   color: #FFFFFF;
   background-color: #3f3f3f;

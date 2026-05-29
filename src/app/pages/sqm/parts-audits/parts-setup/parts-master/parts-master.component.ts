@@ -157,11 +157,12 @@ export class PartsMasterComponent implements OnInit {
     });
   }
 
-  addpart(): void {
+  addpart(data: any): void {
 
     this.dialog.open(AddPartspopComponent, {
       width: '650px',
-      disableClose: true
+      disableClose: true,
+      data: data
     });
   }
 }

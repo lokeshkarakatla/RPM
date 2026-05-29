@@ -19,11 +19,11 @@ export class PartsAuditDetailsComponent implements OnInit {
 
   // Placeholder images for the gallery to match your screenshot
   images: string[] = [
-    'assets/img8.jpg', 
-    'assets/img12.jpeg', 
-    'assets/img13.jpg', 
-    'assets/img11.jpg', 
-    'assets/img5.jpg'
+    "assets/img8.jpg",
+    "assets/img-001.jpg",
+        "assets/img-002.jpg",
+    "assets/img-003.jpg",
+    "assets/img5.jpg",
   ];
 
   constructor(private fb: FormBuilder,private location : Location) { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as  Highcharts from 'highcharts';
 import { NewAuditComponent } from '../new-audit/new-audit.component';
+import { ActiveGridDialogComponent } from '../../process-audits/paudits-active-audits/activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
 
 @Component({
   selector: 'app-parts-active-audits',
@@ -167,11 +168,22 @@ Highcharts: typeof Highcharts = Highcharts;
 constructor(private dialog:MatDialog) { } 
 
 
-openaudit() {
+openaudit(data:any) {
     this.dialog.open(NewAuditComponent, {
       width: '600px',
-      height: '600px'
+      height: 'auto',
+      data: data
     });
   }
 
+
+
+    openGridView(data:any) {
+      this.dialog.open(ActiveGridDialogComponent, {
+        width: '650px',
+        height: 'auto',
+          maxHeight: '90vh',
+            panelClass: 'no-scroll-dialog' 
+      });
+    }
 }

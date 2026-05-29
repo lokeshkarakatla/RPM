@@ -40,10 +40,11 @@ export class ProcessAuditsCategoriesComponent implements OnInit {
   }
 
 
- addCategory() {
+ addCategory(data: any): void {
   const dialogRef = this.dialog.open(AddProcessCategoryPopComponent, {
     width: '650px',
-    disableClose: true        // prevents closing on backdrop click
+    disableClose: true  ,     // prevents closing on backdrop click
+    data: data
   });
 
   dialogRef.afterClosed().subscribe((result: { name: string; status: string; }) => {

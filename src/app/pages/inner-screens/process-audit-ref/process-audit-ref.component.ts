@@ -52,12 +52,12 @@ export class ProcessAuditRefComponent implements OnInit {
   isResolved = false;
 
   // Image Gallery Mock Data
-  galleryImages = [
-    'assets/img8.jpg',
-    'assets/img12.jpeg',
-    'assets/img13.jpg',
-    'assets/img11.jpg',
-    'assets/img5.jpg'
+galleryImages = [
+    "assets/img8.jpg",
+    "assets/img-001.jpg",
+        "assets/img-002.jpg",
+    "assets/img-003.jpg",
+    "assets/img5.jpg",
   ];
 
   constructor(private location: Location) { }
@@ -99,4 +99,33 @@ export class ProcessAuditRefComponent implements OnInit {
     if (score >= 400) return 'Medium';
     return 'Low';
   }
+
+
+ addImage(): void {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+
+  fileInput.onchange = (event: any) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      console.log(file);
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const imageUrl = reader.result as string;
+        console.log(imageUrl);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  fileInput.click();
+}
+
+
+
 }

@@ -49,21 +49,7 @@
 .custom-table {
     border-collapse: collapse;
     width: 100%;
-
-    thead {
-        background-color: #2865ab;
-        color: white;
-
-        th {
-            padding: 12px;
-            font-weight: 500;
-            border-bottom: none;
-            vertical-align: middle;
-            border: 1px solid #1f4e85;
-            background-color: #2865ab;
-            color: white;
-        }
-    }
+ 
 
     tbody {
         td {
@@ -86,4 +72,19 @@
 /* Utility to ensure content doesn't overflow */
 .overflow-hidden {
     overflow-x: hidden;
+}
+td {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid #dee2e6;
+    vertical-align: middle;
+  }
+
+  th {
+  background-color: #3f3f3f;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #e1e1e1;  /* already correct */
 }

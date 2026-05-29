@@ -40,10 +40,11 @@ export class CommodityMasterComponent implements OnInit {
     console.log('Filters Applied:', { category: this.selectedCategory, status: this.selectedStatus });
   }
 
-  addCommodity() {
+  addCommodity(data: any): void {
    const dialogRef = this.dialog.open(AddCommodityPopComponent, {
        width: '650px',
-       disableClose: true        // prevents closing on backdrop click
+       disableClose: true   ,
+       data:data     // prevents closing on backdrop click
      });
    
      dialogRef.afterClosed().subscribe((result: { name: string; status: string; }) => {

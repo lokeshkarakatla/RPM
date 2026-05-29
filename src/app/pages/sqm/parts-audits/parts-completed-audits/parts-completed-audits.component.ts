@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ActiveGridDialogComponent } from '../../process-audits/paudits-active-audits/activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-parts-completed-audits',
@@ -7,12 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartsCompletedAuditsComponent implements OnInit {
 
-  // Custom Color Schemes to match the image
+  // 1. ADD THIS: Grab the table container from HTML
+  @ViewChild('tableContainer') tableContainer!: ElementRef;
+
+  // Custom Color Schemes
   colorSchemeCommodity: any = { domain: ['#2F3E9E', '#D22E2E', '#378D3B', '#0096A6', '#F47B00', '#606060'] };
   colorSchemeAuditor: any = { domain: ['#2F3E9E', '#D22E2E', '#378D3B', '#0096A6'] };
   colorSchemeStatus: any = { domain: ['#2F3E9E', '#D22E2E', '#378D3B', '#0096A6'] };
 
-  // Chart Data
   commodityData = [
     { name: 'Casting', value: 40 },
     { name: 'Forging', value: 49 },
@@ -36,77 +40,39 @@ export class PartsCompletedAuditsComponent implements OnInit {
     { name: 'Pending', value: 64 }
   ];
 
-  // Table Data
   tableData = [
-    {
-      auditRef: '2024/Process/254871',
-      commodity: 'Engine Block',
-      location: 'Chennai Factory',
-      supplier: 'ABC Castings Pvt Ltd',
-      auditor: 'Vijay Mohan',
-      date: '12-09-2024',
-      issues: 4,
-      capa: 2,
-      score: '87 %',
-      status: 'Select Status',
-      done: true
-    },
-    {
-      auditRef: '2024/Process/254832',
-      commodity: 'Transmission Case',
-      location: 'Pune Factory',
-      supplier: 'XYZ Industries Ltd',
-      auditor: 'Arjun Sharma',
-      date: '05-09-2024',
-      issues: 5,
-      capa: 3,
-      score: '80 %',
-      status: 'Select Status',
-      done: true
-    },
-    {
-      auditRef: '2024/Process/254812',
-      commodity: 'Cylinder Head',
-      location: 'Bangalore Factory',
-      supplier: 'LMN Castings Co',
-      auditor: 'Radhika Iyer',
-      date: '22-08-2024',
-      issues: 3,
-      capa: 1,
-      score: '90 %',
-      status: 'Select Status',
-      done: true
-    },
-    {
-      auditRef: '2024/Process/254854',
-      commodity: 'Crankshaft',
-      location: 'Hyderabad Factory',
-      supplier: 'PQR Castings Ltd',
-      auditor: 'Siva Kumar',
-      date: '30-07-2024',
-      issues: 6,
-      capa: 4,
-      score: '75 %',
-      status: 'Select Status',
-      done: true
-    },
-    {
-      auditRef: '2024/Process/254865',
-      commodity: 'Camshaft',
-      location: 'Mumbai Factory',
-      supplier: 'DEF Automotive Ltd',
-      auditor: 'Manoj Singh',
-      date: '15-07-2024',
-      issues: 2,
-      capa: 0,
-      score: '95 %',
-      status: 'Select Status',
-      done: true
-    }
+    { auditRef: '2024/Process/254871', commodity: 'Engine Block', location: 'Chennai Factory', supplier: 'ABC Castings Pvt Ltd', auditor: 'Vijay Mohan', date: '12-09-2024', issues: 4, capa: 2, score: '87 %', status: 'Select Status', done: true },
+    { auditRef: '2024/Process/254832', commodity: 'Transmission Case', location: 'Pune Factory', supplier: 'XYZ Industries Ltd', auditor: 'Arjun Sharma', date: '05-09-2024', issues: 5, capa: 3, score: '80 %', status: 'Select Status', done: true },
+    { auditRef: '2024/Process/254812', commodity: 'Cylinder Head', location: 'Bangalore Factory', supplier: 'LMN Castings Co', auditor: 'Radhika Iyer', date: '22-08-2024', issues: 3, capa: 1, score: '90 %', status: 'Select Status', done: true },
+    { auditRef: '2024/Process/254854', commodity: 'Crankshaft', location: 'Hyderabad Factory', supplier: 'PQR Castings Ltd', auditor: 'Siva Kumar', date: '30-07-2024', issues: 6, capa: 4, score: '75 %', status: 'Select Status', done: true },
+    { auditRef: '2024/Process/254865', commodity: 'Camshaft', location: 'Mumbai Factory', supplier: 'DEF Automotive Ltd', auditor: 'Manoj Singh', date: '15-07-2024', issues: 2, capa: 0, score: '95 %', status: 'Select Status', done: true }
   ];
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  // 2. ADD THIS: Scroll logic
+  scrollLeft(): void {
+    if (this.tableContainer && this.tableContainer.nativeElement) {
+      this.tableContainer.nativeElement.scrollBy({ left: -350, behavior: 'smooth' });
+    }
+  }
+
+  scrollRight(): void {
+    if (this.tableContainer && this.tableContainer.nativeElement) {
+      this.tableContainer.nativeElement.scrollBy({ left: 350, behavior: 'smooth' });
+    }
+  }
+
+  
+  openGridView() {
+    this.dialog.open(ActiveGridDialogComponent, {
+      width: '650px',
+      height: 'auto',
+        maxHeight: '90vh',
+          panelClass: 'no-scroll-dialog' 
+    });
   }
 }

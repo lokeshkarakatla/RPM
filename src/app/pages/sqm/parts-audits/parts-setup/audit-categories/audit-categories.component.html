@@ -15,7 +15,7 @@
     <button mat-raised-button
       style="background-color: #1a1a1a; color: white; padding: 0 16px; height: 40px; border: none; border-radius: 4px; display: flex; align-items: center; gap: 6px; font-weight: 500; cursor: pointer;"
       (click)="toggleFilters()">
-      <mat-icon style="font-size: 18px; height: 18px; width: 18px;">filter_list</mat-icon>
+      <mat-icon style="font-size: 18px; height: 18px; width: 18px; margin-top:4px">filter_list</mat-icon>
       Filter
     </button>
 
@@ -25,8 +25,8 @@
 
     <button mat-raised-button
       style="background-color: #2196f3; color: white; padding: 0 16px; height: 40px; border: none; border-radius: 4px; display: flex; align-items: center; gap: 6px; font-weight: 500; cursor: pointer;"
-      (click)="addCategory()">
-      <mat-icon style="font-size: 18px; height: 18px; width: 18px;">add</mat-icon>
+      (click)="addCategory(null)">
+      <mat-icon style="font-size: 18px; height: 18px; width: 18px;  margin-top:4px">add</mat-icon>
       Add Parts Audit Category
     </button>
 
@@ -89,7 +89,7 @@
           </td>
           <td _ngcontent-kaf-c823="" class="text-center editDel"><a _ngcontent-kaf-c823="" mattooltip="download" class="mat-tooltip-trigger" style="cursor: pointer; margin-right: 10px;" ng-reflect-message="download" aria-describedby="cdk-describedby-message-46" cdk-describedby-host=""><i _ngcontent-kaf-c823="" class="fa fa-download" style="color: cornflowerblue;"></i></a><!--container--></td>
           <td class="text-center manage-icons">
-            <mat-icon class="edit-icon" matTooltip="Edit">edit</mat-icon>
+            <mat-icon class="edit-icon" matTooltip="Edit"   (click)="addCategory(1)">edit</mat-icon>
             <mat-icon class="delete-icon" matTooltip="Delete">delete</mat-icon>
           </td>
         </tr>

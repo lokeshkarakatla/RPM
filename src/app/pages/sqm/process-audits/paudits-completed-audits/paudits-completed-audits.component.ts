@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActiveGridDialogComponent } from '../paudits-active-audits/activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-paudits-completed-audits',
@@ -105,8 +107,19 @@ export class PauditsCompletedAuditsComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
+
+  openGridView() {
+    this.dialog.open(ActiveGridDialogComponent, {
+      width: '650px',
+      height: 'auto',
+        maxHeight: '90vh',
+          panelClass: 'no-scroll-dialog' 
+    });
+  }
+
+
 }

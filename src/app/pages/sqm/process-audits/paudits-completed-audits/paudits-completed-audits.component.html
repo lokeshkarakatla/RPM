@@ -29,6 +29,18 @@
     </div>
   </div>
 
+
+    <div class="toolbar-row">
+    <button mat-raised-button class="btn-dark" (click)="openGridView()">
+      <mat-icon>grid_on</mat-icon> Grid View
+    </button>
+    <button mat-raised-button class="btn-dark">
+      <mat-icon>filter_list</mat-icon> Filter
+    </button>
+  </div>
+
+
+  
   <div class="table-responsive bg-white">
     <table class="custom-grid-table">
       <thead>
@@ -61,7 +73,7 @@
           <td>{{ item.date }}</td>
           <td class="text-link text-center">{{ item.issues }}</td>
           <td class="text-link text-center">{{ item.capa }}</td>
-          <td class="text-link text-center">{{ item.score }}</td>
+          <td class="text-link text-center" ><a routerLink="/app/inner-screens/process-completed-ref">{{ item.score }}</a></td>
           <td class="text-center">
             <mat-select class="mat-select form-control" placeholder="Select Status" [(ngModel)]="item.status">
 

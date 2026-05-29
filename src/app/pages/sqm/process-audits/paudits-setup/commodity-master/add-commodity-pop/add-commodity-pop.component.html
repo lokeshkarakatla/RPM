@@ -1,5 +1,7 @@
 <div class="NewHeader">
-    <h3 style="padding-top:10px; padding-left: 20px;">Add Commodity</h3>
+<h3 style="padding-top:10px; padding-left: 20px;">
+  {{ isEditMode ? 'Update Commodity' : 'Add Commodity' }}
+</h3>
 </div>
 
 <div>
@@ -73,7 +75,8 @@
                     <mat-icon>cancel</mat-icon> Close
                 </button>
                 <button mat-raised-button type="submit" class="save" color="primary" style="margin-right: 17px;">
-                    <mat-icon>save</mat-icon> Save
+                  <mat-icon>save</mat-icon>
+{{ isEditMode ? 'Update' : 'Save' }}
                 </button>
             </mat-dialog-actions>
 

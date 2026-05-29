@@ -177,3 +177,11 @@ td {
 .analytics-content {
     margin-top: 20px;
 }
+
+th {
+  background-color: #3f3f3f;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #e1e1e1;  /* already correct */
+}

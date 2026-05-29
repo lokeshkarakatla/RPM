@@ -185,5 +185,9 @@ export class PauditsActiveAuditsComponent implements OnInit {
   }
 
 
+   openscorepdf(fileName: string): void {
+    window.open(`assets/${fileName}`, '_blank');
+  }
+
 
 }

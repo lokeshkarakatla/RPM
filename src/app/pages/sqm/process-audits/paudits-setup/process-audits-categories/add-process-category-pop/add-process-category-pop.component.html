@@ -1,5 +1,7 @@
 <div class="NewHeader">
-    <h3 style="padding-top:10px; padding-left: 20px;">Add Process Audit Category</h3>
+   <h3 style="padding-top:10px; padding-left: 20px;">
+  {{ isEditMode ? 'Update Process Audit Category' : 'Add Process Audit Category' }}
+</h3>
 </div>
 
 <div>
@@ -19,7 +21,7 @@
                                 <mat-option value="category1">Category 1</mat-option>
                                 <mat-option value="category2">Category 2</mat-option>
                             </mat-select> -->
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" placeholder="Enter Process Category Name" >
                         </div>
 
                     </div>
@@ -44,7 +46,8 @@
                     <mat-icon>cancel</mat-icon> Close
                 </button>
                 <button mat-raised-button type="submit" class="save" color="primary" style="margin-right: 17px;">
-                    <mat-icon>save</mat-icon>Save
+                  <mat-icon>save</mat-icon>
+{{ isEditMode ? 'Update' : 'Save' }}
                 </button>
             </mat-dialog-actions>
 

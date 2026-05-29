@@ -41,10 +41,11 @@ export class AuditCategoriesComponent implements OnInit {
   }
 
 
- addCategory() {
+ addCategory(data:any) {
   const dialogRef = this.dialog.open(AddPartCategoryComponent, {
     width: '650px',
-    disableClose: true        // prevents closing on backdrop click
+    disableClose: true ,
+    data:data       // prevents closing on backdrop click
   });
 
 //   dialogRef.afterClosed().subscribe((result: { name: string; status: string; }) => {

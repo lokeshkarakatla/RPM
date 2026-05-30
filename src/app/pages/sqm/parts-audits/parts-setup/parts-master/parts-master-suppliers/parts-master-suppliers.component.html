@@ -1,15 +1,15 @@
 <div class="dialog-header">
-    <h2 mat-dialog-title>Assign Locations</h2>
+    <h2 mat-dialog-title style="padding-top:0px; padding-left: 20px; font-weight: 400;font-size: 24px;">Assign Locations</h2>
 </div>
 
 <div mat-dialog-content class="dialog-content">
     <div class="text-center mb-3 mt-2">
-        <h3 class="assign-title">Assign Suppliers who deliver this specific part.</h3>
+        <h3 class="assign-title" >Assign Suppliers who deliver this specific part.</h3>
     </div>
 
     <div class="listbox-container">
         <div class="list-box">
-            <select multiple class="form-control custom-select" [(ngModel)]="selectedAvailable">
+            <select multiple class="form-control custom-select" >
                 <option *ngFor="let supplier of availableSuppliers" [value]="supplier">
                     {{ supplier }}
                 </option>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="list-box">
-            <select multiple class="form-control custom-select" [(ngModel)]="selectedAssigned">
+            <select multiple class="form-control custom-select"  >
                 <option *ngFor="let supplier of assignedSuppliers" [value]="supplier">
                     {{ supplier }}
                 </option>

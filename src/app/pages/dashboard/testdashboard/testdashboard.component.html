@@ -47,39 +47,22 @@
 
     <div [ngSwitch]="activeDashboard">
       <div *ngSwitchCase="'resp'">
-        <div *ngIf="currentView === 'grid'" class="table-section">
-          <h3>RESP Area Distribution</h3>
-          <table>
-            <thead>
-              <tr>
-                <th class="text-center" style="font-size: 15px;" *ngFor="let head of headers">{{ head }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let row of data" style="font-size: 13px;">
-                <td class="text-center">{{ row.area }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.O }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.R1 }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.R2 }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.C }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.O + row.R1 + row.R2 + row.C }}</td>
-              </tr>
-              <tr class="total-row" style="font-size: 13px;">
-                <th class="text-center">Grand Total</th>
-                <th class="text-center">{{ totals.O }}</th>
-                <th class="text-center">{{ totals.R1 }}</th>
-                <th class="text-center">{{ totals.R2 }}</th>
-                <th class="text-center">{{ totals.C }}</th>
-                <th class="text-center">{{ totals.Total }}</th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div *ngIf="currentView === 'graph'" class="chart-section">
-          <div *ngIf="!isPieChartMode()" id="barChartContainer"></div>
-          <div *ngIf="isPieChartMode()" id="pieChartContainer"></div>
-        </div>
+  <div class="row" style="display: flex; flex-wrap: wrap; width: 100%; margin: 0;">
+    
+    <div class="col-md-6" style="flex: 0 0 50%; max-width: 50%; padding: 10px;">
+      <div class="chart-section" style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div id="portfolioStatusChartContainer" style="width: 100%; height: 400px;"></div>
       </div>
+    </div>
+
+    <div class="col-md-6" style="flex: 0 0 50%; max-width: 50%; padding: 10px;">
+      <div class="chart-section" style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div id="portfolioSummaryPieChartContainer" style="width: 100%; height: 400px;"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
     <div *ngSwitchCase="'category'">
         
@@ -153,39 +136,22 @@
       </div>
 
       <div *ngSwitchCase="'rpn'">
-        <div *ngIf="currentView === 'grid'" class="table-section">
-          <h3>RPN Distribution</h3>
-          <table>
-            <thead>
-              <tr>
-                <th class="text-center" style="font-size: 15px;" *ngFor="let head of rpnHeaders">{{ head }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="text-center" *ngFor="let row of rpnData" style="font-size: 13px;">
-                <td class="text-center">{{ row.range }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.O }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.R1 }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.R2 }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.C }}</td>
-                <td class="text-center" style="color: blue; cursor:pointer">{{ row.Total }}</td>
-              </tr>
-              <tr class="total-row" style="font-size: 13px;">
-                <th class="text-center">Total</th>
-                <th class="text-center">{{ rpnTotals.O }}</th>
-                <th class="text-center">{{ rpnTotals.R1 }}</th>
-                <th class="text-center">{{ rpnTotals.R2 }}</th>
-                <th class="text-center">{{ rpnTotals.C }}</th>
-                <th class="text-center">{{ rpnTotals.Total }}</th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div *ngIf="currentView === 'graph'" class="chart-section">
-          <div *ngIf="!isRpnPieChartMode()" id="rpnBarChartContainer"></div>
-          <div *ngIf="isRpnPieChartMode()" id="rpnPieChartContainer"></div>
-        </div>
+  <div class="row" style="display: flex; flex-wrap: wrap; width: 100%; margin: 0;">
+    
+    <div class="col-md-6" style="flex: 0 0 50%; max-width: 50%; padding: 10px;">
+      <div class="chart-section" style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div id="bufferBarChartContainer" style="width: 100%; height: 400px;"></div>
       </div>
+    </div>
+
+    <div class="col-md-6" style="flex: 0 0 50%; max-width: 50%; padding: 10px;">
+      <div class="chart-section" style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div id="bufferPieChartContainer" style="width: 100%; height: 400px;"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
     </div>
   </div>
 </div>

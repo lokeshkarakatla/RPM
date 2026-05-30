@@ -28,7 +28,7 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  // --- RESP Data ---
+  // --- RESP Data (Kept for Grid View if needed) ---
   headers: string[] = ["Area", "O", "R1", "R2", "C", "Total"];
   data = [
     { area: "VEHICLE", O: 11, R1: 9, R2: 3, C: 16 },
@@ -58,57 +58,57 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
   phoneTotals = { O: 20, R1: 15, R2: 14, C: 33, Total: 82 };
   selectedPhoneCategory: string = "Distribution";
 
- ganttData = [
-  {
-    task: "Phase 1: Initiation",
-    start: Date.UTC(2024, 0, 1),
-    end: Date.UTC(2024, 0, 10),
-    completion: 100,
-    color: "#28a745"
-  },
-  {
-    task: "Phase 2: Planning",
-    start: Date.UTC(2024, 0, 11),
-    end: Date.UTC(2024, 0, 25),
-    completion: 100,
-    color: "#28a745"
-  },
-  {
-    task: "Phase 3: Design",
-    start: Date.UTC(2024, 0, 26),
-    end: Date.UTC(2024, 1, 10),
-    completion: 80,
-    color: "#28a745"
-  },
-  {
-    task: "Phase 4: Development",
-    start: Date.UTC(2024, 1, 11),
-    end: Date.UTC(2024, 2, 20),
-    completion: 45,
-    color: "#f4a300"
-  },
-  {
-    task: "Phase 5: Testing",
-    start: Date.UTC(2024, 2, 21),
-    end: Date.UTC(2024, 3, 5),
-    completion: 20,
-    color: "#dc3545"
-  },
-  {
-    task: "Phase 6: Deployment",
-    start: Date.UTC(2024, 3, 6),
-    end: Date.UTC(2024, 3, 12),
-    completion: 0,
-    color: "#adb5bd"
-  },
-  {
-    task: "Phase 7: Support",
-    start: Date.UTC(2024, 3, 13),
-    end: Date.UTC(2024, 3, 30),
-    completion: 0,
-    color: "#adb5bd"
-  }
-];
+  ganttData = [
+    {
+      task: "Phase 1: Initiation",
+      start: Date.UTC(2024, 0, 1),
+      end: Date.UTC(2024, 0, 10),
+      completion: 100,
+      color: "#28a745"
+    },
+    {
+      task: "Phase 2: Planning",
+      start: Date.UTC(2024, 0, 11),
+      end: Date.UTC(2024, 0, 25),
+      completion: 100,
+      color: "#28a745"
+    },
+    {
+      task: "Phase 3: Design",
+      start: Date.UTC(2024, 0, 26),
+      end: Date.UTC(2024, 1, 10),
+      completion: 80,
+      color: "#28a745"
+    },
+    {
+      task: "Phase 4: Development",
+      start: Date.UTC(2024, 1, 11),
+      end: Date.UTC(2024, 2, 20),
+      completion: 45,
+      color: "#f4a300"
+    },
+    {
+      task: "Phase 5: Testing",
+      start: Date.UTC(2024, 2, 21),
+      end: Date.UTC(2024, 3, 5),
+      completion: 20,
+      color: "#dc3545"
+    },
+    {
+      task: "Phase 6: Deployment",
+      start: Date.UTC(2024, 3, 6),
+      end: Date.UTC(2024, 3, 12),
+      completion: 0,
+      color: "#adb5bd"
+    },
+    {
+      task: "Phase 7: Support",
+      start: Date.UTC(2024, 3, 13),
+      end: Date.UTC(2024, 3, 30),
+      completion: 0,
+      color: "#adb5bd"
+    }
+  ];
 
   // --- Ageing Data ---
   ageingHeaders: string[] = ["Period", "Issues"];
@@ -123,18 +123,17 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
   ];
   ageingTotal = 94;
 
-  // --- RPN Data ---
-  rpnHeaders: string[] = ["RPN Range", "O", "R1", "R2", "C", "Total"];
-  rpnData = [
-    { range: "<200", O: 11, R1: 9, R2: 3, C: 16, Total: 39 },
-    { range: "201-400", O: 0, R1: 3, R2: 2, C: 3, Total: 8 },
-    { range: "401-600", O: 0, R1: 0, R2: 1, C: 1, Total: 2 },
-    { range: "601-800", O: 2, R1: 1, R2: 5, C: 5, Total: 16 },
-    { range: "801-1000", O: 4, R1: 1, R2: 3, C: 1, Total: 9 },
-    { range: "1000+", O: 0, R1: 0, R2: 0, C: 0, Total: 0 },
-  ];
-  rpnTotals = { O: 33, R1: 14, R2: 15, C: 20, Total: 82 };
+  // --- Buffer Data (Formerly RPN Data) ---
   selectedRpnCategory: string = "Distribution";
+  
+  bufferSprintData = [
+    { sprint: 1, bufferUsed: 0.8 },
+    { sprint: 2, bufferUsed: 2.5 }, // Exceeds average line (2.5 > 2) -> Red
+    { sprint: 3, bufferUsed: 2.2 }, // Below average line (2.2 <= 3) -> Green
+    { sprint: 4, bufferUsed: 4.8 }, // Exceeds average line (4.8 > 4) -> Red
+    { sprint: 5, bufferUsed: 4.0 }, // Below average line (4.0 <= 5) -> Green
+    { sprint: 6, bufferUsed: 6.5 }  // Exceeds average line (6.5 > 6) -> Red
+  ];
 
   ngOnInit(): void {}
 
@@ -198,123 +197,209 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // --- Portfolio Specific Renders (Replaces old generic resp renders) ---
   renderRespChart() {
-    if (this.isPieChartMode()) {
-      let data;
-      if (this.selectedCategory === "Total") {
-        data = this.data.map((d) => ({
-          name: d.area,
-          y: (d.O || 0) + (d.R1 || 0) + (d.R2 || 0) + (d.C || 0),
-        }));
-      } else {
-        // @ts-ignore
-        data = this.data.map((d) => ({
-          name: d.area,
-          y: d[this.selectedCategory] || 0,
-        }));
-      }
-      this.renderPieChart(
-        "pieChartContainer",
-        data,
-        "RESP Area - " + this.selectedCategory,
-      );
-    } else {
-      const series = ["O", "R1", "R2", "C"].map((key) => ({
-        name: key,
-        // @ts-ignore
-        data: this.data.map((d) => d[key]),
-      }));
-      const categories = this.data.map((d) => d.area);
-      this.renderBarChart(
-        "barChartContainer",
-        series,
-        categories,
-        "RESP Area Distribution",
-      );
-    }
+    this.renderPortfolioStatusChart();
+    this.renderPortfolioSummaryChart();
   }
 
-  // --- Updated Gantt Chart Renderer ---
-renderGanttChart() {
-  const containerId = 'ganttChartContainer';
-  const container = document.getElementById(containerId);
+  renderPortfolioStatusChart() {
+    const containerId = 'portfolioStatusChartContainer';
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-  if (!container) {
-    return;
-  }
-
-  Highcharts.chart(containerId, {
-    chart: {
-      type: 'xrange',
-      height: 450
-    },
-
-    title: {
-      text: 'Project Timeline'
-    },
-
-    credits: {
-      enabled: false
-    },
-
-    xAxis: {
-      type: 'datetime'
-    },
-
-    yAxis: {
-      title: {
-        text: 'Project Stages'
+    Highcharts.chart(containerId, {
+      chart: { type: 'column' },
+      title: { 
+        text: 'Portfolio Project Status',
+        style: { fontWeight: 'bold' }
       },
-      categories: this.ganttData.map(x => x.task),
-      reversed: true
-    },
+      subtitle: { text: 'Total Projects: 7' },
+      credits: { enabled: false },
+      xAxis: {
+        categories: ['On Track', 'Off Track'],
+        lineWidth: 1
+      },
+      yAxis: {
+        min: 0,
+        max: 6,
+        tickInterval: 1,
+        title: { text: 'Number of Projects' },
+        gridLineDashStyle: 'Dash' 
+      },
+      tooltip: {
+        headerFormat: '',
+        pointFormat: '<b>{point.name}</b>: {point.y} Projects'
+      },
+      plotOptions: {
+        column: {
+          grouping: false,
+          dataLabels: {
+            enabled: true,
+            style: { fontWeight: 'bold', fontSize: '14px' }
+          }
+        }
+      },
+      series: [
+        {
+          type: 'column',
+          name: 'On Track (5)',
+          data: [{ x: 0, y: 5, color: '#00a859' }], 
+        },
+        {
+          type: 'column',
+          name: 'Off Track (2)',
+          data: [{ x: 1, y: 2, color: '#ed1c24' }], 
+        }
+      ]
+    } as any);
+  }
 
-    tooltip: {
-      pointFormat:
-        '<b>{point.task}</b><br>' +
-        'Start: {point.x:%e %b %Y}<br>' +
-        'End: {point.x2:%e %b %Y}<br>' +
-        'Progress: {point.completion}%'
-    },
+  renderPortfolioSummaryChart() {
+    const containerId = 'portfolioSummaryPieChartContainer';
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-    plotOptions: {
-      xrange: {
-        borderRadius: 3
-      }
-    },
+    Highcharts.chart(containerId, {
+      chart: { type: 'pie' },
+      title: { 
+        text: 'Gate 0 - Portfolio Summary', 
+        align: 'left',
+        style: { fontSize: '16px', fontWeight: 'bold' } 
+      },
+      credits: { enabled: false },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f}%)'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          showInLegend: true,
+          dataLabels: {
+            enabled: true,
+            format: '<div style="text-align: center"><b>{point.y}</b><br/>({point.percentage:.0f}%)</div>',
+            distance: -40, 
+            useHTML: true,
+            style: {
+              color: 'white',
+              textOutline: 'none',
+              fontSize: '14px'
+            }
+          }
+        }
+      },
+      legend: {
+        align: 'right',
+        verticalAlign: 'middle',
+        layout: 'vertical',
+        itemMarginTop: 10,
+        itemMarginBottom: 10,
+        labelFormatter: function () {
+            // @ts-ignore
+            return `<span style="width: 80px; display:inline-block">${this.name}</span> <span style="font-weight: bold">${this.y}</span>`;
+        },
+        useHTML: true
+      },
+      series: [
+        {
+          type: 'pie',
+          name: 'Projects',
+          innerSize: '0%', 
+          data: [
+            { name: 'Processed', y: 4, color: '#3366cc' }, 
+            { name: 'Pending', y: 3, color: '#808b96' },   
+            { name: 'Kill', y: 2, color: '#e74c3c' },      
+            { name: 'Rework', y: 4, color: '#f39c12' },    
+            { name: 'Go', y: 7, color: '#2ecc71' }         
+          ]
+        }
+      ]
+    } as any);
+  }
 
-    series: [
-      {
+  // --- Gantt Chart Render ---
+  renderGanttChart() {
+    const containerId = 'ganttChartContainer';
+    const container = document.getElementById(containerId);
+
+    if (!container) {
+      return;
+    }
+
+    Highcharts.chart(containerId, {
+      chart: {
         type: 'xrange',
-        name: 'Phases',
-        pointWidth: 24,
-        data: this.ganttData.map((item, index) => ({
-  x: item.start,
-  x2: item.end,
-  y: index,
-  color:
-    item.completion >= 75
-      ? '#28a745'
-      : item.completion > 0
-      ? '#f4a300'
-      : '#adb5bd',
-  partialFill: {
-    amount: item.completion / 100,
-    fill:
-      item.completion >= 75
-        ? '#28a745'
-        : item.completion > 0
-        ? '#f4a300'
-        : '#adb5bd'
-  },
-  task: item.task,
-  completion: item.completion
-}))
-      } as any
-    ]
-  });
-}
+        height: 450
+      },
 
+      title: {
+        text: 'Project Timeline'
+      },
+
+      credits: {
+        enabled: false
+      },
+
+      xAxis: {
+        type: 'datetime'
+      },
+
+      yAxis: {
+        title: {
+          text: 'Project Stages'
+        },
+        categories: this.ganttData.map(x => x.task),
+        reversed: true
+      },
+
+      tooltip: {
+        pointFormat:
+          '<b>{point.task}</b><br>' +
+          'Start: {point.x:%e %b %Y}<br>' +
+          'End: {point.x2:%e %b %Y}<br>' +
+          'Progress: {point.completion}%'
+      },
+
+      plotOptions: {
+        xrange: {
+          borderRadius: 3
+        }
+      },
+
+      series: [
+        {
+          type: 'xrange',
+          name: 'Phases',
+          pointWidth: 24,
+          data: this.ganttData.map((item, index) => ({
+            x: item.start,
+            x2: item.end,
+            y: index,
+            color:
+              item.completion >= 75
+                ? '#28a745'
+                : item.completion > 0
+                ? '#f4a300'
+                : '#adb5bd',
+            partialFill: {
+              amount: item.completion / 100,
+              fill:
+                item.completion >= 75
+                  ? '#28a745'
+                  : item.completion > 0
+                  ? '#f4a300'
+                  : '#adb5bd'
+            },
+            task: item.task,
+            completion: item.completion
+          }))
+        } as any
+      ]
+    });
+  }
+
+  // --- Ageing Chart Render ---
   renderAgeingChart() {
     const ageingData = this.ageingData.map((d) => ({
       name: d.PERIOD,
@@ -327,34 +412,107 @@ renderGanttChart() {
     );
   }
 
+  // --- Buffer specific renders replacing old RPN ---
   renderRpnChart() {
-    if (this.isRpnPieChartMode()) {
-      // @ts-ignore
-      const data = this.rpnData.map((d) => ({
-        name: d.range,
-        y: d[this.selectedRpnCategory] || 0,
-      }));
-      this.renderPieChart(
-        "rpnPieChartContainer",
-        data,
-        "RPN - " + this.selectedRpnCategory,
-      );
-    } else {
-      const series = ["O", "R1", "R2", "C"].map((key) => ({
-        name: key,
-        // @ts-ignore
-        data: this.rpnData.map((d) => d[key]),
-      }));
-      const categories = this.rpnData.map((d) => d.range);
-      this.renderBarChart(
-        "rpnBarChartContainer",
-        series,
-        categories,
-        "RPN Distribution",
-      );
-    }
+    this.renderBufferBarChart();
+    this.renderBufferPieChart();
   }
 
+  renderBufferBarChart() {
+    const containerId = 'bufferBarChartContainer';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+  
+    // Generate a dynamic 45-degree threshold line (y = x) based on the max sprint
+    const maxSprint = Math.max(...this.bufferSprintData.map(d => d.sprint), 5);
+    const lineData = [];
+    for (let i = 0; i <= maxSprint + 1; i++) {
+      lineData.push([i, i]);
+    }
+  
+    // Map data and apply conditional coloring
+    const columnData = this.bufferSprintData.map((d) => ({
+      x: d.sprint,
+      y: d.bufferUsed,
+      color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745' // Red if Y > X, Green if Y <= X
+    }));
+  
+    Highcharts.chart(containerId, {
+      chart: { type: 'column' },
+      title: { text: 'Buffer Time vs Sprints Completed' },
+      credits: { enabled: false },
+      xAxis: {
+        title: { text: 'Sprints' },
+        min: 0,
+        tickInterval: 1
+      },
+      yAxis: {
+        title: { text: 'Buffer Time Used' },
+        min: 0
+      },
+      tooltip: {
+        shared: true
+      },
+      series: [
+        {
+          type: 'column',
+          name: 'Buffer Used',
+          data: columnData,
+          dataLabels: { enabled: true, format: '{point.y}' }
+        },
+        {
+          type: 'line',
+          name: 'Average Threshold (y=x)',
+          data: lineData,
+          color: '#007bff',
+          dashStyle: 'Dash',
+          marker: { enabled: false },
+          enableMouseTracking: false // Prevents tooltip from snapping to the threshold line
+        }
+      ]
+    } as any);
+  }
+  
+  renderBufferPieChart() {
+    const containerId = 'bufferPieChartContainer';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+  
+    // Use the same conditional colors for consistency in the pie chart
+    const pieData = this.bufferSprintData.map((d) => ({
+      name: 'Sprint ' + d.sprint,
+      y: d.bufferUsed,
+      color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745'
+    }));
+  
+    Highcharts.chart(containerId, {
+      chart: { type: 'pie' },
+      title: { text: 'Buffer Time Distribution' },
+      credits: { enabled: false },
+      tooltip: {
+        pointFormat: 'Buffer Used: <b>{point.y}</b> ({point.percentage:.1f}%)'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.y}'
+          }
+        }
+      },
+      series: [
+        {
+          type: 'pie',
+          name: 'Buffer Used',
+          data: pieData
+        }
+      ]
+    } as any);
+  }
+
+  // --- Generic Chart Helpers (Kept for Ageing chart usage) ---
   renderPieChart(containerId: string, data: any[], title: string) {
     const container = document.getElementById(containerId);
     if (!container) return;

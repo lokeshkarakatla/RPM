@@ -45,6 +45,7 @@ import { AddTasksComponent } from './rpm-tasks/add-tasks/add-tasks.component';
 import { RpmTodoComponent } from './rpm-todo/rpm-todo.component';
 import { DragulaModule } from 'ng2-dragula';
 import { FreezepanesDialogComponent } from './testing-projects/freezepanes-dialog/freezepanes-dialog.component';
+import { AddStagePopComponent } from './rpm-stages/add-stage-pop/add-stage-pop.component';
 
 
 const routes: Routes = [
@@ -109,6 +110,7 @@ const routes: Routes = [
         RpmTodoComponent,
        
         FreezepanesDialogComponent,
+                 AddStagePopComponent,
     ],
     imports: [
         // ✅ ALL modules go here

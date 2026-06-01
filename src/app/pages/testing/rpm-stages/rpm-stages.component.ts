@@ -5,6 +5,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
 import { StatusConfirmationDialogComponent } from '../testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
+import { AddStagePopComponent } from './add-stage-pop/add-stage-pop.component';
 
 @Component({
   selector: 'app-rpm-stages',
@@ -23,12 +24,12 @@ export class RpmStagesComponent implements OnInit, OnDestroy {
   pageSize = 10; 
 
   tdata = [
-    { phase: "Feasibility", description: "Evaluate project viability", tasks: 45, status:"Active" },
-    { phase: "Design", description: "Create functional, technical", tasks: 58, status:"Active" },
-    { phase: "Prototyping", description: "Develop an initial working.", tasks: 39, status:"Inactive" },
-    { phase: "Testing", description: "Validate functionality, quality", tasks: 51, status:"Active" },
-    { phase: "Launch", description: "Prepare and release the product", tasks: 41, status:"Inactive" },
-    { phase: "Implementation", description: "Execute full-scale adoption", tasks: 27, status:"Inactive" }
+    { phase: "Feasibility", description: "Evaluate project viability", tasks: 45, status:"Active",stageCode:"STG001", stageName:"Feasibility", gateCode:"GT001", stageDescription:"Evaluate project viability" },
+    { phase: "Design", description: "Create functional, technical", tasks: 58, status:"Active",stageCode:"STG002", stageName:"Design", gateCode:"GT002", stageDescription:"Create functional, technical" },
+    { phase: "Prototyping", description: "Develop an initial working.", tasks: 39, status:"Inactive",stageCode:"STG003", stageName:"Prototyping", gateCode:"GT003", stageDescription:"Develop an initial working." },
+    { phase: "Testing", description: "Validate functionality, quality", tasks: 51, status:"Active",stageCode:"STG004", stageName:"Testing", gateCode:"GT004", stageDescription:"Validate functionality, quality" },
+    { phase: "Launch", description: "Prepare and release the product", tasks: 41, status:"Inactive",stageCode:"STG005", stageName:"Launch", gateCode:"GT005", stageDescription:"Prepare and release the product" },
+    { phase: "Implementation", description: "Execute full-scale adoption", tasks: 27, status:"Inactive",stageCode:"STG006", stageName:"Implementation", gateCode:"GT006", stageDescription:"Execute full-scale adoption" }
   ];
 
   pagedData: any[] = [];
@@ -97,4 +98,17 @@ this.subs.add(
 
   openEditDialog(item: any) { console.log('Edit:', item); }
   deleteConfirmation(item: any) { console.log('Delete:', item); }
+
+
+
+ 
+
+
+    addstage( ) {
+    this.dialog.open(AddStagePopComponent, {
+       width: '500px',
+      height: 'auto',
+       
+    });
+  }
 }

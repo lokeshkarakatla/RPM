@@ -26,37 +26,32 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     { key: "rpn", title: "Buffer", color: "#fddff1" },
   ];
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  // --- GATE Selection Logic ---
+  selectedGate: string = "Gate 0";
+  
+  gatePieDataMap: any = {
+    'Gate 0': [
+      { name: 'Processed', y: 4, color: '#3366cc' }, { name: 'Pending', y: 3, color: '#808b96' },
+      { name: 'Kill', y: 2, color: '#e74c3c' }, { name: 'Rework', y: 4, color: '#f39c12' }, { name: 'Go', y: 7, color: '#2ecc71' }
+    ],
+    'Gate 1': [
+      { name: 'Processed', y: 6, color: '#3366cc' }, { name: 'Pending', y: 1, color: '#808b96' },
+      { name: 'Kill', y: 0, color: '#e74c3c' }, { name: 'Rework', y: 2, color: '#f39c12' }, { name: 'Go', y: 11, color: '#2ecc71' }
+    ],
+    'Gate 2': [
+      { name: 'Processed', y: 2, color: '#3366cc' }, { name: 'Pending', y: 5, color: '#808b96' },
+      { name: 'Kill', y: 3, color: '#e74c3c' }, { name: 'Rework', y: 1, color: '#f39c12' }, { name: 'Go', y: 9, color: '#2ecc71' }
+    ],
+    'default': [
+      { name: 'Processed', y: 5, color: '#3366cc' }, { name: 'Pending', y: 4, color: '#808b96' },
+      { name: 'Kill', y: 1, color: '#e74c3c' }, { name: 'Rework', y: 3, color: '#f39c12' }, { name: 'Go', y: 7, color: '#2ecc71' }
+    ]
+  };
 
-  // --- RESP Data ---
-  headers: string[] = ["Area", "O", "R1", "R2", "C", "Total"];
-  data = [
-    { area: "VEHICLE", O: 11, R1: 9, R2: 3, C: 16 },
-    { area: "ELECTRICAL", O: 0, R1: 3, R2: 2, C: 3 },
-    { area: "TRANSMISSION", O: 0, R1: 0, R2: 1, C: 1 },
-    { area: "HYDRAULICS", O: 2, R1: 1, R2: 5, C: 5 },
-    { area: "ENGINE", O: 4, R1: 1, R2: 3, C: 1 },
-    { area: "IQC", O: 0, R1: 0, R2: 0, C: 0 },
-    { area: "VQC", O: 3, R1: 0, R2: 2, C: 0 },
-    { area: "CABIN", O: 3, R1: 1, R2: 0, C: 3 },
-    { area: "LOADER", O: 0, R1: 0, R2: 0, C: 1 },
-  ];
-  totals = { O: 33, R1: 14, R2: 15, C: 20, Total: 82 };
-  selectedCategory: string = "Distribution";
-
-  // --- Category Data ---
-  headers2: string[] = ["Category", "O", "R1", "R2", "C", "Total"];
-  phoneData = [
-    { category: "ASSEMBLY", O: 0, R1: 5, R2: 0, C: 2, Total: 2 },
-    { category: "FUNCTION", O: 3, R1: 8, R2: 5, C: 13, Total: 26 },
-    { category: "PERCEIVED QUALITY", O: 0, R1: 7, R2: 1, C: 16, Total: 32 },
-    { category: "PERFORMANCE", O: 0, R1: 5, R2: 4, C: 2, Total: 11 },
-    { category: "REGULATION/GOVERNMENT", O: 3, R1: 0, R2: 0, C: 0, Total: 3 },
-    { category: "SAFETY", O: 2, R1: 1, R2: 3, C: 0, Total: 6 },
-    { category: "SERVICE", O: 0, R1: 1, R2: 1, C: 0, Total: 2 },
-  ];
-  phoneTotals = { O: 20, R1: 15, R2: 14, C: 33, Total: 82 };
   selectedPhoneCategory: string = "Distribution";
+  selectedRpnCategory: string = "Distribution";
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   // --- Gantt filter state ---
   selectedProject = 'Project Alpha';
@@ -97,18 +92,11 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     { PERIOD: "50-100", ISSUES: 10 },
     { PERIOD: "100+",   ISSUES: 30 },
   ];
-  ageingTotal = 94;
 
   // --- Buffer Data ---
-  selectedRpnCategory: string = "Distribution";
-
   bufferSprintData = [
-    { sprint: 1, bufferUsed: 0.8 },
-    { sprint: 2, bufferUsed: 2.5 },
-    { sprint: 3, bufferUsed: 2.2 },
-    { sprint: 4, bufferUsed: 4.8 },
-    { sprint: 5, bufferUsed: 4.0 },
-    { sprint: 6, bufferUsed: 6.5 },
+    { sprint: 1, bufferUsed: 0.8 }, { sprint: 2, bufferUsed: 2.5 }, { sprint: 3, bufferUsed: 2.2 },
+    { sprint: 4, bufferUsed: 4.8 }, { sprint: 5, bufferUsed: 4.0 }, { sprint: 6, bufferUsed: 6.5 }
   ];
 
   // ─── Lifecycle ────────────────────────────────────────────────────────────
@@ -138,61 +126,39 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     setTimeout(() => this.renderActiveChart(), 0);
   }
 
-  setCategory(category: string) {
-    this.selectedCategory = category;
-    this.renderChartWithDelay();
+  setGateCategory(gate: string) {
+    this.selectedGate = gate;
+    this.renderPortfolioSummaryChart(); // Update only Pie Chart
   }
-  isPieChartMode() { return this.selectedCategory !== "Distribution"; }
 
   setPhoneCategory(category: string) {
     this.selectedPhoneCategory = category;
     this.renderChartWithDelay();
   }
-  isPhonePieChartMode() { return this.selectedPhoneCategory !== "Distribution"; }
 
   setRpnCategory(category: string) {
     this.selectedRpnCategory = category;
     this.renderChartWithDelay();
   }
-  isRpnPieChartMode() { return this.selectedRpnCategory !== "Distribution"; }
 
   renderActiveChart() {
     switch (this.activeDashboard) {
-      case "resp":    this.renderRespChart();    break;
-      case "category": /* pure HTML table — no Highcharts needed */ break;
-      case "ageing":  this.renderAgeingChart();  break;
-      case "rpn":     this.renderRpnChart();     break;
+      case "resp":
+        this.renderRespChart(); 
+        break;
+      case "category":
+        this.renderGanttChart(); 
+        break;
+      case "ageing":
+        this.renderBudgetGanttChart(); // Replaces old ageing pie chart
+        break;
+      case "rpn":
+        this.renderRpnChart();
+        break;
     }
   }
 
-  // ─── Gantt helpers ────────────────────────────────────────────────────────
-
-  applyGanttFilter() {
-    this.filteredGanttData = this.selectedStageFilter === 'all'
-      ? [...this.ganttData]
-      : this.ganttData.filter(d => d.gate === this.selectedStageFilter);
-  }
-
-  isSprintInRange(item: any, gateKey: string, _sprint: string): boolean {
-    return item.gate === gateKey;
-  }
-
-  getBarColor(pct: number): string {
-    if (pct >= 75) return '#28a745';
-    if (pct > 0 && pct < 40) return '#dc3545';
-    if (pct > 0)  return '#f4a300';
-    return '#adb5bd';
-  }
-
-  getDarkBarColor(pct: number): string {
-    if (pct >= 75) return '#1a6b31';
-    if (pct > 0 && pct < 40) return '#a0212b';
-    if (pct > 0)  return '#c47e00';
-    return '#888';
-  }
-
-  // ─── Portfolio charts ─────────────────────────────────────────────────────
-
+  // --- Portfolio Dashboard ---
   renderRespChart() {
     this.renderPortfolioStatusChart();
     this.renderPortfolioSummaryChart();
@@ -208,22 +174,13 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
       subtitle: { text: 'Total Projects: 7' },
       credits: { enabled: false },
       xAxis: { categories: ['On Track', 'Off Track'], lineWidth: 1 },
-      yAxis: {
-        min: 0, max: 6, tickInterval: 1,
-        title: { text: 'Number of Projects' },
-        gridLineDashStyle: 'Dash',
-      },
-      tooltip: { headerFormat: '', pointFormat: '<b>{point.name}</b>: {point.y} Projects' },
-      plotOptions: {
-        column: {
-          grouping: false,
-          dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: '14px' } },
-        },
-      },
+      yAxis: { min: 0, max: 6, tickInterval: 1, title: { text: 'Number of Projects' }, gridLineDashStyle: 'Dash' },
+      tooltip: { pointFormat: '<b>{point.name}</b>: {point.y} Projects' },
+      plotOptions: { column: { grouping: false, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: '14px' } } } },
       series: [
-        { type: 'column', name: 'On Track (5)',  data: [{ x: 0, y: 5, color: '#00a859' }] },
-        { type: 'column', name: 'Off Track (2)', data: [{ x: 1, y: 2, color: '#ed1c24' }] },
-      ],
+        { type: 'column', name: 'On Track (5)', data: [{ x: 0, y: 5, color: '#00a859' }] },
+        { type: 'column', name: 'Off Track (2)', data: [{ x: 1, y: 2, color: '#ed1c24' }] }
+      ]
     } as any);
   }
 
@@ -231,57 +188,127 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     const containerId = 'portfolioSummaryPieChartContainer';
     if (!document.getElementById(containerId)) return;
 
+    const pieDataForGate = this.gatePieDataMap[this.selectedGate] || this.gatePieDataMap['default'];
+
     Highcharts.chart(containerId, {
       chart: { type: 'pie' },
-      title: { text: 'Gate 0 - Portfolio Summary', align: 'left', style: { fontSize: '16px', fontWeight: 'bold' } },
+      title: { text: `${this.selectedGate} - Portfolio Summary`, align: 'left', style: { fontSize: '16px', fontWeight: 'bold' } },
       credits: { enabled: false },
       tooltip: { pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f}%)' },
       plotOptions: {
         pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          showInLegend: true,
+          allowPointSelect: true, cursor: 'pointer', showInLegend: true,
           dataLabels: {
-            enabled: true,
-            format: '<div style="text-align:center"><b>{point.y}</b><br/>({point.percentage:.0f}%)</div>',
-            distance: -40,
-            useHTML: true,
-            style: { color: 'white', textOutline: 'none', fontSize: '14px' },
-          },
-        },
+            enabled: true, format: '<div style="text-align: center"><b>{point.y}</b><br/>({point.percentage:.0f}%)</div>',
+            distance: -40, useHTML: true, style: { color: 'white', textOutline: 'none', fontSize: '14px' }
+          }
+        }
       },
       legend: {
         align: 'right', verticalAlign: 'middle', layout: 'vertical',
         itemMarginTop: 10, itemMarginBottom: 10, useHTML: true,
         labelFormatter: function () {
-          // @ts-ignore
-          return `<span style="width:80px;display:inline-block">${this.name}</span> <span style="font-weight:bold">${this.y}</span>`;
-        },
+            // @ts-ignore
+            return `<span style="width: 80px; display:inline-block">${this.name}</span> <span style="font-weight: bold">${this.y}</span>`;
+        }
       },
-      series: [{
-        type: 'pie',
-        name: 'Projects',
-        innerSize: '0%',
-        data: [
-          { name: 'Processed', y: 4, color: '#3366cc' },
-          { name: 'Pending',   y: 3, color: '#808b96' },
-          { name: 'Kill',      y: 2, color: '#e74c3c' },
-          { name: 'Rework',    y: 4, color: '#f39c12' },
-          { name: 'Go',        y: 7, color: '#2ecc71' },
-        ],
-      }],
+      series: [{ type: 'pie', name: 'Projects', innerSize: '0%', data: pieDataForGate }]
     } as any);
   }
 
-  // ─── Ageing chart ─────────────────────────────────────────────────────────
+  // --- Timeline Gantt Chart ---
+  renderGanttChart() {
+    const containerId = 'ganttChartContainer';
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
-  renderAgeingChart() {
-    const ageingData = this.ageingData.map(d => ({ name: d.PERIOD, y: d.ISSUES }));
-    this.renderPieChart("ageingPieChartContainer", ageingData, "Ageing Analysis");
+    Highcharts.chart(containerId, {
+      chart: { type: 'xrange', height: 400 },
+      title: { text: 'Project Timeline' },
+      credits: { enabled: false },
+      xAxis: { type: 'datetime' },
+      yAxis: {
+        title: { text: 'Project Stages' },
+        categories: this.ganttData.map(x => x.task),
+        reversed: true
+      },
+      tooltip: {
+        pointFormat: '<b>{point.task}</b><br>Start: {point.x:%e %b %Y}<br>End: {point.x2:%e %b %Y}<br>Progress: {point.completion}%'
+      },
+      plotOptions: {
+        xrange: { borderRadius: 3 }
+      },
+      series: [
+        {
+          type: 'xrange',
+          name: 'Phases',
+          pointWidth: 24,
+          data: this.ganttData.map((item, index) => ({
+            x: item.start,
+            x2: item.end,
+            y: index,
+            color: item.completion >= 75 ? '#28a745' : (item.completion > 0 ? '#f4a300' : '#adb5bd'),
+            partialFill: {
+              amount: item.completion / 100,
+              fill: item.completion >= 75 ? '#218838' : (item.completion > 0 ? '#d39e00' : '#868e96')
+            },
+            task: item.task,
+            completion: item.completion
+          }))
+        } as any
+      ]
+    });
   }
 
-  // ─── Buffer charts ────────────────────────────────────────────────────────
+  // --- NEW: Budget Gantt Chart ---
+  renderBudgetGanttChart() {
+    const containerId = 'budgetGanttChartContainer';
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
+    Highcharts.chart(containerId, {
+      chart: { type: 'xrange', height: 400 },
+      title: { text: 'Budget Utilization by Phase' },
+      credits: { enabled: false },
+      xAxis: { type: 'datetime' },
+      yAxis: {
+        title: { text: 'Phases' },
+        categories: this.budgetGanttData.map(x => x.task),
+        reversed: true
+      },
+      tooltip: {
+        pointFormat: '<b>{point.task}</b><br>Allocated: ${point.allocated}<br>Spent: ${point.spent}<br>Used: {point.completion}%'
+      },
+      plotOptions: {
+        xrange: { borderRadius: 3 }
+      },
+      series: [
+        {
+          type: 'xrange',
+          name: 'Budget',
+          pointWidth: 24,
+          data: this.budgetGanttData.map((item, index) => ({
+            x: item.start,
+            x2: item.end,
+            y: index,
+            // Pale colors for background
+            color: item.completion > 100 ? '#f8d7da' : (item.completion > 80 ? '#fff3cd' : '#d4edda'),
+            partialFill: {
+              amount: Math.min(item.completion / 100, 1), // Max visual fill is 100%
+              // Dark colors for the actual filled amount
+              fill: item.completion > 100 ? '#dc3545' : (item.completion > 80 ? '#f4a300' : '#28a745')
+            },
+            task: item.task,
+            allocated: item.allocated,
+            spent: item.spent,
+            completion: item.completion
+          }))
+        } as any
+      ]
+    });
+  }
+
+  // --- Buffer Chart ---
   renderRpnChart() {
     this.renderBufferBarChart();
     this.renderBufferPieChart();
@@ -289,16 +316,15 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
 
   renderBufferBarChart() {
     const containerId = 'bufferBarChartContainer';
-    if (!document.getElementById(containerId)) return;
-
+    const container = document.getElementById(containerId);
+    if (!container) return;
+  
     const maxSprint = Math.max(...this.bufferSprintData.map(d => d.sprint), 5);
-    const lineData: [number, number][] = [];
-    for (let i = 0; i <= maxSprint + 1; i++) lineData.push([i, i]);
-
-    const columnData = this.bufferSprintData.map(d => ({
-      x: d.sprint,
-      y: d.bufferUsed,
-      color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745',
+    const lineData = [];
+    for (let i = 0; i <= maxSprint + 1; i++) { lineData.push([i, i]); }
+  
+    const columnData = this.bufferSprintData.map((d) => ({
+      x: d.sprint, y: d.bufferUsed, color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745' 
     }));
 
     Highcharts.chart(containerId, {
@@ -309,33 +335,19 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
       yAxis: { title: { text: 'Buffer Time Used' }, min: 0 },
       tooltip: { shared: true },
       series: [
-        {
-          type: 'column',
-          name: 'Buffer Used',
-          data: columnData,
-          dataLabels: { enabled: true, format: '{point.y}' },
-        },
-        {
-          type: 'line',
-          name: 'Average Threshold (y=x)',
-          data: lineData,
-          color: '#007bff',
-          dashStyle: 'Dash',
-          marker: { enabled: false },
-          enableMouseTracking: false,
-        },
-      ],
+        { type: 'column', name: 'Buffer Used', data: columnData, dataLabels: { enabled: true, format: '{point.y}' } },
+        { type: 'line', name: 'Average Threshold (y=x)', data: lineData, color: '#007bff', dashStyle: 'Dash', marker: { enabled: false }, enableMouseTracking: false }
+      ]
     } as any);
   }
 
   renderBufferPieChart() {
     const containerId = 'bufferPieChartContainer';
-    if (!document.getElementById(containerId)) return;
-
-    const pieData = this.bufferSprintData.map(d => ({
-      name: 'Sprint ' + d.sprint,
-      y: d.bufferUsed,
-      color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745',
+    const container = document.getElementById(containerId);
+    if (!container) return;
+  
+    const pieData = this.bufferSprintData.map((d) => ({
+      name: 'Sprint ' + d.sprint, y: d.bufferUsed, color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745'
     }));
 
     Highcharts.chart(containerId, {
@@ -343,49 +355,9 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
       title: { text: 'Buffer Time Distribution' },
       credits: { enabled: false },
       tooltip: { pointFormat: 'Buffer Used: <b>{point.y}</b> ({point.percentage:.1f}%)' },
-      plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' },
-        },
-      },
-      series: [{ type: 'pie', name: 'Buffer Used', data: pieData }],
+      plotOptions: { pie: { allowPointSelect: true, cursor: 'pointer', dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y}' } } },
+      series: [{ type: 'pie', name: 'Buffer Used', data: pieData }]
     } as any);
   }
 
-  // ─── Generic helpers ──────────────────────────────────────────────────────
-
-  renderPieChart(containerId: string, data: any[], title: string) {
-    if (!document.getElementById(containerId)) return;
-    Highcharts.chart(containerId, {
-      chart: { type: "pie" },
-      title: { text: title },
-      tooltip: { pointFormat: "{series.name}: <b>{point.y}</b>" },
-      plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: "pointer",
-          dataLabels: { enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %" },
-        },
-      },
-      series: [{ type: "pie", name: "Issues", colorByPoint: true, data }],
-    });
-  }
-
-  renderBarChart(containerId: string, series: any[], categories: string[], title: string) {
-    if (!document.getElementById(containerId)) return;
-    Highcharts.chart(containerId, {
-      chart: { type: "column" },
-      title: { text: title },
-      xAxis: { categories, crosshair: true },
-      yAxis: { min: 0, title: { text: "Total Count" } },
-      tooltip: {
-        headerFormat: "<b>{point.x}</b><br/>",
-        pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
-      },
-      plotOptions: { column: { stacking: "normal", dataLabels: { enabled: false } } },
-      series,
-    });
-  }
 }

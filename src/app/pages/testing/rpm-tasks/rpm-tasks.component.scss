@@ -81,3 +81,35 @@ table {
   width: 100%;
 }
 
+/* Custom Range Slider Styles */
+.custom-range {
+  -webkit-appearance: none;
+  width: 90px;
+  height: 8px;
+  /* Uses CSS variables passed from HTML to dynamically color the track */
+  background: linear-gradient(to right, var(--slider-color) var(--slider-fill), #555555 var(--slider-fill));
+  border-radius: 10px;
+  outline: none;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--slider-color);
+  cursor: pointer;
+  border: 1px solid #fff; /* Optional: adds a slight white border for visibility */
+}
+
+.custom-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--slider-color);
+  cursor: pointer;
+  border: 1px solid #fff;
+}

@@ -2,7 +2,7 @@
   <!-- Filter Bar -->
   <!-- <div class="filter-bar">
      <label class="filter-label mb-0"> Commodity :</label>
-    <mat-select placeholder="Select Commodity" class="form-control" formControlName="commodity" style="width: auto; min-width: 200px;">
+    <mat-select placeholder="Select Commodity" class="form-control" formControlName="commodity" style="width: auto; min-width: 120px;">
      
       <mat-option value="casting">Casting</mat-option>
       <mat-option value="forging">Forging</mat-option>
@@ -22,7 +22,7 @@
     </mat-select>
 
     <button class="go-btn" mat-raised-button>
-      <mat-icon class="mat-icon mt-1">search</mat-icon> Go
+      <mat-icon>search</mat-icon> Go
     </button>
   </div> -->
 
@@ -30,9 +30,9 @@
   <div class="filter-bar">
     <div class="filter-group right-align-group">
 
-       <label class="filter-label mb-0"> Commodity :</label>
-    <mat-select placeholder="Select Commodity" class="form-control" formControlName="commodity" style="width: auto; min-width: 200px;">
-     
+      <label class="filter-label mb-0">Commodity :</label>
+    <mat-select placeholder="Select Commodity" class="form-control" 
+      style="width: auto; min-width: 180px;">
       <mat-option value="casting">Casting</mat-option>
       <mat-option value="forging">Forging</mat-option>
       <mat-option value="machining">Machining</mat-option>
@@ -41,6 +41,7 @@
       <mat-option value="sheet-metal">Sheet Metal</mat-option>
       <mat-option value="proprietary">Proprietary</mat-option>
     </mat-select>
+
 
         <label class="filter-label mb-0">Select Year :</label>
         <mat-select placeholder="Select Year" class="form-control" 
@@ -56,7 +57,6 @@
         <mat-icon class="mat-icon mt-1">search</mat-icon> Go
     </button>
 </div>
-
 
   <!-- Monthly Critical Actions Logged -->
   <h2 class="section-title">Monthly Critical Actions Logged</h2>
@@ -125,11 +125,3 @@
 </div>
 
 <!-- Scroll to Top Button -->
-<!-- <button
-  mat-mini-fab
-  color="primary"
-  class="scroll-top-btn"
-  (click)="scrollToTop()"
->
-  <mat-icon>keyboard_arrow_up</mat-icon>
-</button> -->

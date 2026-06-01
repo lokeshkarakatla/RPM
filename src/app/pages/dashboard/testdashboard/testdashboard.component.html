@@ -46,38 +46,87 @@
       </div>
 
       <div *ngSwitchCase="'category'">
-        <div style="display: flex; flex-direction: row; gap: 24px; width: 100%; align-items: flex-start; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-          
-          <div class="table-section" style="flex: 0 0 40%; overflow-x: auto;">
-            <h3>Timeline Data</h3>
-            <table style="width: 100%; border-collapse: collapse;">
+        <div class="gantt-controls">
+          <div class="ctrl-group">
+            <label>Project</label>
+            <select [(ngModel)]="selectedProject">
+              <option *ngFor="let p of projects" [value]="p">{{ p }}</option>
+            </select>
+          </div>
+          <div class="ctrl-group">
+            <label>Stage</label>
+            <select [(ngModel)]="selectedStageFilter">
+              <option value="all">All Stages</option>
+              <option *ngFor="let g of gateHeaders" [value]="g.key">{{ g.label }}</option>
+            </select>
+          </div>
+          <button class="go-btn" (click)="applyGanttFilter()">Go →</button>
+        </div>
+
+        <div class="gantt-wrapper">
+          <div class="gantt-scroll">
+            <table class="gantt-table">
               <thead>
-                <tr style="border-bottom: 2px solid #ccc;">
-                  <th class="text-left" style="font-size: 15px; padding: 8px;">Task</th>
-                  <th class="text-center" style="font-size: 15px; padding: 8px;">Start Date</th>
-                  <th class="text-center" style="font-size: 15px; padding: 8px;">End Date</th>
-                  <th class="text-center" style="font-size: 15px; padding: 8px;">Progress</th>
+                <!-- Top header row: fixed cols + Gate groups -->
+                <tr class="hdr-top">
+                  <th class="fixed-col stage-col">Stage / Activity</th>
+                  <th class="fixed-col" style="color:#fff">Start Date</th>
+                  <th class="fixed-col" style="color:#fff">End Date</th>
+                  <th class="fixed-col pct-col">Completion</th>
+                  <th *ngFor="let gate of gateHeaders" [attr.colspan]="gate.sprints.length" class="gate-cell">
+                    {{ gate.label }}<br>
+                    <span class="gate-sub">{{ gate.subtitle }}</span>
+                  </th>
+                </tr>
+                <!-- Sub-header: sprint labels -->
+                <tr class="hdr-sub">
+                  <th class="fixed-col"></th>
+                  <th class="fixed-col"></th>
+                  <th class="fixed-col"></th>
+                  <th class="fixed-col"></th>
+                  <ng-container *ngFor="let gate of gateHeaders">
+                    <th *ngFor="let sprint of gate.sprints" class="sprint-col">{{ sprint }}</th>
+                  </ng-container>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of ganttData" style="font-size: 13px; border-bottom: 1px solid #eee;">
-                  <td class="text-left" style="padding: 8px;">{{ item.task }}</td>
-                  <td class="text-center" style="padding: 8px;">{{ item.start | date:'MMM d' }}</td>
-                  <td class="text-center" style="padding: 8px;">{{ item.end | date:'MMM d' }}</td>
-                  <td class="text-center" style="padding: 8px; font-weight: bold;">
-                    <span [style.color]="item.completion >= 75 ? '#28a745' : (item.completion > 0 ? '#f4a300' : '#6c757d')">
-                      {{ item.completion }}%
-                    </span>
+                <tr *ngFor="let item of filteredGanttData">
+                  <td class="fixed-col stage-col">{{ item.task }}</td>
+                  <td class="fixed-col date-col">{{ item.start | date:'dd-MMM-yyyy' }}</td>
+                  <td class="fixed-col date-col">{{ item.end | date:'dd-MMM-yyyy' }}</td>
+                  <td class="fixed-col pct-col"
+                    [style.color]="item.completion >= 75 ? '#28a745' : item.completion > 0 ? '#f4a300' : '#6c757d'">
+                    {{ item.completion }}%
                   </td>
+                  <!-- Sprint cells -->
+                  <ng-container *ngFor="let gate of gateHeaders">
+                    <ng-container *ngFor="let sprint of gate.sprints; let last = last">
+                      <td class="sprint-cell">
+                        <div *ngIf="isSprintInRange(item, gate.key, sprint)" class="bar-outer"
+                          [style.background]="getBarColor(item.completion)">
+                          <div class="bar-fill" [style.width.%]="item.completion"
+                            [style.background]="getDarkBarColor(item.completion)">
+                          </div>
+                          <span *ngIf="last && item.completion > 0 && item.completion < 100" class="bar-label">
+                            {{ item.completion }}%
+                          </span>
+                          <span *ngIf="last && item.completion === 100" class="bar-label">100%</span>
+                        </div>
+                      </td>
+                    </ng-container>
+                  </ng-container>
                 </tr>
               </tbody>
             </table>
           </div>
+        </div>
 
-          <div class="chart-section" style="flex: 1;">
-            <div id="ganttChartContainer" style="width: 100%; height: 400px;"></div>
-          </div>
-          
+        <!-- Legend -->
+        <div class="gantt-legend">
+          <span><span class="dot" style="background:#28a745"></span>Completed</span>
+          <span><span class="dot" style="background:#f4a300"></span>In Progress</span>
+          <span><span class="dot" style="background:#dc3545"></span>Behind Schedule</span>
+          <span><span class="dot" style="background:#adb5bd"></span>Not Started</span>
         </div>
       </div>
 

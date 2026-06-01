@@ -53,24 +53,44 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  // --- Gantt Data (Timeline) ---
-  ganttData = [
-    { task: "Phase 1: Initiation", start: Date.UTC(2024, 4, 1), end: Date.UTC(2024, 4, 7), completion: 100 },
-    { task: "Phase 2: Planning", start: Date.UTC(2024, 4, 8), end: Date.UTC(2024, 4, 21), completion: 100 },
-    { task: "Phase 3: Design", start: Date.UTC(2024, 4, 22), end: Date.UTC(2024, 5, 11), completion: 75 },
-    { task: "Phase 4: Development", start: Date.UTC(2024, 5, 12), end: Date.UTC(2024, 6, 2), completion: 40 },
-    { task: "Phase 5: Testing", start: Date.UTC(2024, 6, 3), end: Date.UTC(2024, 6, 23), completion: 20 },
-    { task: "Phase 6: Deployment", start: Date.UTC(2024, 6, 24), end: Date.UTC(2024, 7, 13), completion: 0 },
-    { task: "Phase 7: Support", start: Date.UTC(2024, 7, 14), end: Date.UTC(2024, 7, 27), completion: 0 }
+  // --- Gantt filter state ---
+  selectedProject = 'Project Alpha';
+  projects = ['Project Alpha', 'Project Beta'];
+  selectedStageFilter = 'all';
+  filteredGanttData: any[] = [];
+
+  // Gate/Sprint header structure
+  gateHeaders = [
+    { key: 'g0', label: 'Gate 0', subtitle: 'Project Initiation',   sprints: ['Sprint 0.1'] },
+    { key: 'g1', label: 'Gate 1', subtitle: 'Concept Development',  sprints: ['Sprint 1.1', 'Sprint 1.2'] },
+    { key: 'g2', label: 'Gate 2', subtitle: 'Feasibility Study',    sprints: ['Sprint 2.1', 'Sprint 2.2', 'Sprint 2.3'] },
+    { key: 'g3', label: 'Gate 3', subtitle: 'Detailed Planning',    sprints: ['Sprint 3.1', 'Sprint 3.2'] },
+    { key: 'g4', label: 'Gate 4', subtitle: 'Design & Development', sprints: ['Sprint 4.1', 'Sprint 4.2', 'Sprint 4.3'] },
+    { key: 'g5', label: 'Gate 5', subtitle: 'Validation & Testing', sprints: ['Sprint 5.1', 'Sprint 5.2'] },
   ];
 
-  // --- Budget Gantt Data (Formerly Ageing) ---
-  budgetGanttData = [
-    { task: "Concept", start: Date.UTC(2024, 4, 1), end: Date.UTC(2024, 4, 30), completion: 90, allocated: 50000, spent: 45000 },
-    { task: "Design", start: Date.UTC(2024, 5, 1), end: Date.UTC(2024, 5, 30), completion: 110, allocated: 80000, spent: 88000 }, // Red (Over Budget)
-    { task: "Development", start: Date.UTC(2024, 6, 1), end: Date.UTC(2024, 8, 30), completion: 60, allocated: 150000, spent: 90000 },
-    { task: "Testing", start: Date.UTC(2024, 9, 1), end: Date.UTC(2024, 10, 15), completion: 15, allocated: 40000, spent: 6000 },
-    { task: "Launch", start: Date.UTC(2024, 10, 16), end: Date.UTC(2024, 11, 31), completion: 0, allocated: 20000, spent: 0 }
+  // Gantt data — replaces the old ganttData array
+  ganttData = [
+    { task: '0. Project Initiation (Gate 0)',   start: Date.UTC(2024, 4, 1),  end: Date.UTC(2024, 4, 7),  completion: 100, gate: 'g0' },
+    { task: '1. Concept Development (Gate 1)',  start: Date.UTC(2024, 4, 8),  end: Date.UTC(2024, 4, 21), completion: 100, gate: 'g1' },
+    { task: '2. Feasibility Study (Gate 2)',    start: Date.UTC(2024, 4, 22), end: Date.UTC(2024, 5, 11), completion: 75,  gate: 'g2' },
+    { task: '3. Detailed Planning (Gate 3)',    start: Date.UTC(2024, 5, 12), end: Date.UTC(2024, 6, 2),  completion: 40,  gate: 'g3' },
+    { task: '4. Design & Development (Gate 4)', start: Date.UTC(2024, 6, 3),  end: Date.UTC(2024, 6, 23), completion: 20,  gate: 'g4' },
+    { task: '5. Validation & Testing (Gate 5)', start: Date.UTC(2024, 6, 24), end: Date.UTC(2024, 7, 13), completion: 0,   gate: 'g5' },
+    { task: '6. Launch Preparation',            start: Date.UTC(2024, 7, 14), end: Date.UTC(2024, 7, 27), completion: 0,   gate: 'g5' },
+    { task: '7. Project Closure',               start: Date.UTC(2024, 7, 28), end: Date.UTC(2024, 8, 3),  completion: 0,   gate: 'g5' },
+  ];
+
+  // --- Ageing Data ---
+  ageingHeaders: string[] = ["Period", "Issues"];
+  ageingData = [
+    { PERIOD: "0-10",   ISSUES: 15 },
+    { PERIOD: "10-20",  ISSUES: 12 },
+    { PERIOD: "20-30",  ISSUES: 7 },
+    { PERIOD: "30-40",  ISSUES: 5 },
+    { PERIOD: "40-50",  ISSUES: 15 },
+    { PERIOD: "50-100", ISSUES: 10 },
+    { PERIOD: "100+",   ISSUES: 30 },
   ];
 
   // --- Buffer Data ---
@@ -79,12 +99,18 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     { sprint: 4, bufferUsed: 4.8 }, { sprint: 5, bufferUsed: 4.0 }, { sprint: 6, bufferUsed: 6.5 }
   ];
 
-  ngOnInit(): void {}
+  // ─── Lifecycle ────────────────────────────────────────────────────────────
+
+  ngOnInit(): void {
+    this.filteredGanttData = [...this.ganttData];
+  }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
     this.renderChartWithDelay();
   }
+
+  // ─── Dashboard / View control ─────────────────────────────────────────────
 
   setActiveDashboard(key: "resp" | "category" | "ageing" | "rpn") {
     this.activeDashboard = key;
@@ -140,8 +166,7 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
 
   renderPortfolioStatusChart() {
     const containerId = 'portfolioStatusChartContainer';
-    const container = document.getElementById(containerId);
-    if (!container) return;
+    if (!document.getElementById(containerId)) return;
 
     Highcharts.chart(containerId, {
       chart: { type: 'column' },
@@ -161,8 +186,7 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
 
   renderPortfolioSummaryChart() {
     const containerId = 'portfolioSummaryPieChartContainer';
-    const container = document.getElementById(containerId);
-    if (!container) return;
+    if (!document.getElementById(containerId)) return;
 
     const pieDataForGate = this.gatePieDataMap[this.selectedGate] || this.gatePieDataMap['default'];
 
@@ -302,7 +326,7 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     const columnData = this.bufferSprintData.map((d) => ({
       x: d.sprint, y: d.bufferUsed, color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745' 
     }));
-  
+
     Highcharts.chart(containerId, {
       chart: { type: 'column' },
       title: { text: 'Buffer Time vs Sprints Completed' },
@@ -316,7 +340,7 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
       ]
     } as any);
   }
-  
+
   renderBufferPieChart() {
     const containerId = 'bufferPieChartContainer';
     const container = document.getElementById(containerId);
@@ -325,7 +349,7 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     const pieData = this.bufferSprintData.map((d) => ({
       name: 'Sprint ' + d.sprint, y: d.bufferUsed, color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745'
     }));
-  
+
     Highcharts.chart(containerId, {
       chart: { type: 'pie' },
       title: { text: 'Buffer Time Distribution' },

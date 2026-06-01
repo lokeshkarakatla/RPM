@@ -1,3 +1,101 @@
+ <div class="button-container" 
+      style="display: flex; justify-content:end; margin-bottom: 15px; align-items: center; width: 100%; gap: 10px;  ">
+      
+  
+
+      <button mat-raised-button class="top-btn" style="display: flex; align-items: center; background-color: black; color: white; margin-right: 10px;" (click)="toggleFilter()">
+        <mat-icon style="vertical-align: middle; margin-right: 4px;">filter_list</mat-icon>Filter
+      </button>
+
+     
+    </div>
+
+     <div *ngIf="showFilter" style="width:100%; margin-left: 6px;">
+  <div fxFlex="100" class="flex-p w-100" style="margin-top: 10px;">
+    <form>
+      <mat-card class="filter">
+        <mat-card-content>
+          <div class="row col-lg-12 col-sm-12">
+
+            
+ 
+
+            <div class="col-sm-4 row me-2 mt-3">
+              <div class="col-sm-4 newMarginClass"><b>Select Project:</b></div>
+              <div class="col-sm-8">
+                <mat-select class="form-control" placeholder="Select Project">
+                  <mat-option value="Pending">Project 1</mat-option>
+                  <mat-option value="Allocation">Project 2</mat-option>
+                  <mat-option value="Progress">Project 3</mat-option>
+                  <mat-option value="Hold">Project 4</mat-option>
+                  <mat-option value="Cancelled">Project 5</mat-option>
+                  <mat-option value="Completed">Project 6</mat-option>
+                </mat-select>
+              </div>
+            </div>
+
+            <div class="col-sm-4 row me-2 mt-3">
+              <div class="col-sm-4 newMarginClass"><b>Select Stage:</b></div>
+              <div class="col-sm-8">
+                <mat-select class="form-control" placeholder="Select Stage">
+                  <mat-option value="High">Stage 1</mat-option>
+                  <mat-option value="Medium">Stage 2</mat-option>
+                  <mat-option value="Low">Stage 3</mat-option>
+                </mat-select>
+              </div>
+            </div>
+
+            <div class="col-sm-4 row me-2 mt-3">
+              <div class="col-sm-4 newMarginClass"><b>Select Sprint:</b></div>
+              <div class="col-sm-8">
+                <mat-select class="form-control" placeholder="Select Sprint">
+                  <mat-option value="High">Sprint 1</mat-option>
+                  <mat-option value="Medium">Sprint 2</mat-option>
+                  <mat-option value="Low">Sprint 3</mat-option>
+                </mat-select>
+              </div>
+            </div>
+
+            <div class="col-sm-12 pull-right mt-3" style="margin-left: -15px;">
+
+              <a
+                (click)="toggleFilter()"
+                class="pull-right"
+                style="font-size: 25px; cursor: pointer; margin-left: 5px; color: #333;"
+                matTooltip="Close Filter">
+                <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+              </a>
+
+              <button
+                mat-raised-button
+                class="pull-right btn-default margin-right-10"
+                (click)="clearFilter()">
+                <mat-icon>settings_backup_restore</mat-icon>
+                Clear
+              </button>
+
+              <button
+                mat-raised-button
+                style="margin-right: 10px;"
+                color="primary"
+                class="pull-right"
+                (click)="go()">
+                <mat-icon>search</mat-icon>
+                Search
+              </button>
+
+            </div>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>
+
+
+
+
 
 <div class="kanban-board" id="grid-table-container" cdkDropListGroup>
   <div *ngFor="let list of lists" class="kanban-list">

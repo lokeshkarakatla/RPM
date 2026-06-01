@@ -32,12 +32,12 @@ export class GatesComponent implements OnInit, OnDestroy {
   ];
 
   stages = [
-    { name: 'Feasibility', count: 10, route: 'feasibility', status: true, description: 'Evaluate the technical and commercial viability of the project.' },
-    { name: 'Design', count: 10, route: 'design', status: false, description: 'Develop the detailed design for the project.' },
-    { name: 'Prototyping', count: 10, route: 'prototyping', status: false, description: 'Create prototypes to test the design.' },
-    { name: 'Testing', count: 10, route: 'testing', status: false, description: 'Conduct thorough testing of the prototypes.' },
-    { name: 'Launch', count: 10, route: 'launch', status: false, description: 'Deploy the final product to the market.' },
-    { name: 'Implementation', count: 10, route: 'implementation', status: false, description: 'Implement the final solution in the production environment.' },
+    { name: 'Feasibility', count: 10, route: 'feasibility', status: true, description: 'Evaluate the technical and commercial viability of the project.', stageCode:"STG001", gateCode:"GT001" },
+    { name: 'Design', count: 10, route: 'design', status: false, description: 'Develop the detailed design for the project.', stageCode:"STG002", gateCode:"GT002" },
+    { name: 'Prototyping', count: 10, route: 'prototyping', status: false, description: 'Create prototypes to test the design.', stageCode:"STG003", gateCode:"GT003" },
+    { name: 'Testing', count: 10, route: 'testing', status: false, description: 'Conduct thorough testing of the prototypes.', stageCode:"STG004", gateCode:"GT004" },
+    { name: 'Launch', count: 10, route: 'launch', status: false, description: 'Deploy the final product to the market.', stageCode:"STG005", gateCode:"GT005" },
+    { name: 'Implementation', count: 10, route: 'implementation', status: false, description: 'Implement the final solution in the production environment.', stageCode:"STG006", gateCode:"GT006" },
   ];
 
   private subs = new Subscription();

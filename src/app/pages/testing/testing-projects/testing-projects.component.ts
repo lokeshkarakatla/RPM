@@ -208,7 +208,7 @@ export class TestingProjectsComponent implements OnInit {
     freezepanes() {
     let dialogRef = this.dialog.open(FreezepanesDialogComponent, {
       width: 'auto',
-      height: '560px',
+      height: 'auto',
       data: {}
     });
   }

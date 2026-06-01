@@ -181,4 +181,9 @@ export class TestingKanbanComponent implements OnInit {
   trackByCard(index: number, item: Card): number {
     return item.id;
   }
+
+    showFilter: boolean = false;
+      toggleFilter(): void {
+    this.showFilter = !this.showFilter;
+  }
 }

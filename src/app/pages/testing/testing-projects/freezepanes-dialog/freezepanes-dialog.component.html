@@ -1,27 +1,21 @@
 <div class="freeze-dialog">
 
-    <!-- Header -->
-    <div class="dialog-header">
+    <div class="dialog-header-custom">
         <h2 class="dialog-title">Manage Grid Columns</h2>
-        <p class="dialog-subtitle">Select, reorder, or freeze columns to customize your view.</p>
     </div>
 
- 
+    <div class="dialog-body">
+        <p class="dialog-subtitle">Select, reorder, or freeze columns to customize your view.</p>
 
-        <!-- Body -->
-        <div class="dialog-body">
-
-            <!-- LEFT: Available Columns -->
+        <div class="panels-wrapper">
             <div class="panel left-panel">
                 <div class="panel-label">AVAILABLE COLUMNS</div>
 
-                <!-- Search -->
                 <div class="search-box">
                     <mat-icon class="search-icon">search</mat-icon>
                     <input type="text" [(ngModel)]="searchText" placeholder="Search columns..." class="search-input" />
                 </div>
 
-                <!-- Column List -->
                 <div class="column-list">
                     <div class="column-item" *ngFor="let col of filteredColumns" (click)="toggleColumn(col)">
                         <mat-checkbox [checked]="isSelected(col)" (change)="toggleColumn(col)"
@@ -32,7 +26,6 @@
                 </div>
             </div>
 
-            <!-- RIGHT: Selected Columns -->
             <div class="panel right-panel">
                 <div class="panel-header-row">
                     <div class="panel-label">SELECTED ({{ selectedColumns.length }})</div>
@@ -44,7 +37,6 @@
                     </div>
                 </div>
 
-                <!-- Frozen zone indicator -->
                 <div class="frozen-zone" *ngIf="freezeCount > 0">
                     <mat-icon class="freeze-icon">ac_unit</mat-icon>
                     {{ freezeCount }} column{{ freezeCount > 1 ? 's' : '' }} frozen
@@ -53,7 +45,6 @@
                     No columns are frozen
                 </div>
 
-                <!-- Draggable selected list -->
                 <div cdkDropList (cdkDropListDropped)="drop($event)" class="selected-list">
                     <div class="selected-item" *ngFor="let col of selectedColumns; let i = index" cdkDrag
                         [class.is-frozen]="i < freezeCount">
@@ -67,15 +58,16 @@
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>
 
-
-
-    <!-- Footer -->
-    <div class="dialog-footer">
-        <button mat-button class="btn-cancel" (click)="cancel()">Cancel</button>
-        <button mat-raised-button class="btn-apply" (click)="applyChanges()">Apply Changes</button>
+    <div class="dialog-footer p-4">
+        <button mat-button class="btn-cancel" (click)="cancel()" style="background-color: rgb(240, 237, 237); color: rgb(235, 92, 92);">
+            <mat-icon style="margin-top: 7px;">close</mat-icon> Cancel
+        </button>
+        <button mat-raised-button class="btn-apply" (click)="applyChanges()">
+            <mat-icon style="margin-top: 7px;">save</mat-icon> Apply Changes
+        </button>
     </div>
 
 </div>

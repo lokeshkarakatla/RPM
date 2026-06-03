@@ -4,26 +4,22 @@
 </button>
 </div>
 
-
-
-
 <div class="col-lg-12" style="font-size: large; font-weight: 300; display: flex; justify-content: flex-start; align-items: center; margin-left: 10px;">Feasibility</div>
 <div class="dashboard-container">
-  <div class="sidebar" style="margin-top: 50px;">
-
-    <div class="accordion-item" *ngFor="let menu of sidebarMenus; let i = index">
-      <button class="accordion-header" (click)="toggleMenu(i)">
-        <span class="chevron" [class.open]="menu.isOpen">&#8250;</span>
-        {{ menu.name }} ({{ menu.count }})
-      </button>
-      
-      <div class="accordion-content" [class.open]="menu.isOpen">
-  <ul>
-    <li *ngFor="let item of menu.subItems">{{ item }}</li>
-  </ul>
-</div>
+<div class="sidebar" style="margin-top: 50px;">
+  <div class="accordion-item" *ngFor="let menu of sidebarMenus; let i = index">
+    <button class="accordion-header" [class.active-menu]="menu.isOpen" (click)="selectMenu(i)">
+      <span class="chevron" >&#8250;</span>
+      {{ menu.name }} ({{ menu.count }})
+    </button>
+    
+    <div class="accordion-content" [class.open]="menu.isOpen">
+      <ul>
+        <li *ngFor="let item of menu.subItems">{{ item }}</li>
+      </ul>
     </div>
   </div>
+</div>
 
   <div class="main-content">
     
@@ -37,15 +33,11 @@
     </button>
    </div>
 
-    <!-- ADDED: #tableContainer reference -->
     <div class="table-responsive" #tableContainer>
-
-      
       <table>
         <thead>
           <tr>
             <th>Task</th>
-            <!-- <th>Action</th> -->
             <th>Job Code</th>
             <th>Rate</th>
             <th>Planned</th>
@@ -66,7 +58,6 @@
         <tbody>
           <tr *ngFor="let row of paginatedData">
             <td>{{ row.task }}</td>
-            <!-- <td>{{ row.action }}</td> -->
             <td>{{ row.jobCode }}</td>
             <td>{{ row.rate }}</td>
             <td>{{ row.planned }}</td>
@@ -91,26 +82,22 @@
 
     <div class="table-footer">
      <mat-paginator 
-  [length]="totalItems"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  [pageSizeOptions]="[5, 10, 20]"
-  (page)="onPageChange($event)"
-  showFirstLastButtons>
-</mat-paginator>
-
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)"
+      showFirstLastButtons>
+     </mat-paginator>
     </div>
   </div>
-
-   <!-- ADDED: Scroll Buttons Container -->
- 
 </div>
 
-   <div style="display: flex; justify-content: flex-end; margin-bottom: 15px; margin-right: 25px;" id="scoll-buttons">
-      <button class="mine" mat-fab style="margin-right: 10px !important" (click)="scrollLeft()">
-        <mat-icon style="color: #37474f">fast_rewind</mat-icon>
-      </button>
-      <button class="mine" mat-fab (click)="scrollRight()">
-        <mat-icon style="color: #37474f">fast_forward</mat-icon>
-      </button>
-    </div>
+<div style="display: flex; justify-content: flex-end; margin-bottom: 15px; margin-right: 25px;" id="scoll-buttons">
+  <button class="mine" mat-fab style="margin-right: 10px !important" (click)="scrollLeft()">
+    <mat-icon style="color: #37474f">fast_rewind</mat-icon>
+  </button>
+  <button class="mine" mat-fab (click)="scrollRight()">
+    <mat-icon style="color: #37474f">fast_forward</mat-icon>
+  </button>
+</div>

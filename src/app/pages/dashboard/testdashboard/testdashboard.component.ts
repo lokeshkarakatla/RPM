@@ -18,6 +18,12 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
   activeDashboard: "resp" | "category" | "ageing" | "rpn" = "resp";
   currentView: "graph" | "grid" = "graph";
 
+
+  getSprintLabel(num: number): string {
+    if (num === 0) return 'Start'; // or return '0'
+    return 'Sprint ' + String.fromCharCode(64 + num); 
+  }
+
   dashboards = [
     { key: "resp",     title: "Portfolio", color: "#ffeadb" },
     { key: "category", title: "Timeline",  color: "#e2f6d3" },
@@ -347,8 +353,7 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     this.renderBufferBarChart();
     this.renderBufferPieChart();
   }
-
-  renderBufferBarChart() {
+renderBufferBarChart() {
     const containerId = 'bufferBarChartContainer';
     if (!document.getElementById(containerId)) return;
 
@@ -357,19 +362,58 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     for (let i = 0; i <= maxSprint + 1; i++) lineData.push([i, i]);
 
     const columnData = this.bufferSprintData.map(d => ({
-      x: d.sprint, y: d.bufferUsed, color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745',
+      x: d.sprint, 
+      y: d.bufferUsed, 
+      color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745',
+      status: d.bufferUsed > d.sprint ? 'Over Budget' : 'On Track'
     }));
+
+    // Keep a reference to 'this' to use the helper function inside Highcharts formatters
+    const self = this;
 
     Highcharts.chart(containerId, {
       chart: { type: 'column' },
       title: { text: 'Buffer Time vs Sprints Completed' },
       credits: { enabled: false },
-      xAxis: { title: { text: 'Sprints' }, min: 0, tickInterval: 1 },
+      
+      // CUSTOM X-AXIS LABELS
+      xAxis: { 
+        title: { text: '% completion' }, 
+        min: 0, 
+        tickInterval: 1,
+        labels: {
+          formatter: function () {
+            // Converts the x-axis value (1, 2, 3) to "Sprint A", "Sprint B", etc.
+            return self.getSprintLabel(this.value as number);
+          }
+        }
+      },
       yAxis: { title: { text: 'Buffer Time Used' }, min: 0 },
-      tooltip: { shared: true },
+      
+      tooltip: { 
+        shared: false, 
+        useHTML: true, 
+        formatter: function () {
+          // Format the sprint name for the tooltip
+          const sprintName = self.getSprintLabel(this.x as number);
+          
+          if (this.series.name === 'Average Threshold (y=x)') {
+            return `<b>Average Threshold</b><br/>${sprintName}<br/>Expected Buffer: ${this.y}`;
+          }
+
+          return `
+            <div style="font-size: 13px; color: #333;">
+              <b>${sprintName}</b><br/>
+              <span style="color: ${this.point.color}">\u25CF</span> Buffer Used: <b>${this.y}</b><br/>
+              Status: <i>${(this.point as any).options.status}</i>
+            </div>
+          `;
+        }
+      },
+      
       series: [
         { type: 'column', name: 'Buffer Used', data: columnData, dataLabels: { enabled: true, format: '{point.y}' } },
-        { type: 'line', name: 'Average Threshold (y=x)', data: lineData, color: '#007bff', dashStyle: 'Dash', marker: { enabled: false }, enableMouseTracking: false },
+        { type: 'line', name: 'Average Threshold (y=x)', data: lineData, color: '#007bff', dashStyle: 'Dash', marker: { enabled: false }, enableMouseTracking: true }, 
       ],
     } as any);
   }
@@ -378,8 +422,11 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
     const containerId = 'bufferPieChartContainer';
     if (!document.getElementById(containerId)) return;
 
+    // Apply the same naming logic to the pie chart slices for consistency
     const pieData = this.bufferSprintData.map(d => ({
-      name: 'Sprint ' + d.sprint, y: d.bufferUsed, color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745',
+      name: this.getSprintLabel(d.sprint), 
+      y: d.bufferUsed, 
+      color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745',
     }));
 
     Highcharts.chart(containerId, {

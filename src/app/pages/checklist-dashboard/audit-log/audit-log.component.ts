@@ -18,204 +18,37 @@ export class AuditLogComponent implements OnInit {
   public pageSize = 5;
   public currentPage = 0;
   public totalSize = 0;
+  
+  // Top Button States
   isChecked1: string = 'no';
   isChecked2: string = 'yes';
   isChecked3: string = 'yes';
   isChecked4: string = 'yes';
   isChecked5: string = 'yes';
-  isChecked6: string = 'no';
-  isChecked7: string = 'yes';
-  isChecked8: string = 'yes';
-  isChecked9: string = 'yes';
-  isChecked10: string = 'yes';
-  isChecked11: string = 'yes';
-  isChecked12: string = 'yes';
+  
   filterToggle = false;
   gridToggle = false;
-  constructor(public dialog: MatDialog,
-    private routes: Router) { }
+  
+  // --- NEW IMAGE LOGIC VARIABLES ---
+  selectedSidePart: number = 1; // Default to the first button (Right Fender)
+  currentImage: string = '/assets/Right_fender.jpeg'; // Initial Image
 
-  values = [];
-  collapsed1 = false;
-  collapsed2 = false;
-  collapsed3 = false;
-  collapsed4 = false;
-  collapsed5 = false;
-  collapsed6 = false;
-  collapsed7 = false;
-  collapsed8 = false;
-  collapsed9 = false;
-  collapsed10 = false;
+  images = {
+    img1: '/assets/Right_fender.jpeg', // Right Fender
+    img2: '/assets/Right_Front_Door.jpeg', // Right Front Door
+    img3: '/assets/Right_Rear_Door.jpeg', // Right Rear Door
+    img4: '/assets/Rear.jpeg', // Rear
+    img5: '/assets/Left_Rear_Door.jpeg',   // Left Rear Door
+    img6: '/assets/Left_Front_Door.jpeg',  // Left Front Door
+    img7: '/assets/Left_Fender.jpeg', // Left Fender 
+    img8: '/assets/Roof.jpeg',        // Roof 
+    img9: '/assets/Bonnet.jpeg'       // Bonnet
+  };
 
-  isChecked13: string = 'yes';
-  isChecked14: string = 'yes';
-  isChecked15: string = 'yes';
+  constructor(public dialog: MatDialog, private router: Router) { }
 
-  ngOnInit() {
-    if (environment.mode == 1) {
-      this.values = this.values1
-    }
-    else {
-      return;
-    }
-  }
-
-  opendashboard() {
-    window.open('/#/app/checklistdoard/issuelog/request-type');
-  }
-
-  request(item) {
-    this.dialog.open(RequestTypeComponent, {
-      data: item,
-      width: "1100px",
-      height: "auto"
-    })
-  }
-
-  public addchecklistissuelineitem(item) {
-    this.dialog.open(AddChecklistLineitemComponent, {
-      data: item,
-      width: "900px",
-      height: "auto"
-    })
-  }
-
-
-  scrollGrid(side) {
-    var ele = document.getElementById('tableScroll');
-    if (side == 'right')
-      ele.scrollLeft += 210;
-    else
-      ele.scrollLeft -= 210;
-  }
-
-  public addnote(item) {
-    this.dialog.open(AddTableNotesComponent, {
-      data: item,
-      width: "600px",
-      height: "auto"
-    })
-  }
-
-  public imageSource(item) {
-    this.dialog.open(ImageDisplayComponent, {
-      data: item,
-      width: "600px",
-      height: "auto"
-    })
-  }
-
-
-  color1() {
-
-    this.isChecked1 = 'no'
-    this.isChecked2 = 'yes'
-    this.isChecked3 = 'yes'
-    this.isChecked4 = 'yes'
-    this.isChecked5 = 'yes'
-  }
-  color2() {
-    this.isChecked1 = 'yes'
-    this.isChecked2 = 'no'
-    this.isChecked3 = 'yes'
-    this.isChecked4 = 'yes'
-    this.isChecked5 = 'yes'
-  }
-  color3() {
-    this.isChecked1 = 'yes'
-    this.isChecked2 = 'yes'
-    this.isChecked3 = 'no'
-    this.isChecked4 = 'yes'
-    this.isChecked5 = 'yes'
-  }
-  color4() {
-    this.isChecked1 = 'yes'
-    this.isChecked2 = 'yes'
-    this.isChecked3 = 'yes'
-    this.isChecked4 = 'no'
-    this.isChecked5 = 'yes'
-
-  }
-  color5() {
-    this.isChecked1 = 'yes'
-    this.isChecked2 = 'yes'
-    this.isChecked3 = 'yes'
-    this.isChecked4 = 'yes'
-    this.isChecked5 = 'no'
-  }
-  color6() {
-    this.isChecked6 = 'no'
-    this.isChecked7 = 'yes'
-    this.isChecked8 = 'yes'
-    this.isChecked9 = 'yes'
-    this.isChecked10 = 'yes'
-    this.isChecked11 = 'yes'
-    this.isChecked12 = 'yes'
-  }
-  color7() {
-    this.isChecked6 = 'yes'
-    this.isChecked7 = 'no'
-    this.isChecked8 = 'yes'
-    this.isChecked9 = 'yes'
-    this.isChecked10 = 'yes'
-    this.isChecked11 = 'yes'
-    this.isChecked12 = 'yes'
-
-  }
-  color8() {
-    this.isChecked6 = 'yes'
-    this.isChecked7 = 'yes'
-    this.isChecked8 = 'no'
-    this.isChecked9 = 'yes'
-    this.isChecked10 = 'yes'
-    this.isChecked11 = 'yes'
-    this.isChecked12 = 'yes'
-  }
-  color9() {
-    this.isChecked6 = 'yes'
-    this.isChecked7 = 'yes'
-    this.isChecked8 = 'yes'
-    this.isChecked9 = 'no'
-    this.isChecked10 = 'yes'
-    this.isChecked11 = 'yes'
-    this.isChecked12 = 'yes'
-
-  }
-  color10() {
-    this.isChecked6 = 'yes'
-    this.isChecked7 = 'yes'
-    this.isChecked8 = 'yes'
-    this.isChecked9 = 'yes'
-    this.isChecked10 = 'no'
-    this.isChecked11 = 'yes'
-    this.isChecked12 = 'yes'
-
-  }
-  color11() {
-    this.isChecked6 = 'yes'
-    this.isChecked7 = 'yes'
-    this.isChecked8 = 'yes'
-    this.isChecked9 = 'yes'
-    this.isChecked10 = 'yes'
-    this.isChecked11 = 'no'
-    this.isChecked12 = 'yes'
-
-  }
-  color12() {
-    this.isChecked6 = 'yes'
-    this.isChecked7 = 'yes'
-    this.isChecked8 = 'yes'
-    this.isChecked9 = 'yes'
-    this.isChecked10 = 'yes'
-    this.isChecked11 = 'yes'
-    this.isChecked12 = 'no'
-  }
-
-
-
-
-
-
+  values: any[] = [];
+  
   values1 = [
     { sno: '1', module: 'BSO', function: 'Aesthetics', defect: 'Thin Paint', issue: 'Fuel filler hinge area/Fuel flap edge', side: 'LH', face: 'FT', agency: 'GA', demerit: '1' },
     { sno: '2', module: 'Door', function: 'Mutilation', defect: 'Ding', issue: 'RHR BSO Ding', side: 'RH', face: 'RR', agency: 'Paint', demerit: '10' },
@@ -227,19 +60,83 @@ export class AuditLogComponent implements OnInit {
     { sno: '8', module: 'Door', function: 'Aesthetics', defect: 'Damage/ Scratch/ Chip', issue: 'RH rocker panel scratch', side: 'RR', face: 'FT', agency: 'Paint', demerit: '10' },
     { sno: '9', module: 'BSO', function: 'Aesthetics', defect: 'Uneven/Excess Gap', issue: 'Door apeture / BSO color mismatch- G red', side: 'RH', face: 'FT', agency: 'Body', demerit: '20' },
     { sno: '10', module: 'Tailgate', function: 'Mutilation', defect: 'Dent/ Ding / Bump', issue: 'Fuel flap - Reinforcement Panel Spot Exposed', side: 'RR', face: 'RR', agency: 'Paint', demerit: '50' },
-
   ]
 
-   public addchecklistaudit(auditdata) {
-    // this.router.navigate(['./app/prts/intiative']);
-    window.open('/#/app/prts-grid')
-
-    //  let dialogRef = this.dialog.open(AddintiativeComponent, {
-    //    data: auditdata,
-    //    height: 'auto',
-    //    width: '1500px'
-    //  });
-    //  dialogRef.afterClosed().subscribe(data => {
-    //  });
+  ngOnInit() {
+    if (environment.mode == 1) {
+      this.values = this.values1;
+    }
   }
+
+  // --- DYNAMIC IMAGE CHANGER METHOD ---
+  changeImage(partId: number, imgPath: string) {
+    this.selectedSidePart = partId;
+    this.currentImage = imgPath;
+  }
+
+  opendashboard() {
+    window.open('/#/app/checklistdoard/issuelog/request-type');
+  }
+
+  request(item: any) {
+    this.dialog.open(RequestTypeComponent, {
+      data: item,
+      width: "1100px",
+      height: "auto"
+    });
+  }
+
+  public addchecklistissuelineitem(item: any) {
+    this.dialog.open(AddChecklistLineitemComponent, {
+      data: item,
+      width: "900px",
+      height: "auto"
+    });
+  }
+
+  scrollGrid(side: string) {
+    var ele = document.getElementById('tableScroll');
+    if(ele) {
+      if (side == 'right') ele.scrollLeft += 210;
+      else ele.scrollLeft -= 210;
+    }
+  }
+
+  public addnote(item: any) {
+    this.dialog.open(AddTableNotesComponent, {
+      data: item,
+      width: "600px",
+      height: "auto"
+    });
+  }
+
+  public imageSource(item: any) {
+    this.dialog.open(ImageDisplayComponent, {
+      data: item,
+      width: "600px",
+      height: "auto"
+    });
+  }
+
+  public addchecklistaudit(auditdata: any) {
+    window.open('/#/app/prts-grid');
+  }
+
+  // Top Filter Buttons Colors
+  color1() {
+    this.isChecked1 = 'no'; this.isChecked2 = 'yes'; this.isChecked3 = 'yes'; this.isChecked4 = 'yes'; this.isChecked5 = 'yes';
+  }
+  color2() {
+    this.isChecked1 = 'yes'; this.isChecked2 = 'no'; this.isChecked3 = 'yes'; this.isChecked4 = 'yes'; this.isChecked5 = 'yes';
+  }
+  color3() {
+    this.isChecked1 = 'yes'; this.isChecked2 = 'yes'; this.isChecked3 = 'no'; this.isChecked4 = 'yes'; this.isChecked5 = 'yes';
+  }
+  color4() {
+    this.isChecked1 = 'yes'; this.isChecked2 = 'yes'; this.isChecked3 = 'yes'; this.isChecked4 = 'no'; this.isChecked5 = 'yes';
+  }
+  color5() {
+    this.isChecked1 = 'yes'; this.isChecked2 = 'yes'; this.isChecked3 = 'yes'; this.isChecked4 = 'yes'; this.isChecked5 = 'no';
+  }
+
 }

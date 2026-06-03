@@ -1,12 +1,15 @@
 <div class="col-sm-10" style="margin-top: 15px; margin-left: -16px; margin-bottom: 30px;">
     <div class="pills">
         <ul class="nav nav-pills" style="margin-left: 10px;">
-            <li>
-                <a mat-raised-button class="navtabWidth" style="margin-top: 10px; ;color: rgb(7, 7, 7);"
-                    routerLinkActive="active" [routerLink]="['../overview']">
-                    Overview
-                </a>
-            </li>
+           <li *ngIf="!disableOverview">
+    <a mat-raised-button
+       class="navtabWidth"
+       style="margin-top: 10px;"
+       [routerLink]="['../overview']"
+       routerLinkActive="active">
+        Overview
+    </a>
+</li>
             <li>
                 <a mat-raised-button class="navtabWidth"
                     style="margin-top: 10px;background-color: #50636d ;color: rgb(245, 241, 241);"
@@ -14,7 +17,6 @@
                     Checkpoints
                 </a>
             </li>
-
         </ul>
     </div>
 </div>

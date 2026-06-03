@@ -69,10 +69,32 @@ export class ObjSetupModulesCheckpointsComponent implements OnInit {
     window.open('/#/parameter-dashboard/issuelog-par'); 
   }
  
-  addcheckpoint(item) {
-    this.router.navigate(['/app/setup/subjective/overview']);
-
+// Replace your existing addcheckpoint method with this:
+addcheckpoint(item: any) {
+    const selectedImage = item && item.image ? item.image : '/assets/car10x10.png';
+  
+    // Save image and ENABLE the overview tab
+    sessionStorage.setItem('currentCheckpointImage', selectedImage);
+    sessionStorage.setItem('disableOverview', 'false');
+  
+    // CHANGED: Navigate directly to the Checkpoints tab instead of Overview
+    this.router.navigate(['/app/setup/subjective/check']);
   }
+  
+  opencheckpoint(item: any) {
+    const selectedImage = item && item.image ? item.image : '/assets/car10x10.png';
+  
+    // Save image and DISABLE (hide) the overview tab
+    sessionStorage.setItem('currentCheckpointImage', selectedImage);
+    sessionStorage.setItem('disableOverview', 'true');
+  
+    // Navigate directly to the Checkpoints tab
+    this.router.navigate(['/app/setup/subjective/check']);
+  }
+
+
+
+
   saveStatus() {
     // this.alertService.createAlert('Successfully saved.', 1);
   }

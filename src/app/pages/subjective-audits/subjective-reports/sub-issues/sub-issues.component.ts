@@ -120,142 +120,127 @@ export class SubIssuesComponent implements OnInit {
      }
    }
  
-   images = [
-     {
-       title: 'Right Fender', src: '/assets/Right_fender.jpeg',
-       height: '288px', width: '480px', heightPx: 288, widthPx: 480,
-       highlightedCells: [
-         { col: 2, row: 2, color: 'rgba(255, 0, 0, 0.4)', value: '2' },
-         { col: 5, row: 2, color: 'rgba(255, 0, 0, 0.4)', value: '12' },
-         { col: 7, row: 2, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 3, row: 3, color: 'rgba(255, 0, 0, 0.4)', value: '1' },
-         { col: 2, row: 4, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 3, row: 1, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 6, row: 3, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-       ]
-     },
-     {
-       title: 'Right Front Door', src: '/assets/Right_Front_Door.jpeg',
-       height: '350px', width: '350px', heightPx: 350, widthPx: 350,
-       highlightedCells: [
- 
-         { col: 1, row: 1, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 3, row: 1, color: 'rgba(255, 0, 0, 0.4)', value: '6' },
-         { col: 6, row: 2, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 1, row: 5, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 7, row: 5, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 3, row: 6, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 1, row: 7, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 5, row: 7, color: 'rgba(255, 0, 0, 0.4)', value: '12' },
-         { col: 7, row: 7, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-       ]
-     },
-     {
-       title: 'Right Rear Door', src: '/assets/Right_Rear_Door.jpeg',
-       height: '350px', width: '350px', heightPx: 350, widthPx: 350,
-       highlightedCells: [
- 
-         { col: 3, row: 1, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 6, row: 1, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 8, row: 3, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 2, row: 4, color: 'rgba(255, 0, 0, 0.4)', value: '8' },     // red - door handle area
-         { col: 6, row: 4, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 7, row: 4, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 3, row: 6, color: 'rgba(255, 0, 0, 0.4)', value: '7' },
-         { col: 6, row: 7, color: 'rgba(255, 0, 0, 0.4)', value: '12' },
-         { col: 5, row: 8, color: 'rgba(255, 0, 0, 0.4)', value: '6' },
-         { col: 6, row: 8, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-        
- 
-       ]
-     },
-     {
-       title: 'Rear', src: '/assets/Rear.jpeg',
-       height: '350px', width: '400px', heightPx: 350, widthPx: 400,
-       highlightedCells: [
-         { col: 6, row: 4, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 2, row: 5, color: 'rgba(255, 0, 0, 0.4)', value: '9' },
-         { col: 4, row: 6, color: 'rgba(255, 0, 0, 0.4)', value: '2' },
-         { col: 6, row: 6, color: 'rgba(255, 0, 0, 0.4)', value: '7' },
-         { col: 8, row: 5, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 2, row: 6, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
- 
-       ]
-     },
-     {
-       title: 'Left Rear Door', src: '/assets/Left_Rear_Door.jpeg',
-       height: '350px', width: '350px', heightPx: 350, widthPx: 350,
-       highlightedCells: [
- 
- 
-         { col: 3, row: 1, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 6, row: 1, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 2, row: 4, color: 'rgba(255, 0, 0, 0.4)', value: '8' },
-         { col: 6, row: 4, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 7, row: 4, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 3, row: 5, color: 'rgba(0, 200, 0, 0.4)', value: '9' },
-         { col: 3, row: 6, color: 'rgba(255, 0, 0, 0.4)', value: '7' },
-         { col: 6, row: 7, color: 'rgba(255, 0, 0, 0.4)', value: '12' },
-         { col: 5, row: 8, color: 'rgba(255, 0, 0, 0.4)', value: '6' },
- 
- 
-       ]
-     },
-     {
-       title: 'Left Front Door', src: '/assets/Left_Front_Door.jpeg',
-       height: '350px', width: '350px', heightPx: 350, widthPx: 350,
-       highlightedCells: [
- 
-        
-         { col: 6, row: 1, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 8, row: 1, color: 'rgba(255, 0, 0, 0.4)', value: '1' },
-         { col: 7, row: 5, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 3, row: 6, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 4, row: 7, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 5, row: 7, color: 'rgba(255, 0, 0, 0.4)', value: '5' },
-         { col: 6, row: 8, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 7, row: 7, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-        
-         
-       ]
-     },
-     {
-       title: 'Left Fender', src: '/assets/Left_Fender.jpeg',
-       height: '288px', width: '480px', heightPx: 288, widthPx: 480,
-       highlightedCells: [
-         { col: 11, row: 2, color: 'rgba(255, 0, 0, 0.4)', value: '2' },
-         { col: 8, row: 2, color: 'rgba(255, 0, 0, 0.4)', value: '12' },
-         { col: 6, row: 2, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 10, row: 3, color: 'rgba(255, 0, 0, 0.4)', value: '1' },
-         { col: 7, row: 3, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 11, row: 4, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 5, row: 3, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 9, row: 1, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
- 
-       ]
-     },
-     {
-       title: 'Roof', src: '/assets/Roof.jpeg',
-       height: '290px', width: '500px', heightPx: 290, widthPx: 500,
-       highlightedCells: [
-         { col: 5, row: 4, color: 'rgba(255, 0, 0, 0.4)', value: '2' },
-         { col: 9, row: 4, color: 'rgba(255, 0, 0, 0.4)', value: '7' },
-         { col: 10, row: 5, color: 'rgba(255, 0, 0, 0.4)', value: '3' },
-         { col: 11, row: 2, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 6, row: 3, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 6, row: 6, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-       ]
-     },
-     {
-       title: 'Bonnet', src: '/assets/Bonnet.jpeg',
-       height: '320px', width: '450px', heightPx: 320, widthPx: 450,
-       highlightedCells: [
-         { col: 7, row: 4, color: 'rgba(255, 0, 0, 0.4)', value: '1' },
-         { col: 4, row: 5, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 9, row: 5, color: 'rgba(0, 200, 0, 0.4)', value: '12' },
-         { col: 10, row: 4, color: 'rgba(255, 0, 0, 0.4)', value: '4' },
-       ]
-     }
-   ];
-
+images = [
+  {
+    title: 'Right Fender', src: '/assets/Right_fender.jpeg',
+    height: '288px', width: '480px', heightPx: 288, widthPx: 480,
+    highlightedCells: [
+      { col: 2, row: 2, color: 'rgba(255, 205, 205, 0.64)', value: '2' },
+      { col: 5, row: 2, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+      { col: 7, row: 2, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 3, row: 3, color: 'rgba(255, 205, 205, 0.64)', value: '1' },
+      { col: 2, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 3, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 6, row: 3, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+    ]
+  },
+  {
+    title: 'Right Front Door', src: '/assets/Right_Front_Door.jpeg',
+    height: '350px', width: '350px', heightPx: 350, widthPx: 350,
+    highlightedCells: [
+      { col: 1, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 3, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '6' },
+      { col: 6, row: 2, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 1, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 7, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 3, row: 6, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 1, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 5, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+      { col: 7, row: 7, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+    ]
+  },
+  {
+    title: 'Right Rear Door', src: '/assets/Right_Rear_Door.jpeg',
+    height: '350px', width: '350px', heightPx: 350, widthPx: 350,
+    highlightedCells: [
+      { col: 3, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 6, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 8, row: 3, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 2, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '8' },     // red - door handle area
+      { col: 6, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 7, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 3, row: 6, color: 'rgba(255, 205, 205, 0.64)', value: '7' },
+      { col: 6, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+      { col: 5, row: 8, color: 'rgba(255, 205, 205, 0.64)', value: '6' },
+      { col: 6, row: 8, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+    ]
+  },
+  {
+    title: 'Rear', src: '/assets/Rear.jpeg',
+    height: '350px', width: '400px', heightPx: 350, widthPx: 400,
+    highlightedCells: [
+      { col: 6, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 2, row: 5, color: 'rgba(255, 205, 205, 0.64)', value: '9' },
+      { col: 4, row: 6, color: 'rgba(255, 205, 205, 0.64)', value: '2' },
+      { col: 6, row: 6, color: 'rgba(255, 205, 205, 0.64)', value: '7' },
+      { col: 8, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 2, row: 6, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+    ]
+  },
+  {
+    title: 'Left Rear Door', src: '/assets/Left_Rear_Door.jpeg',
+    height: '350px', width: '350px', heightPx: 350, widthPx: 350,
+    highlightedCells: [
+      { col: 3, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 6, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 2, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '8' },
+      { col: 6, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 7, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 3, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '9' },
+      { col: 3, row: 6, color: 'rgba(255, 205, 205, 0.64)', value: '7' },
+      { col: 6, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+      { col: 5, row: 8, color: 'rgba(255, 205, 205, 0.64)', value: '6' },
+    ]
+  },
+  {
+    title: 'Left Front Door', src: '/assets/Left_Front_Door.jpeg',
+    height: '350px', width: '350px', heightPx: 350, widthPx: 350,
+    highlightedCells: [
+      { col: 6, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 8, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '1' },
+      { col: 7, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 3, row: 6, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 4, row: 7, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 5, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '5' },
+      { col: 6, row: 8, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 7, row: 7, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+    ]
+  },
+  {
+    title: 'Left Fender', src: '/assets/Left_Fender.jpeg',
+    height: '288px', width: '480px', heightPx: 288, widthPx: 480,
+    highlightedCells: [
+      { col: 11, row: 2, color: 'rgba(255, 205, 205, 0.64)', value: '2' },
+      { col: 8, row: 2, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+      { col: 6, row: 2, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 10, row: 3, color: 'rgba(255, 205, 205, 0.64)', value: '1' },
+      { col: 7, row: 3, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 11, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 5, row: 3, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 9, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+    ]
+  },
+  {
+    title: 'Roof', src: '/assets/Roof.jpeg',
+    height: '290px', width: '500px', heightPx: 290, widthPx: 500,
+    highlightedCells: [
+      { col: 5, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '2' },
+      { col: 9, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '7' },
+      { col: 10, row: 5, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+      { col: 11, row: 2, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 6, row: 3, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 6, row: 6, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+    ]
+  },
+  {
+    title: 'Bonnet', src: '/assets/Bonnet.jpeg',
+    height: '320px', width: '450px', heightPx: 320, widthPx: 450,
+    highlightedCells: [
+      { col: 7, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '1' },
+      { col: 4, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 9, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+      { col: 10, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '4' },
+    ]
+  }
+];
 }

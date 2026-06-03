@@ -60,7 +60,7 @@
           <td>{{ item.spec }}</td>
           <td class="text-center">{{ item.min }}</td>
           <td class="text-center">{{ item.max }}</td>
-          <td class="text-center text-link" style="color: blue; cursor: pointer;"> <a routerLink="/app/inner-screens/parts-audit-details">{{ item.actionLink }}</a> </td>
+          <td class="text-center text-link" style="color: blue; cursor: pointer;">  <a [routerLink]="['/app','sqm','parts-inner-screen','parts-audit-details']">{{ item.actionLink }}</a> </td>
           <td>{{ item.special }}</td>
           <td>{{ item.method }}</td>
           <td class="text-center">{{ item.s1 | number:'1.1-1' }}</td>

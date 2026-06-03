@@ -34,8 +34,7 @@ import { ImgClickPopComponent } from './checkpoint-master/checkpoint-check/img-c
 
 
 export const routes: Routes = [
-  // { path: '', redirectTo: 'checkpoint-master', pathMatch: 'full' },
-  { path: '', redirectTo: 'check', pathMatch: 'full' },
+  { path: '', redirectTo: 'checkpoint-master', pathMatch: 'full' },
   // { path: 'category-master', component: CategoryMasterComponent, data: { breadcrumb: 'Category Master', description: 'Categories for objective audits can be setup and defined here.' }},
   { path: 'checkpoint-master', component: CheckpointMasterComponent, data: { breadcrumb: 'Checkpoint Master', description: 'Features for each category for Subjective audits can be setup and defined here.' }},
   { path: 'measurement-master', component: MeasurementMasterComponent, data: { breadcrumb: 'Measurement Master', description: 'Measured parameters along with USL and LSL values are setup here.' }},

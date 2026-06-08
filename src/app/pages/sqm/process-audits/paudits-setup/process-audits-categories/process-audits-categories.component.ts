@@ -14,11 +14,12 @@ export class ProcessAuditsCategoriesComponent implements OnInit {
   selectedStatus: string = '';
 
   tableData = [
-    { name: 'Category 1', status: 'Active' },
-    { name: 'Category 2', status: 'Active' },
-    { name: 'Category 3', status: 'Active' },
-    { name: 'Category 4', status: 'Active' },
-    { name: 'Category 5', status: 'Active' }
+    { name: 'Quality Management System', status: 'Active', code : 'QMS' },
+    { name: 'Material and Sub-Supplier Management ', status: 'Active', code : 'M M' },
+    { name: 'Production Process Control', status: 'Active', code : 'PPC' },
+    { name: 'Preventive Maintenance', status: 'Active', code : 'PM' },
+    { name: 'capa ', status: 'Active', code : 'CAPA' },
+       { name: ' housekeeping ', status: 'Active', code : '5S' }
   ];
  
 
@@ -50,7 +51,7 @@ export class ProcessAuditsCategoriesComponent implements OnInit {
   dialogRef.afterClosed().subscribe((result: { name: string; status: string; }) => {
     if (result) {
       // result = { name: '...', status: '...' }
-      this.tableData.push(result);  // or call your API here
+      // this.tableData.push(result);  // or call your API here
     }
   });
 }

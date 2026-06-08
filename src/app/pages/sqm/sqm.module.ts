@@ -61,6 +61,8 @@ const routes: Routes = [
         loadChildren: () => import('./parts-inner-screen/parts-inner-screen.module').then(m => m.PartsInnerScreen),
         data: { breadcrumb: 'Parts Audit' ,hideBreadcrumb: true} 
     }, 
+
+    
 ]
 
 @NgModule({

@@ -42,7 +42,7 @@
           <th class="text-center">Min</th>
           <th class="text-center">Max</th>
           <th class="text-center">Action</th>
-          <th>Special</th>
+          <!-- <th>Special</th> -->
           <th>Method</th>
           <th class="text-center">S1</th>
           <th class="text-center">S2</th>
@@ -61,7 +61,7 @@
           <td class="text-center">{{ item.min }}</td>
           <td class="text-center">{{ item.max }}</td>
           <td class="text-center text-link" style="color: blue; cursor: pointer;">  <a [routerLink]="['/app','sqm','parts-inner-screen','parts-audit-details']">{{ item.actionLink }}</a> </td>
-          <td>{{ item.special }}</td>
+          <!-- <td>{{ item.special }}</td> -->
           <td>{{ item.method }}</td>
           <td class="text-center">{{ item.s1 | number:'1.1-1' }}</td>
           <td class="text-center">{{ item.s2 | number:'1.1-1' }}</td>
@@ -74,9 +74,8 @@
           </td>
 
           <td class="text-center">
-            <mat-icon *ngIf="item.okay" style="color: green; font-size: 20px;">done</mat-icon>
-            <mat-icon *ngIf="!item.okay" style="color: red; font-size: 20px;">close</mat-icon>
-          </td>
+  <mat-checkbox [checked]="item.okay"></mat-checkbox>
+</td>
 
           <td class="text-center manage-icons">
             <mat-icon class="edit-icon" matTooltip="Edit"

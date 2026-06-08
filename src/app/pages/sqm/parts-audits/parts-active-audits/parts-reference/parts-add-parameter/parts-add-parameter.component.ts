@@ -17,4 +17,10 @@ export class PartsAddParameterComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  addStep = 1;
+
+   changeAddStep(value: any) {
+    this.addStep = value;
+  }
+
 }

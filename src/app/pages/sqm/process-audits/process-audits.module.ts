@@ -37,9 +37,9 @@ import { PauditsActionsComponent } from './paudits-actions/paudits-actions.compo
 import { ActiveauditsReferenceComponent } from './paudits-active-audits/activeaudits-reference/activeaudits-reference.component';
 import { PauditsAlertsDetailsComponent } from './paudits-alerts/paudits-alerts-details/paudits-alerts-details.component';
 import { ProcessAuditsCategoriesComponent } from './paudits-setup/process-audits-categories/process-audits-categories.component';
-import { CommodityMasterComponent } from './paudits-setup/commodity-master/commodity-master.component';
+// import { CommodityMasterComponent } from './paudits-setup/commodity-master/commodity-master.component';
 import { AddProcessCategoryPopComponent } from './paudits-setup/process-audits-categories/add-process-category-pop/add-process-category-pop.component';
-import { AddCommodityPopComponent } from './paudits-setup/commodity-master/add-commodity-pop/add-commodity-pop.component';
+// import { AddCommodityPopComponent } from './paudits-setup/commodity-master/add-commodity-pop/add-commodity-pop.component';
 import { ActionDescRemarksComponent } from './paudits-actions/action-desc-remarks/action-desc-remarks.component';
 import { ProcessActionsGridComponent } from './paudits-actions/process-actions-grid/process-actions-grid.component';
 import { ProcessActionsEditComponent } from './paudits-actions/process-actions-edit/process-actions-edit.component';
@@ -66,7 +66,11 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'process-cat', pathMatch: 'full' },
           { path: 'process-cat', component: ProcessAuditsCategoriesComponent },
-          { path: 'commodity', component: CommodityMasterComponent }
+          // 2. CHANGE THIS line to lazy load
+          { 
+             path: 'commodity', 
+             loadChildren: () => import('./paudits-setup/commodity-master/commodity-master.module').then(m => m.CommodityMasterModule) 
+          }
         ]
       },
       { path: 'alerts', component: PauditsAlertsComponent },
@@ -93,9 +97,9 @@ const routes: Routes = [
     ActiveauditsReferenceComponent,
     PauditsAlertsDetailsComponent,
     ProcessAuditsCategoriesComponent,
-    CommodityMasterComponent,
+    // CommodityMasterComponent,
     AddProcessCategoryPopComponent,
-    AddCommodityPopComponent,
+    // AddCommodityPopComponent,
     PauditsNewAuditComponent,
     ActionDescRemarksComponent,
     ProcessActionsGridComponent,

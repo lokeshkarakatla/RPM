@@ -37,19 +37,147 @@ export class SubSetupModuleMasterComponent implements OnInit {
     }
   }
 
-  values1 = [
-    { section: '2', Audit: 'Product Quality Audit', modulename: "Rigth Fender", status: true,audittype : '4/9', image: "/assets/Right_fender.jpeg" },
-    { section: '4', Audit: 'Product Quality Audit', modulename: "Right Front Door",audittype : '5/9', image: "/assets/Right_Front_Door.jpeg" },
-    { section: '3', Audit: 'Product Quality Audit', modulename: "Right Rear Door", status: true,audittype : '5/9', image: "/assets/Right_Rear_Door.jpeg" },
-    { section: '1', Audit: 'Product Quality Audit', modulename: "Rear", status: true,audittype : '4/9', image: "/assets/Rear.jpeg" },
-    { section: '2', Audit: 'Product Quality Audit', modulename: "Left Rear Door",audittype : '6/9', image: "/assets/Left_Rear_Door.jpeg" },
-     { section: '4', Audit: 'Product Quality Audit', modulename: "Left Front Door",audittype : '5/9', image: "/assets/Left_Front_Door.jpeg" },
-    { section: '3', Audit: 'Product Quality Audit', modulename: "Left Fender  ", status: true,audittype : '5/9', image: "/assets/Left_Fender.jpeg" },
-    { section: '1', Audit: 'Product Quality Audit', modulename: "Roof", status: true ,audittype : '4/9', image: "/assets/Roof.jpeg"},
-    { section: '2', Audit: 'Product Quality Audit', modulename: "    Bonnet",audittype : '6/9', image: "/assets/Bonnet.jpeg" }, 
-
-
-  ]
+values1 = [
+    { 
+      section: '2', Audit: 'Product Quality Audit', modulename: "Right Fender", status: true, audittype: '4/9', 
+      image: {
+        title: 'Right Fender', src: '/assets/Swift/Right_Fender.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 2, row: 2, color: 'rgba(255, 205, 205, 0.64)', value: '2' },
+          { col: 5, row: 2, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+          { col: 7, row: 2, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 3, row: 3, color: 'rgba(255, 205, 205, 0.64)', value: '1' },
+          { col: 2, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 3, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 6, row: 3, color: 'rgba(127, 255, 127, 0.62)', value: '12' }
+        ]
+      }
+    },
+    { 
+      section: '4', Audit: 'Product Quality Audit', modulename: "Right Front Door", audittype: '5/9', 
+      image: {
+        title: 'Right Front Door', src: '/assets/Swift/Right_Front_Door.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 1, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 3, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '6' },
+          { col: 6, row: 2, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 1, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 7, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 3, row: 6, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 1, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 5, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+          { col: 7, row: 7, color: 'rgba(127, 255, 127, 0.62)', value: '12' }
+        ]
+      }
+    },
+    { 
+      section: '3', Audit: 'Product Quality Audit', modulename: "Right Rear Door", status: true, audittype: '5/9', 
+      image: {
+        title: 'Right Rear Door', src: '/assets/Swift/Right_Rear_Door.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 3, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 6, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 8, row: 3, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 2, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '8' }, 
+          { col: 6, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 7, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 3, row: 6, color: 'rgba(255, 205, 205, 0.64)', value: '7' },
+          { col: 6, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+          { col: 5, row: 8, color: 'rgba(255, 205, 205, 0.64)', value: '6' },
+          { col: 6, row: 8, color: 'rgba(127, 255, 127, 0.62)', value: '12' }
+        ]
+      }
+    },
+    { 
+      section: '1', Audit: 'Product Quality Audit', modulename: "Rear", status: true, audittype: '4/9', 
+      image: {
+        title: 'Rear', src: '/assets/Swift/Back.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 6, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 2, row: 5, color: 'rgba(255, 205, 205, 0.64)', value: '9' },
+          { col: 4, row: 6, color: 'rgba(255, 205, 205, 0.64)', value: '2' },
+          { col: 6, row: 6, color: 'rgba(255, 205, 205, 0.64)', value: '7' },
+          { col: 8, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 2, row: 6, color: 'rgba(127, 255, 127, 0.62)', value: '12' }
+        ]
+      }
+    },
+    { 
+      section: '2', Audit: 'Product Quality Audit', modulename: "Left Rear Door", audittype: '6/9', 
+      image: {
+        title: 'Left Rear Door', src: '/assets/Swift/Left_Rear_Door.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 3, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 6, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 2, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '8' },
+          { col: 6, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 7, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 3, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '9' },
+          { col: 3, row: 6, color: 'rgba(255, 205, 205, 0.64)', value: '7' },
+          { col: 6, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+          { col: 5, row: 8, color: 'rgba(255, 205, 205, 0.64)', value: '6' }
+        ]
+      }
+    },
+    { 
+      section: '4', Audit: 'Product Quality Audit', modulename: "Left Front Door", audittype: '5/9', 
+      image: {
+        title: 'Left Front Door', src: '/assets/Swift/Left_Front_Door.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 6, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 8, row: 1, color: 'rgba(255, 205, 205, 0.64)', value: '1' },
+          { col: 7, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 3, row: 6, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 4, row: 7, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 5, row: 7, color: 'rgba(255, 205, 205, 0.64)', value: '5' },
+          { col: 6, row: 8, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 7, row: 7, color: 'rgba(127, 255, 127, 0.62)', value: '12' }
+        ]
+      }
+    },
+    { 
+      section: '3', Audit: 'Product Quality Audit', modulename: "Left Fender", status: true, audittype: '5/9', 
+      image: {
+        title: 'Left Fender', src: '/assets/Swift/Left_Fender.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 11, row: 2, color: 'rgba(255, 205, 205, 0.64)', value: '2' },
+          { col: 8, row: 2, color: 'rgba(255, 205, 205, 0.64)', value: '12' },
+          { col: 6, row: 2, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 10, row: 3, color: 'rgba(255, 205, 205, 0.64)', value: '1' },
+          { col: 7, row: 3, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 11, row: 4, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 5, row: 3, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 9, row: 1, color: 'rgba(127, 255, 127, 0.62)', value: '12' }
+        ]
+      }
+    },
+    { 
+      section: '1', Audit: 'Product Quality Audit', modulename: "Roof", status: true , audittype: '4/9', 
+      image: {
+        title: 'Roof', src: '/assets/Swift/Roof.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 5, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '2' },
+          { col: 9, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '7' },
+          { col: 10, row: 5, color: 'rgba(255, 205, 205, 0.64)', value: '3' },
+          { col: 11, row: 2, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 6, row: 3, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 6, row: 6, color: 'rgba(127, 255, 127, 0.62)', value: '12' }
+        ]
+      }
+    },
+    { 
+      section: '2', Audit: 'Product Quality Audit', modulename: "Bonnet", audittype: '6/9', 
+      image: {
+        title: 'Bonnet', src: '/assets/Swift/Bonnet.png', height: '310px', width: '480px',
+        highlightedCells: [
+          { col: 7, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '1' },
+          { col: 4, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 9, row: 5, color: 'rgba(127, 255, 127, 0.62)', value: '12' },
+          { col: 10, row: 4, color: 'rgba(255, 205, 205, 0.64)', value: '4' }
+        ]
+      }
+    }
+  ];
   statusOptions = [
     { value: 1, name: 'Prepared Quote', colorCode: '#00ff0040' },
     { value: 2, name: 'PM Quote Review', colorCode: '#C0C0C0' },

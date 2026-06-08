@@ -24,14 +24,19 @@ export class PartsAuditReferenceComponent implements OnInit {
     this.location.back();
   }
     // Top Categories
-    categories = [
-      'Dimensional Checks (4)',
-      'Surface Finish (5)',
-      'Performance (3)',
-      'Metallurgical (5)',
-      'Mechanical (4)'
-    ];
-    selectedCategory = 'Dimensional Checks (4)';
+categories = [
+    { name: ' QMS (4)', tooltip: 'Quality Management System  ' },
+    { name: 'MM (5)', tooltip: 'Material Management ' },
+    { name: 'PPC(3)', tooltip: 'Production Planning & Control ' },
+    { name: 'IME (5)', tooltip: 'Inspection & Measurement Engineering ' },
+    { name: 'CAPA(4)', tooltip: 'Corrective and Preventive Actions' }
+  ];
+  selectedCategory = ' QMS (4)'; // Keeps track of the active name string
+
+  // Set active category tab
+  selectCategory(catName: string) {
+    this.selectedCategory = catName;
+  }
   
     // Pagination
     pageSize = 4;
@@ -69,9 +74,9 @@ export class PartsAuditReferenceComponent implements OnInit {
     }
   
     // Set active category tab
-    selectCategory(cat: string) {
-      this.selectedCategory = cat;
-    }
+    // selectCategory(cat: string) {
+    //   this.selectedCategory = cat;
+    // }
   
     // Pagination Logic
     onPageChange(event: PageEvent): void {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddCommodityPopComponent } from './add-commodity-pop/add-commodity-pop.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-commodity-master',
@@ -14,16 +15,16 @@ export class CommodityMasterComponent implements OnInit {
   selectedStatus: string = '';
 
   tableData = [
-    { name: 'Casting', status: 'Active' },
-    { name: 'Forging', status: 'Inactive' },
-    { name: 'Machining', status: 'Active' },
-    { name: 'Fasteners', status: 'Inactive' },
-    { name: 'Non-Metallic', status: 'Active' },
-    { name: 'Sheet Metal', status: 'Active' }
+    { name: 'Casting', status: 'Active',code : 12 },
+    { name: 'Forging', status: 'Inactive',code : 13 },
+    { name: 'Machining', status: 'Active',code : 14 },
+    { name: 'Fasteners', status: 'Inactive',code : 15 },
+    { name: 'Non-Metallic', status: 'Active',code : 16 },
+    { name: 'Sheet Metal', status: 'Active',code : 17 }
   ];
  
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,  public router: Router) { }
 
   ngOnInit(): void {}
 
@@ -50,8 +51,14 @@ export class CommodityMasterComponent implements OnInit {
      dialogRef.afterClosed().subscribe((result: { name: string; status: string; }) => {
        if (result) {
          // result = { name: '...', status: '...' }
-         this.tableData.push(result);  // or call your API here
+        //  this.tableData.push(result);  // or call your API here
        }
      });
   }
+
+  isMasterRoute(): boolean {
+  // Checks if the URL ends exactly with '/commodity' (or whatever your base path is)
+  // Adjust the string to match your exact route path if needed
+  return this.router.url.endsWith('/commodity'); 
+}
 }

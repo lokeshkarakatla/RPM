@@ -8,8 +8,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ObjImageDialogComponent implements OnInit {
 
-  Image: any;
+  ImageObj: any; // Holds the structured object passed from parent
+  uploadedImageSrc: string | ArrayBuffer | null = null;
   file: File | null = null;
+
+  // Set the 11x8 grid layout
+  gridRows = Array(8).fill(0);
+  gridCols = Array(11).fill(0);
+  
+  // Track dynamically clicked cells using a "row-col" string key
+  selectedCells: string[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -17,20 +25,43 @@ export class ObjImageDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.Image = this.data?.image;
+    this.ImageObj = this.data?.image;
   }
 
   close() {
     this.dialogRef.close();
   }
 
+  // Pre-loaded highlighted cells logic
+  getCellData(rowIndex: number, colIndex: number) {
+    if (!this.ImageObj || !this.ImageObj.highlightedCells) return null;
+    return this.ImageObj.highlightedCells.find(
+      (cell: any) => cell.row === rowIndex && cell.col === colIndex
+    );
+  }
+
+  // Interactive selection logic
+  selectCell(rowIndex: number, colIndex: number) {
+    const key = `${rowIndex}-${colIndex}`;
+    if (this.selectedCells.includes(key)) {
+      this.selectedCells = this.selectedCells.filter(x => x !== key);
+    } else {
+      this.selectedCells.push(key);
+    }
+  }
+
+  // Check if cell was clicked interactively
+  isCellSelected(rowIndex: number, colIndex: number): boolean {
+    return this.selectedCells.includes(`${rowIndex}-${colIndex}`);
+  }
+
+  // File Drag & Drop Logic
   onDragOver(event: DragEvent) {
     event.preventDefault();
   }
 
   onDrop(event: DragEvent) {
     event.preventDefault();
-
     if (event.dataTransfer?.files.length) {
       this.handleFile(event.dataTransfer.files[0]);
     }
@@ -38,7 +69,6 @@ export class ObjImageDialogComponent implements OnInit {
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-
     if (input.files?.length) {
       this.handleFile(input.files[0]);
     }
@@ -46,11 +76,10 @@ export class ObjImageDialogComponent implements OnInit {
 
   handleFile(file: File) {
     this.file = file;
-
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.Image = reader.result;
+      this.uploadedImageSrc = reader.result;
     };
 
     reader.readAsDataURL(file);
@@ -61,26 +90,6 @@ export class ObjImageDialogComponent implements OnInit {
       alert('Please upload a file before saving.');
       return;
     }
-
     console.log('Saving file:', this.file.name);
   }
-
-
-gridSize = 10;
-
-gridCells = Array(this.gridSize * this.gridSize).fill(0);
-
-selectedCells: number[] = [];
-
-selectCell(index: number) {
-
-  if (this.selectedCells.includes(index)) {
-    this.selectedCells =
-      this.selectedCells.filter(x => x !== index);
-  } else {
-    this.selectedCells.push(index);
-  }
-}
-
-
 }

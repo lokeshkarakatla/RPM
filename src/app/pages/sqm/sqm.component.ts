@@ -60,19 +60,32 @@ export class SqmComponent implements OnInit {
     this.dialog.open(PauditsHelpDeskComponent, { width: '600px', height: '350px' });
   }
 
+// Inside SqmComponent class
+
 updateLayout(url: string) {
   this.hideSidebar = url.includes('reference') || url.includes('details');
 
-  const newTab = url.includes('/process') ? 'process'
-               : url.includes('/parts')   ? 'parts'
-               : 'sqmd';
-
-  // Only auto-set isSidenavOpen when the TAB changes, not on every nav within same tab
-  if (newTab !== this.activeTab) {
-    this.isSidenavOpen = newTab !== 'sqmd' && !this.hideSidebar;
+  let newTab = 'sqmd';
+  if (url.includes('/setup')) {
+    newTab = 'setup';
+  } else if (url.includes('/process')) {
+    newTab = 'process';
+  } else if (url.includes('/parts')) {
+    newTab = 'parts';
   }
 
-  // Always hide if sidebar is forcibly hidden
+  // Auto-set isSidenavOpen when the TAB changes
+  if (newTab !== this.activeTab) {
+    if (newTab === 'sqmd' || newTab === 'setup') {
+      // Hide sidenav for Dashboard AND Setup
+      this.isSidenavOpen = false;
+    } else {
+      // Show sidenav for Process and Parts
+      this.isSidenavOpen = !this.hideSidebar;
+    }
+  }
+
+  // Always hide if sidebar is forcibly hidden by inner routes
   if (this.hideSidebar) {
     this.isSidenavOpen = false;
   }
@@ -80,4 +93,6 @@ updateLayout(url: string) {
   this.activeTab = newTab;
   this.cdr.detectChanges();
 }
+
+
 }

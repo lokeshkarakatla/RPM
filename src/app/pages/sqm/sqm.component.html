@@ -93,14 +93,13 @@
 
 <div class="sqm-wrapper">
   <!-- SIDEBAR -->
-  <div
-    class="nav-container"
-    [ngClass]="isSidenavOpen ? 'nav-open' : 'nav-closed'"
-    *ngIf="activeTab !== 'sqmd' && !hideSidebar"
-  >
-    <button (click)="toggleSidenav()" class="toggle-button">
-      <mat-icon>menu</mat-icon>
-    </button>
+<div class="nav-container"
+  [ngClass]="isSidenavOpen ? 'nav-open' : 'nav-closed'"
+  *ngIf="activeTab !== 'sqmd' && activeTab !== 'setup' && !hideSidebar">
+  
+  <button (click)="toggleSidenav()" class="toggle-button">
+    <mat-icon>menu</mat-icon>
+  </button>
 
     <!-- PROCESS NAV -->
     <nav class="nav-links" *ngIf="activeTab === 'process'">
@@ -138,14 +137,14 @@
             <span *ngIf="isSidenavOpen">Active Audits</span>
           </a>
         </li>
-        <li routerLinkActive="active" routerLink="./process/setup">
+        <!-- <li routerLinkActive="active" routerLink="./process/setup">
           <a>
             <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Setup"
               >settings</mat-icon
             >
             <span *ngIf="isSidenavOpen">Setup</span>
           </a>
-        </li>
+        </li> -->
         <li routerLinkActive="active" routerLink="./process/alerts">
           <a>
             <mat-icon
@@ -240,14 +239,14 @@
             <span *ngIf="isSidenavOpen">Active Audits</span>
           </a>
         </li>
-        <li routerLinkActive="active" routerLink="./parts/setup">
+        <!-- <li routerLinkActive="active" routerLink="./parts/setup">
           <a>
             <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Setup"
               >settings</mat-icon
             >
             <span *ngIf="isSidenavOpen">Setup</span>
           </a>
-        </li>
+        </li> -->
         <li routerLinkActive="active" routerLink="./parts/alerts">
           <a>
             <mat-icon
@@ -308,49 +307,52 @@
   </div>
 
   <!-- MAIN CONTENT -->
-  <div
-    class="main-content"
-    [ngClass]="
-      activeTab !== 'sqmd' && !hideSidebar
-        ? isSidenavOpen
-          ? 'content-shrink'
-          : 'content-expanded'
-        : 'content-full'
-    "
-  >
-    <ul class="nav nav-pills" *ngIf="!hideSidebar">
-      <li>
-        <a
-          mat-raised-button
-          class="navtabWidth"
-          routerLink="./sqmd"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Dashboard</a
-        >
-      </li>
-      <li>
-        <a
-          mat-raised-button
-          class="navtabWidth"
-          routerLink="./process"
-          routerLinkActive="active"
-          >Process Audits</a
-        >
-      </li>
-      <li>
-        <a
-          mat-raised-button
-          class="navtabWidth"
-          routerLink="./parts"
-          routerLinkActive="active"
-          >Parts Audits</a
-        >
-      </li>
-    </ul>
+<div class="main-content"
+  [ngClass]="
+    activeTab !== 'sqmd' && activeTab !== 'setup' && !hideSidebar
+      ? isSidenavOpen
+        ? 'content-shrink'
+        : 'content-expanded'
+      : 'content-full'
+  ">
+  
+  <ul class="nav nav-pills" *ngIf="!hideSidebar">
+    <li>
+      <a mat-raised-button class="navtabWidth" routerLink="./sqmd" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+    </li>
+    <li>
+      <a mat-raised-button class="navtabWidth" routerLink="./process" [class.active]="activeTab === 'process'">Process Audits</a>
+    </li>
+    <li>
+      <a mat-raised-button class="navtabWidth" routerLink="./parts" [class.active]="activeTab === 'parts'">Parts Audits</a>
+    </li>
+    <li>
+      <a mat-raised-button class="navtabWidth" routerLink="./process/setup/process-cat" [class.active]="activeTab === 'setup'">Setup</a>
+    </li>
+  </ul>
 
-    <div class="page-content">
-      <router-outlet></router-outlet>
-    </div>
+  <div class="d-flex mb-4 mt-4 gap-4 top-tabs" style="margin-left: 37px" *ngIf="activeTab === 'setup'">
+    <button mat-raised-button class="tab-btn" routerLink="./process/setup/process-cat" routerLinkActive="active-tab">
+      Process Audit Categories
+    </button>
+    <button mat-raised-button class="tab-btn" routerLink="./process/setup/commodity" routerLinkActive="active-tab">
+      Commodity Master
+    </button>
+
+    <button mat-raised-button class="tab-btn" routerLink="./parts/setup/parts-cat" routerLinkActive="active-tab">
+      Parts Audit Categories
+    </button>
+    <button mat-raised-button class="tab-btn" routerLink="./parts/setup/families" routerLinkActive="active-tab">
+      Parts Families
+    </button>
+    <button mat-raised-button class="tab-btn" routerLink="./parts/setup/master" routerLinkActive="active-tab">
+      Parts Master
+    </button>
   </div>
+
+  <div class="page-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 </div>

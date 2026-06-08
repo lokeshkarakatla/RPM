@@ -17,11 +17,21 @@
 <div class="page-container p-3">
 
   <div class="d-flex mb-3 gap-2">
-    <button mat-raised-button *ngFor="let cat of categories" (click)="selectCategory(cat)"
-      [ngClass]="selectedCategory === cat ? 'tab-active' : 'tab-inactive'" class="top-tab-btn">
-      {{ cat }}
-    </button>
-  </div>
+  <button mat-raised-button 
+          *ngFor="let cat of categories" 
+          (click)="selectCategory(cat.name)"
+          [ngClass]="selectedCategory === cat.name ? 'tab-active' : 'tab-inactive'" 
+          class="top-tab-btn"
+          [matTooltip]="cat.tooltip"
+         > <!-- Optional: Forces tooltip to show above the button -->
+    {{ cat.name }}
+  </button>
+</div>
+
+
+
+
+
 
   <div class="d-flex justify-content-end mb-3 gap-2">
     <button mat-raised-button class="btn-black" (click)="opendocpop()">
@@ -42,7 +52,7 @@
           <th class="text-center">Min</th>
           <th class="text-center">Max</th>
           <th class="text-center">Action</th>
-          <th>Special</th>
+          <!-- <th>Special</th> -->
           <th>Method</th>
           <th class="text-center">S1</th>
           <th class="text-center">S2</th>
@@ -61,7 +71,7 @@
           <td class="text-center">{{ item.min }}</td>
           <td class="text-center">{{ item.max }}</td>
           <td class="text-center text-link" style="color: blue; cursor: pointer;" >    <a [routerLink]="['/app','sqm','parts-inner-screen','parts-audit-details']">{{ item.actionLink }}</a></td>
-          <td>{{ item.special }}</td>
+          <!-- <td>{{ item.special }}</td> -->
           <td>{{ item.method }}</td>
           <td class="text-center">{{ item.s1 | number:'1.1-1' }}</td>
           <td class="text-center">{{ item.s2 | number:'1.1-1' }}</td>
@@ -73,10 +83,10 @@
             <mat-icon style="color: blue; font-size: 20px; cursor: pointer;" matTooltip="View Remarks">info</mat-icon>
           </td>
 
-          <td class="text-center">
-            <mat-icon *ngIf="item.okay" style="color: green; font-size: 20px;">done</mat-icon>
-            <mat-icon *ngIf="!item.okay" style="color: red; font-size: 20px;">close</mat-icon>
-          </td>
+         <td class="text-center">
+  <mat-checkbox [checked]="item.okay" >
+  </mat-checkbox>
+</td>
 
           <td class="text-center manage-icons">
             <mat-icon class="edit-icon" matTooltip="Edit"

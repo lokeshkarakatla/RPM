@@ -18,7 +18,6 @@ export class MatchingComponent implements OnInit {
   isChecked7: string = 'yes';
   isChecked8: string = 'yes';
   isChecked9: string = 'yes';
-  // Added states for Roof and Bonnet
   isChecked10: string = 'yes';
   isChecked11: string = 'yes';
 
@@ -26,21 +25,133 @@ export class MatchingComponent implements OnInit {
   gridRows = Array(8).fill(0); 
   gridCols = Array(11).fill(0);
 
-  // Holds the currently displayed image for the HTML binding
-  Image: string = '/assets/Right_fender.jpeg'; 
+  // Updated images array with standardized heights, widths, and swift image paths
+  images = [
+    {
+      title: "Right Fender",
+      src: "/assets/Swift/Right_Fender.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 2, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+        { col: 5, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "12" },
+        { col: 7, row: 2, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 3, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+        { col: 2, row: 4, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 3, row: 1, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 6, row: 3, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+      ],
+    },
+    {
+      title: "Right Front Door",
+      src: "/assets/Swift/Right_Front_Door.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "6" },
+        { col: 6, row: 2, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 7, row: 5, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 3, row: 6, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 5, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "12" },
+        { col: 7, row: 7, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+      ],
+    },
+    {
+      title: "Right Rear Door",
+      src: "/assets/Swift/Right_Rear_Door.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+        { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 8, row: 3, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+        { col: 7, row: 4, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "7" },
+        { col: 6, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "12" },
+        { col: 5, row: 8, color: "rgba(255, 205, 205, 0.64)", value: "6" },
+        { col: 6, row: 8, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+      ],
+    },
+    {
+      title: "Rear",
+      src: "/assets/Swift/Back.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 4, row: 4, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 6, row: 4, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 2, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "9" },
+        { col: 4, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+        { col: 6, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "7" },
+        { col: 8, row: 5, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 2, row: 6, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+      ],
+    },
+    {
+      title: "Left Rear Door",
+      src: "/assets/Swift/Left_Rear_Door.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+        { col: 7, row: 4, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 3, row: 5, color: "rgba(127, 255, 127, 0.62)", value: "9" },
+        { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "7" },
+        { col: 6, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "12" },
+        { col: 5, row: 8, color: "rgba(255, 205, 205, 0.64)", value: "6" },
+      ],
+    },
+    {
+      title: "Left Front Door",
+      src: "/assets/Swift/Left_Front_Door.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 8, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+        { col: 7, row: 5, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 3, row: 6, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 4, row: 7, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 5, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "5" },
+        { col: 7, row: 7, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+      ],
+    },
+    {
+      title: "Left Fender",
+      src: "/assets/Swift/Left_Fender.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 11, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+        { col: 8, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "12" },
+        { col: 6, row: 2, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 10, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+        { col: 7, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+        { col: 9, row: 1, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+      ],
+    },
+    {
+      title: "Roof",
+      src: "/assets/Swift/Roof.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 5, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+        { col: 9, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "7" },
+        { col: 10, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+        { col: 6, row: 3, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 6, row: 6, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+      ],
+    },
+    {
+      title: "Bonnet",
+      src: "/assets/Swift/Bonnet.png",
+      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+      highlightedCells: [
+        { col: 7, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+        { col: 4, row: 5, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 3, row: 2, color: "rgba(127, 255, 127, 0.62)", value: "12" },
+        { col: 3, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "4" },
+      ],
+    },
+  ];
 
-  // Object storing the image paths for each section
-  images = {
-    img1: '/assets/Right_fender.jpeg', // Right Fender
-    img2: '/assets/Right_Front_Door.jpeg', // Right Front Door
-    img3: '/assets/Right_Rear_Door.jpeg', // Right Rear Door
-    img4: '/assets/Rear.jpeg', // Rear
-    img5: '/assets/Left_Rear_Door.jpeg',   // Left Rear Door 
-    img6: '/assets/Left_Front_Door.jpeg',  // Left Front Door 
-    img7: '/assets/Left_Fender.jpeg', // Left Fender 
-    img8: '/assets/Roof.jpeg',        // Roof 
-    img9: '/assets/Bonnet.jpeg'       // Bonnet
-  };
+  // Store the active image object here instead of just a string
+  currentImage: any = this.images[0];
 
   constructor(public dialog: MatDialog) {
     if (environment.mode === 1) {
@@ -50,6 +161,15 @@ export class MatchingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Helper method to retrieve cell specific styles/values
+  getCellData(rowIndex: number, colIndex: number) {
+    if (!this.currentImage || !this.currentImage.highlightedCells) return null;
+    return this.currentImage.highlightedCells.find(
+      (cell: any) => cell.row === rowIndex && cell.col === colIndex
+    );
+  }
+
+  // Specific values for the Matching component
   values = [
     { status: 'Total', value: '75' },
     { status: 'Checks', value: '71' },
@@ -65,7 +185,7 @@ export class MatchingComponent implements OnInit {
     { value: '5.5', row: '8', col: '8', serial: '125', checkpoints: 'Checkpoint-5', measure: 'GAP', lsl: '0.20', usl: '1.2', unit: 'mm' },
   ]
 
-  request(item) {
+  request(item: any) {
     this.dialog.open(AddRequestComponent, {
       data: item,
       width: "1100px",
@@ -73,7 +193,7 @@ export class MatchingComponent implements OnInit {
     })
   }
 
-  imgpop(item) {
+  imgpop(item: any) {
     this.dialog.open(ImgPopComponent, {
       data: item,
       width: "750px",
@@ -94,50 +214,14 @@ export class MatchingComponent implements OnInit {
     this.isChecked11 = 'yes';
   }
 
-  // Tab click methods
-  color3() {
-    this.resetColors();
-    this.isChecked3 = 'no';
-    this.Image = this.images.img1;
-  }
-  color4() {
-    this.resetColors();
-    this.isChecked4 = 'no';
-    this.Image = this.images.img2;
-  }
-  color5() {
-    this.resetColors();
-    this.isChecked5 = 'no';
-    this.Image = this.images.img3;
-  }
-  color6() {
-    this.resetColors();
-    this.isChecked6 = 'no';
-    this.Image = this.images.img4;
-  }
-  color7() {
-    this.resetColors();
-    this.isChecked7 = 'no';
-    this.Image = this.images.img5;
-  }
-  color8() {
-    this.resetColors();
-    this.isChecked8 = 'no';
-    this.Image = this.images.img6;
-  }
-  color9() {
-    this.resetColors();
-    this.isChecked9 = 'no';
-    this.Image = this.images.img7;
-  }
-  color10() {
-    this.resetColors();
-    this.isChecked10 = 'no';
-    this.Image = this.images.img8;
-  }
-  color11() {
-    this.resetColors();
-    this.isChecked11 = 'no';
-    this.Image = this.images.img9;
-  }
+  // Tab click methods updated to set the entire object
+  color3() { this.resetColors(); this.isChecked3 = 'no'; this.currentImage = this.images[0]; }
+  color4() { this.resetColors(); this.isChecked4 = 'no'; this.currentImage = this.images[1]; }
+  color5() { this.resetColors(); this.isChecked5 = 'no'; this.currentImage = this.images[2]; }
+  color6() { this.resetColors(); this.isChecked6 = 'no'; this.currentImage = this.images[3]; }
+  color7() { this.resetColors(); this.isChecked7 = 'no'; this.currentImage = this.images[4]; }
+  color8() { this.resetColors(); this.isChecked8 = 'no'; this.currentImage = this.images[5]; }
+  color9() { this.resetColors(); this.isChecked9 = 'no'; this.currentImage = this.images[6]; }
+  color10() { this.resetColors(); this.isChecked10 = 'no'; this.currentImage = this.images[7]; }
+  color11() { this.resetColors(); this.isChecked11 = 'no'; this.currentImage = this.images[8]; }
 }

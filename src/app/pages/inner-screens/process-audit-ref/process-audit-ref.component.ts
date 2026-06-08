@@ -10,8 +10,8 @@ export class ProcessAuditRefComponent implements OnInit {
 
  
   // Top Categories
-  categories = ['CAT A (4)', 'CAT B (2)', 'CAT C (5)', 'CAT D (4)', 'CAT E (4)'];
-  selectedCategory = 'CAT D (4)';
+  categories = ['QMS (4)', 'MM  (2)', 'PPC  (5)', 'IME  (4)', 'CAPA  (4)'];
+  selectedCategory = 'QMS (4)';
 
   // Process Steps Configuration
   processSteps = [

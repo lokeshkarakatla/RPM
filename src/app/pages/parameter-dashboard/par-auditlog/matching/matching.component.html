@@ -4,6 +4,7 @@
         <mat-icon>save</mat-icon>Submit
     </button>
 </div>
+
 <div class="col-sm-2 mt-3" style="margin-left: -30px;">
     <div class="col-sm-12">
         <div class="row-wrap mb-10">
@@ -56,7 +57,7 @@
                             <li routerLinkActive="active" routerLink="./prtsdashboard">
                                 <a [ngStyle]="{'background-color':isChecked10 == 'yes' ? '#D3D3D3' : '#099FF0' }"
                                     (click)="color10()" mat-raised-button class="navtabWidth" style="margin-top: 10px;">
-                                    Roof (14)
+                                   Roof (14)
                                 </a>
                             </li>
                             <li routerLinkActive="active" routerLink="./prtsdashboard">
@@ -75,16 +76,26 @@
 
 <div class="col-sm-4 col-sm-4 mt-5 mb-5" style="margin-left:30px ;">
     <div class="col-sm-12 col-sm-12">
-        <mat-card style="height:333px ;">
+        <mat-card style="height: 380px; display: flex; align-items: center; justify-content: center;">
             <mat-card-content>
-                <div class="text-center image-grid-container" (click)="imgpop(null)">
+                <div class="text-center image-grid-container" (click)="imgpop(null)"
+                     [style.width]="currentImage.width"
+                     [style.height]="currentImage.height">
                     
-                    <img class="overlay-image" src="{{Image}}" />
+                    <img class="overlay-image" [src]="currentImage.src">
                     
                     <table class="grid-overlay">
                         <tbody>
-                            <tr *ngFor="let r of gridRows">
-                                <td *ngFor="let c of gridCols"></td>
+                            <tr *ngFor="let r of gridRows; let rowIndex = index" 
+                                [style.height.%]="100 / gridRows.length">
+                                
+                                <td *ngFor="let c of gridCols; let colIndex = index"
+                                    [ngStyle]="{'background-color': getCellData(rowIndex + 1, colIndex + 1)?.color}"
+                                    style="text-align: center; vertical-align: middle; color: black; font-weight: bold; font-size: 12px;">
+                                    
+                                    {{ getCellData(rowIndex + 1, colIndex + 1)?.value || '' }}
+                                    
+                                </td>
                             </tr>
                         </tbody>
                     </table>

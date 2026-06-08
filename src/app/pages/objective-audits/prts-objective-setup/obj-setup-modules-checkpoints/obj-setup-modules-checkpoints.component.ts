@@ -55,15 +55,15 @@ export class ObjSetupModulesCheckpointsComponent implements OnInit {
 
 
   values1 = [
-    { audit: '200', module: 'Right Fender', checkpoint: '50', min: '10x10', max: '10', status: true, image: "/assets/Right_fender.jpeg" ,model:'Fortuner',audittype : '4/9' },
-    { audit: '961', module: 'Right Front Door', checkpoint: '35', min: '10x10', max: '10', status: true, image: "/assets/Right_Front_Door.jpeg", model:'Toyota',audittype : '6/9'  },
-    { audit: '10', module: 'Right Rear Door', checkpoint: '45', min: '10x10', max: '10', status: true, image: "/assets/Right_Rear_Door.jpeg", model:'Toyota Fortuner' ,audittype : '5/9'},
-    { audit: '50', module: 'Rear', checkpoint: '40', min: '10x10', max: '10', image: "/assets/Rear.jpeg", model:'Hyundai',audittype : '4/9' },
-    { audit: '290', module: 'Left Rear Door', checkpoint: '27', min: '10x10', max: '10', status: true, image: "/assets/Left_Rear_Door.jpeg",model:'Ferrari' ,audittype : '7/9'},
-    { audit: '982', module: 'Left Front Door', checkpoint: '33', min: '10x10', max: '10', status: true, image: "/assets/Left_Front_Door.jpeg",model:'Toyota' ,audittype : '6/9'},
-    { audit: '781', module: 'Left Fender', checkpoint: '38', min: '10x10', max: '10', status: true, image: "/assets/Left_Fender.jpeg", model:'BMW',audittype : '5/9' },
-    { audit: '108', module: ' Roof', checkpoint: '37', min: '10x10', max: '10', status: true, image: "/assets/Roof.jpeg",model:'Ruby',audittype : '4/9' },
-   { audit: '851', module: ' Bonnet', checkpoint: '39', min: '10x10', max: '10', status: true, image: "/assets/Bonnet.jpeg",model:'Ruby',audittype : '5/9' },
+    { audit: '200', module: 'Right Fender', checkpoint: '50', min: '10x10', max: '10', status: true, image: "/assets/Swift/Right_Fender.png" ,model:'Fortuner',audittype : '4/9' },
+    { audit: '961', module: 'Right Front Door', checkpoint: '35', min: '10x10', max: '10', status: true, image: "/assets/Swift/Right_Front_Door.png", model:'Toyota',audittype : '6/9'  },
+    { audit: '10', module: 'Right Rear Door', checkpoint: '45', min: '10x10', max: '10', status: true, image: "/assets/Swift/Right_Rear_Door.png", model:'Toyota Fortuner' ,audittype : '5/9'},
+    { audit: '50', module: 'Rear', checkpoint: '40', min: '10x10', max: '10', image: "/assets/Swift/Back.png", model:'Hyundai',audittype : '4/9' },
+    { audit: '290', module: 'Left Rear Door', checkpoint: '27', min: '10x10', max: '10', status: true, image: "/assets/Swift/Left_Rear_Door.png",model:'Ferrari' ,audittype : '7/9'},
+    { audit: '982', module: 'Left Front Door', checkpoint: '33', min: '10x10', max: '10', status: true, image: "/assets/Swift/Left_Front_Door.png",model:'Toyota' ,audittype : '6/9'},
+    { audit: '781', module: 'Left Fender', checkpoint: '38', min: '10x10', max: '10', status: true, image: "/assets/Swift/Left_Fender.png", model:'BMW',audittype : '5/9' },
+    { audit: '108', module: ' Roof', checkpoint: '37', min: '10x10', max: '10', status: true, image: "/assets/Swift/Roof.png",model:'Ruby',audittype : '4/9' },
+   { audit: '851', module: ' Bonnet', checkpoint: '39', min: '10x10', max: '10', status: true, image: "/assets/Swift/Bonnet.png",model:'Ruby',audittype : '5/9' },
   ]
   opendashboard() {
     window.open('/#/parameter-dashboard/issuelog-par'); 

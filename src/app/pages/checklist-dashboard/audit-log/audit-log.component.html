@@ -142,47 +142,47 @@
           <div class="pills">
             <ul class="nav nav-pills" style="display: flex; flex-direction: column;">
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 1 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(1, images.img1)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 0 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(0)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(0, 0, 0);">Right Fender
                 </a>
               </li>
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 2 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(2, images.img2)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 1 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(1)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(0, 0, 0);">Right Front Door
                 </a>
               </li>
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 3 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(3, images.img3)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 2 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(2)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(0, 0, 0);">Right Rear Door
                 </a>
               </li>
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 4 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(4, images.img4)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 3 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(3)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(1, 1, 1);">Rear
                 </a>
               </li>
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 5 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(5, images.img5)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 4 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(4)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(0, 0, 0);">Left Rear Door
                 </a>
               </li>
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 6 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(6, images.img6)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 5 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(5)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(0, 0, 0);">Left Front Door
                 </a>
               </li>
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 7 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(7, images.img7)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 6 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(6)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(0, 0, 0);">Left Fender
                 </a>
               </li>
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 8 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(8, images.img8)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 7 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(7)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(0, 0, 0);">Roof
                 </a>
               </li>
               <li>
-                <a [ngStyle]="{'background-color': selectedSidePart === 9 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(9, images.img9)"
+                <a [ngStyle]="{'background-color': selectedSidePart === 8 ? '#099FF0' : '#D3D3D3' }" (click)="changeImage(8)"
                   mat-raised-button class="navtabWidth" style="margin-top: 10px; color: rgb(0, 0, 0);">Bonnet
                 </a>
               </li>
@@ -196,15 +196,31 @@
 
 <div class="col-md-10">
   <div class="d-flex justify-content-center align-items-center mb-4">
-    <img [src]="currentImage" (click)="addchecklistissuelineitem(null)" alt="Part image" style="
-    width: 500px;
-    height: 500px;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    margin-top: 24px;
-    background-color: #f8f9fa;">
+      
+      <mat-card style="height: 380px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 24px;">
+          <mat-card-content>
+              <div class="text-center image-grid-container" (click)="addchecklistissuelineitem(null)"
+                   [style.width]="currentImage.width"
+                   [style.height]="currentImage.height">
+                  
+                  <img class="overlay-image" [src]="currentImage.src">
+                  
+                  <table class="grid-overlay">
+                      <tbody>
+                          <tr *ngFor="let r of gridRows; let rowIndex = index" 
+                              [style.height.%]="100 / gridRows.length">
+                              <td *ngFor="let c of gridCols; let colIndex = index"
+                                  [ngStyle]="{'background-color': getCellData(rowIndex + 1, colIndex + 1)?.color}"
+                                  style="text-align: center; vertical-align: middle; color: black; font-weight: bold; font-size: 12px;">
+                                  {{ getCellData(rowIndex + 1, colIndex + 1)?.value || '' }}
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </mat-card-content>
+      </mat-card>
+
   </div>
 
   <div class="table-responsive">

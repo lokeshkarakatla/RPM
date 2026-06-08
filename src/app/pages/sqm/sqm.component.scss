@@ -153,3 +153,18 @@
   min-width: 0;
   width: 100%;
 }
+
+/* Styling for the unselected setup tabs */
+.tab-btn {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #d3d3d3;
+}
+
+/* Styling for the ACTIVE setup tab */
+.active-tab {
+    background-color: #556773 !important; /* The dark slate color from your active pills */
+    color: #ffffff !important;
+    // border: 1px solid #556773 !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2) !important;
+}

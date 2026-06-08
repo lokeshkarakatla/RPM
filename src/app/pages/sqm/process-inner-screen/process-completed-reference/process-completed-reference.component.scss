@@ -51,9 +51,9 @@
     }
   }
 
-  .bg-green { background-color: #008000; }
-  .bg-red { background-color: #ff0000; }
-  .bg-yellow { background-color: #ffff00; }
+  // .bg-green { background-color: #008000; }
+  // .bg-red { background-color: #ff0000; }
+  // .bg-yellow { background-color: #ffff00; }
 
   // Guidelines Cards
   .guideline-card {
@@ -147,4 +147,53 @@
     font-size: 1.1rem;
     height: 45px;
   }
+}
+
+.step-box {
+    width: 45px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    
+    /* Default Grey Background */
+    background-color: #d3d3d3; 
+    color: #333;
+    
+    /* Add a transparent border by default so the box doesn't jump in size when selected */
+    border: 2px solid transparent; 
+    // border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform 0.1s ease, border 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    /* Bordered when selected */
+    &.selected-step {
+      border: 2px solid #000; 
+      background-color: #ffef0d; /* Slightly lighter grey when active to make it pop */
+    }
+  }
+
+
+  .drag-drop-zone {
+  width: 100%;
+  border: 2px dashed #b5b5b5;
+  border-radius: 4px;
+  padding: 25px 20px;
+  text-align: center;
+  color: #666;
+  background-color: #fafafa;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  // Stack icon, text, and button vertically
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }

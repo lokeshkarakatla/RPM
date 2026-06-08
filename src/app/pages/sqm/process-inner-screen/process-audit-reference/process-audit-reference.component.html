@@ -1,29 +1,23 @@
 <div class="back-btn ps-4 mb-4" style="display: flex; justify-content: flex-end; font-size: 18px; font-weight:500">
-  
-  <div class="col-sm-6 "  >
+  <div class="col-sm-6">
      <span style="color: blue; cursor: pointer; margin-left:5px" (click)="goBack()">Active Audit </span> > Audit Reference
   </div>
-  
- <div class="col-sm-6" style="display: flex; justify-content: flex-end; ">
+  <div class="col-sm-6" style="display: flex; justify-content: flex-end;">
   </div>
- 
 </div>
 
 <div class="container-fluid p-3 audit-container ps-5">
   
   <div class="row mb-3 pb-4">
     <div class="col-sm-6 d-flex gap-2">
-      <button mat-raised-button class="category-btn category-btn-active">
-        Process Audit (System(19))
-      </button>
-      <button mat-raised-button class="category-btn category-btn-inactive">
-          Process Audit (Capability(25))
+    </div>
+    <div class="col-sm-6" style="display: flex; justify-content: flex-end;">
+      <button mat-raised-button class="mat-focus-indicator mat-raised-button mat-button-base" style="background-color: #808080; color: white; margin-right: 10px;">
+        <span class="mat-button-wrapper" (click)="goBack()">
+          <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">arrow_back</mat-icon> Back 
+        </span>
       </button>
     </div>
-    <div class="col-sm-6" style="display: flex; justify-content: flex-end; ">
-    <button _ngcontent-utt-c603="" mat-raised-button="" class="mat-focus-indicator mat-raised-button mat-button-base" style="background-color: #808080; color: white; ;margin-right: 10px;"><span class="mat-button-wrapper" (click)="goBack()"><mat-icon _ngcontent-utt-c603="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">arrow_back</mat-icon> Back </span><span matripple="" class="mat-ripple mat-button-ripple" ng-reflect-disabled="false" ng-reflect-centered="false" ng-reflect-trigger="[object HTMLButtonElement]"></span><span class="mat-button-focus-overlay"></span></button>
-  </div>
-
   </div>
 
   <div class="row mb-4 pb-4">
@@ -42,7 +36,7 @@
     <div class="col-12 d-flex flex-wrap gap-2 align-items-center">
       <div *ngFor="let step of processSteps" 
            (click)="selectStep(step.id)"
-           class="step-box "
+           class="step-box"
            [title]="step.tooltip"
            [ngClass]="{
              'bg-green text-white': step.status === 'green' && selectedStep !== step.id,
@@ -58,28 +52,28 @@
   <div class="row">
     
     <div class="col-md-6 pe-md-4">
-      
-      <label class="fw-bold mb-2">Process Level Guidelines :</label>
-      <div class="card guideline-card bg-gray-light mb-2">
-        <div class="card-body py-2 px-3">
-          <p class="mb-0 text-muted small">Process controls are partially inline with updated PFMEA, CC & SC are focused with post process detection. Referring the updated revision. WIS-Just defined the work instruction at local language (Customer inputs are captured in text).</p>
-        </div>
-      </div>
-      <div class="card guideline-card bg-blue-light mb-2">
-        <div class="card-body py-2 px-3">
-          <p class="mb-0 text-muted small">Process controls are partially inline with updated PFMEA, CC & SC are focused with post process detection. Referring the updated revision. WIS-Just defined the work instruction at local language (Customer inputs are captured in text).</p>
-        </div>
-      </div>
-      <div class="card guideline-card bg-gray-light mb-4">
-        <div class="card-body py-2 px-3">
-          <p class="mb-0 text-muted small">Process controls are not inline with updated PFMEA (AIAG guideline) Eg. CC & SC are inadequate controls. Referring the old revision. No clarity on work instruction at local language (Customer inputs are not captured).</p>
+
+      <div class="row mb-5" style="margin-left: -20px">
+        <div class="col-12">
+          <div class="p-3">
+            <span class="fw-bold" style="color: #099ff0;">Question {{ selectedStep }}: </span>
+            <span class="text-dark">{{ getSelectedQuestion() }}</span>
+          </div>
         </div>
       </div>
 
+      <div> Process Level Guidelines :</div>
+      <div class="custom-guideline mb-4" style="gap: 5px; padding: 15px; background-color: #f8f9fa; border-left: 4px solid #099ff0; border-radius: 4px;"> 
+        <p style="margin-bottom: 6px; font-size: 14px; color: #555;" *ngFor="let guideline of currentGuidelines; let i = index">
+          <strong>{{ i + 1 }}.</strong> {{ guideline }}
+        </p>
+      </div>
       <label class="fw-bold mb-2">Rating :</label>
       <div class="d-flex gap-3 mb-4">
         <button class="btn rating-btn border-success text-success" [class.active]="rating === '5'" (click)="setRating('5')">5</button>
+        <button class="btn rating-btn border-danger text-warning" [class.active]="rating === '4'" (click)="setRating('4')">4</button>
         <button class="btn rating-btn border-warning text-warning" [class.active]="rating === '3'" (click)="setRating('3')">3</button>
+        <button class="btn rating-btn border-danger text-danger" [class.active]="rating === '2'" (click)="setRating('2')">2</button>
         <button class="btn rating-btn border-danger text-danger" [class.active]="rating === '1'" (click)="setRating('1')">1</button>
         <button class="btn rating-btn border-dark text-dark" [class.active]="rating === 'NA'" (click)="setRating('NA')">NA</button>
       </div>
@@ -126,31 +120,50 @@
                  [ngClass]="{'bg-danger text-white': riskRating === 'High'}">
         </div>
       </div>
+       <div class="form-group row align-items-center mb-3">
+        <label class="col-sm-4 col-form-label fw-bold">Upload PDF :</label>
+         <div class="col-sm-8" style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+            <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" multiple>
+
+            <div class="drag-drop-zone" (click)="fileInput.click()" (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+                <mat-icon style="font-size: 24px; height: 24px; width: 24px;">upload</mat-icon>
+                <span>Drag and drop files here</span>
+                <button mat-raised-button class="browse-btn" type="button" style="background-color: #1485cc; color: white;"
+                    (click)="$event.stopPropagation(); fileInput.click()">
+                    Browse Files
+                </button>
+            </div>
+
+            <div class="file-list" style="width: 100%;">
+                <div *ngFor="let file of selectedFiles; let i = index" style="display: flex; align-items: center; gap: 8px;
+                     padding: 5px 8px; font-size: 13px; border-radius: 4px;
+                     background: #f5f5f5; margin-top: 4px;">
+                    <mat-icon style="font-size: 16px;">insert_drive_file</mat-icon>
+                    <span>{{ file.name }}</span>
+                    <span style="color: #999; font-size: 12px;">({{ (file.size / 1024).toFixed(1) }} KB)</span>
+                    <button mat-icon-button style="margin-left: auto;" (click)="removeFile(i)">
+                        <mat-icon style="font-size: 16px;">close</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+      </div>
 
     </div>
 
     <div class="col-md-6">
       
       <div class="form-group row align-items-center mb-3">
-        <label class="col-sm-4 col-form-label fw-bold">Upload PDF :</label>
-        <div class="col-sm-8">
-          <div class="input-group">
-            <input type="file" class="form-control d-none" id="pdfUpload">
-            <button class="btn btn-outline-secondary" onclick="document.getElementById('pdfUpload').click()">Choose File</button>
-            <input type="text" class="form-control" placeholder="No file chosen" readonly>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row align-items-center mb-3">
-        <label class="col-sm-4 col-form-label fw-bold">Select Due Date :</label>
+        <label class="col-sm-4 col-form-label fw-bold">  Due Date :</label>
         <div class="col-sm-8">
           <input type="date" class="form-control">
         </div>
       </div>
 
       <div class="form-group row align-items-center mb-3">
-        <label class="col-sm-4 col-form-label fw-bold">Select Completed Date :</label>
+        <label class="col-sm-4 col-form-label fw-bold">  Completed Date :</label>
         <div class="col-sm-8">
           <input type="date" class="form-control">
         </div>
@@ -214,11 +227,11 @@
     
     <div class="col-md-2 text-end">
       <button mat-raised-button class="custom-save-btn" style="background-color: rgb(0, 153, 255);">
-  <span class="mat-button-wrapper" style=" color: rgb(255, 255, 255);">
-    <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">save</mat-icon>
-    Save 
-  </span>
-</button>
+        <span class="mat-button-wrapper" style=" color: rgb(255, 255, 255);">
+          <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">save</mat-icon>
+          Save 
+        </span>
+      </button>
     </div>
 
   </div>

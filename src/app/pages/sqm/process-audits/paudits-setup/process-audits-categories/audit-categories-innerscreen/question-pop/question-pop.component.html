@@ -1,5 +1,7 @@
 <div style="background-color: #2e3b84; color: #ffffff; padding: 16px; text-align: center; margin: -24px -24px 24px -24px;">
-  <h2 style="margin: 0; font-size: 20px; font-weight: 500; font-family: Roboto, sans-serif;">Add Question</h2>
+  <h2 style="margin: 0; font-size: 20px; font-weight: 500; font-family: Roboto, sans-serif;">
+    {{ isEditMode ? 'Update Question' : 'Add Question' }}
+  </h2>
 </div>
 
 <mat-dialog-content style="padding: 20px; margin-bottom: 10px; overflow: hidden;">

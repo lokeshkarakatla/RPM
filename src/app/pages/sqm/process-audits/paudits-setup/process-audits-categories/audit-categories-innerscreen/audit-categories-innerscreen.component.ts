@@ -131,16 +131,22 @@ export class AuditCategoriesInnerscreenComponent implements OnInit {
   }
 
   // --- Action Handlers ---
+// --- Action Handlers ---
 
   onAddQuestion(): void {
     this.dialog.open(AddQuestionPopComponent, {
       width: '600px',
-      data: { categoryCode: this.currentCategoryCode } 
+      // Pass isEdit: false for the Add button
+      data: { isEdit: false, categoryCode: this.currentCategoryCode } 
     }); 
   }
 
   onEdit(item: any): void {
-    console.log('Edit clicked for:', item.question);
+     this.dialog.open(AddQuestionPopComponent, {
+      width: '600px',
+      // Pass isEdit: true AND the item data for the Edit button
+      data: { isEdit: true, item: item, categoryCode: this.currentCategoryCode } 
+    }); 
   }
 
   onDelete(item: any): void {

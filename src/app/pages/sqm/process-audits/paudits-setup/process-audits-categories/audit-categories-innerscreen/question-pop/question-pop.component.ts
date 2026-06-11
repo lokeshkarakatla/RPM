@@ -1,33 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-question-pop',
   templateUrl: './question-pop.component.html',
   styleUrls: ['./question-pop.component.scss']
 })
-export class QuestionPopComponent     {
+export class QuestionPopComponent implements OnInit {
 
-
+  isEditMode: boolean = false;
   questionText: string = '';
   isMandatory: boolean = false;
   isPriority: boolean = false;
 
-  constructor(public dialogRef: MatDialogRef<QuestionPopComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<QuestionPopComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
+  ngOnInit(): void {
+    // Check if we passed the edit flag from the parent
+    this.isEditMode = this.data?.isEdit;
+
+    // If editing, populate the fields with the existing item data
+    if (this.isEditMode && this.data.item) {
+      this.questionText = this.data.item.question;
+      this.isMandatory = this.data.item.mandatory === 'Yes';
+      
+      // Your mock data uses 'High' for priority, but the checkbox expects a boolean
+      this.isPriority = this.data.item.priority === 'High' || this.data.item.priority === true;
+    }
+  }
 
   onCancel(): void {
-    // Closes the dialog without returning data
     this.dialogRef.close();
   }
 
   onSave(): void {
-    // Bundle the data and pass it back to the parent component
     const result = {
       question: this.questionText,
-      mandatory: this.isMandatory ? 'Yes' : 'No', // Format as needed
-      priority: this.isPriority ? 'High' : 'Normal' // Format as needed
+      mandatory: this.isMandatory ? 'Yes' : 'No', 
+      priority: this.isPriority ? 'High' : 'Normal' 
     };
     
     this.dialogRef.close(result);
   }
-}
+}  

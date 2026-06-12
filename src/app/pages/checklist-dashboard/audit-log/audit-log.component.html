@@ -244,8 +244,8 @@
           <td class="text-center">
             <mat-icon style="cursor: pointer;" (click)="addnote(item)">assignment</mat-icon>
           </td>
-          <td>4</td>
-          <td>8</td>
+          <td>{{item.gridRow}}</td>
+          <td>{{item.gridCol}}</td>
           <td style="width:3cm ;">
             <mat-select class="form-control" placeholder="Select Department" required>
               <mat-option [value]="0">PQA</mat-option>

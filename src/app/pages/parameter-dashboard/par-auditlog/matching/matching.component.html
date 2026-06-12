@@ -90,11 +90,7 @@
                                 [style.height.%]="100 / gridRows.length">
                                 
                                 <td *ngFor="let c of gridCols; let colIndex = index"
-                                    [ngStyle]="{'background-color': getCellData(rowIndex + 1, colIndex + 1)?.color}"
-                                    style="text-align: center; vertical-align: middle; color: black; font-weight: bold; font-size: 12px;">
-                                    
-                                    {{ getCellData(rowIndex + 1, colIndex + 1)?.value || '' }}
-                                    
+                                    [ngStyle]="{'background-color': getCellData(rowIndex + 1, colIndex + 1)?.color}">
                                 </td>
                             </tr>
                         </tbody>

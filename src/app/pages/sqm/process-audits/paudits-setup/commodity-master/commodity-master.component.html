@@ -94,7 +94,7 @@
           <tr *ngFor="let item of tableData">
 
             <td>{{ item.name }}</td>
-            <td style="cursor: pointer; color:blue" routerLink="inner-grid" class="text-center">View</td>
+            <td style="cursor: pointer; color:blue" routerLink="inner-grid" class="text-center">{{item.target}}</td>
             <td  class="text-center">{{ item.code }}</td>
             <!-- <td class="text-center">
               <a

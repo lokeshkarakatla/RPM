@@ -8,7 +8,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class ProcessCompletedReferenceComponent implements OnInit {
  // Top Categories
-  categories = ['QMS(12)', 'MM(9)', 'PPC(18)', 'IME(13)', '5S'];
+  // Top Categories
+  categories = ['QMS(12)', 'MM(9)', 'PPC(18)', 'IME(13)', '5S(6)'];
   selectedCategory = 'QMS(12)';
 
 
@@ -346,7 +347,7 @@ export class ProcessCompletedReferenceComponent implements OnInit {
         question: 'Are CAPA performance indicators (e.g., closure time, recurrence rate, overdue actions, effectiveness rate) monitored and reviewed for continual improvement?'
       }
     ],
-    '5S': [
+    '5S(6)': [
       {
         id: 1,
         tooltip: '5S',
@@ -436,13 +437,13 @@ export class ProcessCompletedReferenceComponent implements OnInit {
       'Maintenance Records & Effectiveness – Maintain maintenance history and verify effectiveness to ensure process reliability.'
     ],
 
-    'CAPA': [
+    'IME(13)': [
       'Issue Identification & Root Cause Analysis – Capture nonconformities promptly and perform structured root cause analysis.',
       'Corrective & Preventive Action Implementation – Define, implement, and track actions to eliminate recurrence and prevent occurrence.',
       'Effectiveness Verification & Closure – Validate action effectiveness through monitoring and formally close CAPA records.'
     ],
 
-    '5S': [
+    '5S(6)': [
       'Workplace Organization (5S Compliance) – Maintain sorting, arrangement, cleanliness, standardization, and discipline across work areas.',
       'Visual Management & Identification – Ensure clear labeling, material identification, and visual controls for efficient operations.',
       'Sustainment & Audit Control – Conduct regular 5S audits and implement actions to sustain housekeeping standards.'

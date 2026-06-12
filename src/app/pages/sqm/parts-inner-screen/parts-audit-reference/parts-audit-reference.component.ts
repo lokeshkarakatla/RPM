@@ -28,7 +28,7 @@ export class PartsAuditReferenceComponent implements OnInit {
     { name: 'Surface Finish (5)', tooltip: 'Material Management' },
     { name: 'Performance (3)', tooltip: 'Production Planning & Control' },
     { name: 'Metallurgical (5)', tooltip: 'Inspection & Measurement Engineering' },
-    { name: 'CAPA(4)', tooltip: 'Corrective and Preventive Actions' }
+    { name: 'Mechanical(4)', tooltip: 'Corrective and Preventive Actions' }
   ];
   
   selectedCategory = 'Dimensional Checks (4)';
@@ -41,7 +41,7 @@ export class PartsAuditReferenceComponent implements OnInit {
 
   // Dictionary holding unique parameters for EACH category
   // FIXED: The keys here now exactly match the 'name' properties in the categories array above
-  categoryData: { [key: string]: any[] } = {
+categoryData: { [key: string]: any[] } = {
     'Dimensional Checks (4)': [
       { parameter: 'OUTER DIAMETER', spec: '457.0±0.8', min: 23, max: 27, actionLink: '12', special: 'General', method: 'Thermocouple', s1: 24.5, s2: 25.0, s3: 26.0, s4: 25.5, s5: 24.8, okay: false },
       { parameter: 'TOTAL LENGTH', spec: '4.747 / 34.798', min: 6.5, max: 7.5, actionLink: '13', special: 'General', method: 'pH Meter', s1: 7.1, s2: 6.9, s3: 7.2, s4: 6.8, s5: 7.0, okay: true },
@@ -67,16 +67,15 @@ export class PartsAuditReferenceComponent implements OnInit {
       { parameter: 'READING DELAY', spec: '< 50ms', min: 10, max: 60, actionLink: '44', special: 'General', method: 'Oscilloscope', s1: 45, s2: 55, s3: 40, s4: 48, s5: 50, okay: false },
       { parameter: 'THERMAL STABILITY', spec: '±1°C', min: -1.5, max: 1.5, actionLink: '45', special: 'Critical', method: 'Chamber', s1: 0.5, s2: -0.8, s3: 1.2, s4: -0.5, s5: 0.0, okay: true }
     ],
-    'CAPA(4)': [
-      { parameter: 'ROOT CAUSE DELAY', spec: '< 2 Days', min: 0, max: 3, actionLink: '51', special: 'General', method: 'System', s1: 1, s2: 2, s3: 1, s4: 3, s5: 2, okay: true },
-      { parameter: 'ACTION CLOSURE', spec: '< 7 Days', min: 0, max: 10, actionLink: '52', special: 'Critical', method: 'System', s1: 5, s2: 8, s3: 6, s4: 7, s5: 9, okay: false },
-      { parameter: 'EFFECTIVENESS SCORE', spec: '> 80%', min: 70, max: 100, actionLink: '53', special: 'General', method: 'Audit', s1: 85, s2: 82, s3: 78, s4: 90, s5: 88, okay: true },
-      { parameter: 'REPEAT ISSUES', spec: '0', min: 0, max: 1, actionLink: '54', special: 'Critical', method: 'Log Check', s1: 0, s2: 0, s3: 1, s4: 0, s5: 0, okay: false }
+    'Mechanical(4)': [
+      { parameter: 'YIELD STRENGTH', spec: '400 MPa', min: 380, max: 420, actionLink: '51', special: 'Critical', method: 'Tensile Tester', s1: 395, s2: 410, s3: 405, s4: 390, s5: 415, okay: true },
+      { parameter: 'ELONGATION', spec: '> 15%', min: 15, max: 25, actionLink: '52', special: 'General', method: 'Extensometer', s1: 18, s2: 16, s3: 14, s4: 19, s5: 17, okay: false },
+      { parameter: 'IMPACT ENERGY', spec: '27 J', min: 25, max: 35, actionLink: '53', special: 'Critical', method: 'Charpy V-Notch', s1: 28, s2: 26, s3: 29, s4: 31, s5: 27, okay: true },
+      { parameter: 'MODULUS OF ELASTICITY', spec: '200 GPa', min: 190, max: 210, actionLink: '54', special: 'General', method: 'Resonance Test', s1: 198, s2: 205, s3: 195, s4: 202, s5: 200, okay: true }
     ]
   };
-
   ngOnInit(): void {
-    // Load the initial data for the default selected tab
+    // Load the initial data for t e default selected tab
     this.tableData = this.categoryData[this.selectedCategory] || [];
     this.updatePage();
   }

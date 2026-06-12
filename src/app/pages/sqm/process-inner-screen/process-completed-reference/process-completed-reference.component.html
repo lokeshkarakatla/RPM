@@ -190,7 +190,7 @@
           
           <div class="d-flex align-items-center gap-2">
             <label class="fw-bold mb-0" style="margin-top: 2px;">Pass :</label>
-            <mat-checkbox 
+            <mat-checkbox style="margin-top: 2px;"
               [checked]="complianceStatus === 'Pass'" 
               (change)="complianceStatus = $event.checked ? 'Pass' : ''">
             </mat-checkbox>
@@ -198,7 +198,7 @@
 
           <div class="d-flex align-items-center gap-2">
             <label class="fw-bold mb-0" style="margin-top: 2px;">Fail :</label>
-            <mat-checkbox 
+            <mat-checkbox style="margin-top: 2px;"
               [checked]="complianceStatus === 'Fail'" 
               (change)="complianceStatus = $event.checked ? 'Fail' : ''">
             </mat-checkbox>

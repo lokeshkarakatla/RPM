@@ -27,7 +27,6 @@ export class ObjSetupModulesCheckpointsComponent implements OnInit {
   hidden = false;
   url = "/assets/carrear.jpeg";
   Image: any = '/assets/car.png';
-
 values1 = [
   {
     audit: '200',
@@ -40,10 +39,15 @@ values1 = [
     model: 'Fortuner',
     audittype: '4/9',
     highlightedCells: [
-      { row: 1, col: 2 },
-      { row: 1, col: 3 },
-      { row: 2, col: 2 }
-    ]
+      { col: 2, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 5, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 7, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 3, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 2, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 6, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+    ],
+    checkpoints :'7'
   },
   {
     audit: '961',
@@ -56,11 +60,14 @@ values1 = [
     model: 'Toyota',
     audittype: '6/9',
     highlightedCells: [
-      { row: 4, col: 5 },
-      { row: 4, col: 6 },
-      { row: 5, col: 5 },
-      { row: 6, col: 7 }
-    ]
+  { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 6, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 7, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 5, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 7, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+    ],
+       checkpoints :'6'
   },
   {
     audit: '10',
@@ -73,10 +80,17 @@ values1 = [
     model: 'Toyota Fortuner',
     audittype: '5/9',
     highlightedCells: [
-      { row: 2, col: 8 },
-      { row: 3, col: 8 },
-      { row: 4, col: 7 }
-    ]
+      { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 6, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      // { col: 8, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 7, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 6, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      // { col: 5, row: 8, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      // { col: 6, row: 8, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+    ],
+       checkpoints :'6'
   },
   {
     audit: '50',
@@ -88,10 +102,15 @@ values1 = [
     model: 'Hyundai',
     audittype: '4/9',
     highlightedCells: [
-      { row: 5, col: 4 },
-      { row: 5, col: 5 },
-      { row: 6, col: 5 }
-    ]
+        { col: 4, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 2, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 4, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 6, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 8, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 2, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+    ],
+       checkpoints :'7'
   },
   {
     audit: '290',
@@ -104,11 +123,15 @@ values1 = [
     model: 'Ferrari',
     audittype: '7/9',
     highlightedCells: [
-      { row: 3, col: 2 },
-      { row: 4, col: 2 },
-      { row: 4, col: 3 },
-      { row: 5, col: 3 }
-    ]
+     { col: 6, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 7, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 3, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 6, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 5, row: 8, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+    ],
+       checkpoints :'7'
   },
   {
     audit: '982',
@@ -121,10 +144,15 @@ values1 = [
     model: 'Toyota',
     audittype: '6/9',
     highlightedCells: [
-      { row: 2, col: 4 },
-      { row: 3, col: 4 },
-      { row: 3, col: 5 }
-    ]
+    { col: 6, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 8, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 7, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 4, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 5, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 7, row: 7, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+    ],
+       checkpoints :'7'
   },
   {
     audit: '781',
@@ -137,10 +165,14 @@ values1 = [
     model: 'BMW',
     audittype: '5/9',
     highlightedCells: [
-      { row: 1, col: 6 },
-      { row: 2, col: 6 },
-      { row: 2, col: 7 }
-    ]
+     { col: 11, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 8, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 6, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 10, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 7, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 9, row: 1, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+    ],
+       checkpoints :'6'
   },
   {
     audit: '108',
@@ -153,11 +185,13 @@ values1 = [
     model: 'Ruby',
     audittype: '4/9',
     highlightedCells: [
-      { row: 4, col: 4 },
-      { row: 4, col: 5 },
-      { row: 5, col: 4 },
-      { row: 5, col: 5 }
+         { col: 5, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 9, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 10, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 6, row: 3, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 6, row: 6, color: "rgba(255, 205, 205, 0.64)", value: "1" },
     ]
+    ,   checkpoints :'5'
   },
   {
     audit: '851',
@@ -170,12 +204,13 @@ values1 = [
     model: 'Ruby',
     audittype: '5/9',
     highlightedCells: [
-      { row: 2, col: 3 },
-      { row: 2, col: 4 },
-      { row: 3, col: 3 },
-      { row: 3, col: 4 },
-      { row: 4, col: 4 }
+       { col: 7, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+      { col: 4, row: 5, color: "rgba(255, 205, 205, 0.64)", value: "3" },
+      { col: 3, row: 2, color: "rgba(255, 205, 205, 0.64)", value: "2" },
+      { col: 3, row: 4, color: "rgba(255, 205, 205, 0.64)", value: "1" },
+
     ]
+    ,   checkpoints :'4'
   }
 ];
 
@@ -213,15 +248,19 @@ values1 = [
     this.router.navigate(['/app/setup/subjective/check']);
   }
   
-  opencheckpoint(item: any) {
+opencheckpoint(item: any) {
     const selectedImage = item && item.image ? item.image : '/assets/car10x10.png';
     const cellsToHighlight = item && item.highlightedCells ? item.highlightedCells : [];
-  
-    // Save image, DISABLE the overview tab, and save highlighted cells
+    
+    // Grab the module name to pass to the next screen
+    const selectedModule = item && item.module ? item.module : ''; 
+
+    // Save image, DISABLE the overview tab, save highlighted cells, and save module ID
     sessionStorage.setItem('currentCheckpointImage', selectedImage);
     sessionStorage.setItem('disableOverview', 'true');
     sessionStorage.setItem('highlightedCells', JSON.stringify(cellsToHighlight));
-  
+    sessionStorage.setItem('selectedModule', selectedModule); // NEW: Save the module name
+
     this.router.navigate(['/app/setup/subjective/check']);
   }
 

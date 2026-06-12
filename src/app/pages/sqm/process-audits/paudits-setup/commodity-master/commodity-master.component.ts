@@ -15,12 +15,12 @@ export class CommodityMasterComponent implements OnInit {
   selectedStatus: string = '';
 
   tableData = [
-    { name: 'Casting', status: 'Active',code : 12 },
-    { name: 'Forging', status: 'Inactive',code : 13 },
-    { name: 'Machining', status: 'Active',code : 14 },
-    { name: 'Fasteners', status: 'Inactive',code : 15 },
-    { name: 'Non-Metallic', status: 'Active',code : 16 },
-    { name: 'Sheet Metal', status: 'Active',code : 17 }
+    { name: 'Casting', status: 'Active',code : 6498 },
+    { name: 'Forging', status: 'Inactive',code : 4265 },
+    { name: 'Machining', status: 'Active',code : 1284 },
+    { name: 'Fasteners', status: 'Inactive',code : 1685 },
+    { name: 'Non-Metallic', status: 'Active',code : 2586 },
+    { name: 'Sheet Metal', status: 'Active',code : 6547 }
   ];
 selectedKeyword: any;
  

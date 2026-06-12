@@ -94,7 +94,8 @@
           <th class="text-center">Suppliers</th>
           <th class="text-center">Priority</th>
           <th class="text-center">Status</th>
-          <th class="text-center">  Parameter  </th>
+              <th class="text-center">Parameters</th>
+          <th class="text-center"> Upload Parameter Template</th>
           <th class="text-center">Actions</th>
         </tr>
       </thead>
@@ -130,7 +131,15 @@
 
             {{ item.status }}
           </td>
-
+          <td class="text-center">
+  <a class="text-blue" 
+     style="cursor: pointer; text-decoration: underline;" 
+     [routerLink]="['inner']" 
+     [queryParams]="{ code: item.code, name: item.name }"
+     matTooltip="View Parameter Details">
+    {{ item.parameters }}
+  </a>
+</td>
           <td class="text-center editDel">
 
             <a

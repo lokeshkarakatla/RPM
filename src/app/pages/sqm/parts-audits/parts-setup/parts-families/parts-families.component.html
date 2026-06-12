@@ -9,6 +9,13 @@
       Filter
     </button>
 
+     <button mat-raised-button
+      style="background-color: #1a1a1a; color: white; padding: 0 16px; height: 40px; border: none; border-radius: 4px; display: flex; align-items: center; gap: 6px; font-weight: 500; cursor: pointer;"
+      >
+      <mat-icon style="font-size: 18px; height: 18px; width: 18px; margin-top:4px">download</mat-icon>
+      Download Template
+    </button>
+
     <!-- <button mat-raised-button style="background-color: #1a1a1a; color: white; padding: 0 16px; height: 40px; border: none; border-radius: 4px; display: flex; align-items: center; gap: 6px; font-weight: 500; cursor: pointer;">
     Grid Columns
   </button> -->
@@ -58,8 +65,9 @@
     <table class="custom-grid-table">
       <thead>
         <tr>
-          <th>Part Family Name</th>
+          <th style="width:30%">Part Family Name</th>
           <th class="text-center" style="width: 150px;">Status</th>
+           <th class="text-center" style="width: 150px;">Parameters</th>
           <th class="text-center" style="width: 150px;"> Parameter Template</th>
           <th class="text-center" style="width: 150px;">Actions</th>
         </tr>
@@ -67,6 +75,7 @@
       <tbody>
         <tr *ngFor="let item of tableData">
           <td>{{ item.name }}</td>
+          
           <td class="text-center">
             <a class="status-link" 
                [ngClass]="item.status === 'Active' ? 'text-blue' : 'text-red'" 
@@ -74,6 +83,15 @@
                {{ item.status }}
             </a>
           </td>
+         <td class="text-center">
+  <a class="text-blue" 
+     style="cursor: pointer; text-decoration: underline;" 
+     [routerLink]="['inner']" 
+     [queryParams]="{ code: item.code, name: item.name }"
+     matTooltip="View Parameter Details">
+    {{ item.parameters }}
+  </a>
+</td>
           <td _ngcontent-kaf-c834="" class="text-center editDel"><a _ngcontent-kaf-c834="" mattooltip="download" class="mat-tooltip-trigger" style="cursor: pointer; margin-right: 10px;" ng-reflect-message="download" aria-describedby="cdk-describedby-message-50" cdk-describedby-host=""><i _ngcontent-kaf-c834="" class="fa fa-download" style="color: cornflowerblue;"></i></a><!--container--></td>
           <td class="text-center manage-icons">
             <mat-icon class="edit-icon" matTooltip="Edit"    (click)="addCommodity(1)">edit</mat-icon>

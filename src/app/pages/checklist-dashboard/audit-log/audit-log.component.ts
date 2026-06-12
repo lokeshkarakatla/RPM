@@ -37,8 +37,8 @@ export class AuditLogComponent implements OnInit {
   selectedSidePart: number = 0; // Default to index 0 (Right Fender)
 
  redColor = "rgba(255, 205, 205, 0.64)"; // Standard clear red color
-
-  images = [
+greenColor = "rgba(213, 255, 205, 0.64)"; 
+images = [
   {
     title: "Right Fender",
     src: "/assets/Swift/Right_Fender.png",
@@ -46,11 +46,11 @@ export class AuditLogComponent implements OnInit {
     highlightedCells: [
       { col: 2, row: 2, color: this.redColor, value: "2" },
       { col: 5, row: 2, color: this.redColor, value: "12" },
-      { col: 7, row: 2, color: this.redColor, value: "12" },
+      { col: 7, row: 2, color: this.greenColor, value: "12" },
       { col: 3, row: 3, color: this.redColor, value: "1" },
-      { col: 2, row: 4, color: this.redColor, value: "12" },
-      { col: 3, row: 1, color: this.redColor, value: "12" },
-      { col: 6, row: 3, color: this.redColor, value: "12" },
+      { col: 2, row: 4, color: this.greenColor, value: "12" },
+      { col: 3, row: 1, color: this.greenColor, value: "12" },
+      { col: 6, row: 3, color: this.greenColor, value: "12" },
     ],
   },
   {
@@ -59,11 +59,11 @@ export class AuditLogComponent implements OnInit {
     height: "310px", width: "480px", heightPx: 310, widthPx: 480,
     highlightedCells: [
       { col: 3, row: 1, color: this.redColor, value: "6" },
-      { col: 6, row: 2, color: this.redColor, value: "12" },
-      { col: 7, row: 5, color: this.redColor, value: "12" },
-      { col: 3, row: 6, color: this.redColor, value: "12" },
+      { col: 6, row: 2, color: this.greenColor, value: "12" },
+      { col: 7, row: 5, color: this.greenColor, value: "12" },
+      { col: 3, row: 6, color: this.greenColor, value: "12" },
       { col: 5, row: 7, color: this.redColor, value: "12" },
-      { col: 7, row: 7, color: this.redColor, value: "12" },
+      { col: 7, row: 7, color: this.greenColor, value: "12" },
     ],
   },
   {
@@ -72,14 +72,11 @@ export class AuditLogComponent implements OnInit {
     height: "310px", width: "480px", heightPx: 310, widthPx: 480,
     highlightedCells: [
       { col: 3, row: 1, color: this.redColor, value: "3" },
-      { col: 6, row: 1, color: this.redColor, value: "12" },
-      // { col: 8, row: 3, color: this.redColor, value: "12" },
+      { col: 6, row: 1, color: this.greenColor, value: "12" },
       { col: 6, row: 4, color: this.redColor, value: "3" },
-      { col: 7, row: 4, color: this.redColor, value: "12" },
+      { col: 7, row: 4, color: this.greenColor, value: "12" },
       { col: 3, row: 6, color: this.redColor, value: "7" },
-      { col: 6, row: 7, color: this.redColor, value: "12" },
-      // { col: 5, row: 8, color: this.redColor, value: "6" },
-      // { col: 6, row: 8, color: this.redColor, value: "12" },
+      { col: 6, row: 7, color: this.greenColor, value: "12" },
     ],
   },
   {
@@ -87,13 +84,13 @@ export class AuditLogComponent implements OnInit {
     src: "/assets/Swift/Back.png",
     height: "310px", width: "480px", heightPx: 310, widthPx: 480,
     highlightedCells: [
-      { col: 4, row: 4, color: this.redColor, value: "12" },
-      { col: 6, row: 4, color: this.redColor, value: "12" },
+      { col: 4, row: 4, color: this.greenColor, value: "12" },
+      { col: 6, row: 4, color: this.greenColor, value: "12" },
       { col: 2, row: 5, color: this.redColor, value: "9" },
       { col: 4, row: 6, color: this.redColor, value: "2" },
       { col: 6, row: 6, color: this.redColor, value: "7" },
-      { col: 8, row: 5, color: this.redColor, value: "12" },
-      { col: 2, row: 6, color: this.redColor, value: "12" },
+      { col: 8, row: 5, color: this.greenColor, value: "12" },
+      { col: 2, row: 6, color: this.greenColor, value: "12" },
     ],
   },
   {
@@ -101,10 +98,10 @@ export class AuditLogComponent implements OnInit {
     src: "/assets/Swift/Left_Rear_Door.png",
     height: "310px", width: "480px", heightPx: 310, widthPx: 480,
     highlightedCells: [
-      { col: 6, row: 1, color: this.redColor, value: "12" },
+      { col: 6, row: 1, color: this.greenColor, value: "12" },
       { col: 6, row: 4, color: this.redColor, value: "3" },
-      { col: 7, row: 4, color: this.redColor, value: "12" },
-      { col: 3, row: 5, color: this.redColor, value: "9" },
+      { col: 7, row: 4, color: this.greenColor, value: "12" },
+      { col: 3, row: 5, color: this.greenColor, value: "9" },
       { col: 3, row: 6, color: this.redColor, value: "7" },
       { col: 6, row: 7, color: this.redColor, value: "12" },
       { col: 5, row: 8, color: this.redColor, value: "6" },
@@ -115,13 +112,13 @@ export class AuditLogComponent implements OnInit {
     src: "/assets/Swift/Left_Front_Door.png",
     height: "310px", width: "480px", heightPx: 310, widthPx: 480,
     highlightedCells: [
-      { col: 6, row: 1, color: this.redColor, value: "12" },
+      { col: 6, row: 1, color: this.greenColor, value: "12" },
       { col: 8, row: 1, color: this.redColor, value: "1" },
-      { col: 7, row: 5, color: this.redColor, value: "12" },
-      { col: 3, row: 6, color: this.redColor, value: "12" },
-      { col: 4, row: 7, color: this.redColor, value: "12" },
+      { col: 7, row: 5, color: this.greenColor, value: "12" },
+      { col: 3, row: 6, color: this.greenColor, value: "12" },
+      { col: 4, row: 7, color: this.greenColor, value: "12" },
       { col: 5, row: 7, color: this.redColor, value: "5" },
-      { col: 7, row: 7, color: this.redColor, value: "12" },
+      { col: 7, row: 7, color: this.greenColor, value: "12" },
     ],
   },
   {
@@ -131,10 +128,10 @@ export class AuditLogComponent implements OnInit {
     highlightedCells: [
       { col: 11, row: 2, color: this.redColor, value: "2" },
       { col: 8, row: 2, color: this.redColor, value: "12" },
-      { col: 6, row: 2, color: this.redColor, value: "12" },
+      { col: 6, row: 2, color: this.greenColor, value: "12" },
       { col: 10, row: 3, color: this.redColor, value: "1" },
       { col: 7, row: 3, color: this.redColor, value: "3" },
-      { col: 9, row: 1, color: this.redColor, value: "12" },
+      { col: 9, row: 1, color: this.greenColor, value: "12" },
     ],
   },
   {
@@ -145,8 +142,8 @@ export class AuditLogComponent implements OnInit {
       { col: 5, row: 4, color: this.redColor, value: "2" },
       { col: 9, row: 4, color: this.redColor, value: "7" },
       { col: 10, row: 5, color: this.redColor, value: "3" },
-      { col: 6, row: 3, color: this.redColor, value: "12" },
-      { col: 6, row: 6, color: this.redColor, value: "12" },
+      { col: 6, row: 3, color: this.greenColor, value: "12" },
+      { col: 6, row: 6, color: this.greenColor, value: "12" },
     ],
   },
   {
@@ -155,8 +152,8 @@ export class AuditLogComponent implements OnInit {
     height: "310px", width: "480px", heightPx: 310, widthPx: 480,
     highlightedCells: [
       { col: 7, row: 4, color: this.redColor, value: "1" },
-      { col: 4, row: 5, color: this.redColor, value: "12" },
-      { col: 3, row: 2, color: this.redColor, value: "12" },
+      { col: 4, row: 5, color: this.greenColor, value: "12" },
+      { col: 3, row: 2, color: this.greenColor, value: "12" },
       { col: 3, row: 4, color: this.redColor, value: "4" },
     ],
   },

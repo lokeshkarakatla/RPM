@@ -23,7 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuditCategoriesComponent } from '../../../parts-audits/parts-setup/audit-categories/audit-categories.component';
-// import { QuestionPopComponent } from './audit-categories-innerscreen/question-pop/question-pop.component';
+import { QuestionPopComponent } from './audit-categories-innerscreen/question-pop/question-pop.component';
 import { CommodityMasterComponent } from '../commodity-master/commodity-master.component';
 import { AuditCategoriesInnerscreenComponent } from './audit-categories-innerscreen/audit-categories-innerscreen.component';
  
@@ -42,7 +42,7 @@ const routes: Routes = [
   declarations: [
      
  
-      //  QuestionPopComponent
+       QuestionPopComponent
   ],
   imports: [
     CommonModule,

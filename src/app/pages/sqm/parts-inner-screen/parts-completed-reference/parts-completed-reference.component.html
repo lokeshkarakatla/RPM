@@ -1,27 +1,29 @@
-
-<div class="back-btn ps-1 mb-4" style="display: flex; justify-content: flex-end; font-size: 18px; font-weight:500">
+<div class="back-btn ps-1 mb-4" style="display: flex; justify-content: space-between; font-size: 18px; font-weight:500; align-items: flex-start;">
   
-   <div class="col-sm-6 "  >
+   <div class="col-sm-6">
      <span style="color: rgb(0, 0, 0); cursor: pointer; margin-left:0px " (click)="goBack()">Active Audit Dashboard</span>  
      <p _ngcontent-mvb-c448="" style="margin-top: 5px; ">
       <span _ngcontent-mvb-c448="" style="font-weight: bolder; font-size: 14px;">Ref No:</span>
       <span _ngcontent-mvb-c448="" style="margin: 8px; font-size: 14px">2024/Parts/254871</span>
-      
     </p>
   </div>
   
- <div class="col-sm-6" style="display: flex; justify-content: flex-end; ">
-      <button _ngcontent-utt-c603="" mat-raised-button="" class="mat-focus-indicator mat-raised-button mat-button-base" style="background-color: #808080;  margin-top:-70px;color: white; ;margin-right: 10px; height: 15px;"><span class="mat-button-wrapper" (click)="goBack()"><mat-icon _ngcontent-utt-c603="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">arrow_back</mat-icon> Back </span><span matripple="" class="mat-ripple mat-button-ripple" ng-reflect-disabled="false" ng-reflect-centered="false" ng-reflect-trigger="[object HTMLButtonElement]"></span><span class="mat-button-focus-overlay"></span></button>
-
+ <div class="col-sm-6" style="display: flex; justify-content: flex-end; align-items: flex-start; padding-top: 10px;">
+      <button _ngcontent-utt-c603="" mat-raised-button="" class="mat-focus-indicator mat-raised-button mat-button-base" style="background-color: #808080; color: white; margin-right: 10px; height: 46px; line-height: 36px; display: flex; align-items: center;">
+        <span class="mat-button-wrapper" (click)="goBack()" style="display: flex; align-items: center;">
+          <mat-icon _ngcontent-utt-c603="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font" style="margin-right: 4px;">arrow_back</mat-icon> 
+          Back 
+        </span>
+        <span matripple="" class="mat-ripple mat-button-ripple" ng-reflect-disabled="false" ng-reflect-centered="false" ng-reflect-trigger="[object HTMLButtonElement]"></span>
+        <span class="mat-button-focus-overlay"></span>
+      </button>
   </div>
  
 </div>
+
 <div class="page-container p-3">
 
   <div class="d-flex mb-3 gap-2">
-
-
-    
     <button mat-raised-button *ngFor="let cat of categories" (click)="selectCategory(cat)"
       [ngClass]="selectedCategory === cat ? 'tab-active' : 'tab-inactive'" class="top-tab-btn">
       {{ cat }}
@@ -47,7 +49,6 @@
           <th class="text-center">Min</th>
           <th class="text-center">Max</th>
           <th class="text-center">CAPA</th>
-          <!-- <th>Special</th> -->
           <th>Method</th>
           <th class="text-center">S1</th>
           <th class="text-center">S2</th>

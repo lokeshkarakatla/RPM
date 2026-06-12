@@ -16,10 +16,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatTooltipModule } from '@angular/material/tooltip'; // <-- ADDED for matTooltip
+import { MatTooltipModule } from '@angular/material/tooltip'; 
 
 // Other Libraries
-import { FlexLayoutModule } from '@angular/flex-layout'; // <-- ADDED for fxLayout
+import { FlexLayoutModule } from '@angular/flex-layout'; 
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts'; 
@@ -37,15 +37,15 @@ import { PauditsActionsComponent } from './paudits-actions/paudits-actions.compo
 import { ActiveauditsReferenceComponent } from './paudits-active-audits/activeaudits-reference/activeaudits-reference.component';
 import { PauditsAlertsDetailsComponent } from './paudits-alerts/paudits-alerts-details/paudits-alerts-details.component';
 import { ProcessAuditsCategoriesComponent } from './paudits-setup/process-audits-categories/process-audits-categories.component';
-// import { CommodityMasterComponent } from './paudits-setup/commodity-master/commodity-master.component';
 import { AddProcessCategoryPopComponent } from './paudits-setup/process-audits-categories/add-process-category-pop/add-process-category-pop.component';
-// import { AddCommodityPopComponent } from './paudits-setup/commodity-master/add-commodity-pop/add-commodity-pop.component';
 import { ActionDescRemarksComponent } from './paudits-actions/action-desc-remarks/action-desc-remarks.component';
 import { ProcessActionsGridComponent } from './paudits-actions/process-actions-grid/process-actions-grid.component';
 import { ProcessActionsEditComponent } from './paudits-actions/process-actions-edit/process-actions-edit.component';
 import { ProcessDocPopComponent } from './paudits-actions/process-doc-pop/process-doc-pop.component';
 import { AuditCategoriesInnerscreenComponent } from './paudits-setup/process-audits-categories/audit-categories-innerscreen/audit-categories-innerscreen.component';
- 
+
+// --- NEW IMPORT ADDED HERE ---
+// import { QuestionPopComponent } from './paudits-setup/process-audits-categories/audit-categories-innerscreen/question-pop/question-pop.component';
 
 const routes: Routes = [
   {
@@ -64,9 +64,9 @@ const routes: Routes = [
       {
         path: 'setup',
         component: PauditsSetupComponent,
-       children: [
+        children: [
           { path: '', redirectTo: 'process-cat', pathMatch: 'full' },
-        { 
+          { 
             path: 'process-cat', 
             children: [
               // Default view: Shows the Grid
@@ -75,11 +75,7 @@ const routes: Routes = [
               { path: 'inner', component: AuditCategoriesInnerscreenComponent } 
             ]
           },
-          // --
-          
-          // 1. ADD THE NEW ROUTE HERE
           { path: 'process-cat-inner', component: AuditCategoriesInnerscreenComponent }, 
-          
           { 
              path: 'commodity', 
              loadChildren: () => import('./paudits-setup/commodity-master/commodity-master.module').then(m => m.CommodityMasterModule) 
@@ -91,8 +87,6 @@ const routes: Routes = [
       { path: 'user-manual', component: PauditsUserManualComponent },
       { path: 'help-desk', component: PauditsHelpDeskComponent },
       { path: 'actions', component: PauditsActionsComponent },
-        
-      
     ]
   }
 ];
@@ -110,16 +104,16 @@ const routes: Routes = [
     ActiveauditsReferenceComponent,
     PauditsAlertsDetailsComponent,
     ProcessAuditsCategoriesComponent,
-    // CommodityMasterComponent,
     AddProcessCategoryPopComponent,
-    // AddCommodityPopComponent,
     PauditsNewAuditComponent,
     ActionDescRemarksComponent,
     ProcessActionsGridComponent,
     ProcessActionsEditComponent,
     ProcessDocPopComponent,
     AuditCategoriesInnerscreenComponent,
- 
+    
+    // --- COMPONENT DECLARED HERE ---
+    // QuestionPopComponent
   ],
   imports: [
     CommonModule,
@@ -129,7 +123,7 @@ const routes: Routes = [
     NgxChartsModule,
     CanvasJSAngularChartsModule,
     HighchartsChartModule,
-    FlexLayoutModule,          // <-- ADDED to imports array
+    FlexLayoutModule,
     MatCheckboxModule,
     MatSidenavModule,
     MatButtonModule,
@@ -142,7 +136,7 @@ const routes: Routes = [
     MatNativeDateModule,
     MatCardModule,
     MatDialogModule,
-    MatTooltipModule,          // <-- ADDED to imports array
+    MatTooltipModule,
   ]
 })
-export class ProcessAuditsModule { }  
+export class ProcessAuditsModule { }

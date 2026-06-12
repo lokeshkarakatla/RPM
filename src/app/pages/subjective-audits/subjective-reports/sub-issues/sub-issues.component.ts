@@ -79,18 +79,36 @@ drawGrid(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
-  highlightedCells: { col: number; row: number; color: string; value: string }[]
+  highlightedCells: { col: number; row: number; color: string; value?: string }[]
 ): void {
+  // Clear the canvas before redrawing
   ctx.clearRect(0, 0, width, height);
 
+  // Draw Highlighted Cells and their Values
   for (const cell of highlightedCells) {
     const x = (cell.col - 1) * this.CELL_SIZE;
     const y = (cell.row - 1) * this.CELL_SIZE;
 
+    // 1. Fill the cell with color
     ctx.fillStyle = cell.color;
     ctx.fillRect(x, y, this.CELL_SIZE, this.CELL_SIZE);
+
+    // 2. Draw the text value if it exists
+    if (cell.value) {
+      ctx.fillStyle = 'black'; // Text color
+      ctx.font = 'bold 16px Roboto, sans-serif'; // Text font and size
+      ctx.textAlign = 'center';  // Center horizontally
+      ctx.textBaseline = 'middle'; // Center vertically
+
+      // Place the text exactly in the middle of the current cell
+      const textX = x + (this.CELL_SIZE / 2);
+      const textY = y + (this.CELL_SIZE / 2);
+      
+      ctx.fillText(cell.value, textX, textY);
+    }
   }
 
+  // Draw Grid Lines (unchanged)
   ctx.strokeStyle = 'rgba(180, 180, 180, 0.5)';
   ctx.lineWidth = 1;
 

@@ -18,6 +18,7 @@ import { PartsAuditDetailsComponent } from './parts-audit-details/parts-audit-de
 import { PartsAuditReferenceComponent } from './parts-audit-reference/parts-audit-reference.component';
 import { PartsCompletedReferenceComponent } from './parts-completed-reference/parts-completed-reference.component';
 import { AuditrefRemarksPopComponent } from './parts-audit-reference/auditref-remarks-pop/auditref-remarks-pop.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 // Import your components
  
@@ -43,7 +44,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    
     // --- ADD THE MISSING MODULES HERE ---
     FormsModule,
     ReactiveFormsModule,
@@ -52,9 +52,10 @@ const routes: Routes = [
     MatIconModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatButtonModule,  
-    MatTooltipModule  
-  ],
+    MatButtonModule,
+    MatTooltipModule,
+    MatDialogModule
+],
   exports: [RouterModule],
   declarations: [
    PartsAuditDetailsComponent ,

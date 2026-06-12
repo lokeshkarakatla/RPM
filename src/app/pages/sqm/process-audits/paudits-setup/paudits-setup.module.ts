@@ -11,12 +11,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Components
-import { QuestionPopComponent } from './process-audits-categories/audit-categories-innerscreen/question-pop/question-pop.component';
+// import { QuestionPopComponent } from './process-audits-categories/audit-categories-innerscreen/question-pop/question-pop.component';
 // ... (import your other components like AuditCategoriesInnerscreenComponent)
 
 @NgModule({
   declarations: [
-    QuestionPopComponent, // <-- UNCOMMENT THIS
+    // QuestionPopComponent, // <-- UNCOMMENT THIS
     // ... your other components
   ],
   imports: [

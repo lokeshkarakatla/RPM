@@ -14,16 +14,16 @@ export class PartsFamiliesComponent implements OnInit {
   selectedStatus: string = '';
 
   tableData = [
-  { name: 'Engine Components', status: 'Active' },
-  { name: 'Transmission Systems', status: 'Active' },
-  { name: 'Chassis and Frame', status: 'Inactive' },
-  { name: 'Suspension Parts', status: 'Active' },
-  { name: 'Electrical Systems', status: 'Inactive' },
-  { name: 'Braking Systems', status: 'Active' },
-  { name: 'Body and Cabin', status: 'Active' },
-  { name: 'Fuel Systems', status: 'Inactive' },
-  { name: 'Cooling Systems', status: 'Active' },
-  { name: 'Steering Systems', status: 'Active' }
+  { name: 'Engine Components', status: 'Active', parameters: 12 },
+  { name: 'Transmission Systems', status: 'Active', parameters: 8 },
+  { name: 'Chassis and Frame', status: 'Inactive', parameters: 0 },
+  { name: 'Suspension Parts', status: 'Active', parameters: 15 },
+  { name: 'Electrical Systems', status: 'Inactive', parameters: 0 },
+  { name: 'Braking Systems', status: 'Active', parameters: 10 },
+  { name: 'Body and Cabin', status: 'Active', parameters: 20 },
+  { name: 'Fuel Systems', status: 'Inactive', parameters: 0 },
+  { name: 'Cooling Systems', status: 'Active', parameters: 12 },
+  { name: 'Steering Systems', status: 'Active', parameters: 8 }
 ];
 selectedKeyword: any;
  

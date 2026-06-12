@@ -36,7 +36,8 @@ selectedKeyword: any;
       commodity: 'Casting',
       suppliers: 15,
       priority: true,
-      status: 'Active'
+      status: 'Active',
+      parameters: 12
     },
     {
       partName: 'Oil Filter',
@@ -45,7 +46,8 @@ selectedKeyword: any;
       commodity: 'Forging',
       suppliers: 12,
       priority: true,
-      status: 'Inactive'
+      status: 'Inactive',
+      parameters: 10
     },
     {
       partName: 'Brake Pad',
@@ -54,7 +56,8 @@ selectedKeyword: any;
       commodity: 'Machining',
       suppliers: 8,
       priority: false,
-      status: 'Active'
+      status: 'Active',
+      parameters: 15
     },
     {
       partName: 'Fuel Pump',
@@ -63,7 +66,8 @@ selectedKeyword: any;
       commodity: 'Fasteners',
       suppliers: 11,
       priority: false,
-      status: 'Inactive'
+      status: 'Inactive',
+      parameters: 9
     },
     {
       partName: 'Starter Motor',
@@ -72,7 +76,8 @@ selectedKeyword: any;
       commodity: 'Non-Metallic',
       suppliers: 13,
       priority: false,
-      status: 'Active'
+      status: 'Active',
+      parameters: 14
     },
     {
       partName: 'Alternator',
@@ -81,7 +86,8 @@ selectedKeyword: any;
       commodity: 'Sheet Metal',
       suppliers: 12,
       priority: true,
-      status: 'Active'
+      status: 'Active',
+      parameters: 11
     }
   ];
 

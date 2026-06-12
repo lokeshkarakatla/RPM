@@ -1,41 +1,43 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule, Routes } from "@angular/router";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { MatCardModule } from '@angular/material/card';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDialogModule } from '@angular/material/dialog';      // ← ADD THIS
-import { MatFormFieldModule } from '@angular/material/form-field'; // ← ADD THIS
-import { MatInputModule } from '@angular/material/input';          // ← ADD THIS
+import { MatCardModule } from "@angular/material/card";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatIconModule } from "@angular/material/icon";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatSelectModule } from "@angular/material/select";
+import { MatButtonModule } from "@angular/material/button";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatDialogModule } from "@angular/material/dialog"; // ← ADD THIS
+import { MatFormFieldModule } from "@angular/material/form-field"; // ← ADD THIS
+import { MatInputModule } from "@angular/material/input"; // ← ADD THIS
 
-import { PartsInnerScreenComponent } from './parts-inner-screen.component';
-import { PartsAuditDetailsComponent } from './parts-audit-details/parts-audit-details.component';
-import { PartsAuditReferenceComponent } from './parts-audit-reference/parts-audit-reference.component';
-import { PartsCompletedReferenceComponent } from './parts-completed-reference/parts-completed-reference.component';
-import { AuditrefRemarksPopComponent } from './parts-audit-reference/auditref-remarks-pop/auditref-remarks-pop.component';
-<<<<<<< Updated upstream
+import { PartsInnerScreenComponent } from "./parts-inner-screen.component";
+import { PartsAuditDetailsComponent } from "./parts-audit-details/parts-audit-details.component";
+import { PartsAuditReferenceComponent } from "./parts-audit-reference/parts-audit-reference.component";
+import { PartsCompletedReferenceComponent } from "./parts-completed-reference/parts-completed-reference.component";
+import { AuditrefRemarksPopComponent } from "./parts-audit-reference/auditref-remarks-pop/auditref-remarks-pop.component";
 // import { MatDialogModule } from "@angular/material/dialog";
-=======
-  // import { MatDialogModule } from "@angular/material/dialog";
->>>>>>> Stashed changes
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: PartsInnerScreenComponent,
     children: [
-      { path: 'parts-audit-details', component: PartsAuditDetailsComponent },
-      { path: 'parts-audit-reference', component: PartsAuditReferenceComponent },
-      { path: 'parts-completed-reference', component: PartsCompletedReferenceComponent },
-      { path: '', redirectTo: 'parts-audit-details', pathMatch: 'full' }
-    ]
-  }
+      { path: "parts-audit-details", component: PartsAuditDetailsComponent },
+      {
+        path: "parts-audit-reference",
+        component: PartsAuditReferenceComponent,
+      },
+      {
+        path: "parts-completed-reference",
+        component: PartsCompletedReferenceComponent,
+      },
+      { path: "", redirectTo: "parts-audit-details", pathMatch: "full" },
+    ],
+  },
 ];
 
 @NgModule({
@@ -44,7 +46,7 @@ const routes: Routes = [
     PartsAuditDetailsComponent,
     PartsAuditReferenceComponent,
     PartsCompletedReferenceComponent,
-    AuditrefRemarksPopComponent
+    AuditrefRemarksPopComponent,
   ],
   imports: [
     CommonModule,
@@ -58,10 +60,10 @@ const routes: Routes = [
     MatSelectModule,
     MatButtonModule,
     MatTooltipModule,
-    MatDialogModule,       // ← FIXES mat-dialog-actions in AuditrefRemarksPopComponent
+    MatDialogModule, // ← FIXES mat-dialog-actions in AuditrefRemarksPopComponent
     MatFormFieldModule,
     MatInputModule,
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PartsInnerScreen { }
+export class PartsInnerScreen {}

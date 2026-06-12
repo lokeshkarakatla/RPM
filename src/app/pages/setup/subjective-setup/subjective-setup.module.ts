@@ -42,7 +42,7 @@ export const routes: Routes = [
   { path: 'par-audit-type', component: ParAuditTypeComponent, data: { breadcrumb: 'Audit Type', description: 'Manage audit types for objective audits.' }},
   { path: 'par-monthly-target', component: MonthlyTargetsComponent, data: { breadcrumb: 'Monthly Targets', description: 'Score targets based on audit type and model mix can be setup here.' }},
   { path: 'overview', component: OverviewCheckComponent, data: { breadcrumb: 'Overview (ObjectiveAudits/Setup/Modules & Checkpoints/Add Module)', description: 'View an overview of subjective audit checkpoints.' }},
-  { path: 'check', component: CheckpointCheckComponent, data: { breadcrumb: 'Checkpoints', description: 'Checkpoints with score targets and audit type configuration.' }}
+  { path: 'check', component: CheckpointCheckComponent, data: { breadcrumb: 'Obj Audits(Setup/Modules & Checkpoints/Checkpoints)', description: 'Checkpoints with score targets and audit type configuration.' }}
 ];
 
 @NgModule({

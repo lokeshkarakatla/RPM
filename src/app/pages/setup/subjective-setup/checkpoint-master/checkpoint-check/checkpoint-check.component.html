@@ -12,7 +12,7 @@
 </li>
             <li>
                 <a mat-raised-button class="navtabWidth"
-                    style="margin-top: 10px;background-color: #50636d ;color: rgb(245, 241, 241);"
+                    style="margin-top: 10px;background-color: #50636d ;color: rgb(245, 241, 241); margin-left: 10px;"
                     routerLinkActive="active" [routerLink]="['../check']">
                     Checkpoints
                 </a>
@@ -20,20 +20,20 @@
         </ul>
     </div>
 </div>
-<div class="col-lg-12">
-    <div class="d-flex justify-content-end p-2">
+<div class="col-lg-12" >
+    <div class="d-flex justify-content-end p-2" style="margin-top:-80px">
         <button style="background-color: gray; color: white" class="btn btn-grey d-flex align-items-center"
             (click)="goBack()">
             <mat-icon class="me-1">arrow_back</mat-icon> Back
         </button>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4" style="margin-left: -10px">
         <table style="margin-top: 7px;padding-left: 0px; padding-right: 0px;" matSort id="example2"
             class="table table-bordered table-hover">
             <tbody>
                 <tr>
                     <td class="text-center"> 
-                        <div class="image-grid-container" style="width: 350px; height: 250px; margin: 0 auto; cursor: pointer;" (click)="imgpop(null)">
+                        <div class="image-grid-container" style="width: 350px; height: 250px; margin-left: 20px  ; cursor: pointer;" (click)="imgpop(null)">
                             <img class="overlay-image" [src]="Image" />
 
                             <table class="grid-overlay">
@@ -43,7 +43,7 @@
                                             class="grid-cell"
                                             [ngStyle]="{
                                               'background-color': isPreHighlighted(rowIndex + 1, colIndex + 1) 
-                                                                  ? 'rgba(0, 123, 255, 0.4)' 
+                                                                  ? 'rgba(211, 211, 211, 0.7)'
                                                                   : 'transparent'
                                             }">
                                         </td>

@@ -27,141 +27,141 @@ export class SealingComponent implements OnInit {
   gridCols = Array(11).fill(0);
 
   // Updated images array with standardized heights, widths, and GREY cells added
-  images = [
-    {
-      title: "Right Fender",
-      src: "/assets/Swift/Right_Fender.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 2, row: 2, color: "rgba(255, 205, 205, 0.64)" }, // Red
-        { col: 5, row: 2, color: "rgba(255, 205, 205, 0.64)" }, // Red
-        { col: 7, row: 2, color: "rgba(127, 255, 127, 0.62)" }, // Green
-        { col: 3, row: 3, color: "rgba(255, 205, 205, 0.64)" }, // Red
-        { col: 2, row: 4, color: "rgba(127, 255, 127, 0.62)" }, // Green
-        { col: 3, row: 1, color: "rgba(127, 255, 127, 0.62)" }, // Green
-        { col: 6, row: 3, color: "rgba(127, 255, 127, 0.62)" }, // Green
-        { col: 8, row: 4, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-        { col: 4, row: 6, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-    {
-      title: "Right Front Door",
-      src: "/assets/Swift/Right_Front_Door.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 2, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 7, row: 5, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 3, row: 6, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 5, row: 7, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 7, row: 7, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 4, row: 3, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-        { col: 5, row: 4, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-    {
-      title: "Right Rear Door",
-      src: "/assets/Swift/Right_Rear_Door.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 8, row: 3, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 7, row: 4, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 7, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 5, row: 8, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 8, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 4, row: 5, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-    {
-      title: "Rear",
-      src: "/assets/Swift/Back.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 4, row: 4, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 6, row: 4, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 2, row: 5, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 4, row: 6, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 6, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 8, row: 5, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 2, row: 6, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 5, row: 5, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-        { col: 5, row: 7, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-    {
-      title: "Left Rear Door",
-      src: "/assets/Swift/Left_Rear_Door.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 7, row: 4, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 3, row: 5, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 7, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 5, row: 8, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 4, row: 3, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-    {
-      title: "Left Front Door",
-      src: "/assets/Swift/Left_Front_Door.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 8, row: 1, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 7, row: 5, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 3, row: 6, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 4, row: 7, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 5, row: 7, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 7, row: 7, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 5, row: 3, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-    {
-      title: "Left Fender",
-      src: "/assets/Swift/Left_Fender.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 11, row: 2, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 8, row: 2, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 2, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 10, row: 3, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 7, row: 3, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 9, row: 1, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 4, row: 4, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-    {
-      title: "Roof",
-      src: "/assets/Swift/Roof.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 5, row: 4, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 9, row: 4, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 10, row: 5, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 3, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 6, row: 6, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 8, row: 5, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-    {
-      title: "Bonnet",
-      src: "/assets/Swift/Bonnet.png",
-      height: "310px", width: "480px", heightPx: 310, widthPx: 480,
-      highlightedCells: [
-        { col: 7, row: 4, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 4, row: 5, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 3, row: 2, color: "rgba(127, 255, 127, 0.62)" },
-        { col: 3, row: 4, color: "rgba(255, 205, 205, 0.64)" },
-        { col: 6, row: 6, color: "rgba(211, 211, 211, 0.8)" },  // Grey
-      ],
-    },
-  ];
+ images = [
+  {
+    title: "Right Fender",
+    src: "/assets/Swift/Right_Fender.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 2, row: 2, color: "rgba(255, 205, 205, 0.64)", value: 3 }, // Red
+      { col: 5, row: 2, color: "rgba(255, 205, 205, 0.64)", value: 4 }, // Red
+      { col: 7, row: 2, color: "rgba(127, 255, 127, 0.62)", value: 12 }, // Green
+      { col: 3, row: 3, color: "rgba(255, 205, 205, 0.64)", value: 2 }, // Red
+      { col: 2, row: 4, color: "rgba(127, 255, 127, 0.62)", value: 14 }, // Green
+      { col: 3, row: 1, color: "rgba(127, 255, 127, 0.62)", value: 11 }, // Green
+      { col: 6, row: 3, color: "rgba(127, 255, 127, 0.62)", value: 15 }, // Green
+      { col: 8, row: 4, color: "rgba(211, 211, 211, 0.8)", value: 8 },  // Grey
+      { col: 4, row: 6, color: "rgba(211, 211, 211, 0.8)", value: 7 },  // Grey
+    ],
+  },
+  {
+    title: "Right Front Door",
+    src: "/assets/Swift/Right_Front_Door.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)", value: 4 },
+      { col: 6, row: 2, color: "rgba(127, 255, 127, 0.62)", value: 11 },
+      { col: 7, row: 5, color: "rgba(127, 255, 127, 0.62)", value: 13 },
+      { col: 3, row: 6, color: "rgba(127, 255, 127, 0.62)", value: 12 },
+      { col: 5, row: 7, color: "rgba(255, 205, 205, 0.64)", value: 3 },
+      { col: 7, row: 7, color: "rgba(127, 255, 127, 0.62)", value: 14 },
+      { col: 4, row: 3, color: "rgba(211, 211, 211, 0.8)", value: 8 },  // Grey
+      { col: 5, row: 4, color: "rgba(211, 211, 211, 0.8)", value: 7 },  // Grey
+    ],
+  },
+  {
+    title: "Right Rear Door",
+    src: "/assets/Swift/Right_Rear_Door.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 3, row: 1, color: "rgba(255, 205, 205, 0.64)", value: 2 },
+      { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)", value: 12 },
+      { col: 8, row: 3, color: "rgba(127, 255, 127, 0.62)", value: 11 },
+      { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)", value: 4 },
+      { col: 7, row: 4, color: "rgba(127, 255, 127, 0.62)", value: 15 },
+      { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)", value: 3 },
+      { col: 6, row: 7, color: "rgba(255, 205, 205, 0.64)", value: 5 },
+      { col: 5, row: 8, color: "rgba(255, 205, 205, 0.64)", value: 2 },
+      { col: 6, row: 8, color: "rgba(127, 255, 127, 0.62)", value: 14 },
+      { col: 4, row: 5, color: "rgba(211, 211, 211, 0.8)", value: 6 },  // Grey
+    ],
+  },
+  {
+    title: "Rear",
+    src: "/assets/Swift/Back.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 4, row: 4, color: "rgba(127, 255, 127, 0.62)", value: 12 },
+      { col: 6, row: 4, color: "rgba(127, 255, 127, 0.62)", value: 13 },
+      { col: 2, row: 5, color: "rgba(255, 205, 205, 0.64)", value: 3 },
+      { col: 4, row: 6, color: "rgba(255, 205, 205, 0.64)", value: 4 },
+      { col: 6, row: 6, color: "rgba(255, 205, 205, 0.64)", value: 2 },
+      { col: 8, row: 5, color: "rgba(127, 255, 127, 0.62)", value: 14 },
+      { col: 2, row: 6, color: "rgba(127, 255, 127, 0.62)", value: 11 },
+      { col: 5, row: 5, color: "rgba(211, 211, 211, 0.8)", value: 8 },  // Grey
+      { col: 5, row: 7, color: "rgba(211, 211, 211, 0.8)", value: 7 },  // Grey
+    ],
+  },
+  {
+    title: "Left Rear Door",
+    src: "/assets/Swift/Left_Rear_Door.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)", value: 12 },
+      { col: 6, row: 4, color: "rgba(255, 205, 205, 0.64)", value: 4 },
+      { col: 7, row: 4, color: "rgba(127, 255, 127, 0.62)", value: 11 },
+      { col: 3, row: 5, color: "rgba(127, 255, 127, 0.62)", value: 15 },
+      { col: 3, row: 6, color: "rgba(255, 205, 205, 0.64)", value: 3 },
+      { col: 6, row: 7, color: "rgba(255, 205, 205, 0.64)", value: 2 },
+      { col: 5, row: 8, color: "rgba(255, 205, 205, 0.64)", value: 5 },
+      { col: 4, row: 3, color: "rgba(211, 211, 211, 0.8)", value: 7 },  // Grey
+    ],
+  },
+  {
+    title: "Left Front Door",
+    src: "/assets/Swift/Left_Front_Door.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 6, row: 1, color: "rgba(127, 255, 127, 0.62)", value: 14 },
+      { col: 8, row: 1, color: "rgba(255, 205, 205, 0.64)", value: 3 },
+      { col: 7, row: 5, color: "rgba(127, 255, 127, 0.62)", value: 11 },
+      { col: 3, row: 6, color: "rgba(127, 255, 127, 0.62)", value: 12 },
+      { col: 4, row: 7, color: "rgba(127, 255, 127, 0.62)", value: 13 },
+      { col: 5, row: 7, color: "rgba(255, 205, 205, 0.64)", value: 4 },
+      { col: 7, row: 7, color: "rgba(127, 255, 127, 0.62)", value: 15 },
+      { col: 5, row: 3, color: "rgba(211, 211, 211, 0.8)", value: 8 },  // Grey
+    ],
+  },
+  {
+    title: "Left Fender",
+    src: "/assets/Swift/Left_Fender.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 11, row: 2, color: "rgba(255, 205, 205, 0.64)", value: 2 },
+      { col: 8, row: 2, color: "rgba(255, 205, 205, 0.64)", value: 3 },
+      { col: 6, row: 2, color: "rgba(127, 255, 127, 0.62)", value: 12 },
+      { col: 10, row: 3, color: "rgba(255, 205, 205, 0.64)", value: 5 },
+      { col: 7, row: 3, color: "rgba(255, 205, 205, 0.64)", value: 4 },
+      { col: 9, row: 1, color: "rgba(127, 255, 127, 0.62)", value: 14 },
+      { col: 4, row: 4, color: "rgba(211, 211, 211, 0.8)", value: 7 },  // Grey
+    ],
+  },
+  {
+    title: "Roof",
+    src: "/assets/Swift/Roof.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 5, row: 4, color: "rgba(255, 205, 205, 0.64)", value: 3 },
+      { col: 9, row: 4, color: "rgba(255, 205, 205, 0.64)", value: 4 },
+      { col: 10, row: 5, color: "rgba(255, 205, 205, 0.64)", value: 2 },
+      { col: 6, row: 3, color: "rgba(127, 255, 127, 0.62)", value: 11 },
+      { col: 6, row: 6, color: "rgba(127, 255, 127, 0.62)", value: 12 },
+      { col: 8, row: 5, color: "rgba(211, 211, 211, 0.8)", value: 8 },  // Grey
+    ],
+  },
+  {
+    title: "Bonnet",
+    src: "/assets/Swift/Bonnet.png",
+    height: "310px", width: "480px", heightPx: 310, widthPx: 480,
+    highlightedCells: [
+      { col: 7, row: 4, color: "rgba(255, 205, 205, 0.64)", value: 3 },
+      { col: 4, row: 5, color: "rgba(127, 255, 127, 0.62)", value: 14 },
+      { col: 3, row: 2, color: "rgba(127, 255, 127, 0.62)", value: 12 },
+      { col: 3, row: 4, color: "rgba(255, 205, 205, 0.64)", value: 5 },
+      { col: 6, row: 6, color: "rgba(211, 211, 211, 0.8)", value: 7 },  // Grey
+    ],
+  },
+];
 
   // Store the active image object here instead of just a string
   currentImage: any = this.images[0];

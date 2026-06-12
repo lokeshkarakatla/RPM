@@ -87,7 +87,7 @@
   <a class="text-blue" 
      style="cursor: pointer; text-decoration: underline;" 
      [routerLink]="['inner']" 
-     [queryParams]="{ code: item.code, name: item.name }"
+     [queryParams]="{   name: item.name }"
      matTooltip="View Parameter Details">
     {{ item.parameters }}
   </a>

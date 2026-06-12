@@ -4,6 +4,7 @@ import * as Highcharts from 'highcharts';
 import { PauditsNewAuditComponent } from '../paudits-new-audit/paudits-new-audit.component';
 import { GridColumnComponent } from 'src/app/pages/prts/grid-prts/grid-column/grid-column.component';
 import { ActiveGridDialogComponent } from './activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
+import { AuditDonePopupComponent } from './activeaudits-reference/active-grid-dialog/audit-done-popup/audit-done-popup.component';
 
 @Component({
   selector: "app-paudits-active-audits",
@@ -179,17 +180,32 @@ export class PauditsActiveAuditsComponent implements OnInit {
     this.dialog.open(ActiveGridDialogComponent, {
       width: '650px',
       height: 'auto',
-        maxHeight: '90vh',
-          panelClass: 'no-scroll-dialog' 
+      maxHeight: '90vh',
+      panelClass: 'no-scroll-dialog'
     });
   }
 
 
-   openscorepdf(fileName: string): void {
+  openscorepdf(fileName: string): void {
     window.open(`assets/${fileName}`, '_blank');
   }
 
 
-  
+  onDoneClick(event: MouseEvent, audit: any): void {
+    event.preventDefault(); // prevents the checkbox from toggling on its own
+
+    const dialogRef = this.dialog.open(AuditDonePopupComponent, {
+      width: '480px',
+      data: { audit }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        audit.done = !audit.done; // only toggle if user confirmed
+      }
+    });
+  }
+
+
 
 }

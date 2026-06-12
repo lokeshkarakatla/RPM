@@ -51,9 +51,9 @@
     }
   }
 
-  // .bg-green { background-color: #008000; }
-  // .bg-red { background-color: #ff0000; }
-  // .bg-yellow { background-color: #ffff00; }
+  .bg-green { background-color: #008000; }
+  .bg-red { background-color: #ff0000; }
+  .bg-yellow { background-color: #ffff00; }
 
   // Guidelines Cards
   .guideline-card {
@@ -148,39 +148,7 @@
     height: 45px;
   }
 }
-
-.step-box {
-    width: 45px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    cursor: pointer;
-    
-    /* Default Grey Background */
-    background-color: #d3d3d3; 
-    color: #333;
-    
-    /* Add a transparent border by default so the box doesn't jump in size when selected */
-    border: 2px solid transparent; 
-    // border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    transition: transform 0.1s ease, border 0.2s ease;
-    
-    &:hover {
-      transform: translateY(-2px);
-    }
-    
-    /* Bordered when selected */
-    &.selected-step {
-      border: 2px solid #000; 
-      background-color: #ffef0d; /* Slightly lighter grey when active to make it pop */
-    }
-  }
-
-
-  .drag-drop-zone {
+.drag-drop-zone {
   width: 100%;
   border: 2px dashed #b5b5b5;
   border-radius: 4px;
@@ -196,4 +164,108 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+}
+
+// Step Boxes
+  .step-box {
+    width: 45px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform 0.1s ease;
+    background-color: #e9ecef; /* Default inactive color */
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    // The active outer border with gap
+    &.selected-step {
+      outline: 2px solid #0f2e4a; /* Dark border from your image */
+      outline-offset: 3px; /* Creates the white margin space */
+      border: none; /* Removes the old transparent border */
+    }
+  }
+
+  /* Status Colors */
+  .bg-green { background-color: #00b050 !important; }
+  .bg-red { background-color: #ff0000 !important; }
+  .bg-grey { background-color: #d9d9d9 !important; } /* Replaced yellow with grey */
+
+
+
+  /* --- SLIDESHOW OVERLAY STYLES --- */
+.slideshow-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slideshow-image {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.slideshow-close {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 10000;
+  
+  mat-icon {
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+  }
+  
+  &:hover { color: #ff5252; }
+}
+
+.slideshow-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: background 0.3s;
+
+  mat-icon {
+    font-size: 36px;
+    height: 36px;
+    width: 36px;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  &.prev { left: 30px; }
+  &.next { right: 30px; }
 }

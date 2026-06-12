@@ -66,8 +66,11 @@
             </mat-select>
           </td>
           <td class="text-center">
-            <mat-checkbox [checked]="audit.done" (change)="audit.done = $event.checked" color="primary">
-            </mat-checkbox>
+           <mat-checkbox 
+  [checked]="audit.done" 
+  (click)="onDoneClick($event, audit)" 
+  color="primary">
+</mat-checkbox>
           </td>
           <td class="text-center manage-icons">
             <i class="fas fa-edit edit-icon" title="Edit"></i>

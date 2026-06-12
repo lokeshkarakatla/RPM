@@ -1,38 +1,45 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule, Routes } from '@angular/router';
-
-import { ActiveauditsReferenceComponent } from './activeaudits-reference/activeaudits-reference.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { ActiveGridDialogComponent } from './activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+import { ActiveauditsReferenceComponent } from './activeaudits-reference/activeaudits-reference.component';
 
 const routes: Routes = [
-  { path: 'reference', component: ActiveauditsReferenceComponent }];
+  {
+    path: 'reference',
+    component: ActiveauditsReferenceComponent
+  }
+];
 
 @NgModule({
+  declarations: [
+    ActiveauditsReferenceComponent
+
+  ],
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule.forChild(routes),
+
     MatCheckboxModule,
-    MatIconModule,
     MatDialogModule,
     MatButtonModule,
-    RouterModule.forChild(routes),
+    MatIconModule,
     MatSelectModule,
-    MatCheckboxModule
-
-
-
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  exports: [RouterModule],
-  declarations: [
-   
-
-  ]
+  exports: [RouterModule]
 })
 export class PauditeActiveAuditsModule { }

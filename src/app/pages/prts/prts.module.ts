@@ -61,6 +61,7 @@ import { MonitorDialogComponent } from './monitor/monitor-dialog/monitor-dialog.
 import { QuillModule } from 'ngx-quill';
 import { MitigationComponent } from './mitigation/mitigation.component';
 import { ActiveGridDialogComponent } from '../sqm/process-audits/paudits-active-audits/activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
+import { AuditDonePopupComponent } from '../sqm/process-audits/paudits-active-audits/activeaudits-reference/active-grid-dialog/audit-done-popup/audit-done-popup.component';
 // import { DelayedComponent } from './delayed/delayed.component';
 
 
@@ -295,7 +296,7 @@ const routes: Routes = [
     BaseInfoComponent,
     D1Component,
     D2Component,
-
+    AuditDonePopupComponent,
     D3BComponent,
     D4Component,
     SummaryComponent,

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { objectivedata } from '../objectivedata';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { StatusConfirmationDialogComponent } from '../../testing/testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-objective-audits-issue-status',
@@ -18,9 +19,9 @@ export class ObjectiveAuditsIssueStatusComponent implements OnInit {
   public totalSize = 0;
   filterToggle = false;
 
+
   constructor(
-    public dialog: MatDialog,
-  ) { }
+    public dialog: MatDialog,private router: Router) { }
   values = []
   ngOnInit() {
     if (environment.mode == 1) {
@@ -49,9 +50,9 @@ scrollLeft() {
   values1 = [
   ]
 
-  opendashboard() {
-    window.open('/#/app/parameterboard');
-  }
+ opendashboard() {
+  this.router.navigate(['/app/parameterboard']);
+}
 
   //parameterboard
   saveStatus() {

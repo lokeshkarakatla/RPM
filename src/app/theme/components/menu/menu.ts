@@ -24,13 +24,20 @@ export const verticalMenuItems = [
   // new Menu(406, 'Kanban Setup', '/app/admin/kanban-setup', null, 'panorama_fish_eye', null, false, 4),y
   //new Menu(407, 'Event Log', '/app/admin/event-log', null, 'engineering', null, false, 4),
   // new Menu(408, 'Credentials', '/app/admin/credentials',null,'engineering',null,false,4)
+  // In horizontalMenuItems
+new Menu(2, 'OBJ Audits', '/app/objective-audits', null, 'find_in_page', null, false, 0,
+  ['/app/setup/subjective/check']   // ← routes that should activate this item
+),
 ]
 
 export const horizontalMenuItems = [
   // new Menu(1, 'Dashboard', '/app/dashboard', null, 'dashboard', null, false, 0),
   //  new Menu(2, 'Radar', '/app/radar1', null, 'account_circle', null, false, 0),
   new Menu(3, 'Dashboard', '/app/dashboard', null, 'dashboard', null, true, 0),
-  new Menu(2, 'OBJ Audits', '/app/objective-audits', null, 'find_in_page', null, false, 0),
+ new Menu(2, 'OBJ Audits', '/app/objective-audits', null, 'find_in_page', null, false, 0,
+  ['/app/objective-audits', '/app/setup/subjective', '/app/parameterboard']
+),  // ← routes that should activate this item
+
 
   new Menu(1, 'SUB Audits', '/app/subjective-audits', null, 'find_in_page', null, false, 0),
   new Menu(6, '7D', '/app/prts-part', null, 'request_quote', null, false, 0),
@@ -64,6 +71,8 @@ export const horizontalMenuItems = [
   // new Menu(406, 'Kanban Setup', '/app/admin/kanban-setup', null, 'panorama_fish_eye', null, false, 4),
   //new Menu(407, 'Event Log', '/app/admin/event-log', null, 'engineering', null, false, 4),
   //new Menu(408, 'Credentials', '/app/admin/credentials',null,'engineering',null,false,4)
+  // In horizontalMenuItems
+
 
 ]
 

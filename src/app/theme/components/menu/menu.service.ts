@@ -67,6 +67,29 @@ export class MenuService {
       });
     }
   }
+
+  // menu.service.ts
+// horizontal-menu.component.ts
+
+isMenuItemActive(menu: any): boolean {
+  const url = this.router.url.split('?')[0]; // strip query params
+
+  const result =
+    url === menu.routerLink ||
+
+    (menu.routerLink === '/app/prts-part' &&
+      (url.startsWith('/app/prtsnavbar') ||
+       url.startsWith('/app/prtsonepager'))) ||
+
+    (menu.routerLink === '/app/subjective-audits' &&
+      url.startsWith('/app/checklistdoard')) ||
+
+    (menu.routerLink === '/app/objective-audits' &&
+      (url.startsWith('/app/setup/subjective') ||
+       url.startsWith('/app/parameterboard')));
+
+  return result;
+}
   
 
 }

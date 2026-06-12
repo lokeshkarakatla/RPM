@@ -75,7 +75,7 @@ categoryData: { [key: string]: any[] } = {
     ]
   };
   ngOnInit(): void {
-    // Load the initial data for the default selected tab
+    // Load the initial data for t e default selected tab
     this.tableData = this.categoryData[this.selectedCategory] || [];
     this.updatePage();
   }

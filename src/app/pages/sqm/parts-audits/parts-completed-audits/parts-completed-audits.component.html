@@ -4,13 +4,8 @@
     <div class="col-lg-4 text-center">
       <h3 class="chart-header">Commodity Distribution</h3>
       <div class="chart-container">
-        <ngx-charts-pie-chart
-          [results]="commodityData"
-          [scheme]="colorSchemeCommodity"
-          [labels]="true"
-          [doughnut]="false"
-          [explodeSlices]="false"
-          [legend]="false">
+        <ngx-charts-pie-chart [results]="commodityData" [scheme]="colorSchemeCommodity" [labels]="true"
+          [doughnut]="false" [explodeSlices]="false" [legend]="false">
         </ngx-charts-pie-chart>
       </div>
     </div>
@@ -18,13 +13,8 @@
     <div class="col-lg-4 text-center">
       <h3 class="chart-header">Auditor Distribution</h3>
       <div class="chart-container">
-        <ngx-charts-pie-chart
-          [results]="auditorData"
-          [scheme]="colorSchemeAuditor"
-          [labels]="true"
-          [doughnut]="false"
-          [explodeSlices]="false"
-          [legend]="false">
+        <ngx-charts-pie-chart [results]="auditorData" [scheme]="colorSchemeAuditor" [labels]="true" [doughnut]="false"
+          [explodeSlices]="false" [legend]="false">
         </ngx-charts-pie-chart>
       </div>
     </div>
@@ -32,20 +22,15 @@
     <div class="col-lg-4 text-center">
       <h3 class="chart-header">Audits Status</h3>
       <div class="chart-container">
-        <ngx-charts-pie-chart
-          [results]="statusData"
-          [scheme]="colorSchemeStatus"
-          [labels]="true"
-          [doughnut]="false"
-          [explodeSlices]="false"
-          [legend]="false">
+        <ngx-charts-pie-chart [results]="statusData" [scheme]="colorSchemeStatus" [labels]="true" [doughnut]="false"
+          [explodeSlices]="false" [legend]="false">
         </ngx-charts-pie-chart>
       </div>
     </div>
   </div>
 
 
-   <div class="toolbar-row">
+  <div class="toolbar-row">
     <button mat-raised-button class="btn-dark" (click)="openGridView()">
       <mat-icon>grid_on</mat-icon> Grid View
     </button>
@@ -54,7 +39,7 @@
     </button>
   </div>
 
-  
+
   <div class="table-responsive bg-white">
     <table class="custom-grid-table">
       <thead>
@@ -72,48 +57,43 @@
           <th>Done</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let item of tableData">
-            <td class="text-link">
-   <a [routerLink]="['/app','sqm','parts-inner-screen','parts-completed-reference']">
-    {{ item.auditRef }}
-  </a>
-</td>
-           
-          <td>{{ item.commodity }}</td>
-          <td>{{ item.location }}</td>
-          <td>{{ item.supplier }}</td>
-          <td>{{ item.auditor }}</td>
-          <td>{{ item.date }}</td>
-          <td class="text-link text-center">{{ item.issues }}</td>
-          <td class="text-link text-center">{{ item.capa }}</td>
-          <td class="text-link text-center">   <a [routerLink]="['/app','sqm','parts-inner-screen','parts-completed-reference']">{{ item.score }}</a></td>
-          <td class="text-center">
-         <mat-select
-  class="mat-select form-control"
-  placeholder="Select Status"
-  [(ngModel)]="item.status">
-
-  <mat-option value="Pending">Initiated</mat-option>
-  <mat-option value="WIP">Awarded</mat-option>
-  <mat-option value="Completed">In Progress</mat-option>
-  <mat-option value="WIP">On Hold</mat-option>
-  <mat-option value="Completed">Complete</mat-option>
-
-</mat-select>
-          </td>
-          <td class="text-center">
-            <mat-checkbox color="primary" [(ngModel)]="item.done"></mat-checkbox>
-          </td>
-        </tr>
-      </tbody>
+     <tbody>
+  <tr *ngFor="let item of tableData">
+    <td class="text-link">
+      <a [routerLink]="['/app','sqm','process-inner-screen','process-completed-reference']">
+        {{ item.auditRef }}
+      </a>
+    </td>
+    <td>{{ item.commodity }}</td>
+    <td>{{ item.location }}</td>
+    <td>{{ item.supplier }}</td>
+    <td>{{ item.auditor }}</td>
+    <td>{{ item.date }}</td>
+    <td class="text-link text-center">{{ item.issues }}</td>
+    <td class="text-link text-center">{{ item.capa }}</td>
+    <td class="text-link text-center">
+      <a [routerLink]="['/app','sqm','process-inner-screen','process-completed-reference']">
+        {{ item.score }}
+      </a>
+    </td>
+    <td class="text-center">
+      <mat-select class="mat-select form-control" placeholder="Select Status" [(ngModel)]="item.status">
+        <mat-option value="Pending">Initiated</mat-option>
+        <mat-option value="WIP">Awarded</mat-option>
+        <mat-option value="Completed">In Progress</mat-option>
+        <mat-option value="OnHold">On Hold</mat-option>
+        <mat-option value="Complete">Complete</mat-option>
+      </mat-select>
+    </td>
+    <td class="text-center">
+      <mat-checkbox [checked]="item.done" (click)="onDoneClick($event, item)" color="primary">
+      </mat-checkbox>
+    </td>
+  </tr>
+</tbody>
     </table>
 
-    <mat-paginator 
-      [length]="tableData.length"
-      [pageSize]="4"
-      [pageSizeOptions]="[4, 10, 25, 50]"
-      showFirstLastButtons>
+    <mat-paginator [length]="tableData.length" [pageSize]="4" [pageSizeOptions]="[4, 10, 25, 50]" showFirstLastButtons>
     </mat-paginator>
   </div>
 

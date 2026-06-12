@@ -58,42 +58,40 @@
           <th>Done</th>
         </tr>
       </thead>
-     <tbody>
-        <tr *ngFor="let item of tableData">
-          <td class="text-link">
-            <a [routerLink]="['/app','sqm','process-inner-screen','process-completed-reference']">
-              {{ item.auditRef }}
-            </a>
-          </td>
-
-          <td>{{ item.commodity }}</td>
-          <td>{{ item.location }}</td>
-          <td>{{ item.supplier }}</td>
-          <td>{{ item.auditor }}</td>
-          <td>{{ item.date }}</td>
-          <td class="text-link text-center">{{ item.issues }}</td>
-          <td class="text-link text-center">{{ item.capa }}</td>
-          
-          <td class="text-link text-center">
-            <a [routerLink]="['/app','sqm','process-inner-screen','process-completed-reference']">
-              {{ item.score }}
-            </a>
-          </td>
-          
-          <td class="text-center">
-            <mat-select class="mat-select form-control" placeholder="Select Status" [(ngModel)]="item.status">
-              <mat-option value="Pending">Initiated</mat-option>
-              <mat-option value="WIP">Awarded</mat-option>
-              <mat-option value="Completed">In Progress</mat-option>
-              <mat-option value="WIP">On Hold</mat-option>
-              <mat-option value="Completed">Complete</mat-option>
-            </mat-select>
-          </td>
-          <td class="text-center">
-            <mat-checkbox color="primary" [(ngModel)]="item.done"></mat-checkbox>
-          </td>
-        </tr>
-      </tbody>
+    <tbody>
+  <tr *ngFor="let item of tableData">
+    <td class="text-link">
+      <a [routerLink]="['/app','sqm','process-inner-screen','process-completed-reference']">
+        {{ item.auditRef }}
+      </a>
+    </td>
+    <td>{{ item.commodity }}</td>
+    <td>{{ item.location }}</td>
+    <td>{{ item.supplier }}</td>
+    <td>{{ item.auditor }}</td>
+    <td>{{ item.date }}</td>
+    <td class="text-link text-center">{{ item.issues }}</td>
+    <td class="text-link text-center">{{ item.capa }}</td>
+    <td class="text-link text-center">
+      <a [routerLink]="['/app','sqm','process-inner-screen','process-completed-reference']">
+        {{ item.score }}
+      </a>
+    </td>
+    <td class="text-center">
+      <mat-select class="mat-select form-control" placeholder="Select Status" [(ngModel)]="item.status">
+        <mat-option value="Pending">Initiated</mat-option>
+        <mat-option value="WIP">Awarded</mat-option>
+        <mat-option value="Completed">In Progress</mat-option>
+        <mat-option value="OnHold">On Hold</mat-option>
+        <mat-option value="Complete">Complete</mat-option>
+      </mat-select>
+    </td>
+    <td class="text-center">
+      <mat-checkbox [checked]="item.done" (click)="onDoneClick($event, item)" color="primary">
+      </mat-checkbox>
+    </td>
+  </tr>
+</tbody>
     </table>
 
     <mat-paginator [length]="tableData.length" [pageSize]="4" [pageSizeOptions]="[4, 10, 25, 50]" showFirstLastButtons>

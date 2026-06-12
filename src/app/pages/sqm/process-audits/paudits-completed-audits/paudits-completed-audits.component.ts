@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActiveGridDialogComponent } from '../paudits-active-audits/activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuditDonePopupComponent } from '../paudits-active-audits/activeaudits-reference/active-grid-dialog/audit-done-popup/audit-done-popup.component';
 
 @Component({
   selector: 'app-paudits-completed-audits',
@@ -121,5 +122,20 @@ export class PauditsCompletedAuditsComponent implements OnInit {
     });
   }
 
+
+   onDoneClick(event: MouseEvent, audit: any): void {
+      event.preventDefault(); // prevents the checkbox from toggling on its own
+  
+      const dialogRef = this.dialog.open(AuditDonePopupComponent, {
+        width: '480px',
+        data: { audit }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          audit.done = !audit.done; // only toggle if user confirmed
+        }
+      });
+    }
 
 }

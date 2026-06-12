@@ -19,7 +19,7 @@
     <button mat-raised-button class="btn-dark">
       <mat-icon>filter_list</mat-icon> Filter
     </button>
-   <button mat-raised-button color="primary" class="btn-blue" (click)="openaudit(null)">
+    <button mat-raised-button color="primary" class="btn-blue" (click)="openaudit(null)">
       <mat-icon>person_add</mat-icon> Add Audit
     </button>
   </div>
@@ -54,39 +54,37 @@
           <td>{{ audit.auditor }}</td>
           <td>{{ audit.date }}</td>
           <td class="text-link text-center">{{ audit.action }}</td>
-          <td class="text-link text-center"> <a [routerLink]="['/app','sqm','parts-inner-screen','parts-audit-reference']">{{ audit.score }}</a></td>
-          
+          <td class="text-link text-center">
+            <a [routerLink]="['/app','sqm','parts-inner-screen','parts-audit-reference']">
+              {{ audit.score }}
+            </a>
+          </td>
+
           <td class="text-center status-cell">
-             <mat-select
-  class="mat-select form-control" style="width:120px"  [(ngModel)]="audit.status" 
-  placeholder="Select Status"
- >
-
-  <mat-option value="Pending">Completed</mat-option>
-  <mat-option value="WIP">Pending</mat-option>
-  <mat-option value="Completed">In Progress</mat-option>
-  <mat-option value="WIP">On Hold</mat-option>
- 
-
-</mat-select>
+            <mat-select class="mat-select form-control" style="width:120px"
+              [(ngModel)]="audit.status" placeholder="Select Status">
+              <mat-option value="Completed">Completed</mat-option>
+              <mat-option value="Pending">Pending</mat-option>
+              <mat-option value="InProgress">In Progress</mat-option>
+              <mat-option value="OnHold">On Hold</mat-option>
+            </mat-select>
           </td>
 
           <td class="text-center">
-            <mat-checkbox 
-              [checked]="audit.done" 
-              (change)="audit.done = $event.checked" 
-              color="primary">
+            <mat-checkbox [checked]="audit.done" (click)="onDoneClick($event, audit)" color="primary">
             </mat-checkbox>
           </td>
+
           <td class="text-center manage-icons">
-            <i class="fas fa-edit edit-icon" title="Edit"  (click)="openaudit(1)"></i>
+            <i class="fas fa-edit edit-icon" title="Edit" (click)="openaudit(audit)"></i>
             <i class="fas fa-trash delete-icon" title="Delete"></i>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <mat-paginator [length]="auditData.length" [pageSize]="4" [pageSizeOptions]="[4, 10, 20]" aria-label="Select page">
+    <mat-paginator [length]="auditData.length" [pageSize]="4" [pageSizeOptions]="[4, 10, 20]"
+      aria-label="Select page">
     </mat-paginator>
   </div>
 

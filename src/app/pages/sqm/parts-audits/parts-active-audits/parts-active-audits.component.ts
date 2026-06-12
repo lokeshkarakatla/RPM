@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import * as  Highcharts from 'highcharts';
 import { NewAuditComponent } from '../new-audit/new-audit.component';
 import { ActiveGridDialogComponent } from '../../process-audits/paudits-active-audits/activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
+import { AuditDonePopupComponent } from '../../process-audits/paudits-active-audits/activeaudits-reference/active-grid-dialog/audit-done-popup/audit-done-popup.component';
 
 @Component({
   selector: 'app-parts-active-audits',
@@ -186,4 +187,19 @@ openaudit(data:any) {
             panelClass: 'no-scroll-dialog' 
       });
     }
+
+     onDoneClick(event: MouseEvent, audit: any): void {
+    event.preventDefault(); // prevents the checkbox from toggling on its own
+
+    const dialogRef = this.dialog.open(AuditDonePopupComponent, {
+      width: '480px',
+      data: { audit }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        audit.done = !audit.done; // only toggle if user confirmed
+      }
+    });
+  }
 }

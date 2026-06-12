@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Angular Material Imports
 import { MatIconModule } from '@angular/material/icon';
@@ -16,13 +16,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatTooltipModule } from '@angular/material/tooltip'; 
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Other Libraries
-import { FlexLayoutModule } from '@angular/flex-layout'; 
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { HighchartsChartModule } from 'highcharts-angular';
-import { NgxChartsModule } from '@swimlane/ngx-charts'; 
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // Components
 import { ProcessAuditsComponent } from './process-audits.component';
@@ -43,9 +43,7 @@ import { ProcessActionsGridComponent } from './paudits-actions/process-actions-g
 import { ProcessActionsEditComponent } from './paudits-actions/process-actions-edit/process-actions-edit.component';
 import { ProcessDocPopComponent } from './paudits-actions/process-doc-pop/process-doc-pop.component';
 import { AuditCategoriesInnerscreenComponent } from './paudits-setup/process-audits-categories/audit-categories-innerscreen/audit-categories-innerscreen.component';
-
-// --- NEW IMPORT ADDED HERE ---
-// import { QuestionPopComponent } from './paudits-setup/process-audits-categories/audit-categories-innerscreen/question-pop/question-pop.component';
+import { QuestionPopComponent } from './paudits-setup/process-audits-categories/audit-categories-innerscreen/question-pop/question-pop.component'; // ← ADD
 
 const routes: Routes = [
   {
@@ -66,19 +64,17 @@ const routes: Routes = [
         component: PauditsSetupComponent,
         children: [
           { path: '', redirectTo: 'process-cat', pathMatch: 'full' },
-          { 
-            path: 'process-cat', 
+          {
+            path: 'process-cat',
             children: [
-              // Default view: Shows the Grid
               { path: '', component: ProcessAuditsCategoriesComponent },
-              // Inner view: Shows the Inner Screen
-              { path: 'inner', component: AuditCategoriesInnerscreenComponent } 
+              { path: 'inner', component: AuditCategoriesInnerscreenComponent }
             ]
           },
-          { path: 'process-cat-inner', component: AuditCategoriesInnerscreenComponent }, 
-          { 
-             path: 'commodity', 
-             loadChildren: () => import('./paudits-setup/commodity-master/commodity-master.module').then(m => m.CommodityMasterModule) 
+          { path: 'process-cat-inner', component: AuditCategoriesInnerscreenComponent },
+          {
+            path: 'commodity',
+            loadChildren: () => import('./paudits-setup/commodity-master/commodity-master.module').then(m => m.CommodityMasterModule)
           },
         ]
       },
@@ -111,9 +107,7 @@ const routes: Routes = [
     ProcessActionsEditComponent,
     ProcessDocPopComponent,
     AuditCategoriesInnerscreenComponent,
-    
-    // --- COMPONENT DECLARED HERE ---
-    // QuestionPopComponent
+    QuestionPopComponent,   // ← ADD THIS
   ],
   imports: [
     CommonModule,

@@ -19,6 +19,12 @@ import { AddPartsFamilypopComponent } from './parts-families/add-parts-familypop
 import { AddPartspopComponent } from './parts-master/add-partspop/add-partspop.component';
 import { SharedModule } from "src/app/shared/shared.module";
 import { PartsMasterSuppliersComponent } from './parts-master/parts-master-suppliers/parts-master-suppliers.component';
+import { PartsauditcatInnergridComponent } from './audit-categories/partsauditcat-innergrid/partsauditcat-innergrid.component';
+import { FamiliesInnerGridComponent } from './parts-families/families-inner-grid/families-inner-grid.component';
+import { BatchMasterComponent } from './batch-master/batch-master.component';
+import { AddBatchPopComponent } from './batch-master/add-batch-pop/add-batch-pop.component';
+import { DefectsMasterComponent } from './defects-master/defects-master.component';
+import { PartsFamilyPopComponent } from './defects-master/parts-family-pop/parts-family-pop.component';
 
 // ❌ REMOVED AuditCategoriesComponent, AddPartCategoryComponent, and PartsauditcatInnergridComponent imports from here
 
@@ -27,14 +33,20 @@ const routes: Routes = [
     path: '',
     component: PartsSetupComponent,
     children: [
-      // ✅ CHANGED: Lazy load the new AuditCategoriesModule
       { 
         path: 'parts-cat', 
         loadChildren: () => import('./audit-categories/audit-categories.module').then(m => m.AuditCategoriesModule) 
       },
-      { path: 'families', component: PartsFamiliesComponent },
+      { 
+        path: 'families', 
+        children: [
+          { path: '', component: PartsFamiliesComponent }, // Default view when hitting /families
+          { path: 'families-inner-grid', component: FamiliesInnerGridComponent } // Child view
+        ]
+      },
       { path: 'master', component: PartsMasterComponent },
-
+         { path: 'batchmaster', component: BatchMasterComponent },
+           { path: 'defectsmaster', component: DefectsMasterComponent },
       { path: '', redirectTo: 'parts-cat', pathMatch: 'full' }
     ]
   }
@@ -47,8 +59,13 @@ const routes: Routes = [
     PartsMasterComponent,
     AddPartsFamilypopComponent,
     AddPartspopComponent,
-    PartsMasterSuppliersComponent
-    // ❌ REMOVED audit category components from declarations
+    PartsMasterSuppliersComponent,
+    FamiliesInnerGridComponent,
+    BatchMasterComponent,
+    AddBatchPopComponent,
+    DefectsMasterComponent,
+    PartsFamilyPopComponent
+ 
   ],
   imports: [
     CommonModule,
@@ -61,7 +78,8 @@ const routes: Routes = [
     MatTooltipModule,
     MatButtonModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+ 
   ]
 })
 export class PartsSetupModule { }

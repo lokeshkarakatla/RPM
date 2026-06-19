@@ -66,6 +66,7 @@
       <thead>
         <tr>
           <th style="width:30%">Part Family Name</th>
+            <th class="text-center" style="width: 200px;">Part Code</th>
           <th class="text-center" style="width: 150px;">Status</th>
            <th class="text-center" style="width: 150px;">Parameters</th>
           <th class="text-center" style="width: 150px;"> Parameter Template</th>
@@ -75,6 +76,7 @@
       <tbody>
         <tr *ngFor="let item of tableData">
           <td>{{ item.name }}</td>
+            <td class="text-center">{{ item.code }}</td>
           
           <td class="text-center">
             <a class="status-link" 
@@ -84,13 +86,13 @@
             </a>
           </td>
          <td class="text-center">
-  <a class="text-blue" 
-     style="cursor: pointer; text-decoration: underline;" 
-     [routerLink]="['inner']" 
-     [queryParams]="{   name: item.name }"
-     matTooltip="View Parameter Details">
-    {{ item.parameters }}
-  </a>
+<a class="text-blue" 
+   style="cursor: pointer; text-decoration: underline;" 
+   [routerLink]="['../families-inner-grid']" 
+   [queryParams]="{   name: item.name }"
+   matTooltip="View Parameter Details">
+  {{ item.parameters }}
+</a>
 </td>
           <td _ngcontent-kaf-c834="" class="text-center editDel"><a _ngcontent-kaf-c834="" mattooltip="download" class="mat-tooltip-trigger" style="cursor: pointer; margin-right: 10px;" ng-reflect-message="download" aria-describedby="cdk-describedby-message-50" cdk-describedby-host=""><i _ngcontent-kaf-c834="" class="fa fa-download" style="color: cornflowerblue;"></i></a><!--container--></td>
           <td class="text-center manage-icons">

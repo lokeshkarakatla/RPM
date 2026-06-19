@@ -7,6 +7,8 @@ import { filter } from 'rxjs/operators';
 import { PauditsNewAuditComponent } from './process-audits/paudits-new-audit/paudits-new-audit.component';
 import { NewAuditComponent as PartsNewAuditComponent } from './parts-audits/new-audit/new-audit.component';
 import { PauditsHelpDeskComponent } from './process-audits/paudits-help-desk/paudits-help-desk.component';
+import { DefectsPopComponent } from './inspection/inspection-datatable/defects-pop/defects-pop.component';
+import { AddRecordPopComponent } from './inspection/add-record-pop/add-record-pop.component';
 
 @Component({
   selector: 'app-sqm',
@@ -61,9 +63,9 @@ export class SqmComponent implements OnInit {
   }
 
 // Inside SqmComponent class
-
 updateLayout(url: string) {
-  this.hideSidebar = url.includes('reference') || url.includes('details');
+  // ✅ ADDED: 'inspect-inner-screen' to the hideSidebar condition
+  this.hideSidebar = url.includes('reference') || url.includes('details') || url.includes('inspect-inner-screen');
 
   let newTab = 'sqmd';
   if (url.includes('/setup')) {
@@ -72,12 +74,15 @@ updateLayout(url: string) {
     newTab = 'process';
   } else if (url.includes('/parts')) {
     newTab = 'parts';
+  // ✅ ADDED: Map the inner screen back to the 'inspection' tab state
+  } else if (url.includes('/inspection') || url.includes('/inspect-inner-screen')) { 
+    newTab = 'inspection';
   }
 
   // Auto-set isSidenavOpen when the TAB changes
   if (newTab !== this.activeTab) {
-    if (newTab === 'sqmd' || newTab === 'setup') {
-      // Hide sidenav for Dashboard AND Setup
+    // Hide sidenav for Dashboard, Setup, AND Inspection
+    if (newTab === 'sqmd' || newTab === 'setup' || newTab === 'inspection') { 
       this.isSidenavOpen = false;
     } else {
       // Show sidenav for Process and Parts
@@ -94,5 +99,21 @@ updateLayout(url: string) {
   this.cdr.detectChanges();
 }
 
+
+openheatmap() {
+    this.dialog.open(DefectsPopComponent, { width: 'auto', height: 'auto' });
+  }
+
+
+
+
+
+    addrecordpop(item: any) {
+    this.dialog.open(AddRecordPopComponent, {
+      width: '700px',
+      height: 'auto',
+      data: item 
+    });
+  }
 
 }

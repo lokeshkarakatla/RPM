@@ -63,13 +63,20 @@ export class CommodityInnerGridComponent implements OnInit {
 
   // Data for the Process Audits Grid (matches your image)
   processAuditsData = [
-    { year: 2026, q1: 90, q2: 92, q3: 94, q4: 95 }
-  ];
+  { year: 2024, q1: 65, q2: 72, q3: 80, q4: 76 },
+  { year: 2024, q1: 70, q2: 68, q3: 75, q4: 82 },
+  { year: 2025, q1: 74, q2: 79, q3: 83, q4: 88 },
+  { year: 2026, q1: 80, q2: 85, q3: 87, q4: 91 },
+  { year: 2026, q1: 82, q2: 88, q3: 90, q4: 94 },
+  { year: 2026, q1: 84, q2: 89, q3: 92, q4: 97 }
+];
 
   // Different Data for the Parts Audits Grid (to prove the toggle works)
   partsAuditsData = [
     { year: 2026, q1: 85, q2: 88, q3: 89, q4: 92 },
-    { year: 2027, q1: 82, q2: 86, q3: 90, q4: 95 }
+    { year: 2027, q1: 82, q2: 86, q3: 90, q4: 95 },
+     { year: 2026, q1: 59, q2: 65, q3: 69, q4: 92 },
+    { year: 2027, q1: 62, q2: 76, q3: 80, q4: 95 }
   ];
 
  
@@ -85,7 +92,7 @@ export class CommodityInnerGridComponent implements OnInit {
   }
  
 
-
+  
 
   // Called by the "Add Target" button
   ontarget(): void {

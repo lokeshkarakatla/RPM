@@ -68,6 +68,21 @@
   </a>
 </li>
 
+<li routerLinkActive="active">
+  <a [routerLink]="['resource-master']">
+    <mat-icon *ngIf="!isNavOpen" matTooltip="Project Types">work_outline</mat-icon>
+    <span *ngIf="isNavOpen">Project Types</span>
+  </a>
+</li>
+
+
+<li routerLinkActive="active">
+  <a [routerLink]="['resource-master']">
+    <mat-icon *ngIf="!isNavOpen" matTooltip="Project Status">play_circle_outline</mat-icon>
+    <span *ngIf="isNavOpen">Project Status</span>
+  </a>
+</li>
+
     </ul>
   </nav>
 

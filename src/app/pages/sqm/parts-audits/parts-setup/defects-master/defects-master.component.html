@@ -1,0 +1,37 @@
+ 
+
+<div class="table-responsive mt-5">
+  <table class="table table-bordered table-hover" style="width: 50%;">
+    <thead class="tbl-head">
+      <tr>
+        <th class="text-center">Actions</th>
+        <th class="text-center">Defect Name</th>
+        <th class="text-center"> Part Family</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of mockdata">
+        
+        <td class="text-center">
+          <a matTooltip="Edit Record" style="margin-right: 12px; cursor: pointer;" (click)="openEditDialog(item)">
+            <mat-icon style="color: cornflowerblue; font-size: 20px;">edit</mat-icon>
+          </a>
+          <a matTooltip="Delete Record" style="cursor: pointer;" (click)="deleteConfirmation(item)">
+            <mat-icon style="color: red; font-size: 20px;">delete</mat-icon>
+          </a>
+        </td>
+
+        <td class="text-center">{{ item.defectname }}</td>
+        <td  class="text-center text-link"
+            style="color: blue; cursor: pointer;" (click)="openpartspop(null)" >{{ item.PartFamily }}</td>
+      
+        
+      </tr>
+
+      <tr *ngIf="!mockdata || mockdata.length === 0">
+        <td colspan="5" class="text-center">No records found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

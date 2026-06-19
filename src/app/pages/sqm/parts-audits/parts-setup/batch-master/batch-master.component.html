@@ -1,0 +1,42 @@
+<div class="toolbar-row mb-3 d-flex justify-content-end" style="width: 60%;">
+  <button mat-raised-button color="primary" class="btn-blue" (click)="addbatchpop(null)">
+    <mat-icon>add</mat-icon> Add Batch
+  </button>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover" style="width: 60%;">
+    <thead class="tbl-head">
+      <tr>
+        <th class="text-center">Actions</th>
+        <th>Part Family</th>
+        <th>Part Number</th>
+        <th>Batch Number</th>
+        <th>Batch Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of mockdata">
+        
+        <td class="text-center">
+          <a matTooltip="Edit Record" style="margin-right: 12px; cursor: pointer;" (click)="openEditDialog(item)">
+            <mat-icon style="color: cornflowerblue; font-size: 20px;">edit</mat-icon>
+          </a>
+          <a matTooltip="Delete Record" style="cursor: pointer;" (click)="deleteConfirmation(item)">
+            <mat-icon style="color: red; font-size: 20px;">delete</mat-icon>
+          </a>
+        </td>
+
+        <td>{{ item.PartFamily }}</td>
+        <td>{{ item.PartNumber }}</td>
+        <td>{{ item.BatchNumber }}</td>
+        <td>{{ item.BatchDate }}</td>
+        
+      </tr>
+
+      <tr *ngIf="!mockdata || mockdata.length === 0">
+        <td colspan="5" class="text-center">No records found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

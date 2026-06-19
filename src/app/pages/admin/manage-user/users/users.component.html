@@ -135,9 +135,10 @@
                             <th style="white-space:nowrap">Web Access</th>
                             <th style="white-space:nowrap">Mobile Access</th>
                             <th style="white-space:nowrap" class="text-center">Managerial Role</th>
-                            <!-- <th style="white-space:nowrap" class="text-center">Role-Permissions</th> -->
+                    
                             <th style="white-space:nowrap" class="text-center">Audit Types</th>
-                             <!-- <th style="white-space:nowrap" class="text-center">Reset Password</th> -->
+                                    <th style="white-space:nowrap" class="text-center">Inspector</th>
+                             <th style="white-space:nowrap" class="text-center">RPM</th>
 
 
                             <!-- <th class="text-center">Special-Permissions</th> -->
@@ -245,7 +246,12 @@
                                 {{applicant.role}}
                             </td> -->
                             <td class="text-center" style="color: blue; cursor:pointer" (click)="audit()">10</td>
-
+                             <td class="text-center">
+                                <mat-checkbox  ></mat-checkbox>
+                            </td>
+                             <td class="text-center">
+                                <mat-checkbox ></mat-checkbox>
+                            </td>
 
                         </tr>
                     </tbody>

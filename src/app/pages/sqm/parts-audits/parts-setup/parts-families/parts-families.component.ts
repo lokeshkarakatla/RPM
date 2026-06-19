@@ -13,17 +13,17 @@ export class PartsFamiliesComponent implements OnInit {
   selectedCategory: string | null = null;
   selectedStatus: string = '';
 
-  tableData = [
-  { name: 'Engine Components', status: 'Active', parameters: 12  },
-  { name: 'Transmission Systems', status: 'Active', parameters: 8 },
-  { name: 'Chassis and Frame', status: 'Inactive', parameters: 0 },
-  { name: 'Suspension Parts', status: 'Active', parameters: 15 },
-  { name: 'Electrical Systems', status: 'Inactive', parameters: 0 },
-  { name: 'Braking Systems', status: 'Active', parameters: 10 },
-  { name: 'Body and Cabin', status: 'Active', parameters: 20 },
-  { name: 'Fuel Systems', status: 'Inactive', parameters: 0 },
-  { name: 'Cooling Systems', status: 'Active', parameters: 12 },
-  { name: 'Steering Systems', status: 'Active', parameters: 8 }
+tableData = [
+  { name: 'Engine Components',    code: 'PF001', status: 'Active',   parameters: 12 },
+  { name: 'Transmission Systems', code: 'PF002', status: 'Active',   parameters: 8 },
+  { name: 'Chassis and Frame',    code: 'PF003', status: 'Inactive', parameters: 0 },
+  { name: 'Suspension Parts',     code: 'PF004', status: 'Active',   parameters: 15 },
+  { name: 'Electrical Systems',   code: 'PF005', status: 'Inactive', parameters: 0 },
+  { name: 'Braking Systems',      code: 'PF006', status: 'Active',   parameters: 10 },
+  { name: 'Body and Cabin',       code: 'PF007', status: 'Active',   parameters: 20 },
+  { name: 'Fuel Systems',         code: 'PF008', status: 'Inactive', parameters: 0 },
+  { name: 'Cooling Systems',      code: 'PF009', status: 'Active',   parameters: 12 },
+  { name: 'Steering Systems',     code: 'PF010', status: 'Active',   parameters: 8 }
 ];
 selectedKeyword: any;
  

@@ -103,6 +103,18 @@
           <span *ngIf="isNavOpen">Hours</span>
         </a>
       </li>
+      <li routerLinkActive="active">
+        <a [routerLink]="['timesheet1']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Timesheet 1">schedule</mat-icon>
+          <span *ngIf="isNavOpen">Timesheet 1</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a [routerLink]="['timesheet2']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Timesheet 2">schedule</mat-icon>
+          <span *ngIf="isNavOpen">Timesheet 2</span>
+        </a>
+      </li>
 
       <li routerLinkActive="active">
         <a [routerLink]="['notes']">
@@ -124,6 +136,26 @@
           <span *ngIf="isNavOpen">Photos</span>
         </a>
       </li>
+
+
+
+            <li routerLinkActive="active">
+        <a  >
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Photos"> </mat-icon>
+          <span *ngIf="isNavOpen"> </span>
+        </a>
+      </li>
+
+
+            <li routerLinkActive="active">
+        <a >
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Photos"> </mat-icon>
+          <span *ngIf="isNavOpen"> </span>
+        </a>
+      </li>
+
+
+
     </ul>
   </nav>
 

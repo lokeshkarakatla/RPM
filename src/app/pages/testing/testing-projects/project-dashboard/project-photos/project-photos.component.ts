@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AddphotoPopComponent } from './addphoto-pop/addphoto-pop.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-project-photos',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectPhotosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog:MatDialog) { }
 
   ngOnInit(): void {
   }
+
+  Addphoto(value: any) {
+    this.dialog.open(AddphotoPopComponent, {
+      data: value,
+      height: 'auto',
+      width: '500px',
+    });
+  }
+
+
+
 
 }

@@ -21,6 +21,10 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { PartsMasterSuppliersComponent } from './parts-master/parts-master-suppliers/parts-master-suppliers.component';
 import { PartsauditcatInnergridComponent } from './audit-categories/partsauditcat-innergrid/partsauditcat-innergrid.component';
 import { FamiliesInnerGridComponent } from './parts-families/families-inner-grid/families-inner-grid.component';
+import { BatchMasterComponent } from './batch-master/batch-master.component';
+import { AddBatchPopComponent } from './batch-master/add-batch-pop/add-batch-pop.component';
+import { DefectsMasterComponent } from './defects-master/defects-master.component';
+import { PartsFamilyPopComponent } from './defects-master/parts-family-pop/parts-family-pop.component';
 
 // ❌ REMOVED AuditCategoriesComponent, AddPartCategoryComponent, and PartsauditcatInnergridComponent imports from here
 
@@ -41,6 +45,8 @@ const routes: Routes = [
         ]
       },
       { path: 'master', component: PartsMasterComponent },
+         { path: 'batchmaster', component: BatchMasterComponent },
+           { path: 'defectsmaster', component: DefectsMasterComponent },
       { path: '', redirectTo: 'parts-cat', pathMatch: 'full' }
     ]
   }
@@ -54,7 +60,11 @@ const routes: Routes = [
     AddPartsFamilypopComponent,
     AddPartspopComponent,
     PartsMasterSuppliersComponent,
-    FamiliesInnerGridComponent
+    FamiliesInnerGridComponent,
+    BatchMasterComponent,
+    AddBatchPopComponent,
+    DefectsMasterComponent,
+    PartsFamilyPopComponent
  
   ],
   imports: [
@@ -68,7 +78,8 @@ const routes: Routes = [
     MatTooltipModule,
     MatButtonModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+ 
   ]
 })
 export class PartsSetupModule { }

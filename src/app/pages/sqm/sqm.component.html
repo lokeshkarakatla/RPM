@@ -109,33 +109,33 @@
             <span *ngIf="isSidenavOpen">Analytics</span>
           </a>
         </li>
-        <li (click)="openheatmap( )">
+        <li (click)="openheatmap()">
           <a>
             <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Heat Map">map</mat-icon>
             <span *ngIf="isSidenavOpen">Heat Map</span>
           </a>
         </li>
-           <li (click)="addrecordpop(null )">
+        <li (click)="addrecordpop(null)">
           <a>
             <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Add Record">add_circle_outline</mat-icon>
-            <span *ngIf="isSidenavOpen">  Add Record</span>
+            <span *ngIf="isSidenavOpen">Add Record</span>
           </a>
         </li>
         <li routerLinkActive="active" routerLink="./inspection/datatable">
           <a>
-            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Data Table">table_chart</mat-icon>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Active Records">pending_actions</mat-icon>
             <span *ngIf="isSidenavOpen">Active Records</span>
           </a>
         </li>
         <li routerLinkActive="active" routerLink="./inspection/inspectioncapa">
           <a>
-            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Data Table">table_chart</mat-icon>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="CAPA">play_circle_outline</mat-icon>
             <span *ngIf="isSidenavOpen">CAPA</span>
           </a>
         </li>
           <li routerLinkActive="active" routerLink="./inspection/inspectionarchive">
           <a>
-            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Data Table">table_chart</mat-icon>
+            <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Archives">archive</mat-icon>
             <span *ngIf="isSidenavOpen">Archives</span>
           </a>
         </li>

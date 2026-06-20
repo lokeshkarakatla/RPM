@@ -43,7 +43,8 @@ export class InspectionDatatableComponent implements OnInit {
         BatchQuantity: 200,
         SampleQuantity: 50,
         ErrorRatePct: '0.97%',
-        ErrorRatePPM: '9700'
+        ErrorRatePPM: '9700',
+        stage:'Incoming'
       },
       {
         id: 2,
@@ -62,7 +63,8 @@ export class InspectionDatatableComponent implements OnInit {
         BatchQuantity: 1050,
         SampleQuantity: 60,
         ErrorRatePct: '1.20%',
-        ErrorRatePPM: '12000'
+        ErrorRatePPM: '12000',
+          stage:'Start Up'
       },
       {
         id: 3,
@@ -81,7 +83,9 @@ export class InspectionDatatableComponent implements OnInit {
         BatchQuantity: 1100,
         SampleQuantity: 70,
         ErrorRatePct: '0.00%',
-        ErrorRatePPM: '0'
+        ErrorRatePPM: '0',
+         stage:'Start Up'
+        
       },
       {
         id: 4,
@@ -100,7 +104,8 @@ export class InspectionDatatableComponent implements OnInit {
         BatchQuantity: 1150,
         SampleQuantity: 80,
         ErrorRatePct: '0.55%',
-        ErrorRatePPM: '5500'
+        ErrorRatePPM: '5500',
+         stage:'Process'
       },
       {
         id: 5,
@@ -119,7 +124,8 @@ export class InspectionDatatableComponent implements OnInit {
         BatchQuantity: 1200,
         SampleQuantity: 50,
         ErrorRatePct: '2.10%',
-        ErrorRatePPM: '21000'
+        ErrorRatePPM: '21000',
+         stage:'Final'
       },
       {
         id: 6,
@@ -138,7 +144,8 @@ export class InspectionDatatableComponent implements OnInit {
         BatchQuantity: 1250,
         SampleQuantity: 55,
         ErrorRatePct: '0.80%',
-        ErrorRatePPM: '8000'
+        ErrorRatePPM: '8000',
+         stage:'Process'
       }
     ];
   }

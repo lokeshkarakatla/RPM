@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { PartsAddParameterComponent } from '../../parts-audits/parts-active-audits/parts-reference/parts-add-parameter/parts-add-parameter.component';
 import { AuditrefRemarksPopComponent } from '../../parts-inner-screen/parts-audit-reference/auditref-remarks-pop/auditref-remarks-pop.component';
 import { ViewDocPhotosComponent } from '../../parts-audits/parts-actions/view-doc-photos/view-doc-photos.component';
+import { UploadstagepopComponent } from './uploadstagepop/uploadstagepop.component';
 
 @Component({
   selector: 'app-active-records-ref',
@@ -118,5 +119,19 @@ tableData: any[] = [
         container.scrollLeft += scrollAmount;
       }
     }
+  }
+
+
+
+
+
+
+
+
+    uploadstages() {
+    this.dialog.open(UploadstagepopComponent, {
+      width: '800px',
+      height: 'auto'
+    });
   }
 }

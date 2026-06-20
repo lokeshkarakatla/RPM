@@ -7,6 +7,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./upload-list.component.scss']
 })
 export class UploadListComponent implements OnInit {
+changeAddStep(arg0: number) {
+throw new Error('Method not implemented.');
+}
 onFileSelected($event: Event) {
 throw new Error('Method not implemented.');
 }

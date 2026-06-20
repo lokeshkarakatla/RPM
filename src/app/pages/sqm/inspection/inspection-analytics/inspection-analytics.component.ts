@@ -15,6 +15,9 @@ export class InspectionAnalyticsComponent implements OnInit {
   // 1. ADD THIS VARIABLE FOR THE HARD RESET
   chartsReady = true; 
 
+  // ADD THE MISSING UPDATE FLAG HERE
+  updateFlag = false;
+
   // Toggle states
   isDailyView = false;
   showFilter = false;
@@ -39,6 +42,7 @@ export class InspectionAnalyticsComponent implements OnInit {
 
   // Reusable color palette for charts
   pieColors = ['#2caffe', '#544fc5', '#00e272', '#fe6a35', '#6b8abc', '#d568fb', '#2ee0ca', '#fa4b42', '#feb56a', '#91e8e1'];
+ 
 
   constructor() { }
 
@@ -132,6 +136,9 @@ export class InspectionAnalyticsComponent implements OnInit {
       { inspector: 'Anil', qty: 5400, records: 80, ppm: '14,815' }
     ];
     this.updatePaginatedData({ pageIndex: 0, pageSize: 5, length: this.activeInspectorActivities.length });
+
+    // Trigger chart update
+    this.updateFlag = true;
   }
 
   setDailyData(): void {
@@ -186,6 +193,9 @@ export class InspectionAnalyticsComponent implements OnInit {
       { inspector: 'Vamshi', qty: 100, records: 8, ppm: '80,000' }
     ];
     this.updatePaginatedData({ pageIndex: 0, pageSize: 5, length: this.activeInspectorActivities.length });
+
+    // Trigger chart update
+    this.updateFlag = true;
   }
 
   handlePageEvent(event: PageEvent) {

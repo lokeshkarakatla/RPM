@@ -80,6 +80,7 @@ const routes: Routes = [
     MatTooltipModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
     SharedModule,
  
   ]

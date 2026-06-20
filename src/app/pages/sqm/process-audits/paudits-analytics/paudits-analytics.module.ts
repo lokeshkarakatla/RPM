@@ -49,7 +49,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PauditsAnalyticsComponent,
-    AnalyticsCommodityComponent,
+    // AnalyticsCommodityComponent,
     AnalyticsPerformanceComponent,
     AnalyticsActionsComponent,
     AnalyticsScatterComponent,

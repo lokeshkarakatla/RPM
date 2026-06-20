@@ -130,7 +130,7 @@ tableData: any[] = [
 
     uploadstages() {
     this.dialog.open(UploadstagepopComponent, {
-      width: '500px',
+      width: '800px',
       height: 'auto'
     });
   }

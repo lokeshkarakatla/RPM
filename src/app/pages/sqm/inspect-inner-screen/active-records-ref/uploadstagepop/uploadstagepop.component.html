@@ -39,9 +39,14 @@
                         <span>{{ file.name }}</span>
                         <span style="color: #999; font-size: 12px;">({{ (file.size / 1024).toFixed(1) }} KB)</span>
                         
-                        <button mat-icon-button style="margin-left: auto; background: none; border: none; cursor: pointer; filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.3));" (click)="removeFile(i)">
-                            <mat-icon style="font-size: 16px;">close</mat-icon>
-                        </button>
+                        <button
+  mat-icon-button
+  type="button"
+  [mat-dialog-close]="true"
+  style="margin-left: auto;"
+>
+  <mat-icon>close</mat-icon>
+</button>
                     </div>
                 </div>
 
@@ -52,7 +57,7 @@
 
 <div style="padding: 10px 20px 20px 20px; display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
     
-    <button mat-raised-button style="background-color: #9e9e9e; color: rgb(244, 0, 0);background-color: rgb(201, 201, 201); box-shadow: 0 4px 6px rgba(0,0,0,0.2);" type="button">
+    <button mat-raised-button style="background-color: #9e9e9e; color: rgb(244, 0, 0);background-color: rgb(201, 201, 201); box-shadow: 0 4px 6px rgba(0,0,0,0.2);" type="button" (click)="close()">
         <mat-icon>cancel</mat-icon>
         Cancel
     </button>

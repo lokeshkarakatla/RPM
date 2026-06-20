@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PartsFamilyPopComponent } from './parts-family-pop/parts-family-pop.component';
+import { AddDefectsPopComponent } from './add-defects-pop/add-defects-pop.component';
 
 @Component({
   selector: 'app-defects-master',
@@ -58,8 +59,23 @@ export class DefectsMasterComponent implements OnInit {
 
 
 
+showFilters: boolean = false; 
 
 
+
+    toggleFilters(): void {
+    this.showFilters = !this.showFilters;
+  }
+
+
+
+    adddefects(data: any) {
+    this.dialog.open(AddDefectsPopComponent, {
+      width: '600px',
+      height: 'auto',
+      data: data
+    });
+  }
 
 
 

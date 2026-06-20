@@ -17,6 +17,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input'; //
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { AnalyticsSummaryComponent } from './analytics-summary/analytics-summary.component';
+import { ProcessCastingComponent } from './analytics-commodity/process-casting/process-casting.component';
+import { ProcessForgingComponent } from './analytics-commodity/process-forging/process-forging.component';
+import { ProcessMachiningComponent } from './analytics-commodity/process-machining/process-machining.component';
+import { ProcessFastenersComponent } from './analytics-commodity/process-fasteners/process-fasteners.component';
+import { ProcessNonmetallicComponent } from './analytics-commodity/process-nonmetallic/process-nonmetallic.component';
+import { ProcessSheetmetalComponent } from './analytics-commodity/process-sheetmetal/process-sheetmetal.component';
+import { ProcessProprietaryComponent } from './analytics-commodity/process-proprietary/process-proprietary.component';
 
 const routes: Routes = [
   {
@@ -25,7 +32,10 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'commodity', pathMatch: 'full' },
 
-      { path: 'commodity', component: AnalyticsCommodityComponent },
+     { 
+        path: 'commodity', 
+        loadChildren: () => import('./analytics-commodity/analytics-commodity.module').then(m => m.AnalyticsCommodityModule) 
+      },
       { path: 'performance', component: AnalyticsPerformanceComponent },
       { path: 'actions', component: AnalyticsActionsComponent },
       { path: 'scatter', component: AnalyticsScatterComponent },
@@ -45,7 +55,14 @@ const routes: Routes = [
     AnalyticsScatterComponent,
     AnalyticsBellcurveComponent,
     AnalyticsParetoComponent,
-    AnalyticsSummaryComponent
+    AnalyticsSummaryComponent,
+    // ProcessCastingComponent,
+    // ProcessForgingComponent,
+    // ProcessMachiningComponent,
+    // ProcessFastenersComponent,
+    // ProcessNonmetallicComponent,
+    // ProcessSheetmetalComponent,
+    // ProcessProprietaryComponent
   ],
   imports: [
     CommonModule,

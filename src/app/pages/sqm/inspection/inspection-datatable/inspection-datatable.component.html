@@ -82,6 +82,13 @@
           </div>
         </div>
 
+           <div class="col-md-4 col-sm-6 row align-items-center mb-3">
+          <div class="col-sm-4 newMarginClass"><b>OK:</b></div>
+          <div class="col-sm-8">
+            <mat-checkbox color="primary">Requires Ok</mat-checkbox>
+          </div>
+        </div>
+
       
 
         <div class="col-12 text-end mt-2">
@@ -163,7 +170,7 @@
         </a>
       </td>
 
-      <td class="text-center">{{ item.Parameters }}</td>
+      <td class="text-center" > <a [routerLink]="['/app','sqm','inspect-inner-screen','active-records']"> {{ item.Parameters }} </a></td>
       <td class="text-center">{{ item.Remarks }}</td>
       <td class="text-center">{{ item.BatchNumber }}</td>
       <td class="text-center">{{ item.BatchQuantity }}</td>

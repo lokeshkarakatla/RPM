@@ -11,6 +11,14 @@ export class BatchMasterComponent implements OnInit {
 
   mockdata: any[] = [];
 
+  showFilters: boolean = false; 
+
+
+
+    toggleFilters(): void {
+    this.showFilters = !this.showFilters;
+  }
+
   constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {

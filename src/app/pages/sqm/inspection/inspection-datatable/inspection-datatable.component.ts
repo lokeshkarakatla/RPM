@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddRecordPopComponent } from '../add-record-pop/add-record-pop.component';
 import { DefectsPopComponent } from './defects-pop/defects-pop.component';
 import * as Highcharts from 'highcharts';
-import { ClientsData } from '../../../clientsdata'; // ← add this
+// import { ClientsData } from '../../../clientsdata'; // ← add this
 
 @Component({
   selector: 'app-inspection-datatable',
@@ -87,14 +87,31 @@ export class InspectionDatatableComponent implements OnInit {
 
   constructor(private dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    this.generateMockData();
+ ngOnInit(): void {
+  this.generateMockData();
 
-    const first  = ClientsData.PiechartData1();
-    const multi  = ClientsData.PieChartData2();
-    const triple = ClientsData.PieChartData3();
-    Object.assign(this, { first, multi, triple });
-  }
+  this.first = [
+    { name: 'D1',  value: 30 },
+    { name: 'D2',  value: 25 },
+    { name: 'D3a', value: 20 },
+    { name: 'D3b', value: 10 },
+    { name: 'D4a', value: 8  },
+    { name: 'D4b', value: 7  }
+  ];
+
+  this.multi = [
+    { name: 'GA',    value: 40 },
+    { name: 'Paint', value: 35 },
+    { name: 'Body',  value: 15 },
+    { name: 'SQE',   value: 10 }
+  ];
+
+  this.triple = [
+    { name: '1-30 Days',   value: 40 },
+    { name: '31-60 Days',  value: 35 },
+    { name: '61-120 Days', value: 25 }
+  ];
+}
 
   generateMockData() {
     this.mockdata = [

@@ -1,55 +1,62 @@
 
 
-<div style="display: flex; gap: 16px; margin: 16px 0;">
-
-  <div style="flex: 1; background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px;">
-    <h3 style="text-align: center; margin: 0 0 8px; font-size: 15px; color: #333;">By Stages</h3>
-    <div style="width: 100%; height: 300px; display: block;">
-      <ngx-charts-pie-chart
-        [scheme]="colorScheme"
-        [results]="first"
-        [legend]="showLegend"
-        [explodeSlices]="explodeSlices"
-        [labels]="showLabels"
-        [doughnut]="doughnut"
-        [gradient]="gradient"
-        (select)="onSelect($event)">
-      </ngx-charts-pie-chart>
+<div class="row" style="margin: 16px 0;">
+  <div class="col-lg-4 col-md-12">
+    <div style="background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin-bottom: 15px;">
+      <h3 style="text-align: center; margin: 0 0 8px; font-size: 15px; color: #333;">By Stages</h3>
+      <div class="w-100" style="height: 280px; display: flex; justify-content: center;">
+        <ngx-charts-pie-chart
+          [view]="chartDimensions"
+          [scheme]="colorScheme"
+          [results]="first"
+          [legend]="showLegend"
+          [explodeSlices]="explodeSlices"
+          [labels]="showLabels"
+          [doughnut]="doughnut"
+          [gradient]="gradient"
+          (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+      </div>
     </div>
   </div>
 
-  <div style="flex: 1; background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px;">
-    <h3 style="text-align: center; margin: 0 0 8px; font-size: 15px; color: #333;">Active Department</h3>
-    <div style="width: 100%; height: 300px; display: block;">
-      <ngx-charts-pie-chart
-        [scheme]="colorScheme"
-        [results]="multi"
-        [legend]="showLegend"
-        [explodeSlices]="explodeSlices"
-        [labels]="showLabels"
-        [doughnut]="doughnut"
-        [gradient]="gradient"
-        (select)="onSelect($event)">
-      </ngx-charts-pie-chart>
+  <div class="col-lg-4 col-md-12">
+    <div style="background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin-bottom: 15px;">
+      <h3 style="text-align: center; margin: 0 0 8px; font-size: 15px; color: #333;">Active Department</h3>
+      <div class="w-100" style="height: 280px; display: flex; justify-content: center;">
+        <ngx-charts-pie-chart
+          [view]="chartDimensions"
+          [scheme]="colorScheme"
+          [results]="multi"
+          [legend]="showLegend"
+          [explodeSlices]="explodeSlices"
+          [labels]="showLabels"
+          [doughnut]="doughnut"
+          [gradient]="gradient"
+          (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+      </div>
     </div>
   </div>
 
-  <div style="flex: 1; background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px;">
-    <h3 style="text-align: center; margin: 0 0 8px; font-size: 15px; color: #333;">Ageing Distribution</h3>
-    <div style="width: 100%; height: 300px; display: block;">
-      <ngx-charts-pie-chart
-        [scheme]="colorScheme"
-        [results]="triple"
-        [legend]="showLegend"
-        [explodeSlices]="explodeSlices"
-        [labels]="showLabels"
-        [doughnut]="doughnut"
-        [gradient]="gradient"
-        (select)="onSelect($event)">
-      </ngx-charts-pie-chart>
+  <div class="col-lg-4 col-md-12">
+    <div style="background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin-bottom: 15px;">
+      <h3 style="text-align: center; margin: 0 0 8px; font-size: 15px; color: #333;">Ageing Distribution</h3>
+      <div class="w-100" style="height: 280px; display: flex; justify-content: center;">
+        <ngx-charts-pie-chart
+          [view]="chartDimensions"
+          [scheme]="colorScheme"
+          [results]="triple"
+          [legend]="showLegend"
+          [explodeSlices]="explodeSlices"
+          [labels]="showLabels"
+          [doughnut]="doughnut"
+          [gradient]="gradient"
+          (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+      </div>
     </div>
-    </div>
-
+  </div>
 </div>
 
 

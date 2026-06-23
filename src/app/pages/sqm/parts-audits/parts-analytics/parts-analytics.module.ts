@@ -60,10 +60,10 @@ const routes: Routes = [
     PartsInnerActionsComponent,
     PartsSummaryComponent,
     PartsForgingComponent,
-    PartsMarchiningComponent,
+    // PartsMarchiningComponent,
     PartsFastenersComponent,
-    PartsNonmetalicComponent,
-    PartsSheetmetalComponent,
+    // PartsNonmetalicComponent,
+    // PartsSheetmetalComponent,
     // PartsAllComponent,
     // PartsCastingComponent,
    

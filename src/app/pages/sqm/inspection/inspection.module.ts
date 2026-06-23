@@ -12,7 +12,7 @@ import { InspectionAnalyticsComponent } from './inspection-analytics/inspection-
 import { InspectionDatatableComponent } from './inspection-datatable/inspection-datatable.component';
 import { AddRecordPopComponent } from './add-record-pop/add-record-pop.component';
 
-// Material & Highcharts
+// Material & Highcharts & NgxCharts
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';         
@@ -28,7 +28,7 @@ import { InspectionCapaComponent } from './inspection-capa/inspection-capa.compo
 import { InspectionArchivesComponent } from './inspection-archives/inspection-archives.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { DefectsPopMasterComponent } from './inspection-datatable/defects-pop-master/defects-pop-master.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts'; // <-- Already here, just needed in imports array below
 
 const routes: Routes = [
   {
@@ -38,8 +38,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'analytics', pathMatch: 'full' }, 
       { path: 'analytics', component: InspectionAnalyticsComponent },
       { path: 'datatable', component: InspectionDatatableComponent },
-        { path: 'inspectioncapa', component: InspectionCapaComponent },
-          { path: 'inspectionarchive', component: InspectionArchivesComponent }
+      { path: 'inspectioncapa', component: InspectionCapaComponent },
+      { path: 'inspectionarchive', component: InspectionArchivesComponent }
     ]
   }
 ];
@@ -54,13 +54,12 @@ const routes: Routes = [
     InspectionCapaComponent,
     InspectionArchivesComponent,
     DefectsPopMasterComponent,
-    
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule, // ✅ REQUIRED FOR INPUTS/SELECTS
-    ReactiveFormsModule, // ✅ REQUIRED FOR INPUTS/SELECTS
+    FormsModule, 
+    ReactiveFormsModule, 
     MatButtonModule,
     MatDialogModule,
     MatCardModule,
@@ -71,7 +70,8 @@ const routes: Routes = [
     MatInputModule,
     MatDatepickerModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxChartsModule // ✅ ADDED HERE
 ]
 })
 export class InspectionModule { }

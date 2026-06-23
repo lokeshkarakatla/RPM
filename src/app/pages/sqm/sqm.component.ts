@@ -21,7 +21,6 @@ export class SqmComponent implements OnInit {
   isSidenavOpen = true;
   activeTab = 'sqmd'; // Can be 'sqmd', 'process', or 'parts'
 
-
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -39,8 +38,6 @@ export class SqmComponent implements OnInit {
         this.updateLayout(event.urlAfterRedirects);
       });
   }
-
-
 
   toggleSidenav() {
     this.isSidenavOpen = !this.isSidenavOpen;
@@ -63,58 +60,51 @@ export class SqmComponent implements OnInit {
     this.dialog.open(PauditsHelpDeskComponent, { width: '600px', height: '350px' });
   }
 
-// Inside SqmComponent class
-updateLayout(url: string) {
-  // ✅ ADDED: 'inspect-inner-screen' to the hideSidebar condition
-  this.hideSidebar = url.includes('reference') || url.includes('details') || url.includes('inspect-inner-screen');
+  // Inside SqmComponent class
+  updateLayout(url: string) {
+    // Hide sidebar entirely for specific inner screens
+    this.hideSidebar = url.includes('reference') || url.includes('details') || url.includes('inspect-inner-screen');
 
-  let newTab = 'sqmd';
-  if (url.includes('/setup')) {
-    newTab = 'setup';
-  } else if (url.includes('/process')) {
-    newTab = 'process';
-  } else if (url.includes('/parts')) {
-    newTab = 'parts';
-  // ✅ ADDED: Map the inner screen back to the 'inspection' tab state
-  } else if (url.includes('/inspection') || url.includes('/inspect-inner-screen')) { 
-    newTab = 'inspection';
-  }
-
-  // Auto-set isSidenavOpen when the TAB changes
-  if (newTab !== this.activeTab) {
-    // Hide sidenav for Dashboard, Setup, AND Inspection
-    if (newTab === 'sqmd' || newTab === 'setup' || newTab === 'inspection') { 
-      this.isSidenavOpen = false;
-    } else {
-      // Show sidenav for Process and Parts
-      this.isSidenavOpen = !this.hideSidebar;
+    let newTab = 'sqmd';
+    if (url.includes('/setup')) {
+      newTab = 'setup';
+    } else if (url.includes('/process')) {
+      newTab = 'process';
+    } else if (url.includes('/parts')) {
+      newTab = 'parts';
+    } else if (url.includes('/inspection') || url.includes('/inspect-inner-screen')) { 
+      newTab = 'inspection';
     }
+
+    // Auto-set isSidenavOpen when the TAB changes
+    if (newTab !== this.activeTab) {
+      // ✅ FIX: Removed 'inspection' from this condition so the sidebar stays open
+      if (newTab === 'sqmd' || newTab === 'setup') { 
+        this.isSidenavOpen = false;
+      } else {
+        // Show sidenav for Process, Parts, AND Inspection
+        this.isSidenavOpen = !this.hideSidebar;
+      }
+    }
+
+    // Always hide if sidebar is forcibly hidden by inner routes
+    if (this.hideSidebar) {
+      this.isSidenavOpen = false;
+    }
+
+    this.activeTab = newTab;
+    this.cdr.detectChanges();
   }
 
-  // Always hide if sidebar is forcibly hidden by inner routes
-  if (this.hideSidebar) {
-    this.isSidenavOpen = false;
+  openheatmapname() {
+    this.dialog.open(DefectsPopMasterComponent, { width: '1400px', height: 'auto' });
   }
 
-  this.activeTab = newTab;
-  this.cdr.detectChanges();
-}
-
-
-openheatmapname() {
-    this.dialog.open(DefectsPopMasterComponent, { width: 'auto', height: 'auto' });
-  }
-
-
-
-
-
-    addrecordpop(item: any) {
+  addrecordpop(item: any) {
     this.dialog.open(AddRecordPopComponent, {
       width: '1000px',
       height: 'auto',
       data: item 
     });
   }
-
 }

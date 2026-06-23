@@ -64,16 +64,16 @@ export class ProcessSheetmetalComponent implements OnInit {
       }
     },
     series: [{
-      type: 'pie',
-      data: [
-        { name: 'Excellent', y: 9, color: '#008000' },  // Rating 5
-        { name: 'Good', y: 8, color: '#000d80' },       // Rating 4
-        { name: 'Satisfied', y: 7, color: '#dbdb21' },  // Rating 3
-        { name: 'Major', y: 3, color: '#fcae04' },      // Rating 2
-        { name: 'Critical', y: 2, color: '#ff0000' },   // Rating 1
-        { name: 'NA', y: 1, color: '#7e7e7e' },         // NA
-      ]
-    }]
+  type: 'pie',
+  data: [
+    { name: 'Excellent', y: 9, color: '#4c9a2a' }, // green
+    { name: 'Good', y: 8, color: '#3b82f6' },      // blue
+    { name: 'Satisfied', y: 7, color: '#fcd34d' }, // yellow
+    { name: 'Major', y: 3, color: '#f8a000' },     // orange
+    { name: 'Critical', y: 2, color: '#dc2626' },  // red
+    { name: 'NA', y: 1, color: '#9ca3af' }         // gray
+  ]
+}]
   };
 
   constructor() { }

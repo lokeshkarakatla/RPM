@@ -23,7 +23,7 @@
 
 <div class="page-container p-3">
 
-  <div class="d-flex mb-3 gap-2">
+  <div class="d-flex mb-3 gap-4">
     <button mat-raised-button *ngFor="let cat of categories" (click)="selectCategory(cat)"
       [ngClass]="selectedCategory === cat ? 'tab-active' : 'tab-inactive'" class="top-tab-btn">
       {{ cat }}

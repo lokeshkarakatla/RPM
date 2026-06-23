@@ -29,12 +29,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
     HighchartsChartModule
   ],
   declarations: [
-    PartsCommodityComponent,
+    // PartsCommodityComponent,
     PartsAllComponent,
     PartsCastingComponent,
-    PartsForgingComponent,
+    // PartsForgingComponent,
     PartsMarchiningComponent,
-    PartsFastenersComponent,
+    // PartsFastenersComponent,
     PartsNonmetalicComponent,
     PartsSheetmetalComponent,
     PartsProprietaryComponent

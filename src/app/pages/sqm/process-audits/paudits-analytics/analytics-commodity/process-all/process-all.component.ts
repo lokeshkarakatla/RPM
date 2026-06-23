@@ -67,17 +67,17 @@ export class ProcessAllComponent implements OnInit {
         showInLegend: false
       }
     },
-    series: [{
-      type: 'pie',
-      data: [
-        { name: 'Excellent', y: 30,  color: '#008000' },
-        { name: 'Good', y: 50, color: '#000d80' },
-        { name: 'Satisfied', y: 20, color: '#dbdb21' },
-        { name: 'Major', y: 50, color: '#fcae04' },
-        { name: 'Critical', y: 20, color: '#ff0000' },
-        { name: 'NA', y: 20, color: '#7e7e7e' },
-      ]
-    }]
+  series: [{
+  type: 'pie',
+  data: [
+    { name: 'Excellent', y: 30, color: '#4c9a2a' }, // green
+    { name: 'Good', y: 50, color: '#3b82f6' },      // blue
+    { name: 'Satisfied', y: 20, color: '#fcd34d' }, // yellow
+    { name: 'Major', y: 50, color: '#f8a000' },     // orange
+    { name: 'Critical', y: 20, color: '#dc2626' },  // red
+    { name: 'NA', y: 20, color: '#9ca3af' }         // gray
+  ]
+}]
   };
 
   constructor() { }

@@ -19,11 +19,13 @@ export class PartsCastingComponent implements OnInit {
 
   // Table Data 2: Casting Defect Severity
   severityList = [
-    { rating: 'Conforming', percent: '70.0%' }, 
-    { rating: 'Minor Defect', percent: '18.0%' },      
-    { rating: 'Major Defect', percent: '8.0%' }, 
-    { rating: 'Critical Defect', percent: '4.0%' }        
-  ];
+  { rating: 'Excellent', percent: '26.7%' },
+  { rating: 'Good', percent: '33.3%' },
+  { rating: 'Satisfied', percent: '20.0%' },
+  { rating: 'Major', percent: '10.0%' },
+  { rating: 'Critical', percent: '6.7%' },
+  { rating: 'NA', percent: '3.3%' }
+];
 
   // Chart Options (Total Audits per Casting Part)
   castingPieOptions: Highcharts.Options = {
@@ -60,15 +62,17 @@ export class PartsCastingComponent implements OnInit {
         showInLegend: false
       }
     },
-    series: [{
-      type: 'pie',
-      data: [
-        { name: 'Conforming', y: 70, color: '#00e272' },       
-        { name: 'Minor Defect', y: 18, color: '#fcae04' },     
-        { name: 'Major Defect', y: 8, color: '#fa4b42' },      
-        { name: 'Critical Defect', y: 4, color: '#8b0000' }    
-      ]
-    }]
+series: [{
+  type: 'pie',
+  data: [
+    { name: 'Excellent', y: 8, color: '#4c9a2a' }, // green
+    { name: 'Good', y: 10, color: '#3b82f6' },     // blue
+    { name: 'Satisfied', y: 6, color: '#fcd34d' }, // yellow
+    { name: 'Major', y: 3, color: '#f8a000' },     // orange
+    { name: 'Critical', y: 2, color: '#dc2626' },  // red
+    { name: 'NA', y: 1, color: '#9ca3af' }         // gray
+  ]
+}]
   };
 
   constructor() { }

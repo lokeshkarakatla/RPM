@@ -1,66 +1,15 @@
-<!-- <div class="dashboard-container">
-    <div class="filter-bar">
-
-        <label class="filter-label mb-0">Vertical:</label>
-        <mat-select placeholder="Select Vertical" class="form-control" 
-            style="width: auto; min-width: 120px;">
-
-            <mat-option value="CFM">CFM</mat-option>
-            <mat-option value="Non metallic">Non metallic</mat-option>
-        </mat-select>
-
-
-        <label class="filter-label mb-0">Engineer:</label>
-        <mat-select placeholder="Engineer" class="form-control" 
-            style="width: auto; min-width: 120px;">
-
-            <mat-option value="Tejaswi">Tejaswi</mat-option>
-            <mat-option value="Roshan">Roshan</mat-option>
-            <mat-option value="Krishna">Krishna</mat-option>
-        </mat-select>
-
-        <label class="filter-label mb-0"> Year :</label>
-        <mat-select placeholder=" Year" class="form-control" 
-            style="width: auto; min-width: 120px;">
-
-            <mat-option value="2023">2023</mat-option>
-            <mat-option value="2024">2024</mat-option>
-            <mat-option value="2025">2025</mat-option>
-        </mat-select>
-
-        <label class="filter-label mb-0"> Month :</label>
-        <mat-select placeholder=" Month" class="form-control" 
-            style="width: auto; min-width: 120px;">
-
-            <mat-option value="2023">2023</mat-option>
-            <mat-option value="2024">2024</mat-option>
-            <mat-option value="2025">2025</mat-option>
-        </mat-select>
-
-
-        <button class="go-btn" mat-raised-button>
-            <mat-icon>search</mat-icon> Go
-        </button>
-    </div>
-</div> -->
-
 <div class="filter-bar">
     <div class="filter-group right-align-group">
-
-    
-       <label class="filter-label mb-0">Vertical:</label>
-        <mat-select placeholder="Select Vertical" class="form-control" 
+       <label class="filter-label mb-0">Commodity:</label>
+        <mat-select placeholder="Select Commodity" class="form-control" 
             style="width: auto; min-width: 150px;">
-
             <mat-option value="CFM">CFM</mat-option>
             <mat-option value="Non metallic">Non metallic</mat-option>
         </mat-select>
-
 
         <label class="filter-label mb-0">Auditor:</label>
         <mat-select placeholder="Select Auditor" class="form-control" 
             style="width: auto; min-width: 150px;">
-
             <mat-option value="Tejaswi">Tejaswi</mat-option>
             <mat-option value="Roshan">Roshan</mat-option>
             <mat-option value="Krishna">Krishna</mat-option>
@@ -69,7 +18,6 @@
         <label class="filter-label mb-0"> Year :</label>
         <mat-select placeholder="Select Year" class="form-control" 
             style="width: auto; min-width: 120px;">
-
             <mat-option value="2023">2023</mat-option>
             <mat-option value="2024">2024</mat-option>
             <mat-option value="2025">2025</mat-option>
@@ -78,28 +26,24 @@
           <label class="filter-label mb-0"> Month :</label>
         <mat-select placeholder="Select Month" class="form-control" 
             style="width: auto; min-width: 120px;">
-
             <mat-option value="2023">2023</mat-option>
             <mat-option value="2024">2024</mat-option>
             <mat-option value="2025">2025</mat-option>
         </mat-select>
-
     </div>
 
-    <button class="go-btn" mat-raised-button>
+    <button class="go-btn" mat-raised-button (click)="onSearch()">
         <mat-icon class="mat-icon mt-1">search</mat-icon> Go
     </button>
 </div>
 
-
-<div>
-    <table>
-        <thead>
+<div class="table-responsive my-4">
+    <table class="table table-bordered text-center" style="width: 100%; background: #fff;">
+        <thead style="background-color: #f8f9fa;">
             <tr>
-                <th rowspan="2">Checked</th>
-                <th rowspan="2">NC</th>
-            
-                <th colspan="5" class="text-center">Non Complaince Distribution</th>
+                <th rowspan="2" style="vertical-align: middle;">Checked</th>
+                <th rowspan="2" style="vertical-align: middle;">NC</th>
+                <th colspan="5" class="text-center">Non Compliance Distribution</th>
             </tr>
             <tr>
                 <th>Safety</th>
@@ -113,7 +57,6 @@
             <tr>
                 <td>{{ tableData.checked }}</td>
                 <td>{{ tableData.nc }}</td>
-                <!-- <td>{{ tableData.parameters }}</td> -->
                 <td>{{ tableData.safety }}</td>
                 <td>{{ tableData.critical }}</td>
                 <td>{{ tableData.important }}</td>
@@ -124,59 +67,22 @@
     </table>
 </div>
 
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px;">
 
-
-
-
-<!-- <h2 class="section-title" style="margin-left: 18px;">Critical NC Distribution by Process Category</h2>
-
-<div class="row">
-    <div class="card table-container">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Category Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of pareto">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.action }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="card chart-container">
-       
-        <highcharts-chart [Highcharts]="Highcharts" [options]="commodityPieOptions"
-            style="width: 100%; height: 300px; display: block;">
-        </highcharts-chart>
-    </div>
-</div> -->
-
-
-<div style="
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 16px; 
-    margin-top: 20px;">
-
-    <div style="flex: 1 1 300px; min-width: 0;">
-        <highcharts-chart [Highcharts]="Highcharts" [options]="partCriticalityOptions"
+    <div style="flex: 1 1 300px; min-width: 0; background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px;">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="distributionByClassOptions"
             style="width: 100%; height: 300px; display: block;">
         </highcharts-chart>
     </div>
 
-    <div style="flex: 1 1 300px; min-width: 0;">
+    <div style="flex: 1 1 300px; min-width: 0; background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px;">
         <highcharts-chart [Highcharts]="Highcharts" [options]="issuesCorrectedOptions"
             style="width: 100%; height: 300px; display: block;">
         </highcharts-chart>
     </div>
 
-    <div style="flex: 1 1 300px; min-width: 0;">
-        <highcharts-chart [Highcharts]="Highcharts" [options]="issuesDistributionOptions"
+    <div style="flex: 1 1 300px; min-width: 0; background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px;">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="pdcaDistributionOptions"
             style="width: 100%; height: 300px; display: block;">
         </highcharts-chart>
     </div>

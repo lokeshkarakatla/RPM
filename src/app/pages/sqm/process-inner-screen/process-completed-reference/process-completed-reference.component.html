@@ -29,7 +29,7 @@
   </div>
 
   <div class="row mb-4 pb-4">
-    <div class="col-12 d-flex gap-2">
+    <div class="col-12 d-flex gap-4">
       <button mat-raised-button 
               *ngFor="let cat of categories"
               (click)="selectCategory(cat)"
@@ -174,16 +174,12 @@
 
  <div class="col-md-6">
 
-      <div class="form-group row align-items-center mb-3">
-        <label class="col-sm-4 col-form-label fw-bold">Class :</label>
-        <div class="col-sm-8">
-          <mat-select class="custom-mat-select" [(value)]="selectedClass" placeholder="Select Class">
-            <mat-option *ngFor="let cls of classOptions" [value]="cls">{{ cls }}</mat-option>
-          </mat-select>
-        </div>
-      </div>
 
-       <div class="form-group row align-items-center mb-3">
+
+
+
+
+   <div class="form-group row align-items-center mb-3">
         <label class="col-sm-4 col-form-label fw-bold">Compliance :</label>
         
         <div class="col-sm-8 d-flex align-items-center gap-5">
@@ -206,6 +202,16 @@
 
         </div>
       </div>
+      <div class="form-group row align-items-center mb-3">
+        <label class="col-sm-4 col-form-label fw-bold">Class :</label>
+        <div class="col-sm-8">
+          <mat-select class="custom-mat-select" [(value)]="selectedClass" placeholder="Select Class">
+            <mat-option *ngFor="let cls of classOptions" [value]="cls">{{ cls }}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      
       
       <div class="form-group row align-items-center mb-3">
         <label class="col-sm-4 col-form-label fw-bold"> CAPA Due Date :</label>

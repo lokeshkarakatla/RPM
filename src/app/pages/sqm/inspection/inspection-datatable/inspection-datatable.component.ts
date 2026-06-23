@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddRecordPopComponent } from '../add-record-pop/add-record-pop.component';
 import { DefectsPopComponent } from './defects-pop/defects-pop.component';
-import * as Highcharts from 'highcharts';
-// import { ClientsData } from '../../../clientsdata'; // ← add this
+import { ActiveGridDialogComponent } from '../../process-audits/paudits-active-audits/activeaudits-reference/active-grid-dialog/active-grid-dialog.component';
 
 @Component({
   selector: 'app-inspection-datatable',
@@ -14,104 +13,34 @@ export class InspectionDatatableComponent implements OnInit {
 
   @ViewChild('tableContainer', { static: false }) tableContainer!: ElementRef;
 
-  // ── Highcharts ──
-  Highcharts: typeof Highcharts = Highcharts;
-
-  commodityList = [
-    { name: 'Casting',      rating5: 12, rating4: 8,  rating3: 5, rating2: 3, rating1: 1, ratingNA: 0 },
-    { name: 'Forging',      rating5: 10, rating4: 7,  rating3: 6, rating2: 2, rating1: 1, ratingNA: 1 },
-    { name: 'Machining',    rating5: 15, rating4: 9,  rating3: 4, rating2: 2, rating1: 0, ratingNA: 0 },
-    { name: 'Fasteners',    rating5: 8,  rating4: 10, rating3: 6, rating2: 3, rating1: 2, ratingNA: 1 },
-    { name: 'Non-Metallic', rating5: 11, rating4: 7,  rating3: 5, rating2: 4, rating1: 1, ratingNA: 0 },
-    { name: 'Sheet Metal',  rating5: 9,  rating4: 8,  rating3: 7, rating2: 3, rating1: 2, ratingNA: 1 }
-  ];
-
-  statusList = [
-    { rating: 'Pending', percent: '40%' },
-    { rating: 'Process', percent: '40%' },
-    { rating: 'Closed',  percent: '40%' }
-  ];
-
-  commodityPieOptions: Highcharts.Options = {
-    chart: { type: 'pie', backgroundColor: 'transparent' },
-    title: { text: '' },
-    credits: { enabled: false },
-    plotOptions: {
-      pie: {
-        dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y:.0f}%' },
-        showInLegend: false
-      }
-    },
-    series: [{ type: 'pie', data: [
-      { name: 'Critical',  y: 30, color: '#ff0000' },
-      { name: 'Important', y: 50, color: '#008000' },
-      { name: 'Others',    y: 20, color: '#87ceeb' }
-    ]}]
-  };
-
-  statusPieOptions: Highcharts.Options = {
-    chart: { type: 'pie', backgroundColor: 'transparent' },
-    title: { text: '' },
-    credits: { enabled: false },
-    plotOptions: {
-      pie: {
-        dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y:.0f}%' },
-        showInLegend: false
-      }
-    },
-    series: [{ type: 'pie', data: [
-      { name: 'Pending', y: 30, color: '#87ceeb' },
-      { name: 'Process', y: 50, color: '#008000' },
-      { name: 'Closed',  y: 20, color: '#ff0000' }
-    ]}]
-  };
-
-  // ── ngx-charts ──
-  public first:  any[] = [];
-  public multi:  any[] = [];
-  public triple: any[] = [];
+  // ── ngx-charts Configuration ──
+  public first:  any[] = []; // Inspection by Stage
+  public multi:  any[] = []; // Distribution by Part Family
+  public triple: any[] = []; // By Inspector
+  
   public showLegend    = false;
   public showLabels    = true;
   public explodeSlices = false;
   public doughnut      = false;
   public gradient      = false;
-  public colorScheme = {
+  public colorScheme: any = {
     domain: ['#2F3E9E', '#D22E2E', '#378D3B', '#0096A6', '#F47B00', '#606060']
   };
 
-  public onSelect(event?: any) {}
+  public onSelect(event?: any) {
+    console.log('Item clicked', event);
+  }
 
-  // ── Grid ──
+  // ── Grid Data ──
   mockdata: any[] = [];
-  showFilter = true;
+  showFilter = false;
 
   constructor(private dialog: MatDialog) { }
 
- ngOnInit(): void {
-  this.generateMockData();
-
-  this.first = [
-    { name: 'D1',  value: 30 },
-    { name: 'D2',  value: 25 },
-    { name: 'D3a', value: 20 },
-    { name: 'D3b', value: 10 },
-    { name: 'D4a', value: 8  },
-    { name: 'D4b', value: 7  }
-  ];
-
-  this.multi = [
-    { name: 'GA',    value: 40 },
-    { name: 'Paint', value: 35 },
-    { name: 'Body',  value: 15 },
-    { name: 'SQE',   value: 10 }
-  ];
-
-  this.triple = [
-    { name: '1-30 Days',   value: 40 },
-    { name: '31-60 Days',  value: 35 },
-    { name: '61-120 Days', value: 25 }
-  ];
-}
+  ngOnInit(): void {
+    this.generateMockData();
+    this.updateChartData(); // Calculate chart data from the table data
+  }
 
   generateMockData() {
     this.mockdata = [
@@ -124,12 +53,45 @@ export class InspectionDatatableComponent implements OnInit {
     ];
   }
 
+  // Dynamically calculate chart data based on mockdata
+  updateChartData() {
+    const stageCounts: any = {};
+    const familyCounts: any = {};
+    const inspectorCounts: any = {};
+
+    this.mockdata.forEach(item => {
+      // Count Stages
+      stageCounts[item.stage] = (stageCounts[item.stage] || 0) + 1;
+      // Count Part Families
+      familyCounts[item.PartFamily] = (familyCounts[item.PartFamily] || 0) + 1;
+      // Count Inspectors
+      inspectorCounts[item.Inspector] = (inspectorCounts[item.Inspector] || 0) + 1;
+    });
+
+    // Map to ngx-charts format: { name: string, value: number }
+    this.first = Object.keys(stageCounts).map(key => ({ name: key, value: stageCounts[key] }));
+    this.multi = Object.keys(familyCounts).map(key => ({ name: key, value: familyCounts[key] }));
+    this.triple = Object.keys(inspectorCounts).map(key => ({ name: key, value: inspectorCounts[key] }));
+  }
+
   scrollLeft()  { this.tableContainer?.nativeElement.scrollBy({ left: -300, behavior: 'smooth' }); }
   scrollRight() { this.tableContainer?.nativeElement.scrollBy({ left:  300, behavior: 'smooth' }); }
 
-  addrecord(data: any)          { this.dialog.open(AddRecordPopComponent, { width: '600px', height: 'auto', data }); }
-  openDefectsPop(item: any)     { this.dialog.open(DefectsPopComponent,   { width: '700px', height: 'auto', data: item }); }
+  addrecord(data: any)          { this.dialog.open(AddRecordPopComponent, { width: '1000px', height: 'auto', data }); }
+  openDefectsPop(item: any)     { this.dialog.open(DefectsPopComponent,   { width: '1400px', height: 'auto', data: item }); }
   openEditDialog(item: any)     { console.log('Edit clicked for:', item);    }
   deleteConfirmation(item: any) { console.log('Delete clicked for:', item);  }
   archiveRecord(item: any)      { console.log('Archive clicked for:', item); }
+
+
+
+  
+      openGridView(data:any) {
+        this.dialog.open(ActiveGridDialogComponent, {
+          width: '650px',
+          height: 'auto',
+            maxHeight: '90vh',
+              panelClass: 'no-scroll-dialog' 
+        });
+      }
 }

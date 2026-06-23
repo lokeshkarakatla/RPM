@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 export class ProcessAuditReferenceComponent implements OnInit {
 
   // Top Categories
-  categories = ['QMS(12)', 'MM(9)', 'PPC(18)', 'IME(13)', '5S(6)'];
+  categories = ['QMS(12)', 'MM(9)', 'PPC(18)', 'PM(13)', '5S(6)'];
   selectedCategory = 'QMS(12)';
 
 
@@ -218,7 +218,7 @@ export class ProcessAuditReferenceComponent implements OnInit {
         question: 'Are lessons learned from past nonconformances, customer returns, and process failures captured and applied to prevent recurrence in current production?'
       }
     ],
-    'IME(13)': [
+    'PM(13)': [
       {
         id: 1,
         tooltip: 'IME',

@@ -67,17 +67,17 @@ export class ProcessMachiningComponent implements OnInit {
         showInLegend: false
       }
     },
-    series: [{
-      type: 'pie',
-      data: [
-        { name: 'Excellent', y: 15, color: '#008000' }, // Rating 5
-        { name: 'Good', y: 9, color: '#000d80' },       // Rating 4
-        { name: 'Satisfied', y: 4, color: '#dbdb21' },  // Rating 3
-        { name: 'Major', y: 2, color: '#fcae04' },      // Rating 2
-        { name: 'Critical', y: 0, color: '#ff0000' },   // Rating 1
-        { name: 'NA', y: 0, color: '#7e7e7e' },         // NA
-      ]
-    }]
+   series: [{
+  type: 'pie',
+  data: [
+    { name: 'Excellent', y: 15, color: '#4c9a2a' }, // green
+    { name: 'Good', y: 9, color: '#3b82f6' },       // blue
+    { name: 'Satisfied', y: 4, color: '#fcd34d' },  // yellow
+    { name: 'Major', y: 2, color: '#f8a000' },      // orange
+    { name: 'Critical', y: 0, color: '#dc2626' },   // red
+    { name: 'NA', y: 0, color: '#9ca3af' }          // gray
+  ]
+}]
   };
 
   constructor() { }

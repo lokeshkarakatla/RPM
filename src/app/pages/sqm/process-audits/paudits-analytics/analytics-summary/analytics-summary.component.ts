@@ -8,7 +8,6 @@ import * as Highcharts from 'highcharts';
 })
 export class AnalyticsSummaryComponent implements OnInit {
 
-
   Highcharts: typeof Highcharts = Highcharts;
 
   // ✅ Filter model for ngModel bindings
@@ -35,66 +34,72 @@ export class AnalyticsSummaryComponent implements OnInit {
     awaitingReports: 175
   };
 
+  // ✅ FIX: Added 'size' and 'distance' to force a uniform, large chart size
   private piePlotOptions: Highcharts.Options['plotOptions'] = {
     pie: {
+      size: '80%', // Locks the pie size so it doesn't shrink
       allowPointSelect: true,
       cursor: 'pointer',
       dataLabels: {
         enabled: true,
-        format: '<b>{point.name}</b>: {point.percentage:.1f}%'
-      }
+        format: '<b>{point.name}</b>: {point.percentage:.1f}%',
+        distance: 15 // Brings labels slightly closer to the pie to prevent clipping
+      },
+      showInLegend: false
     }
   };
 
-  partCriticalityOptions: Highcharts.Options = {
+  // Chart 1: Distribution by Class
+  distributionByClassOptions: Highcharts.Options = {
     chart: { type: 'pie', backgroundColor: 'transparent' },
-    title: { text: '' },
+    title: { text: 'Distribution by Class' },
     credits: { enabled: false },
-    plotOptions: {
-      pie: {
-        dataLabels: { enabled: true, format: '<b>{point.name}</b>: {point.y:.0f}%' },
-        showInLegend: false
-      }
-    },
-    series: [{
-      type: 'pie',
-      data: [
-        { name: 'Safety', y: 16, color: '#87ceeb' },
-        { name: 'Important', y: 50, color: '#008000' },
-        { name: 'Others', y: 33, color: '#ff0000' },
-      ]
-    }]
-  };
-
-  issuesCorrectedOptions: Highcharts.Options = {
-    chart: { type: 'pie' },
-    title: { text: 'Issues Corrected' },
     tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' },
     plotOptions: this.piePlotOptions,
     series: [{
       type: 'pie',
-      name: 'Count',
+      name: 'Percentage',
+      data: [
+        { name: 'Regular', y: 50, color: '#27ae60' },     // Green
+        { name: 'Important', y: 30, color: '#f39c12' },   // Orange
+        { name: 'Critical', y: 20, color: '#e74c3c' }     // Red
+      ]
+    }]
+  };
+
+  // Chart 2: Issues Corrected
+  issuesCorrectedOptions: Highcharts.Options = {
+    chart: { type: 'pie', backgroundColor: 'transparent' },
+    title: { text: 'Issues Corrected' },
+    credits: { enabled: false },
+    tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' },
+    plotOptions: this.piePlotOptions,
+    series: [{
+      type: 'pie',
+      name: 'Percentage',
       data: [
         { name: 'Corrected', y: 11, color: '#87CEEB' },
         { name: 'Pending', y: 77, color: '#27ae60' },
-        { name: 'Overdue', y: 11, color: '#e74c3c' },
+        { name: 'Overdue', y: 11, color: '#e74c3c' }
       ]
     }]
   };
 
-  issuesDistributionOptions: Highcharts.Options = {
-    chart: { type: 'pie' },
-    title: { text: 'Issues Distribution' },
+  // Chart 3: PDCA Distribution
+  pdcaDistributionOptions: Highcharts.Options = {
+    chart: { type: 'pie', backgroundColor: 'transparent' },
+    title: { text: 'PDCA Distribution' },
+    credits: { enabled: false },
     tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' },
     plotOptions: this.piePlotOptions,
     series: [{
       type: 'pie',
-      name: 'Count',
+      name: 'Percentage',
       data: [
-        { name: 'Safety', y: 30, color: '#87CEEB' },
-        { name: 'Important', y: 40, color: '#27ae60' },
-        { name: 'Critical', y: 10, color: '#e74c3c' },
-        { name: 'Others', y: 20, color: '#f1c40f' },
+        { name: 'Plan', y: 25, color: '#3498db' },   // Blue
+        { name: 'Do', y: 35, color: '#e67e22' },     // Orange
+        { name: 'Check', y: 20, color: '#9b59b6' },  // Purple
+        { name: 'Act', y: 20, color: '#2ecc71' }     // Green
       ]
     }]
   };

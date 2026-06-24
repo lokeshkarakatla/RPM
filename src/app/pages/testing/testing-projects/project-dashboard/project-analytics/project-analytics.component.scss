@@ -396,3 +396,61 @@ h3 {
     }
   }
 }
+
+/* --- Typography --- */
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: $text-main;
+  margin: 0;
+}
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 10px 0 4px 0;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-main;
+  margin: 0 0 4px 0;
+}
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: $text-main;
+  margin: 0;
+}
+.subtitle {
+  font-size: 14px; /* INCREASED FROM 12px TO 14px */
+  color: $text-muted;
+  margin: 0;
+}
+
+/* ... keep everything else the same until you reach the Custom Native Gantt Chart section ... */
+
+
+/* --- Custom Native Gantt Chart --- */
+.gantt-legend {
+  display: flex;
+  gap: 15px;
+  font-size: 14px; /* INCREASED FROM 11px TO 14px */
+  font-weight: 500; /* Added slight weight to make it more legible at larger size */
+  color: $text-muted;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .dot {
+    width: 8px; /* Slightly larger to match the new text size */
+    height: 8px;
+    border-radius: 50%;
+    &.green { background-color: $green; }
+    &.blue { background-color: $blue; }
+    &.red { background-color: $red; }
+    &.gray { background-color: #e5e7eb; border: 1px solid #d1d5db; }
+  }
+}

@@ -37,11 +37,15 @@
       <table>
         <thead>
           <tr>
+            <th>Actions</th>
             <th>Task</th>
+            <th>Task Code</th>
             <th>Job Code</th>
-            <th>Rate</th>
+            <th>Effort (Hours)</th>
+            <th>Duration (Days)</th>
+            <th>Description</th>
+            <th>Procedure</th>
             <th>Planned</th>
-            <th>Due Date</th>
             <th>Assigned To</th>
             <th>Assigned</th>
             <th>Actual</th>
@@ -52,16 +56,25 @@
             <th>Date</th>
             <th>Status</th>
             <th>Submitted</th>
-            <th>Manage</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let row of paginatedData">
+            
+            <td class="text-center">
+              <div style="display: flex; justify-content: center; gap: 12px; align-items: center;">
+                <mat-icon style="cursor: pointer; color: #3b82f6; font-size: 20px; width: 20px; height: 20px;" title="Edit">edit</mat-icon>
+                <mat-icon style="cursor: pointer; color: #ef4444; font-size: 20px; width: 20px; height: 20px;" title="Delete">delete</mat-icon>
+              </div>
+            </td>
             <td>{{ row.task }}</td>
+            <td>{{ row.taskCode }}</td>
             <td>{{ row.jobCode }}</td>
-            <td>{{ row.rate }}</td>
+            <td>{{ row.effort }}</td>
+            <td>{{ row.duration }}</td>
+            <td>{{ row.description }}</td>
+            <td>{{ row.procedure }}</td>
             <td>{{ row.planned }}</td>
-            <td>{{ row.dueDate }}</td>
             <td>{{ row.assignedTo }}</td>
             <td>{{ row.assigned }}</td>
             <td>{{ row.actual }}</td>
@@ -72,9 +85,6 @@
             <td>{{ row.date }}</td>
             <td>{{ row.status }}</td>
             <td>{{ row.submitted }}</td>
-            <td class="text-center">
-              <span class="manage-icon">&#10140;</span>
-            </td>
           </tr>
         </tbody>
       </table>

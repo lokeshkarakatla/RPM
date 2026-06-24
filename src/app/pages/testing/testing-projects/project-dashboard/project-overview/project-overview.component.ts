@@ -32,18 +32,21 @@ export class ProjectOverviewComponent implements OnInit {
     },
     title: { text: undefined },
     credits: { enabled: false },
-    xAxis: [{
+    xAxis: {
       currentDateIndicator: false,
       min: Date.UTC(2026, 0, 1),   // Jan 2026
       max: Date.UTC(2027, 7, 31),  // Aug 2027
-      tickInterval: 1000 * 60 * 60 * 24 * 90, // ~3 months
+      opposite: false,             // Moves the axis to the BOTTOM
+      tickInterval: 1000 * 60 * 60 * 24 * 30, // Approximately 1 month
+      units: [['month', [1]]],     // Forces ticks to strict calendar months
       labels: {
         format: '{value:%b %Y}', 
+        step: 1,                   // Forces EVERY month label to show (no skipping)
         style: { color: '#6b7280', fontSize: '11px', fontWeight: '500' }
       },
       gridLineWidth: 1,
       gridLineColor: '#f3f4f6'
-    }],
+    },
     yAxis: {
       type: 'category',
       grid: { enabled: true, borderColor: '#f3f4f6' },
@@ -91,7 +94,7 @@ export class ProjectOverviewComponent implements OnInit {
           start: Date.UTC(2026, 4, 1),
           end: Date.UTC(2026, 7, 15),
           color: '#fef08a', // Light yellow remaining
-          completed: { amount: 0.35, fill: '#10b981' }, // 60% rendered via visual mapping (approx 35% of total bar length)
+          completed: { amount: 0.35, fill: '#10b981' }, 
           custom: { label: '60%' }
         },
         {

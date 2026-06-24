@@ -239,3 +239,30 @@ $accent-red: #ef4444;
   overflow: hidden;
   background-color: #ffffff;
 }
+
+/* --- Page Header --- */
+.overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px; /* Space between the header and the top card */
+
+  .header-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+    .page-title {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+      color: $text-dark;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      color: $text-muted;
+      margin: 0;
+    }
+  }
+}

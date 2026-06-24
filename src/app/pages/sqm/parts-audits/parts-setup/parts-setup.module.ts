@@ -26,6 +26,7 @@ import { AddBatchPopComponent } from './batch-master/add-batch-pop/add-batch-pop
 import { DefectsMasterComponent } from './defects-master/defects-master.component';
 import { PartsFamilyPopComponent } from './defects-master/parts-family-pop/parts-family-pop.component';
 import { AddDefectsPopComponent } from './defects-master/add-defects-pop/add-defects-pop.component';
+import { VenderRatingComponent } from './vender-rating/vender-rating.component';
 
 // ❌ REMOVED AuditCategoriesComponent, AddPartCategoryComponent, and PartsauditcatInnergridComponent imports from here
 
@@ -48,6 +49,7 @@ const routes: Routes = [
       { path: 'master', component: PartsMasterComponent },
          { path: 'batchmaster', component: BatchMasterComponent },
            { path: 'defectsmaster', component: DefectsMasterComponent },
+           { path: 'vender-rating', component: VenderRatingComponent },
       { path: '', redirectTo: 'parts-cat', pathMatch: 'full' }
     ]
   }
@@ -66,7 +68,8 @@ const routes: Routes = [
     AddBatchPopComponent,
     DefectsMasterComponent,
     PartsFamilyPopComponent,
-    AddDefectsPopComponent
+    AddDefectsPopComponent,
+    VenderRatingComponent
  
   ],
   imports: [

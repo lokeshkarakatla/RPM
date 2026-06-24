@@ -94,4 +94,10 @@ export class InspectionDatatableComponent implements OnInit, AfterViewInit {
               panelClass: 'no-scroll-dialog' 
         });
       }
+
+
+
+      ngAfterViewInit(): void {
+  // code after view initialization
+}
 }

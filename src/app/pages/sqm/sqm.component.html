@@ -1,8 +1,7 @@
 <div class="sqm-wrapper">
-  <div class="nav-container"
-    [ngClass]="isSidenavOpen ? 'nav-open' : 'nav-closed'"
+  <div class="nav-container" [ngClass]="isSidenavOpen ? 'nav-open' : 'nav-closed'"
     *ngIf="activeTab !== 'sqmd' && activeTab !== 'setup' && !hideSidebar">
-    
+
     <button (click)="toggleSidenav()" class="toggle-button">
       <mat-icon>menu</mat-icon>
     </button>
@@ -74,7 +73,7 @@
             <span *ngIf="isSidenavOpen">Active Audits</span>
           </a>
         </li>
-         <li routerLinkActive="active" routerLink="./parts/actions">
+        <li routerLinkActive="active" routerLink="./parts/actions">
           <a>
             <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Actions">play_circle_outline</mat-icon>
             <span *ngIf="isSidenavOpen">CAPA</span>
@@ -133,13 +132,13 @@
             <span *ngIf="isSidenavOpen">CAPA</span>
           </a>
         </li>
-          <li routerLinkActive="active" routerLink="./inspection/inspectionarchive">
+        <li routerLinkActive="active" routerLink="./inspection/inspectionarchive">
           <a>
             <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="Archives">archive</mat-icon>
             <span *ngIf="isSidenavOpen">Archives</span>
           </a>
         </li>
-          <li (click)="openUserManual('sample-1.pdf')">
+        <li (click)="openUserManual('sample-1.pdf')">
           <a>
             <mat-icon class="nav-icon" *ngIf="!isSidenavOpen" matTooltip="User Manual">menu_book</mat-icon>
             <span *ngIf="isSidenavOpen">User Manual</span>
@@ -156,31 +155,34 @@
 
   </div>
 
-  <div class="main-content"
-    [ngClass]="
+  <div class="main-content" [ngClass]="
       activeTab !== 'sqmd' && activeTab !== 'setup' && !hideSidebar
         ? isSidenavOpen
           ? 'content-shrink'
           : 'content-expanded'
         : 'content-full'
     ">
-    
+
     <ul class="nav nav-pills" *ngIf="!hideSidebar">
       <li>
         <a mat-raised-button class="navtabWidth" routerLink="./sqmd" routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
       </li>
       <li>
-        <a mat-raised-button class="navtabWidth" routerLink="./process" [class.active]="activeTab === 'process'">Process Audits</a>
+        <a mat-raised-button class="navtabWidth" routerLink="./process" [class.active]="activeTab === 'process'">Process
+          Audits</a>
       </li>
       <li>
-        <a mat-raised-button class="navtabWidth" routerLink="./parts" [class.active]="activeTab === 'parts'">Parts Audits</a>
+        <a mat-raised-button class="navtabWidth" routerLink="./parts" [class.active]="activeTab === 'parts'">Parts
+          Audits</a>
       </li>
       <li>
-        <a mat-raised-button class="navtabWidth" routerLink="./inspection" [class.active]="activeTab === 'inspection'">Inspection</a>
+        <a mat-raised-button class="navtabWidth" routerLink="./inspection"
+          [class.active]="activeTab === 'inspection'">Inspection</a>
       </li>
       <li>
-        <a mat-raised-button class="navtabWidth" routerLink="./process/setup/process-cat" [class.active]="activeTab === 'setup'">Setup</a>
+        <a mat-raised-button class="navtabWidth" routerLink="./process/setup/process-cat"
+          [class.active]="activeTab === 'setup'">Setup</a>
       </li>
     </ul>
 
@@ -203,8 +205,11 @@
       <button mat-raised-button class="tab-btn" routerLink="./parts/setup/batchmaster" routerLinkActive="active-tab">
         Batch Master
       </button>
-       <button mat-raised-button class="tab-btn" routerLink="./parts/setup/defectsmaster" routerLinkActive="active-tab">
+      <button mat-raised-button class="tab-btn" routerLink="./parts/setup/defectsmaster" routerLinkActive="active-tab">
         Defects Master
+      </button>
+      <button mat-raised-button class="tab-btn" routerLink="./parts/setup/vender-rating" routerLinkActive="active-tab">
+        Vender Rating
       </button>
     </div>
 

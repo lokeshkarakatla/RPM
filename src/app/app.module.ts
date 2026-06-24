@@ -170,6 +170,7 @@ export function highchartsModules() {
     MatBadgeModule,
     HighchartsChartModule,
     ChartModule,
+    NgxChartsModule,
 
 DragulaModule.forRoot()
 

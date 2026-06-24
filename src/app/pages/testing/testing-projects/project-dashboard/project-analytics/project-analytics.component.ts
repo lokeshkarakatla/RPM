@@ -36,9 +36,10 @@ export class ProjectAnalyticsComponent implements OnInit {
 
   // --- Highcharts Configurations ---
 
-  // 1. Gantt Chart Options (Manufacturing NPI Timeline)
+  // 1. Gantt Chart Options
   ganttChartOptions: Highcharts.Options = {
-    chart: { backgroundColor: 'transparent', marginLeft: 140 }, 
+    // Increased marginLeft to 200 to give the labels plenty of space
+    chart: { backgroundColor: 'transparent', marginLeft: 200 }, 
     title: { text: '' },
     credits: { enabled: false },
     xAxis: {
@@ -55,7 +56,8 @@ export class ProjectAnalyticsComponent implements OnInit {
       grid: { enabled: true, borderColor: '#f3f4f6' },
       labels: { 
         align: 'right', 
-        x: -10, 
+        // Increased x padding to -40 to ensure text does not touch the bars
+        x: -40, 
         style: { fontSize: '12px', color: '#1f2937', fontWeight: '500' } 
       },
       categories: [
@@ -92,6 +94,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
+    legend: { itemMarginTop: 8, itemMarginBottom: 8 }, 
     xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'] },
     yAxis: [
       { title: { text: '' }, labels: { format: '{value}%' }, max: 8 },
@@ -108,6 +111,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
+    legend: { itemMarginTop: 8, itemMarginBottom: 8 }, 
     xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
     yAxis: { title: { text: '' }, labels: { format: '{value}L' } },
     plotOptions: { column: { borderRadius: 2 } },
@@ -122,6 +126,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'line', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
+    legend: { itemMarginTop: 8, itemMarginBottom: 8 }, 
     xAxis: { categories: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10'] },
     yAxis: { title: { text: '' }, labels: { format: '{value}%' }, max: 40 },
     series: [
@@ -135,6 +140,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
+    legend: { itemMarginTop: 10, itemMarginBottom: 10, itemDistance: 20 }, 
     xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
     yAxis: { title: { text: '' }, labels: { format: '{value}L' } },
     plotOptions: { column: { stacking: 'normal', borderWidth: 0 } },
@@ -151,6 +157,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
+    legend: { itemMarginTop: 10, itemMarginBottom: 10, itemDistance: 20 }, 
     xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
     yAxis: { title: { text: '' }, max: 800 },
     plotOptions: { column: { stacking: 'normal', borderWidth: 0 } },

@@ -54,11 +54,11 @@
           <td>{{ audit.auditor }}</td>
           <td>{{ audit.date }}</td>
           <td class="text-link text-center">{{ audit.action }}</td>
-          <td class="text-link text-center">
-            <a [routerLink]="['/app','sqm','parts-inner-screen','parts-audit-reference']">
-              {{ audit.score }}
-            </a>
-          </td>
+         <td class="text-link text-center">
+  <a href="assets/processaudit.pdf" target="_blank" title="View Audit Report">
+    {{ audit.score }}
+  </a>
+</td>
 
           <td class="text-center status-cell">
             <mat-select class="mat-select form-control" style="width:120px"

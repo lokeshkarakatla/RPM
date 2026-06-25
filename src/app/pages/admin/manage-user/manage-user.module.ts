@@ -21,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { JobCodesPopComponent } from './users/job-codes-pop/job-codes-pop.component';
 
 
 
@@ -48,7 +49,8 @@ export const routes = [
     PermissionComponent,
     SplPermissionsComponent,
     UserAudittypeComponent,
-    ManagerDialogComponent
+    ManagerDialogComponent,
+    JobCodesPopComponent
 
   ],
   imports: [

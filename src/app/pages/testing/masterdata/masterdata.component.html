@@ -83,6 +83,24 @@
   </a>
 </li>
 
+
+
+
+
+
+
+<li routerLinkActive="active">
+  <a [routerLink]="['job-code']">
+    <mat-icon *ngIf="!isNavOpen" matTooltip="Project Status">play_circle_outline</mat-icon>
+    <span *ngIf="isNavOpen">Job Codes</span>
+  </a>
+</li>
+
+
+
+
+
+
     </ul>
   </nav>
 

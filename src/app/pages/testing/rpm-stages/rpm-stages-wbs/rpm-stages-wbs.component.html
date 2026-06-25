@@ -45,17 +45,7 @@
             <th>Duration (Days)</th>
             <th>Description</th>
             <th>Procedure</th>
-            <th>Planned</th>
-            <th>Assigned To</th>
-            <th>Assigned</th>
-            <th>Actual</th>
-            <th>Cost</th>
-            <th>Worked</th>
-            <th>Remaining</th>
-            <th>Scheduled</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Submitted</th>
+             
           </tr>
         </thead>
         <tbody>
@@ -73,18 +63,12 @@
             <td>{{ row.effort }}</td>
             <td>{{ row.duration }}</td>
             <td>{{ row.description }}</td>
-            <td>{{ row.procedure }}</td>
-            <td>{{ row.planned }}</td>
-            <td>{{ row.assignedTo }}</td>
-            <td>{{ row.assigned }}</td>
-            <td>{{ row.actual }}</td>
-            <td>{{ row.cost }}</td>
-            <td>{{ row.worked }}</td>
-            <td>{{ row.remaining }}</td>
-            <td>{{ row.scheduled }}</td>
-            <td>{{ row.date }}</td>
-            <td>{{ row.status }}</td>
-            <td>{{ row.submitted }}</td>
+           <td class="text-center">
+  <mat-icon style="color: #1b85ca; cursor: pointer;" matTooltip="View Procedure" (click)="openfilepop()">
+    visibility
+  </mat-icon>
+</td>
+           
           </tr>
         </tbody>
       </table>

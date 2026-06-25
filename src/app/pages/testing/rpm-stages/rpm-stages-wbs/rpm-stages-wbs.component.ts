@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { AddModuleComponent } from './add-module/add-module.component';
 import { AddTaskComponent } from '../../rpm-tasks/add-task/add-task.component';
+import { AddphotoPopComponent } from '../../testing-projects/project-dashboard/project-photos/addphoto-pop/addphoto-pop.component';
+import { ProcedurePopComponent } from './procedure-pop/procedure-pop.component';
 
 @Component({
   selector: 'app-rpm-stages-wbs',
@@ -134,5 +136,12 @@ export class RpmStagesWbsComponent implements OnInit {
       width: '550px',
       data: {} 
     });
+  }
+
+
+
+openfilepop() {
+    // Opens the 'sop.pdf' file from the assets folder in a new tab
+    window.open('assets/sop.pdf', '_blank');
   }
 }

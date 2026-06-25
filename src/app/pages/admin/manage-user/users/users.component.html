@@ -129,6 +129,7 @@
                             <!-- <th>Agency</th> -->
                             <th>Department</th>
                             <th>Role</th>
+                            <th style="min-width: 90px;">Job Code</th>
                             <th>HOD</th>
                             <th>CFT</th>
                             <th>Auditor</th>
@@ -220,6 +221,7 @@
                                 {{applicant.department}}
                             </td>
                             <td>{{applicant.role}}</td>
+                             <td (click)="openjobpop()" style="color:blue; cursor: pointer;" class="text-center">{{applicant.job}}</td>
                             <td class="text-center">
                                 <mat-checkbox [checked]="applicant.hod"></mat-checkbox>
                             </td>

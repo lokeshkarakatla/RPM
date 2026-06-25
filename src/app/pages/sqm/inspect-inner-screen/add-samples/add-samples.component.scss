@@ -70,8 +70,11 @@ td {
   font-size: 14px;
   border: 1px solid #e1e1e1;  /* already correct */
 }
+#p{
+    font-weight: 700;
 
-.clickable-cell {
-  color: blue;
-  cursor: pointer;
+}
+p{
+    font-weight: 500;
+    padding: 2px;
 }

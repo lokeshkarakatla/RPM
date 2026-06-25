@@ -14,6 +14,8 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { CapaViewScreenComponent } from './capa-view-screen/capa-view-screen.component';
 import { UploadstagepopComponent } from './active-records-ref/uploadstagepop/uploadstagepop.component';
 import { UploadListComponent } from './active-records-ref/upload-list/upload-list.component';
+import { SamplePopComponent } from './active-records-ref/sample-pop/sample-pop.component';
+import { AddSamplesComponent } from './add-samples/add-samples.component';
 
 const routes: Routes = [
   {
@@ -23,6 +25,7 @@ const routes: Routes = [
       { path: 'active-records', component: ActiveRecordsRefComponent },
       { path: 'capa-reference', component: CapaReferenceComponent },
          { path: 'capa-view', component: CapaViewScreenComponent },
+              { path: 'addsample', component: AddSamplesComponent },
       // Optional: Add a default redirect if you want one of them to load immediately
       // { path: '', redirectTo: 'active-records', pathMatch: 'full' }
     ]
@@ -36,7 +39,9 @@ const routes: Routes = [
     CapaReferenceComponent,
     CapaViewScreenComponent,
     UploadstagepopComponent,
-    UploadListComponent
+    UploadListComponent,
+    SamplePopComponent,
+    AddSamplesComponent
   ],
   imports: [
     CommonModule,

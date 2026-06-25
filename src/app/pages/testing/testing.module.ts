@@ -41,6 +41,7 @@ import { AddTasksComponent } from './rpm-tasks/add-tasks/add-tasks.component';
 import { RpmTodoComponent } from './rpm-todo/rpm-todo.component';
 import { DragulaModule } from 'ng2-dragula';
 import { AddStagePopComponent } from './rpm-stages/add-stage-pop/add-stage-pop.component';
+import { ProcedurePopComponent } from './rpm-stages/rpm-stages-wbs/procedure-pop/procedure-pop.component';
 
 const routes: Routes = [
     { path: "", redirectTo: "test-dashboard", pathMatch: "full" },
@@ -96,6 +97,7 @@ const routes: Routes = [
         AddTasksComponent,
         RpmTodoComponent,
         AddStagePopComponent,
+        ProcedurePopComponent,
     ],
     imports: [
         CommonModule,

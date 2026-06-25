@@ -22,6 +22,8 @@ import { AdddetectionComponent } from './detection/adddetection/adddetection.com
 import { AddresparasComponent } from './respareas/addresparas/addresparas.component';
 import { AddeditscorematrixComponent } from './score-matrix/addeditscorematrix/addeditscorematrix.component';
 import { AddeditsubgroupComponent } from './sub-groups/addeditsubgroup/addeditsubgroup.component';
+import { JobCodeComponent } from './job-code/job-code.component';
+import { AddJobcodePopComponent } from './job-code/add-jobcode-pop/add-jobcode-pop.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'category', pathMatch: 'full' },
@@ -49,6 +51,10 @@ const routes: Routes = [
     path: 'score-matrix',
     component: ScoreMatrixComponent
   },
+   {
+    path: 'job-code',
+    component: JobCodeComponent
+  },
 
 ]
 
@@ -61,7 +67,7 @@ const routes: Routes = [
     AddresparasComponent,
     AddeditscorematrixComponent,
     AddeditsubgroupComponent,
-    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent],
+    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent],
   imports: [
 
     CommonModule,

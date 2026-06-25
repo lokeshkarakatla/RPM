@@ -193,9 +193,12 @@
           </a>
         </td>
 
-        <td class="text-link text-center">
-          <a [routerLink]="['/app','sqm','inspect-inner-screen','active-records']"> {{ item.Reference }} </a>
-        </td>
+      <td class="text-link text-center">
+  <a [routerLink]="['/app','sqm','inspect-inner-screen','active-records']"
+     [queryParams]="{ reference: item.Reference, partFamily: item.PartFamily, partName: item.PartName }"> 
+    {{ item.Reference }} 
+  </a>
+</td>
         <td class="text-center">{{ item.stage }}</td>
         <td class="text-center">
           <mat-checkbox [(ngModel)]="item.Publish" color="primary"></mat-checkbox>
@@ -214,7 +217,12 @@
           </a>
         </td>
 
-        <td class="text-center"> <a [routerLink]="['/app','sqm','inspect-inner-screen','active-records']"> {{ item.Parameters }} </a></td>
+       <td class="text-center"> 
+  <a [routerLink]="['/app','sqm','inspect-inner-screen','active-records']"
+     [queryParams]="{ reference: item.Reference, partFamily: item.PartFamily, partName: item.PartName }"> 
+    {{ item.Parameters }} 
+  </a>
+</td>
         <td class="text-center">{{ item.Remarks }}</td>
         <td class="text-center">{{ item.BatchNumber }}</td>
         <td class="text-center">{{ item.BatchQuantity }}</td>

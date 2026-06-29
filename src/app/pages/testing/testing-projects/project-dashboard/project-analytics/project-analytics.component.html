@@ -1,19 +1,23 @@
-<div class="dashboard-container">
-  
-  <div class="dashboard-header">
-    <div class="header-titles">
-      <h1>Project Dashboard</h1>
-      <p class="subtitle">Real-time overview of NPI timeline, production metrics, and resource allocation.</p>
-    </div>
 
-    <div class="time-toggle">
-      <button *ngFor="let frame of timeframes" 
-              [class.active]="frame === selectedTimeframe"
-              (click)="setTimeframe(frame)">
-        {{ frame }}
-      </button>
-    </div>
+
+<div class="dashboard-container">
+  <!-- <div class="mb-4">
+  <b>Project Name : </b>NextGen Assembly Line <br>
+
+</div> -->
+<div class="header-content mb-5">
+  <div class="header-titles">
+    <h1>Project Dashboard (NextGen Assembly Line - 2026/MFG/011 )</h1>
+    <p class="subtitle">
+      Real-time overview of NPI timeline, production metrics, and resource allocation.
+    </p>
   </div>
+
+  <button mat-raised-button class="back-btn" (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
+    <mat-icon>arrow_back</mat-icon>
+    Back
+  </button>
+</div>
 
   <div class="kpi-grid">
     <div class="card kpi-card">

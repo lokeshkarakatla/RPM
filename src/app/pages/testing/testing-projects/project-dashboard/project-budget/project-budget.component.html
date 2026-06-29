@@ -1,0 +1,108 @@
+<div class="main-wrapper">
+  <div class="header-section">
+    <div class="title-row">
+      <h1 style="font-weight: 700; font-size: 24px">
+        Budget (NextGen Assembly Line-2026/MFG/011)
+      </h1>
+      <button
+        mat-raised-button
+        class="back-btn"
+        (click)="goBack()"
+        style="background-color: rgb(130, 130, 130); color: white"
+      >
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label>Stage</label>
+        <select #stageSelect>
+          <option value="Any">Any</option>
+          <option *ngFor="let s of stages" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Module</label>
+        <select #moduleSelect>
+          <option value="Any">Any</option>
+          <option *ngFor="let m of modules" [value]="m">{{ m }}</option>
+        </select>
+      </div>
+
+      <button
+        class="btn-go"
+        (click)="applyFilters(stageSelect.value, moduleSelect.value)"
+      >
+        GO
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <span class="label1">BUDGET</span>
+      <span class="value">Rs. 20,00,000</span>
+    </div>
+    <div class="stat-card green">
+      <span class="label2">ACTUAL</span>
+      <span class="value">Rs. 8,50,000</span>
+    </div>
+    <div class="stat-card orange">
+      <span class="label3">COMPLETION</span>
+      <span class="value">45%</span>
+    </div>
+    <div class="stat-card purple">
+      <span class="label4">PROJECTED BUDGET</span>
+      <span class="value">Rs. 18,88,889</span>
+    </div>
+    <div class="stat-card red">
+      <span class="label5">DUE DATE</span>
+      <span class="value">30 Oct 2026</span>
+    </div>
+    <div class="stat-card cyan">
+      <span class="label6">ETA</span>
+      <span class="value">20 Oct 2026</span>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Module</th>
+          <th>Task</th>
+          <th>Allocation</th>
+          <th class="text-right">Standard Hours</th>
+          <th class="text-right">Budget</th>
+          <th class="text-right">Actual Hours</th>
+          <th class="text-right">Completion (%)</th>
+          <th class="text-right">Expenses</th>
+          <th class="text-right">Actual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of displayedRows">
+          <td>{{ row.stage }}</td>
+          <td>{{ row.module }}</td>
+          <td>{{ row.task }}</td>
+          <td>{{ row.allocation }}</td>
+          <td class="text-right">{{ row.standardHours }}</td>
+          <td class="text-right">{{ fmt(row.budget) }}</td>
+          <td class="text-right">{{ row.actualHours }}</td>
+          <td
+            class="text-right font-bold"
+            [style.color]="getCompColor(row.completion)"
+          >
+            {{ row.completion }}%
+          </td>
+          <td class="text-right">{{ fmt(row.expenses) }}</td>
+          <td class="text-right">{{ fmt(row.actual) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

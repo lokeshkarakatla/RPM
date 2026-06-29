@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HighchartsGantt from 'highcharts/modules/gantt'; 
@@ -168,7 +169,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     ]
   };
 
-  constructor() { }
+  constructor(private location:Location) { }
 
   ngOnInit(): void { }
 
@@ -272,5 +273,11 @@ export class ProjectAnalyticsComponent implements OnInit {
     setTimeout(() => {
       this.updateFlag = true;
     });
+  }
+
+
+
+ goBack(): void {
+    this.location.back();
   }
 }

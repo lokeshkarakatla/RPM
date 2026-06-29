@@ -4,8 +4,6 @@
         <a *ngIf="menu.routerLink && !menu.hasSubMenu" mat-button fxLayout="row"
             [fxLayoutAlign]="(settings.menuType=='default') ? 'start center' : 'center center'"
             [routerLink]="[menu.routerLink]"
-            routerLinkActive="active-link"
-            [routerLinkActiveOptions]="{exact:true}"
             [class.active-link]="isMenuItemActive(menu)"
             [matTooltip]="menu.title" matTooltipPosition="above"
             [matTooltipDisabled]="(settings.menuType=='mini') ? 'false' : 'true'"
@@ -16,7 +14,6 @@
 
         <a *ngIf="menu.href && !menu.subMenu" mat-button fxLayout="row"
             [fxLayoutAlign]="(settings.menuType=='default') ? 'start center' : 'center center'"
-            routerLinkActive="active-link"
             [class.active-link]="isMenuItemActive(menu)"
             [attr.href]="menu.href || ''" [attr.target]="menu.target || ''"
             [matTooltip]="menu.title" matTooltipPosition="above"
@@ -28,7 +25,6 @@
 
         <a *ngIf="menu.hasSubMenu" mat-button fxLayout="row"
             [fxLayoutAlign]="(settings.menuType=='default') ? 'start center' : 'center center'"
-            routerLinkActive="active-link"
             [class.active-link]="isMenuItemActive(menu)"
             [routerLink]="[menu.routerLink]"
             [matTooltip]="menu.title" matTooltipPosition="above"

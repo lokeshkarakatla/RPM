@@ -1,0 +1,315 @@
+// Brand Colors
+$bg: #f8fafc;
+$card: #ffffff;
+$border: #e2e8f0;
+$text-main: #0f172a;
+$text-muted: #64748b;
+
+$c-emerald: #10b981;
+$c-blue: #3b82f6;
+$c-red: #ef4444;
+$c-pending: #a1a1aa;
+
+:host {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.schedule-dashboard {
+ min-width: 1250px;
+  width: 100%;
+  padding: 24px;
+  // background-color: $bg-color;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  margin-top: -65px;
+  margin-left: -6px;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Header & Stats
+// Header & Stats
+// Header & Stats
+// Header & Stats
+.header-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title-area {
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: $text-main;
+  }
+
+  .subtitle {
+    margin-top: 8px;
+    font-size: 14px;
+    color: $text-muted;
+  }
+}
+
+
+.back-btn {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 4px;
+  margin-right: -31px;
+  // margin-bottom: -50px;
+}
+
+.stats-badges {
+  display: flex;
+  gap: 8px;
+
+  .badge-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: $card;
+    border: 1px solid $border;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      &.pending { background: rgba($c-pending, 0.5); }
+      &.ongoing { background: $c-blue; }
+      &.completed { background: $c-emerald; }
+      &.exceeded { background: $c-red; }
+    }
+    .label { font-size: 12px; color: $text-muted; }
+    .value { font-size: 14px; font-weight: 600; color: $text-main; }
+  }
+}
+
+// Main Card & Toolbar
+.main-card {
+  background: $card;
+  border: 1px solid $border;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid $border;
+
+  .view-toggle {
+    display: flex;
+    background: #f1f5f9;
+    padding: 2px;
+    border-radius: 6px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      color: $text-muted;
+
+      svg { width: 16px; height: 16px; }
+      &.active { background: $text-main; color: white; }
+    }
+  }
+
+  .toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: $text-muted;
+      span { display: flex; align-items: center; gap: 6px; }
+      .legend-color { width: 12px; height: 8px; border-radius: 2px; }
+      .pending { background: rgba($c-pending, 0.3); }
+      .ongoing { background: $c-blue; }
+      .completed { background: $c-emerald; }
+      .exceeded { background: $c-red; }
+    }
+
+    .btn-mask {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      background: $card;
+      border: 1px solid $border;
+      border-radius: 6px;
+      color: $text-main;
+      cursor: pointer;
+      svg { width: 16px; height: 16px; }
+      &.active { background: $text-main; color: white; border-color: $text-main; }
+    }
+  }
+}
+
+// Shared Status Colors for both views
+.completed { background: $c-emerald; }
+.exceeded { background: $c-red; }
+.ongoing { background: $c-blue; }
+.pending { background: rgba($c-pending, 0.3); }
+
+// Grid View
+.grid-view {
+  overflow-x: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+    
+    th { padding: 10px 8px; font-weight: 500; color: $text-muted; border-bottom: 1px solid $border; background: rgba(#f1f5f9, 0.5); }
+    td { padding: 8px; border-bottom: 1px solid $border; }
+    .pl-4 { padding-left: 16px; }
+    .pr-4 { padding-right: 16px; }
+    .w-180 { width: 180px; }
+    .text-muted { color: $text-muted; }
+    .task-name { font-weight: 500; color: $text-main; }
+    .task-id { font-size: 11px; color: $text-muted; }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+      &.completed { background: rgba($c-emerald, 0.1); color: darken($c-emerald, 10%); .dot { background: $c-emerald; } }
+      &.exceeded { background: rgba($c-red, 0.1); color: $c-red; .dot { background: $c-red; } }
+      &.ongoing { background: rgba($c-blue, 0.1); color: darken($c-blue, 10%); .dot { background: $c-blue; } }
+      &.pending { background: #f1f5f9; color: $text-muted; .dot { background: rgba($c-pending, 0.8); } }
+    }
+
+    .progress-wrapper {
+      display: flex; align-items: center; gap: 8px;
+      .progress-bg { flex: 1; height: 6px; background: #f1f5f9; border-radius: 4px; position: relative; overflow: hidden; }
+      .progress-fill { position: absolute; top: 0; bottom: 0; left: 0; }
+      .progress-text { width: 36px; text-align: right; font-size: 12px; color: $text-muted; }
+    }
+  }
+}
+
+
+
+.assign-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 20px 0 6px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.assign-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start; 
+}
+
+// Gantt View
+.gantt-view {
+  overflow-x: auto;
+  .gantt-scroll { width: 1272px; }
+  
+  .gantt-row { display: flex; border-bottom: 1px solid rgba($border, 0.6); }
+  .gantt-col-left { width: 320px; flex-shrink: 0; padding: 12px 16px; }
+  .gantt-col-right { width: 952px; position: relative; padding: 12px 0; }
+
+  .header-row {
+    background: rgba(#f1f5f9, 0.3);
+    .gantt-col-left { font-size: 12px; font-weight: 500; text-transform: uppercase; color: $text-muted; padding: 8px 16px; }
+    .gantt-col-right { display: flex; padding: 0; }
+    .day-col { width: 34px; border-left: 1px solid rgba($border, 0.5); padding: 8px 0; text-align: center; font-size: 10px; color: $text-muted; }
+  }
+
+  .task-row {
+    &:hover { background: rgba(#f1f5f9, 0.4); }
+    .task-name-truncate { font-size: 14px; font-weight: 500; color: $text-main; }
+    .task-meta { margin-top: 2px; font-size: 11px; color: $text-muted; .sep { margin: 0 4px; color: #cbd5e1; } }
+
+    .grid-lines-bg { position: absolute; inset: 0; display: flex; pointer-events: none; .grid-line { width: 34px; border-left: 1px solid rgba($border, 0.4); } }
+    .today-line { position: absolute; top: 0; bottom: 0; left: 374px; width: 1px; background: rgba($text-main, 0.4); }
+
+    .gantt-bar {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      height: 24px; border-radius: 6px;
+      display: flex; align-items: center;
+      overflow: hidden;
+      
+      .bar-progress { position: absolute; top: 0; bottom: 0; left: 0; background: rgba(255, 255, 255, 0.25); }
+      .bar-label { position: relative; margin-left: 8px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.95); mix-blend-mode: luminosity; }
+    }
+  }
+
+  .footer-row {
+    background: rgba(#f1f5f9, 0.2);
+    border-top: 1px solid $border; border-bottom: none;
+    .gantt-col-left { padding: 8px 16px; font-size: 12px; color: $text-muted; }
+    .gantt-col-right { padding: 0; .today-tick { position: absolute; top: 0; left: 374px; height: 8px; width: 1px; background: rgba($text-main, 0.6); } }
+  }
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.header-titles {
+  flex: 1;
+}
+
+.back-btn {
+  margin-left: auto;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 4px;
+}

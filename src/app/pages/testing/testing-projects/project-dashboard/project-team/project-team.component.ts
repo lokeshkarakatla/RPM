@@ -90,4 +90,16 @@ export class ProjectTeamComponent implements OnInit {
   save() {
     // Closes the popup and returns the updated assigned array to the parent component
   }
+
+
+
+
+
+
+
+
+
+    goBack(): void {
+  window.history.back();
+}
 }

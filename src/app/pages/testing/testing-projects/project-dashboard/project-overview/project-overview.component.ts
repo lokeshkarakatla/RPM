@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HighchartsGantt from 'highcharts/modules/gantt';
@@ -156,8 +157,13 @@ export class ProjectOverviewComponent implements OnInit {
     }]
   };
 
-  constructor() { }
+  constructor(private location:Location) { }
 
+
+
+ goBack(): void {
+    this.location.back();
+  }
   ngOnInit(): void {
   }
 }

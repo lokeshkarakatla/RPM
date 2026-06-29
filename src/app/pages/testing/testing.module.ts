@@ -56,7 +56,7 @@ const routes: Routes = [
     { 
         path: 'projects', 
         loadChildren: () => import('./testing-projects/testing-projects.modules').then(m => m.TestingProjectsModule), 
-        data: { breadcrumb: 'Projects' } 
+        // data: { breadcrumb: 'Projects' } 
     },
     { path: 'testing-kanban', component: TestingKanbanComponent, data: { breadcrumb: 'Kanban' } },
     { path: 'todo', component: RpmTodoComponent, data: { breadcrumb: 'To do' } },

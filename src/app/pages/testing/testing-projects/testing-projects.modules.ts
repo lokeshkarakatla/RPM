@@ -28,7 +28,7 @@ const routes: Routes = [
   { 
     path: 'dashboard', 
     loadChildren: () => import('./project-dashboard/project-dashboard.module').then(m => m.ProjectDashboardModule), 
-    data: { breadcrumb: 'Dashboard' } 
+    // data: { breadcrumb: 'Dashboard' } 
   } 
 ];
 

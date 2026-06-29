@@ -94,4 +94,11 @@ export class ProjectSetupComponent implements OnInit {
     console.log(`Deleting ${type}:`, item);
     // Trigger delete confirmation or API call here
   }
+
+
+
+
+  goBack(): void {
+  window.history.back();
+}
 }

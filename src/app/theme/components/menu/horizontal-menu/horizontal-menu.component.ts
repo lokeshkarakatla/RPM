@@ -12,7 +12,9 @@ import { MatMenuTrigger } from '@angular/material/menu';
   templateUrl: './horizontal-menu.component.html',
   styleUrls: ['./horizontal-menu.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [MenuService]
+  // Note: Providing MenuService here creates a new instance for this component. 
+  // If it's already provided in root/module, you can remove this providers array.
+  providers: [MenuService] 
 })
 export class HorizontalMenuComponent implements OnInit {
 
@@ -23,71 +25,51 @@ export class HorizontalMenuComponent implements OnInit {
 
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
 
-constructor(
-  public appSettings: AppSettings,
-  public menuService: MenuService,
-  public router: Router,
-  private cdr: ChangeDetectorRef
-) {
-  this.settings = this.appSettings.settings;
-}
-
-ngOnInit() {
-  this.menuItems = this.menuService.getHorizontalMenuItems();
-  this.menuItems = this.menuItems.filter(item => item.parentId == this.menuParentId);
-
-  const isClient = localStorage.getItem('isClient');
-  if (isClient && JSON.parse(isClient) == true) {
-    this.menuItems = this.menuService.getClientMenuItems();
+  constructor(
+    public appSettings: AppSettings,
+    public menuService: MenuService,
+    public router: Router,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.settings = this.appSettings.settings;
   }
 
-  this.router.events.subscribe(event => {
-    if (event instanceof NavigationEnd) {
-      this.currentUrl = event.urlAfterRedirects;
-      this.cdr.detectChanges();
+  ngOnInit() {
+    this.menuItems = this.menuService.getHorizontalMenuItems();
+    this.menuItems = this.menuItems.filter(item => item.parentId == this.menuParentId);
+
+    const isClient = localStorage.getItem('isClient');
+    if (isClient && JSON.parse(isClient) == true) {
+      this.menuItems = this.menuService.getClientMenuItems();
     }
-  });
 
-  // for new tab: router.url is '/' on first load, re-check after router resolves
-  setTimeout(() => this.cdr.detectChanges(), 100);
-}
+    // This block perfectly handles the route change detection!
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentUrl = event.urlAfterRedirects;
+        this.cdr.detectChanges(); 
+      }
+    });
 
-isMenuItemActive(menu: any): boolean {
-  const routerUrl = this.router.url.split('?')[0];
-  const url = (routerUrl && routerUrl !== '/') ? routerUrl : location.hash.replace('#', '').split('?')[0];
+    setTimeout(() => this.cdr.detectChanges(), 100);
+  }
 
-  const result =
-    url.startsWith(menu.routerLink) ||
-
-    (menu.routerLink === '/app/prts-part' &&
-      (url.startsWith('/app/prtsnavbar') ||
-       url.startsWith('/app/prtsonepager'))) ||
-
-    (menu.routerLink === '/app/subjective-audits' &&
-      url.startsWith('/app/checklistdoard')) ||
-
-    (menu.routerLink === '/app/objective-audits' &&
-      (url.startsWith('/app/setup/subjective/check') ||
-       url.startsWith('/app/setup/subjective/overview') ||
-       url.startsWith('/app/parameterboard')));
-
-  return result;
-}
+  // ✅ CHANGED: Delete the old logic and call the service directly!
+  isMenuItemActive(menu: any): boolean {
+    return this.menuService.isMenuItemActive(menu);
+  }
 
   ngAfterViewInit() {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-
         if (this.settings.fixedHeader) {
           const mainContent = document.getElementById('main-content');
-
           if (mainContent) {
             mainContent.scrollTop = 0;
           }
         }
         else {
           const drawer = document.getElementsByClassName('mat-drawer-content')[0] as HTMLElement;
-
           if (drawer) {
             drawer.scrollTop = 0;
           }

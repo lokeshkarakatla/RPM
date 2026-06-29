@@ -71,27 +71,57 @@ export class MenuService {
   // menu.service.ts
 // horizontal-menu.component.ts
 
-isMenuItemActive(menu: any): boolean {
-  const routerUrl = this.router.url.split('?')[0];
-  const url = (routerUrl && routerUrl !== '/') ? routerUrl : location.hash.replace('#', '').split('?')[0];
+// Inside menu.service.ts
 
-  const result =
-    url.startsWith(menu.routerLink) ||
+  isMenuItemActive(menu: any): boolean {
+    const routerUrl = this.router.url.split('?')[0];
+    const url = (routerUrl && routerUrl !== '/') ? routerUrl : location.hash.replace('#', '').split('?')[0];
 
-    (menu.routerLink === '/app/prts-part' &&
-      (url.startsWith('/app/prtsnavbar') ||
-       url.startsWith('/app/prtsonepager'))) ||
+    if (!menu) return false;
 
-    (menu.routerLink === '/app/subjective-audits' &&
-      url.startsWith('/app/checklistdoard')) ||
+    // 1. EXPLICIT PROJECTS CHECK (Uses ID 2)
+    if (menu.id === 2 && (
+      url.includes('/app/testing/projects') || 
+      url.includes('/projects/dashboard')
+    )) {
+      return true;
+    }
 
-    (menu.routerLink === '/app/objective-audits' &&
-      (url.startsWith('/app/setup/subjective/check') ||
-       url.startsWith('/app/setup/subjective/overview') ||
-       url.startsWith('/app/parameterboard')));
+    // 2. EXPLICIT SETUP CHECK (Uses ID 3)
+    // ✅ CHANGED: Removed Tasks, Issues, and To Do from this condition
+    if (menu.id === 3 && (
+      url.includes('/app/testing/stages') ||
+      url.includes('/app/testing/gates') ||
+      url.includes('/app/testing/testing-masterData')
+    )) {
+      return true;
+    }
 
-  return result;
-}
-  
+    // 3. EXPLICIT ADMIN CHECK (Uses ID 4)
+    if (menu.id === 4 && (
+      url.includes('/app/admin') || 
+      url.includes('/app/setups/setup-masterdata') || 
+      url.includes('/app/setups/setup-audit')
+    )) {
+      return true;
+    }
+
+    // 4. Default check for standard menus (This will automatically handle Tasks, Issues, To Do)
+    const baseMatch = menu.routerLink ? url.startsWith(menu.routerLink) : false;
+
+    // 5. Existing custom module checks
+    const result =
+      baseMatch ||
+      (menu.routerLink === '/app/prts-part' &&
+        (url.includes('/app/prtsnavbar') || url.includes('/app/prtsonepager'))) ||
+      (menu.routerLink === '/app/subjective-audits' &&
+        url.includes('/app/checklistdoard')) ||
+      (menu.routerLink === '/app/objective-audits' &&
+        (url.includes('/app/setup/subjective/check') ||
+         url.includes('/app/setup/subjective/overview') ||
+         url.includes('/app/parameterboard')));
+
+    return result;
+  }
 
 }

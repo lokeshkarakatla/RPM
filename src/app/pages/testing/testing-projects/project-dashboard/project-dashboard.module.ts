@@ -32,6 +32,8 @@ import { ProjectAnalyticsComponent } from './project-analytics/project-analytics
 import { ProjectOverviewComponent } from './project-overview/project-overview.component';
 import { ProjectTeamComponent } from './project-team/project-team.component';
 import { ProjectSetupComponent } from './project-setup/project-setup.component';
+import { ProjectScheduleComponent } from './project-schedule/project-schedule.component';
+import { ProjectBudgetComponent } from './project-budget/project-budget.component';
 
 const routes: Routes = [
   {
@@ -47,8 +49,8 @@ const routes: Routes = [
       { path: 'setup', component: ProjectSetupComponent },
       { path: 'team', component: ProjectTeamComponent },
       { path: 'wbs', component: PlaceholderImageComponent },
-      { path: 'schedule', component: PlaceholderImageComponent },
-      { path: 'budget', component: PlaceholderImageComponent },
+      { path: 'schedule', component: ProjectScheduleComponent },
+      { path: 'budget', component: ProjectBudgetComponent },
       { path: 'backlog', component: PlaceholderImageComponent },
       { path: 'sprints', component: PlaceholderImageComponent },
       { path: 'timeline', component: PlaceholderImageComponent },
@@ -75,7 +77,9 @@ const routes: Routes = [
     ProjectAnalyticsComponent,
     ProjectOverviewComponent,
     ProjectTeamComponent,
-    ProjectSetupComponent
+    ProjectSetupComponent,
+    ProjectScheduleComponent,
+    ProjectBudgetComponent
   ],
   imports: [
     CommonModule,

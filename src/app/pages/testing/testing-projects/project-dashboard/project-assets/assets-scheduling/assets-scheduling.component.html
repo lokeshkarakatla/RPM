@@ -1,0 +1,81 @@
+<div class="asset-tracker-card">
+
+  <!-- Top bar: view toggle + add button -->
+  <div class="tracker-topbar">
+    <div class="view-toggle">
+      <button
+        type="button"
+        class="toggle-btn"
+        [class.active]="viewMode === 'grid'"
+        (click)="setView('grid')">
+        <i class="fa fa-th-large" aria-hidden="true"></i>
+        Grid
+      </button>
+      <button
+        type="button"
+        class="toggle-btn"
+        [class.active]="viewMode === 'calendar'"
+        (click)="setView('calendar')">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        Calendar
+      </button>
+    </div>
+
+    <button type="button" class="add-btn" (click)="onAdd()">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      Add
+    </button>
+  </div>
+
+  <!-- ============ GRID VIEW ============ -->
+  <div class="grid-view" *ngIf="viewMode === 'grid'">
+    <table class="asset-table">
+      <thead>
+        <tr>
+          <th style="width:90px;">Action</th>
+          <th>Asset Name</th>
+          <th>Asset Code</th>
+          <th>From Date</th>
+          <th>From Time</th>
+          <th>To Date</th>
+          <th>To Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows; trackBy: trackByRow">
+          <td>
+            <button type="button" class="row-action-btn" (click)="onAction(row)" title="Edit">
+              <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td class="asset-name-cell">{{ row.assetName }}</td>
+          <td class="muted-cell">{{ row.assetCode }}</td>
+          <td class="date-cell">{{ row.fromDate }}</td>
+          <td class="muted-cell">{{ row.fromTime }}</td>
+          <td class="date-cell">{{ row.toDate }}</td>
+          <td class="muted-cell">{{ row.toTime }}</td>
+        </tr>
+
+        <tr *ngIf="rows.length === 0">
+          <td colspan="7" class="empty-row">No assets booked yet. Click "Add" to create one.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============ CALENDAR VIEW ============ -->
+  <div class="calendar-view" *ngIf="viewMode === 'calendar'">
+    <div class="calendar-header">
+      <span class="calendar-month">{{ currentMonthLabel }}</span>
+    </div>
+
+    <div class="calendar-grid">
+      <div class="calendar-dow" *ngFor="let d of ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']">{{ d }}</div>
+
+      <div class="calendar-cell" *ngFor="let day of calendarDays">
+        <span class="calendar-date">{{ day }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

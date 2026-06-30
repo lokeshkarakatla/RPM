@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Menu } from './menu.model';
-import { verticalMenuItems, horizontalMenuItems, clientMenuItems } from './menu';
+import { verticalMenuItems, horizontalMenuItems, clientMenuItems,supplierMenuItems } from './menu';
 
 @Injectable()
 export class MenuService {
@@ -10,11 +10,29 @@ export class MenuService {
   constructor(private location:Location,
               private router:Router){ } 
     
-  public getVerticalMenuItems():Array<Menu> {
+  // public getVerticalMenuItems():Array<Menu> {
+  //   return verticalMenuItems;
+  // }
+
+  public getVerticalMenuItems(): Array<Menu> {
+    const userType = localStorage.getItem('userType');
+    
+    if (userType === 'supplier') {
+      return supplierMenuItems;
+    } else if (userType === 'client') {
+      return clientMenuItems;
+    }
     return verticalMenuItems;
   }
 
-  public getHorizontalMenuItems():Array<Menu> {
+  public getHorizontalMenuItems(): Array<Menu> {
+    const userType = localStorage.getItem('userType');
+    
+    if (userType === 'supplier') {
+      return supplierMenuItems;
+    } else if (userType === 'client') {
+      return clientMenuItems;
+    }
     return horizontalMenuItems;
   }
   public getClientMenuItems():Array<Menu> {

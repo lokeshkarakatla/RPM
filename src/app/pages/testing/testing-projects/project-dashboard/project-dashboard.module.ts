@@ -34,6 +34,8 @@ import { ProjectTeamComponent } from './project-team/project-team.component';
 import { ProjectSetupComponent } from './project-setup/project-setup.component';
 import { ProjectScheduleComponent } from './project-schedule/project-schedule.component';
 import { ProjectBudgetComponent } from './project-budget/project-budget.component';
+import { ProjectAssetsComponent } from './project-assets/project-assets.component';
+import { AssetsSchedulingComponent } from './project-assets/assets-scheduling/assets-scheduling.component';
 
 const routes: Routes = [
   {
@@ -54,12 +56,13 @@ const routes: Routes = [
       { path: 'backlog', component: PlaceholderImageComponent },
       { path: 'sprints', component: PlaceholderImageComponent },
       { path: 'timeline', component: PlaceholderImageComponent },
-      { path: 'assets', component: PlaceholderImageComponent },
+      { path: 'assets', component: ProjectAssetsComponent },
       { path: 'facilities', component: PlaceholderImageComponent },
       { path: 'expenses', component: PlaceholderImageComponent },
       { path: 'hours', component: PlaceholderImageComponent },
       { path: 'timesheet1', component: PlaceholderImageComponent },
       { path: 'timesheet2', component: PlaceholderImageComponent },
+      {path:'sample',component: AssetsSchedulingComponent}
     ]
   }
 ];
@@ -79,7 +82,9 @@ const routes: Routes = [
     ProjectTeamComponent,
     ProjectSetupComponent,
     ProjectScheduleComponent,
-    ProjectBudgetComponent
+    ProjectBudgetComponent,
+    ProjectAssetsComponent,
+    AssetsSchedulingComponent
   ],
   imports: [
     CommonModule,

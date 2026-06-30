@@ -1,0 +1,53 @@
+<div class="table-header d-flex justify-content-end mb-3">
+    <button mat-raised-button class="pull-right" matTooltip="Add Issue" (click)="add(null)" color="primary">
+        <mat-icon class="">add</mat-icon> Add Asset
+    </button>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th class="text-center">Actions</th>
+                <th class="text-center">Status</th>
+                <th>Asset Code</th>
+                <th>Asset Type</th>
+                <th>Asset Name</th>
+                <th>Asset Make</th>
+                <th>Asset Model</th>
+                <th class="text-center">Scheduling</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let asset of assets">
+                <td class="text-center">
+                    <i class="fa fa-pencil text-primary action-icon" (click)="editAsset(asset)"></i>
+
+                    <i class="fa fa-trash text-danger action-icon ml-2" (click)="deleteAsset(asset)"></i>
+                </td>
+
+                <td class="text-center">
+                    <span [ngClass]="{
+              'status-active': asset.status === 'Active',
+              'status-inactive': asset.status === 'Inactive'
+            }">
+                        {{ asset.status }}
+                    </span>
+                </td>
+
+                <td>{{ asset.assetCode }}</td>
+                <td>{{ asset.assetType }}</td>
+                <td>{{ asset.assetName }}</td>
+                <td>{{ asset.assetMake }}</td>
+                <td>{{ asset.assetModel }}</td>
+
+               <td class="text-center">
+  <a href="javascript:void(0)" (click)="viewScheduling(asset)">
+    {{ asset.log }}
+  </a>
+</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

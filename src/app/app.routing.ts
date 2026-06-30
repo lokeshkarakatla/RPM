@@ -74,6 +74,14 @@ const routes: Routes = [
                 data: { breadcrumb: 'Admin' }
             },
 
+
+             {
+                path: 'supplier', loadChildren: () =>
+                    import("./pages/admin/admin.module").then((m) => m.AdminModule),
+                data: { breadcrumb: 'Admin' }
+            },
+
+
             {
                 path: 'dash@board', component: DashboardComponent,
                 data: { breadcrumb: 'Audit Dashboard' }

@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userType', 'supplier'); // Set flag for supplier
         localStorage.setItem('isClient', JSON.stringify(false));
         
-        // Route to supplier specific dashboard
+        // Route to supplier specific dashboard ncdksnk
          this.router.navigate(['/app']);
         return;
       }

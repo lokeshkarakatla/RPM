@@ -100,9 +100,8 @@ export class ProjectAssetsComponent implements OnInit {
     // this.router.navigate(['/assets/add']);
   }
 
-  viewScheduling(asset: Asset): void {
-    this.router.navigate(['../sample'], {
-      relativeTo: this.route
-    });
-  }
+viewScheduling(asset: Asset): void {
+  this.router.navigate(['sample'], { relativeTo: this.route }); // now relative, no '../'
+}
+
 }

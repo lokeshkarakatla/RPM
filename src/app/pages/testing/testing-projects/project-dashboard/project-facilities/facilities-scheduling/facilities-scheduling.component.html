@@ -37,8 +37,8 @@
       <thead>
         <tr>
           <th style="width:90px;text-align:left;font-size:13px;font-weight:600;color:#5f6b7a;padding:10px 14px;border-bottom:1px solid #e3e6ea;white-space:nowrap;">Action</th>
-          <th style="text-align:left;font-size:13px;font-weight:600;color:#5f6b7a;padding:10px 14px;border-bottom:1px solid #e3e6ea;white-space:nowrap;">Asset Name</th>
-          <th style="text-align:left;font-size:13px;font-weight:600;color:#5f6b7a;padding:10px 14px;border-bottom:1px solid #e3e6ea;white-space:nowrap;">Asset Code</th>
+          <th style="text-align:left;font-size:13px;font-weight:600;color:#5f6b7a;padding:10px 14px;border-bottom:1px solid #e3e6ea;white-space:nowrap;">Facility Name</th>
+          <th style="text-align:left;font-size:13px;font-weight:600;color:#5f6b7a;padding:10px 14px;border-bottom:1px solid #e3e6ea;white-space:nowrap;">Facility Code</th>
           <th style="text-align:left;font-size:13px;font-weight:600;color:#5f6b7a;padding:10px 14px;border-bottom:1px solid #e3e6ea;white-space:nowrap;">From Date</th>
           <th style="text-align:left;font-size:13px;font-weight:600;color:#5f6b7a;padding:10px 14px;border-bottom:1px solid #e3e6ea;white-space:nowrap;">From Time</th>
           <th style="text-align:left;font-size:13px;font-weight:600;color:#5f6b7a;padding:10px 14px;border-bottom:1px solid #e3e6ea;white-space:nowrap;">To Date</th>
@@ -48,18 +48,18 @@
       <tbody>
         <tr *ngFor="let row of rows; trackBy: trackByRow">
           <td style="padding:14px;font-size:14px;color:#1f2937;border-bottom:1px solid #f0f1f3;text-align:center;">
-            <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;margin-right:8px;" (click)="editAsset()"></i>
-            <i class="fa fa-trash text-danger action-icon" style="cursor:pointer;" (click)="deleteAsset()"></i>
+            <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;margin-right:8px;" (click)="editFacility()"></i>
+            <i class="fa fa-trash text-danger action-icon" style="cursor:pointer;" (click)="deleteFacility()"></i>
           </td>
-          <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;font-weight:600;color:#14213d;white-space:nowrap;">{{ row.assetName }}</td>
-          <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;color:#6b7280;white-space:nowrap;">{{ row.assetCode }}</td>
+          <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;font-weight:600;color:#14213d;white-space:nowrap;">{{ row.facilityName }}</td>
+          <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;color:#6b7280;white-space:nowrap;">{{ row.facilityCode }}</td>
           <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;color:#1f2937;font-weight:500;white-space:nowrap;">{{ row.fromDate }}</td>
           <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;color:#6b7280;white-space:nowrap;">{{ row.fromTime }}</td>
           <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;color:#1f2937;font-weight:500;white-space:nowrap;">{{ row.toDate }}</td>
           <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;color:#6b7280;white-space:nowrap;">{{ row.toTime }}</td>
         </tr>
         <tr *ngIf="rows.length === 0">
-          <td colspan="7" style="text-align:center;padding:30px 0;color:#9aa3af;font-size:14px;">No assets booked yet. Click "Add" to create one.</td>
+          <td colspan="7" style="text-align:center;padding:30px 0;color:#9aa3af;font-size:14px;">No facilities booked yet. Click "Add" to create one.</td>
         </tr>
       </tbody>
     </table>
@@ -72,7 +72,7 @@
       <!-- LEFT PANEL -->
       <div style="flex:0 0 320px;display:flex;flex-direction:column;gap:16px;">
 
-        <!-- Mini datepicker - UPDATED STYLE -->
+        <!-- Mini datepicker -->
         <div style="border:1px solid #e3e6ea;border-radius:10px;padding:18px 16px 14px;background:#ffffff;">
           <!-- Header: prev | Month Year | next -->
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
@@ -95,7 +95,7 @@
               style="text-align:center;font-size:12px;font-weight:600;color:#9aa3af;padding:4px 0;">{{ d.charAt(0) }}</span>
           </div>
 
-          <!-- Date grid — fixed 48px rows, size never shifts on selection -->
+          <!-- Date grid -->
           <div style="display:grid;grid-template-columns:repeat(7, minmax(0,1fr));grid-auto-rows:48px;gap:0;">
             <div
               *ngFor="let cell of calendarCells; trackBy: trackByCell"
@@ -123,7 +123,7 @@
                       : '#1d2138'
               }">{{ cell.dayNumber }}</span>
 
-              <!-- Task count — always reserves space (0 = invisible) -->
+              <!-- Task count -->
               <span style="display:block;height:14px;margin-top:3px;font-size:11px;font-weight:700;line-height:14px;text-align:center;"
                 [ngStyle]="{ color: cell.isSelected ? '#bfdbfe' : '#1a73e8' }">
                 {{ cell.tasks.length > 0 ? cell.tasks.length : '' }}
@@ -138,7 +138,7 @@
           <table style="width:100%;border-collapse:collapse;min-width:300px;">
             <thead>
               <tr>
-                <th style="background:#14617e;color:#ffffff;font-size:12px;font-weight:600;text-align:left;padding:9px 10px;">Asset</th>
+                <th style="background:#14617e;color:#ffffff;font-size:12px;font-weight:600;text-align:left;padding:9px 10px;">Facility</th>
                 <th style="background:#14617e;color:#ffffff;font-size:12px;font-weight:600;text-align:left;padding:9px 10px;">Description</th>
                 <th style="background:#14617e;color:#ffffff;font-size:12px;font-weight:600;text-align:left;padding:9px 10px;">From</th>
                 <th style="background:#14617e;color:#ffffff;font-size:12px;font-weight:600;text-align:left;padding:9px 10px;">To</th>
@@ -147,14 +147,14 @@
             </thead>
             <tbody>
               <tr *ngFor="let task of selectedRows">
-                <td style="font-size:12.5px;color:#14213d;font-weight:600;padding:10px;border-bottom:1px solid #eef0f2;background:#f8f9fa;vertical-align:top;">{{ task.assetName }}</td>
+                <td style="font-size:12.5px;color:#14213d;font-weight:600;padding:10px;border-bottom:1px solid #eef0f2;background:#f8f9fa;vertical-align:top;">{{ task.facilityName }}</td>
                 <td style="font-size:12.5px;color:#6b7280;padding:10px;border-bottom:1px solid #eef0f2;background:#f8f9fa;vertical-align:top;max-width:180px;white-space:normal;line-height:1.4;">{{ task.description }}</td>
                 <td style="font-size:12.5px;color:#374151;padding:10px;border-bottom:1px solid #eef0f2;background:#f8f9fa;vertical-align:top;white-space:nowrap;">{{ task.fromDate }}</td>
                 <td style="font-size:12.5px;color:#374151;padding:10px;border-bottom:1px solid #eef0f2;background:#f8f9fa;vertical-align:top;white-space:nowrap;">{{ task.toDate }}</td>
                 <td style="font-size:12.5px;color:#6b7280;padding:10px;border-bottom:1px solid #eef0f2;background:#f8f9fa;vertical-align:top;white-space:nowrap;">{{ task.fromTime }} - {{ task.toTime }}</td>
               </tr>
               <tr *ngIf="selectedRows.length === 0">
-                <td colspan="5" style="text-align:center;color:#9aa3af;padding:22px 10px;background:#f8f9fa;font-size:12px;">Select a date to see asset details</td>
+                <td colspan="5" style="text-align:center;color:#9aa3af;padding:22px 10px;background:#f8f9fa;font-size:12px;">Select a date to see facility details</td>
               </tr>
             </tbody>
           </table>
@@ -215,7 +215,7 @@
                 style="background:#d6e9fb;color:#0f4c81;font-size:10.5px;font-weight:600;padding:3px 6px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;gap:4px;cursor:pointer;min-width:0;max-width:100%;"
                 (click)="onChipClick(cell, task, $event)">
                 <span style="flex-shrink:0;opacity:0.8;">{{ task.fromTime }}</span>
-                <span style="overflow:hidden;text-overflow:ellipsis;min-width:0;flex-shrink:1;">{{ task.assetName }}</span>
+                <span style="overflow:hidden;text-overflow:ellipsis;min-width:0;flex-shrink:1;">{{ task.facilityName }}</span>
               </div>
             </div>
 
@@ -247,8 +247,8 @@
                   [style.paddingBottom]="last ? '0' : '8px'"
                   [style.borderBottom]="last ? 'none' : '1px solid #f4f5f7'">
                   <div style="font-size:12px;font-weight:700;color:#14213d;margin-bottom:2px;line-height:1.3;">
-                    {{ task.assetName }}
-                    <span style="font-weight:500;color:#9aa3af;font-size:11px;"> ({{ task.assetCode }})</span>
+                    {{ task.facilityName }}
+                    <span style="font-weight:500;color:#9aa3af;font-size:11px;"> ({{ task.facilityCode }})</span>
                   </div>
                   <div style="font-size:11px;color:#6b7280;margin-bottom:3px;line-height:1.4;">{{ task.description }}</div>
                   <div style="font-size:11px;font-weight:600;color:#1a73e8;">
@@ -259,7 +259,7 @@
 
               <ng-template #noTasks>
                 <div style="font-size:12px;color:#9aa3af;text-align:center;padding:4px 0;">
-                  No assets booked on this day
+                  No facilities booked on this day
                 </div>
               </ng-template>
 

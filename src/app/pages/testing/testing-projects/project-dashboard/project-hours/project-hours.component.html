@@ -9,7 +9,7 @@
     </div>
     
    <div class="header-actions">
-  <button mat-raised-button class="custom-back-btn mt-3" style="margin-right: -17px;" >
+  <button mat-raised-button class="custom-back-btn mt-3" style="margin-right: -17px;" (click)="goBack()">
     <mat-icon >arrow_back</mat-icon> Back
   </button>
 
@@ -76,64 +76,51 @@
       </div>
 
       <div class="table-responsive" #tableWrapper>
-        <table class="expenses-table">
-          <thead>
-            <tr>
-                <th>Actions</th>
-              <th>Name</th>
-              <th>Subject</th>
-              <th>Description</th>
-              <th>Approved By</th>
-              <th>Stage</th>
-              <th>Module</th>
-              <th>Task</th>
-              <th>Amount</th>
-              <th>PDF</th>
-              <th>Approved<br>
-                 <th>Paid</th>
-              <th>Declined</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngIf="paginatedExpenses.length === 0">
-              <td colspan="12" class="text-center" style="padding: 30px;">No expenses found for this selection.</td>
-            </tr>
-            <tr *ngFor="let expense of paginatedExpenses">
-                <td class="text-center">
-  <i class="fas fa-pen action-icon" ></i>
-  <i class="fas fa-trash-alt action-icon delete-icon" ></i>
-</td>
-              <td>
-                <div class="user-info">
-                  <!-- <div class="avatar" [ngStyle]="{'background-color': expense.avatarBg}">{{ expense.initials }}</div> -->
-                  <span>{{ expense.name }}</span>
-                </div>
-              </td>
-              <td [ngClass]="{'text-green': expense.stage === 'Approved', 'text-red': expense.stage === 'Declined'}">{{ expense.subject }}</td>
-              
-              <td class="description-cell" [title]="expense.description">
-                {{ truncateDescription(expense.description) }}
-              </td>
-              
-              <td>{{ expense.approvedBy }}</td>
-              <td><span class="badge" [ngClass]="expense.stageClass">{{ expense.stage }}</span></td>
-              <td>{{ expense.module }}</td>
-              <td>{{ expense.task }}</td>
-              <td>{{ expense.amount }}</td>
-              <td>
-                <div class="pdf-cell">
-                  <img *ngIf="expense.pdfCount > 0" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444'><path d='M19.5 0H4.5A1.5 1.5 0 0 0 3 1.5v21A1.5 1.5 0 0 0 4.5 24h15a1.5 1.5 0 0 0 1.5-1.5v-21A1.5 1.5 0 0 0 19.5 0zM12 18.75a3.75 3.75 0 1 1 0-7.5 3.75 3.75 0 0 1 0 7.5zm5.25-13.5H6.75V3h10.5v2.25z'/></svg>" alt="PDF" class="pdf-icon">
-                  <img *ngIf="expense.pdfCount > 1" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239ca3af'><path d='M19.5 0H4.5A1.5 1.5 0 0 0 3 1.5v21A1.5 1.5 0 0 0 4.5 24h15a1.5 1.5 0 0 0 1.5-1.5v-21A1.5 1.5 0 0 0 19.5 0zM12 18.75a3.75 3.75 0 1 1 0-7.5 3.75 3.75 0 0 1 0 7.5zm5.25-13.5H6.75V3h10.5v2.25z'/></svg>" alt="PDF" class="pdf-icon-secondary">
-                  <span class="pdf-count" *ngIf="expense.pdfCount > 0">+{{ expense.pdfCount }}</span>
-                </div>
-              </td>
-              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-green" [checked]="expense.approved" disabled></td>
-              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-dark" [checked]="expense.paid" disabled></td>
-              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-red" [checked]="expense.declined" disabled></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <table class="expenses-table">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Date</th>
+        <th>Job Code</th>
+        <th>Subject</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Stage</th>
+        <th>Module</th>
+        <th>Task</th>
+        <th>Hours</th>
+        <th>Notes</th>
+        <th>Approved</th>
+        <th>Decline</th>
+        <th>Hold</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="paginatedEntries.length === 0">
+        <td colspan="14" class="text-center" style="padding: 30px;">No hours logged for this selection.</td>
+      </tr>
+      <tr *ngFor="let entry of paginatedEntries">
+        <td class="text-center">
+          <i class="fas fa-pen action-icon" (click)="editEntry(entry)"></i>
+          <i class="fas fa-trash-alt action-icon delete-icon" (click)="deleteEntry(entry)"></i>
+        </td>
+        <td>{{ formatDate(entry.dateObj) }}</td>
+        <td>{{ entry.jobCode }}</td>
+        <td [ngClass]="{'text-green': entry.stage === 'Approved', 'text-red': entry.stage === 'Declined'}">{{ entry.subject }}</td>
+        <td>{{ entry.name }}</td>
+        <td class="description-cell" [title]="entry.description">{{ truncateDescription(entry.description) }}</td>
+        <td><span class="badge" [ngClass]="entry.stageClass">{{ entry.stage }}</span></td>
+        <td>{{ entry.module }}</td>
+        <td>{{ entry.task }}</td>
+        <td>{{ entry.hours }}</td>
+        <td class="description-cell" [title]="entry.notes">{{ entry.notes || '-' }}</td>
+        <td class="text-center"><input type="checkbox" class="custom-checkbox cb-green" [checked]="entry.approved" disabled></td>
+        <td class="text-center"><input type="checkbox" class="custom-checkbox cb-red" [checked]="entry.declined" disabled></td>
+        <td class="text-center"><input type="checkbox" class="custom-checkbox cb-dark" [checked]="entry.hold" disabled></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
       
       <div class="pagination-footer">
         <span class="showing-text">Showing {{ showingStart }} to {{ showingEnd }} of {{ filteredExpenses.length }} entries</span>

@@ -1,22 +1,20 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
-interface Expense {
-  date: number;
-  initials: string;
-  avatarBg: string;
-  name: string;
+interface HourEntry {
+  dateObj: Date;
+  jobCode: string;
   subject: string;
+  name: string;
   description: string;
-  approvedBy: string;
   stage: string;
   stageClass: string;
   module: string;
   task: string;
-  amount: string;
-  pdfCount: number;
+  hours: number;
+  notes: string;
   approved: boolean;
-  paid: boolean;
   declined: boolean;
+  hold: boolean;
 }
 
 interface CalendarDay {
@@ -29,11 +27,11 @@ interface CalendarDay {
 }
 
 @Component({
-  selector: 'app-project-expenses',
-  templateUrl: './project-expenses.component.html',
-  styleUrls: ['./project-expenses.component.scss']
+  selector: 'app-project-hours',
+  templateUrl: './project-hours.component.html',
+  styleUrls: ['./project-hours.component.scss']
 })
-export class ProjectExpensesComponent implements OnInit {
+export class ProjectHoursComponent implements OnInit {
   @ViewChild('tableWrapper') tableWrapper!: ElementRef;
 
   monthNames = [
@@ -45,25 +43,25 @@ export class ProjectExpensesComponent implements OnInit {
   currentDate: Date = new Date(2025, 5, 1); // June 2025
   selectedDate: Date | null = null;
 
-  filteredExpenses: Expense[] = [];
+  filteredEntries: HourEntry[] = [];
 
   // Pagination variables
-  paginatedExpenses: Expense[] = [];
+  paginatedEntries: HourEntry[] = [];
   pageSize: number = 4;
   currentPage: number = 1;
   pageSizeOptions: number[] = [5, 10, 15, 20];
 
   calendarDays: CalendarDay[] = [];
 
-  expenses: Expense[] = [
-    { date: 2, initials: 'RS', avatarBg: '#e0f2fe', name: 'Ravi Sharma', subject: 'Travel to Client Site', description: 'Travel expenses for client meeting in Bangalore', approvedBy: 'John Doe', stage: 'Review', stageClass: 'stage-review', module: 'Project Management', task: 'Client Meeting', amount: '₹2,500', pdfCount: 1, approved: true, paid: false, declined: false },
-    { date: 2, initials: 'PS', avatarBg: '#dcfce7', name: 'Priya Singh', subject: 'Team Lunch', description: 'Team lunch after project milestone completion', approvedBy: 'Jane Smith', stage: 'Approved', stageClass: 'stage-approved', module: 'HR', task: 'Team Building', amount: '₹1,200', pdfCount: 1, approved: true, paid: false, declined: false },
-    { date: 9, initials: 'AK', avatarBg: '#f3e8ff', name: 'Amit Kumar', subject: 'Office Supplies', description: 'Purchase of stationery and office supplies', approvedBy: 'Manager A', stage: 'Approved', stageClass: 'stage-approved', module: 'Administration', task: 'Office Management', amount: '₹850', pdfCount: 0, approved: true, paid: false, declined: false },
-    { date: 13, initials: 'NS', avatarBg: '#fef08a', name: 'Neha Sharma', subject: 'Software License', description: 'Annual license renewal for design tool', approvedBy: 'Director B', stage: 'Paid', stageClass: 'stage-paid', module: 'Design', task: 'Tool & Software', amount: '₹3,600', pdfCount: 2, approved: true, paid: true, declined: false },
-    { date: 13, initials: 'VJ', avatarBg: '#cffafe', name: 'Vikram Joshi', subject: 'Internet Recharge', description: 'Monthly internet recharge for office', approvedBy: 'John Doe', stage: 'Paid', stageClass: 'stage-paid', module: 'Administration', task: 'Utilities', amount: '₹1,000', pdfCount: 0, approved: true, paid: true, declined: false },
-    { date: 25, initials: 'SK', avatarBg: '#fce7f3', name: 'Sneha Kapoor', subject: 'Client Gift', description: 'Diwali gift for important client', approvedBy: 'Pending', stage: 'Declined', stageClass: 'stage-declined', module: 'Business Development', task: 'Client Relationship', amount: '₹1,500', pdfCount: 1, approved: false, paid: false, declined: true },
-    { date: 25, initials: 'MJ', avatarBg: '#e0e7ff', name: 'Manish Jain', subject: 'Flight to Mumbai', description: 'Flight booking for offsite meeting', approvedBy: 'N/A', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Offsite Meeting', amount: '₹4,800', pdfCount: 0, approved: false, paid: false, declined: true },
-    { date: 29, initials: 'AP', avatarBg: '#ffedd5', name: 'Anjali Patel', subject: 'Hotel Booking', description: 'Hotel stay during client visit', approvedBy: 'Jane Smith', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Client Meeting', amount: '₹2,200', pdfCount: 2, approved: false, paid: false, declined: true }
+  entries: HourEntry[] = [
+    { dateObj: new Date(2025, 5, 2), jobCode: 'JB-201', subject: 'Client Meeting', name: 'Ravi Sharma', description: 'Discussed project scope with client', stage: 'Review', stageClass: 'stage-review', module: 'Project Management', task: 'Client Meeting', hours: 3.5, notes: 'Follow-up scheduled next week', approved: true, declined: false, hold: false },
+    { dateObj: new Date(2025, 5, 2), jobCode: 'JB-202', subject: 'Team Sync', name: 'Priya Singh', description: 'Weekly sprint sync with team', stage: 'Approved', stageClass: 'stage-approved', module: 'HR', task: 'Team Building', hours: 1.0, notes: '', approved: true, declined: false, hold: false },
+    { dateObj: new Date(2025, 5, 9), jobCode: 'JB-203', subject: 'Procurement', name: 'Amit Kumar', description: 'Sourced office supplies for site', stage: 'Approved', stageClass: 'stage-approved', module: 'Administration', task: 'Office Management', hours: 2.0, notes: 'Invoice attached separately', approved: true, declined: false, hold: false },
+    { dateObj: new Date(2025, 5, 13), jobCode: 'JB-204', subject: 'Design Review', name: 'Neha Sharma', description: 'Reviewed license renewal for design tool', stage: 'Paid', stageClass: 'stage-paid', module: 'Design', task: 'Tool & Software', hours: 4.0, notes: '', approved: true, declined: false, hold: false },
+    { dateObj: new Date(2025, 5, 13), jobCode: 'JB-205', subject: 'IT Support', name: 'Vikram Joshi', description: 'Resolved internet connectivity issue', stage: 'Paid', stageClass: 'stage-paid', module: 'Administration', task: 'Utilities', hours: 1.5, notes: 'Escalated to ISP', approved: true, declined: false, hold: false },
+    { dateObj: new Date(2025, 5, 25), jobCode: 'JB-206', subject: 'Client Gifting', name: 'Sneha Kapoor', description: 'Coordinated Diwali gift for client', stage: 'Declined', stageClass: 'stage-declined', module: 'Business Development', task: 'Client Relationship', hours: 0.5, notes: 'Budget not approved', approved: false, declined: true, hold: false },
+    { dateObj: new Date(2025, 5, 25), jobCode: 'JB-207', subject: 'Travel Booking', name: 'Manish Jain', description: 'Booked flight for offsite meeting', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Offsite Meeting', hours: 1.0, notes: '', approved: false, declined: true, hold: false },
+    { dateObj: new Date(2025, 5, 29), jobCode: 'JB-208', subject: 'Site Visit', name: 'Anjali Patel', description: 'Coordinated hotel stay for client visit', stage: 'Hold', stageClass: 'stage-hold', module: 'Project Management', task: 'Client Meeting', hours: 2.5, notes: 'Awaiting client confirmation', approved: false, declined: false, hold: true }
   ];
 
   constructor() { }
@@ -71,8 +69,6 @@ export class ProjectExpensesComponent implements OnInit {
   ngOnInit(): void {
     this.buildCalendar();
 
-    // Always land on a date: prefer today if it's in the current month view,
-    // otherwise fall back to the first in-month day
     const today = new Date();
     const defaultDay = this.calendarDays.find(d => d.inCurrentMonth && this.isSameDay(d.date, today))
       ?? this.calendarDays.find(d => d.inCurrentMonth)!;
@@ -118,8 +114,7 @@ export class ProjectExpensesComponent implements OnInit {
         inCurrentMonth,
         isToday: this.isSameDay(cellDate, today),
         isSelected: this.selectedDate ? this.isSameDay(cellDate, this.selectedDate) : false,
-        // Count comes straight from the expenses array — always matches the grid exactly
-        claims: inCurrentMonth ? this.expenses.filter(e => e.date === cellDate.getDate()).length : 0
+        claims: inCurrentMonth ? this.entries.filter(e => this.isSameDay(e.dateObj, cellDate)).length : 0
       });
     }
     this.calendarDays = days;
@@ -137,7 +132,7 @@ export class ProjectExpensesComponent implements OnInit {
     if (!day.inCurrentMonth) return;
 
     this.selectedDate = day.date;
-    this.filteredExpenses = this.expenses.filter(e => e.date === day.dayNumber);
+    this.filteredEntries = this.entries.filter(e => this.isSameDay(e.dateObj, day.date));
 
     for (const d of this.calendarDays) {
       d.isSelected = this.isSameDay(d.date, day.date);
@@ -152,7 +147,7 @@ export class ProjectExpensesComponent implements OnInit {
   updatePagination() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + Number(this.pageSize);
-    this.paginatedExpenses = this.filteredExpenses.slice(startIndex, endIndex);
+    this.paginatedEntries = this.filteredEntries.slice(startIndex, endIndex);
   }
 
   changePageSize(event: any) {
@@ -176,24 +171,19 @@ export class ProjectExpensesComponent implements OnInit {
   }
 
   get totalPages(): number {
-    return Math.ceil(this.filteredExpenses.length / this.pageSize);
+    return Math.ceil(this.filteredEntries.length / this.pageSize);
   }
 
   get showingStart(): number {
-    return this.filteredExpenses.length === 0 ? 0 : (this.currentPage - 1) * this.pageSize + 1;
+    return this.filteredEntries.length === 0 ? 0 : (this.currentPage - 1) * this.pageSize + 1;
   }
 
   get showingEnd(): number {
-    return Math.min(this.currentPage * this.pageSize, this.filteredExpenses.length);
+    return Math.min(this.currentPage * this.pageSize, this.filteredEntries.length);
   }
 
   get totalClaimsInRange(): number {
     return this.calendarDays.filter(d => d.inCurrentMonth).reduce((sum, d) => sum + d.claims, 0);
-  }
-
-  get dailyAverageClaims(): string {
-    const daysInMonth = this.calendarDays.filter(d => d.inCurrentMonth).length;
-    return daysInMonth === 0 ? '0.00' : (this.totalClaimsInRange / daysInMonth).toFixed(2);
   }
 
   // ─── Table utilities ────────────────────────────────────────────────────
@@ -219,7 +209,22 @@ export class ProjectExpensesComponent implements OnInit {
     return text;
   }
 
-  goBack(){
-    
+  formatDate(d: Date): string {
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const yy = String(d.getFullYear()).slice(-2);
+    return `${mm}-${dd}-${yy}`;
+  }
+
+  editEntry(entry: HourEntry): void {
+    console.log('Edit', entry);
+  }
+
+  deleteEntry(entry: HourEntry): void {
+    console.log('Delete', entry);
+  }
+
+  goBack(): void {
+
   }
 }

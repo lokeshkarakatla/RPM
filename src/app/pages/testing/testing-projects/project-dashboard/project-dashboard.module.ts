@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
 // --- Highcharts ---
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -42,13 +42,17 @@ import { AssetsSchedulingComponent } from './project-assets/assets-scheduling/as
 import { ProjectExpensesComponent } from './project-expenses/project-expenses.component';
 import { ProjectMaterialsComponent } from './project-materials/project-materials.component';
 import { AddRequisitionPopComponent } from './project-materials/add-requisition-pop/add-requisition-pop.component';
+import { ProjectBacklogComponent } from './project-backlog/project-backlog.component';
+import { ProjectFacilitiesComponent } from './project-facilities/project-facilities.component';
+import { FacilitiesSchedulingComponent } from './project-facilities/facilities-scheduling/facilities-scheduling.component';
+import { ProjectHoursComponent } from './project-hours/project-hours.component';
 
 const routes: Routes = [
   {
-    path: '', 
+    path: '',
     component: ProjectDashboardComponent, // The parent wrapper with the side-nav
     children: [
-      { path: '', redirectTo: 'analytics', pathMatch: 'full' }, 
+      { path: '', redirectTo: 'analytics', pathMatch: 'full' },
       { path: 'documents', component: ProjectDocumentsComponent },
       { path: 'notes', component: ProjectNotesComponent },
       { path: 'photos', component: ProjectPhotosComponent },
@@ -59,13 +63,25 @@ const routes: Routes = [
       { path: 'wbs', component: PlaceholderImageComponent },
       { path: 'schedule', component: ProjectScheduleComponent },
       { path: 'budget', component: ProjectBudgetComponent },
-      { path: 'backlog', component: PlaceholderImageComponent },
+      { path: 'backlog', component: ProjectBacklogComponent },
       { path: 'sprints', component: PlaceholderImageComponent },
       { path: 'timeline', component: PlaceholderImageComponent },
-      { path: 'assets', component: ProjectAssetsComponent },
-      { path: 'facilities', component: PlaceholderImageComponent },
+      {
+        path: 'assets',
+        children: [
+          { path: '', component: ProjectAssetsComponent },
+          { path: 'sample', component: AssetsSchedulingComponent } // or whatever the scheduling view is called
+        ]
+      },
+      {
+        path: 'facilities',
+        children: [
+          { path: '', component: ProjectFacilitiesComponent },
+          { path: 'facilities_sample', component: FacilitiesSchedulingComponent } // or whatever the scheduling view is called
+        ]
+      },
       { path: 'expenses', component: ProjectExpensesComponent },
-      { path: 'hours', component: PlaceholderImageComponent },
+      { path: 'hours', component: ProjectHoursComponent },
       { path: 'timesheet1', component: PlaceholderImageComponent },
       { path: 'timesheet2', component: PlaceholderImageComponent },
       { path: 'sample', component: AssetsSchedulingComponent },
@@ -95,13 +111,18 @@ const routes: Routes = [
     ProjectExpensesComponent,
     ProjectMaterialsComponent,
     AddRequisitionPopComponent
+    ProjectBacklogComponent,
+    ProjectFacilitiesComponent,
+    FacilitiesSchedulingComponent,
+    ProjectHoursComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule, 
-    HighchartsChartModule,
     FlexLayoutModule, // <-- ADDED TO IMPORTS ARRAY
+    FormsModule,
+    HighchartsChartModule,
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,

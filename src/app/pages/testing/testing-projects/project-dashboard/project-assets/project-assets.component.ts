@@ -105,4 +105,5 @@ export class ProjectAssetsComponent implements OnInit {
       relativeTo: this.route
     });
   }
+
 }

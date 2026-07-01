@@ -43,11 +43,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let row of rows; trackBy: trackByRow">
-          <td>
-            <button type="button" class="row-action-btn" (click)="onAction(row)" title="Edit">
-              <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-            </button>
-          </td>
+           <td class="text-center">
+                    <i class="fa fa-pencil text-primary action-icon" (click)="editAsset()"></i>
+
+                    <i class="fa fa-trash text-danger action-icon ml-2" (click)="deleteAsset()"></i>
+                </td>
+
           <td class="asset-name-cell">{{ row.assetName }}</td>
           <td class="muted-cell">{{ row.assetCode }}</td>
           <td class="date-cell">{{ row.fromDate }}</td>
@@ -65,17 +66,133 @@
 
   <!-- ============ CALENDAR VIEW ============ -->
   <div class="calendar-view" *ngIf="viewMode === 'calendar'">
-    <div class="calendar-header">
-      <span class="calendar-month">{{ currentMonthLabel }}</span>
-    </div>
 
-    <div class="calendar-grid">
-      <div class="calendar-dow" *ngFor="let d of ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']">{{ d }}</div>
+    <div class="calendar-layout">
 
-      <div class="calendar-cell" *ngFor="let day of calendarDays">
-        <span class="calendar-date">{{ day }}</span>
+      <!-- ===== LEFT PANEL: mini date-picker + selected-day details table ===== -->
+      <div class="calendar-left">
+
+        <div class="mini-datepicker">
+
+          <div class="mini-dp-header">
+            <button type="button" class="mini-dp-nav-btn" (click)="prevMonth()" aria-label="Previous month">
+              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </button>
+
+            <span class="mini-dp-month-label">{{ currentMonthLabel }}</span>
+
+            <button type="button" class="mini-dp-nav-btn" (click)="nextMonth()" aria-label="Next month">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="mini-dp-dow-row">
+            <span class="mini-dp-dow" *ngFor="let d of dayNames">{{ d.charAt(0) }}</span>
+          </div>
+
+          <div class="mini-dp-grid">
+            <button
+              type="button"
+              class="mini-dp-cell"
+              *ngFor="let cell of calendarCells; trackBy: trackByCell"
+              [class.outside-month]="!cell.inCurrentMonth"
+              [class.is-today]="cell.isToday"
+              [class.is-selected]="cell.isSelected"
+              [class.has-tasks]="cell.tasks.length > 0"
+              (click)="onSelectDate(cell)">
+              {{ cell.dayNumber }}
+            </button>
+          </div>
+
+        </div>
+
+        <div class="details-table-wrap">
+          <table class="details-table">
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Description</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of selectedRows">
+                <td class="details-asset">{{ task.assetName }}</td>
+                <td class="details-desc">{{ task.description }}</td>
+                <td>{{ task.fromDate }}</td>
+                <td>{{ task.toDate }}</td>
+                <td class="details-time">{{ task.fromTime }} - {{ task.toTime }}</td>
+              </tr>
+
+              <tr *ngIf="selectedRows.length === 0">
+                <td colspan="5" class="details-empty">Select a date to see asset details</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
+
+      <!-- ===== RIGHT PANEL: full month grid with task chips ===== -->
+      <div class="calendar-right">
+
+        <div class="calendar-dow-row">
+          <div class="calendar-dow" *ngFor="let d of dayNames">{{ d }}</div>
+        </div>
+
+        <div class="calendar-grid">
+          <div
+            class="calendar-cell"
+            *ngFor="let cell of calendarCells; trackBy: trackByCell"
+            [class.outside-month]="!cell.inCurrentMonth"
+            [class.is-today]="cell.isToday"
+            [class.is-selected]="cell.isSelected"
+            (click)="onSelectDate(cell)">
+
+            <span class="calendar-date">{{ cell.dayNumber }}</span>
+
+            <div class="task-chip-list">
+              <div
+                class="task-chip"
+                *ngFor="let task of cell.tasks"
+                [class.tooltip-open]="activeTooltipTaskId === task.id"
+                (click)="onChipClick(cell, task, $event)">
+                <span class="task-chip-time">{{ task.fromTime }}</span>
+                <span class="task-chip-name">{{ task.assetName }}</span>
+
+                <div class="task-tooltip">
+                  <div class="task-tooltip-title">{{ task.assetName }} ({{ task.assetCode }})</div>
+                  <div class="task-tooltip-desc">{{ task.description }}</div>
+                  <div class="task-tooltip-range">{{ task.fromDate }} {{ task.fromTime }} &rarr; {{ task.toDate }} {{ task.toTime }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day-tooltip">
+              <div class="day-tooltip-header">{{ cell.date | date:'EEEE, d MMM y' }}</div>
+
+              <ng-container *ngIf="cell.tasks.length > 0; else dayTooltipEmpty">
+                <div class="day-tooltip-item" *ngFor="let task of cell.tasks">
+                  <div class="day-tooltip-item-name">{{ task.assetName }} <span class="day-tooltip-item-code">({{ task.assetCode }})</span></div>
+                  <div class="day-tooltip-item-desc">{{ task.description }}</div>
+                  <div class="day-tooltip-item-time">{{ task.fromTime }} - {{ task.toTime }}</div>
+                </div>
+              </ng-container>
+
+              <ng-template #dayTooltipEmpty>
+                <div class="day-tooltip-empty">No assets booked on this day</div>
+              </ng-template>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
   </div>
 
 </div>

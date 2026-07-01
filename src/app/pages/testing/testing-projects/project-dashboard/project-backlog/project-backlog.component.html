@@ -1,0 +1,130 @@
+<div style="max-width:1280px;margin:0 auto;padding:32px 24px;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color:#1d2138;">
+
+  <div style="background:linear-gradient(135deg, #eef2ff 0%, #f5f6fb 100%);border:1px solid #e4e6ef;border-radius:14px;padding:24px 28px;margin-bottom:20px;">
+    <h1 style="margin:0 0 4px;font-size:24px;font-weight:700;letter-spacing:-0.01em;">Backlog</h1>
+    <p style="margin:0;color:#6b7090;font-size:14px;">Plan and track tasks across sprints and stages.</p>
+  </div>
+
+  <!-- Tab bar -->
+  <div style="display:flex;align-items:center;gap:8px;background:#ffffff;border:1px solid #e4e6ef;border-radius:12px;padding:10px;margin-bottom:16px;box-shadow:0 1px 2px rgba(20, 22, 50, 0.04);">
+    <button
+      *ngFor="let s of sprints; trackBy: trackById"
+      type="button"
+      [ngStyle]="getTabStyle(s)"
+      (click)="selectTab(s.id)">
+      <span *ngIf="s.kind === 'completed'" class="glyphicon glyphicon-ok-circle"></span>
+      <span *ngIf="s.kind === 'active'" class="glyphicon glyphicon-play-circle"></span>
+      <span *ngIf="s.kind === 'backlog'" class="glyphicon glyphicon-inbox"></span>
+      {{ s.label }}
+    </button>
+
+    <button type="button"
+      style="border:1px dashed #e4e6ef;background:transparent;color:#6b7090;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;"
+      (click)="openAddSprint()">
+      <span class="glyphicon glyphicon-plus"></span> Add Sprint
+    </button>
+
+    <div style="flex:1;"></div>
+
+    <select
+      style="height:34px;border:1px solid #e4e6ef;border-radius:8px;background:#ffffff;padding:0 10px;font-size:13px;color:#1d2138;min-width:160px;"
+      [(ngModel)]="stageFilter">
+      <option value="all">All Stages</option>
+      <option *ngFor="let st of stages" [value]="st">{{ st }}</option>
+    </select>
+  </div>
+
+  <!-- Panel -->
+  <div style="background:#ffffff;border:1px solid #e4e6ef;border-radius:12px;box-shadow:0 1px 2px rgba(20, 22, 50, 0.04);overflow:hidden;">
+    <div style="padding:16px 20px;border-bottom:1px solid #e4e6ef;display:flex;align-items:center;gap:12px;">
+      <h2 style="margin:0;font-size:16px;font-weight:700;">{{ activeSprint.label }}</h2>
+      <span style="color:#6b7090;font-size:13px;">{{ filteredTasks.length }} task<span *ngIf="filteredTasks.length !== 1">s</span></span>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%;margin:0;border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th style="width:90px;background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Actions</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Tasks</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Task Code</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Job Code</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Plan Start</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Plan Finish</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Effort (hrs)</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Duration (days)</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Stage</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Assigned</th>
+            <th *ngIf="activeSprint.kind === 'completed'" style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Status</th>
+            <th style="background:#f1f2f8;color:#6b7090;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e4e6ef;padding:12px 14px;white-space:nowrap;text-align:left;">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of filteredTasks; trackBy: trackById">
+              <td class="text-center"style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">
+                    <i class="fa fa-pencil text-primary action-icon" (click)="editAsset()"></i>
+
+                    <i class="fa fa-trash text-danger action-icon ml-2" (click)="deleteAsset()"></i>
+                </td>
+
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;"><strong>{{ t.task }}</strong></td>
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;"><span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:12px;color:#6b7090;">{{ t.taskCode }}</span></td>
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;"><span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:12px;color:#6b7090;">{{ t.jobCode }}</span></td>
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">{{ t.planStart }}</td>
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">{{ t.planFinish }}</td>
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">{{ t.effort }}</td>
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">{{ t.duration }}</td>
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">
+              <span [ngStyle]="getStageStyle(t.stage)">{{ t.stage }}</span>
+            </td>
+
+            <!-- Sprint 1 (completed): read-only assignee -->
+            <td *ngIf="activeSprint.kind === 'completed'" style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">
+              <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#1d2138;" *ngIf="t.assigned">
+                <span style="width:26px;height:26px;border-radius:50%;background:#4f46e5;color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">{{ initials(t.assigned) }}</span>
+                {{ t.assigned }}
+              </span>
+              <span *ngIf="!t.assigned" style="color:#6b7090;font-size:13px;">—</span>
+            </td>
+            <td *ngIf="activeSprint.kind === 'completed'" style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">
+              <span style="display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.02em;background:#dcfce7;color:#166534;">Completed</span>
+            </td>
+
+            <!-- Active sprint: editable assignee -->
+            <td *ngIf="activeSprint.kind === 'active'" style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">
+              <select
+                style="border:1px solid #e4e6ef;border-radius:6px;background:#ffffff;height:30px;padding:0 8px;font-size:12px;min-width:140px;"
+                [(ngModel)]="t.assigned">
+                <option value="">Unassigned</option>
+                <option *ngFor="let m of team" [value]="m">{{ m }}</option>
+              </select>
+            </td>
+
+            <td style="padding:14px;border-top:1px solid #e4e6ef;vertical-align:middle;font-size:13px;">{{ t.description }}</td>
+          </tr>
+
+          <tr *ngIf="filteredTasks.length === 0">
+            <td [attr.colspan]="activeSprint.kind === 'completed' ? 12 : (activeSprint.kind === 'active' ? 11 : 10)"
+                style="text-align:center;color:#6b7090;font-size:13px;padding:32px;">
+              No tasks match the current filter.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add Sprint modal -->
+<div style="position:fixed;inset:0;background:rgba(15, 19, 45, 0.5);display:flex;align-items:center;justify-content:center;z-index:1000;" *ngIf="showAddSprint" (click)="closeAddSprint()">
+  <div style="background:#ffffff;border-radius:12px;width:100%;max-width:420px;padding:22px;box-shadow:0 20px 40px rgba(15,19,45,.2);" (click)="$event.stopPropagation()">
+    <h3 style="margin:0 0 12px;font-size:18px;font-weight:700;">Add Sprint</h3>
+    <input type="text"
+      style="width:100%;height:36px;border:1px solid #e4e6ef;border-radius:8px;padding:0 10px;font-size:14px;margin-bottom:16px;box-sizing:border-box;"
+      [(ngModel)]="newSprintName" placeholder="Sprint name" />
+    <div style="display:flex;gap:8px;justify-content:flex-end;">
+      <button style="background:transparent;border:1px solid #e4e6ef;color:#1d2138;padding:7px 14px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;" (click)="closeAddSprint()">Cancel</button>
+      <button style="background:#4f46e5;border:1px solid #4f46e5;color:#fff;padding:7px 14px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;" (click)="confirmAddSprint()">Create</button>
+    </div>
+  </div>
+</div>

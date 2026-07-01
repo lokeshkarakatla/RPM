@@ -16,14 +16,12 @@
     <mat-select _ngcontent-ng-c1498838364="" role="combobox" aria-autocomplete="none" aria-haspopup="listbox" ngskiphydration="" formcontrolname="DocumentTypeId" placeholder="Select Category" class="mat-mdc-select form-control ng-tns-c2400438669-784 mat-mdc-select-empty ng-untouched ng-pristine ng-valid ng-star-inserted" style="width: 180px;" aria-labelledby="mat-select-value-1037" id="mat-select-1036" tabindex="0" aria-expanded="false" aria-required="false" aria-disabled="false" aria-invalid="false"><div cdk-overlay-origin="" class="mat-mdc-select-trigger ng-tns-c2400438669-784"><div class="mat-mdc-select-value ng-tns-c2400438669-784" id="mat-select-value-1037"><span class="mat-mdc-select-placeholder mat-mdc-select-min-line ng-tns-c2400438669-784 ng-star-inserted">Select Category</span><!----><!----></div><div class="mat-mdc-select-arrow-wrapper ng-tns-c2400438669-784"><div class="mat-mdc-select-arrow ng-tns-c2400438669-784"><svg viewBox="0 0 24 24" width="24px" height="24px" focusable="false" aria-hidden="true" class="ng-tns-c2400438669-784"><path d="M7 10l5 5 5-5z" class="ng-tns-c2400438669-784"></path></svg></div></div></div><!----></mat-select>
 
     <div class="visit-filter">
-      <button class="active">All</button>
-      <button>Pre Visit</button>
-      <button>Post Visit</button>
+    
     </div>
 
     <button mat-raised-button class="view-toggle-btn" (click)="toggleView()">
       <mat-icon>{{ isGridView ? 'view_list' : 'view_module' }}</mat-icon>
-      {{ isGridView ? 'Card View' : 'Grid View' }}
+      {{ isGridView ? 'Grid View': 'Card View'  }}
     </button>
     
   </div>

@@ -88,6 +88,15 @@
         </a>
       </li>
 
+
+
+      
+       <li routerLinkActive="active">
+        <a [routerLink]="['materials']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Expenses">receipt_long</mat-icon>
+          <span *ngIf="isNavOpen">Materials</span>
+        </a>
+      </li>
       <li routerLinkActive="active">
         <a [routerLink]="['expenses']">
           <mat-icon *ngIf="!isNavOpen" matTooltip="Expenses">receipt_long</mat-icon>
@@ -147,7 +156,7 @@
         </a>
       </li>
 
-      <li routerLinkActive="active">
+      <li routerLinkActive="active"  style="margin-bottom: 100px;">
         <a [routerLink]="['photos']">
           <mat-icon *ngIf="!isNavOpen" matTooltip="Photos">photo_library</mat-icon>
           <span *ngIf="isNavOpen">Photos</span>
@@ -155,21 +164,7 @@
       </li>
 
 
-
-            <li routerLinkActive="active">
-        <a  >
-          <mat-icon *ngIf="!isNavOpen" >request_page</mat-icon>
-          <span *ngIf="isNavOpen">Requisitions </span>
-        </a>
-      </li>
-
-
-            <li routerLinkActive="active"  style="margin-bottom: 100px;">
-        <a >
-          <mat-icon *ngIf="!isNavOpen" >warning</mat-icon>
-          <span *ngIf="isNavOpen">D Issues </span>
-        </a>
-      </li>  
+ 
 
 
 

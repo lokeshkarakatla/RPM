@@ -1,0 +1,146 @@
+<div class="NewHeader">
+    <h3 style="padding-top:10px;">Add Gate</h3>
+</div>
+
+<div>
+    <div fxLayout="row wrap" class="col-sm-12">
+        <div class="col-sm-12" style="margin-top: 0px; padding-left: 20px;">
+            <form>
+                <div>
+               
+                    
+                     
+                  
+                
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Item Name:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Item Name">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Quantity:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="number" style="height:35px;" class="form-control" placeholder="Enter Quantity">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Unit Rate:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="number" style="height:35px;" class="form-control" placeholder="Enter Unit Rate">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Material Cost:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="number" style="height:35px;" class="form-control" placeholder="Enter Material Cost">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Remarks:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="2" placeholder="Enter Remarks" style="resize: vertical;"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Target Date:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="date" style="height:35px;" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Requested By:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Name">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Request Date:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="date" style="height:35px;" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Requested Quantity:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="number" style="height:35px;" class="form-control" placeholder="Enter Requested Quantity">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Issued Quantity:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="number" style="height:35px;" class="form-control" placeholder="Enter Issued Quantity">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Issue Date:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="date" style="height:35px;" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Status Flags:</label>
+                        </div>
+                        <div class="col-sm-8" style="display: flex; gap: 20px; margin-top: 5px;">
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                                <input type="checkbox"> Available
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                                <input type="checkbox"> Reserved
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                                <input type="checkbox"> Issued
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <mat-dialog-actions align="end" style="margin-top: 15px;">
+                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
+                    <mat-icon>cancel</mat-icon> Close
+                </button>
+                <button mat-raised-button type="button" class="save" color="primary">
+                    <mat-icon>save</mat-icon> Save
+                </button>
+            </mat-dialog-actions>
+            
+        </div>
+    </div>
+</div>

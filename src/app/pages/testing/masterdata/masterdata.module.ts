@@ -24,6 +24,9 @@ import { AddeditscorematrixComponent } from './score-matrix/addeditscorematrix/a
 import { AddeditsubgroupComponent } from './sub-groups/addeditsubgroup/addeditsubgroup.component';
 import { JobCodeComponent } from './job-code/job-code.component';
 import { AddJobcodePopComponent } from './job-code/add-jobcode-pop/add-jobcode-pop.component';
+import { ItemMasterComponent } from './item-master/item-master.component';
+import { ItemCategoryComponent } from './item-category/item-category.component';
+import { ItemSubcategoryComponent } from './item-subcategory/item-subcategory.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'category', pathMatch: 'full' },
@@ -55,6 +58,18 @@ const routes: Routes = [
     path: 'job-code',
     component: JobCodeComponent
   },
+     {
+    path: 'item-master',
+    component: ItemMasterComponent
+  },
+   {
+    path: 'item-sub',
+    component: ItemSubcategoryComponent
+  },
+     {
+    path: 'item-cat',
+    component: ItemCategoryComponent
+  },
 
 ]
 
@@ -67,7 +82,7 @@ const routes: Routes = [
     AddresparasComponent,
     AddeditscorematrixComponent,
     AddeditsubgroupComponent,
-    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent],
+    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent],
   imports: [
 
     CommonModule,

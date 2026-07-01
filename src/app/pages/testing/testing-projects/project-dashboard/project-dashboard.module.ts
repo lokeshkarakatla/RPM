@@ -110,7 +110,7 @@ const routes: Routes = [
     AssetsSchedulingComponent,
     ProjectExpensesComponent,
     ProjectMaterialsComponent,
-    AddRequisitionPopComponent
+    AddRequisitionPopComponent,
     ProjectBacklogComponent,
     ProjectFacilitiesComponent,
     FacilitiesSchedulingComponent,

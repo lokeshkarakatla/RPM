@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-export interface AssetRow {
+export interface FacilityRow {
   id: number;
-  assetName: string;
-  assetCode: string;
+  facilityName: string;
+  facilityCode: string;
   description: string;
   fromDate: string;
   fromTime: string;
@@ -19,15 +19,15 @@ export interface CalendarCell {
   inCurrentMonth: boolean;
   isToday: boolean;
   isSelected: boolean;
-  tasks: AssetRow[];
+  tasks: FacilityRow[];
 }
 
 @Component({
-  selector: 'app-assets-scheduling',
-  templateUrl: './assets-scheduling.component.html',
-  styleUrls: ['./assets-scheduling.component.scss']
+  selector: 'app-facilities-scheduling',
+  templateUrl: './facilities-scheduling.component.html',
+  styleUrls: ['./facilities-scheduling.component.scss']
 })
-export class AssetsSchedulingComponent {
+export class FacilitiesSchedulingComponent {
 
   viewMode: 'grid' | 'calendar' = 'grid';
 
@@ -42,45 +42,45 @@ export class AssetsSchedulingComponent {
   selectedDate: Date | null = null;
   activeTooltipTaskId: number | null = null;
 
-  rows: AssetRow[] = [
+  rows: FacilityRow[] = [
     {
-      id: 1, assetName: 'Laptop - Dell XPS 15', assetCode: 'AST-1001',
-      description: 'Assigned for client demo presentation',
+      id: 1, facilityName: 'Main Storage - Warehouse A', facilityCode: 'FAC-1001',
+      description: 'Reserved for incoming equipment delivery',
       fromDate: '1 Jun', fromTime: '09:00 AM', toDate: '4 Jun', toTime: '06:00 PM',
       fromDateObj: new Date(2026, 5, 1), toDateObj: new Date(2026, 5, 4)
     },
     {
-      id: 2, assetName: 'Projector - Epson EB', assetCode: 'AST-1002',
+      id: 2, facilityName: 'Site Office - Block B', facilityCode: 'FAC-1002',
       description: 'Booked for quarterly review meeting',
       fromDate: '4 Jun', fromTime: '10:00 AM', toDate: '8 Jun', toTime: '05:00 PM',
       fromDateObj: new Date(2026, 5, 4), toDateObj: new Date(2026, 5, 8)
     },
     {
-      id: 3, assetName: 'Camera - Sony A7 III', assetCode: 'AST-1003',
-      description: 'On-site product shoot',
+      id: 3, facilityName: 'Equipment Yard - Block C', facilityCode: 'FAC-1003',
+      description: 'Reserved for on-site fabrication work',
       fromDate: '5 Jun', fromTime: '08:30 AM', toDate: '9 Jun', toTime: '07:00 PM',
       fromDateObj: new Date(2026, 5, 5), toDateObj: new Date(2026, 5, 9)
     },
     {
-      id: 4, assetName: 'Tablet - iPad Pro', assetCode: 'AST-1004',
-      description: 'Field survey data collection',
+      id: 4, facilityName: 'Training Hall', facilityCode: 'FAC-1004',
+      description: 'Scheduled for safety induction sessions',
       fromDate: '9 Jun', fromTime: '11:00 AM', toDate: '13 Jun', toTime: '04:00 PM',
       fromDateObj: new Date(2026, 5, 9), toDateObj: new Date(2026, 5, 13)
     },
     {
-      id: 5, assetName: 'Server Rack Unit', assetCode: 'AST-1005',
-      description: 'Temporary deployment for load testing',
+      id: 5, facilityName: 'Server Room', facilityCode: 'FAC-1005',
+      description: 'Temporary access for load testing',
       fromDate: '11 Jun', fromTime: '09:00 AM', toDate: '15 Jun', toTime: '06:00 PM',
       fromDateObj: new Date(2026, 5, 11), toDateObj: new Date(2026, 5, 15)
     },
     {
-      id: 6, assetName: 'Excel Workstation', assetCode: 'AST-1006',
+      id: 6, facilityName: 'Reporting Workstation', facilityCode: 'FAC-1006',
       description: 'Reserved for monthly reporting',
       fromDate: '18 Jun', fromTime: '06:51 PM', toDate: '18 Jun', toTime: '11:59 PM',
       fromDateObj: new Date(2026, 5, 18), toDateObj: new Date(2026, 5, 18)
     },
     {
-      id: 7, assetName: 'Conference Room A', assetCode: 'AST-1007',
+      id: 7, facilityName: 'Conference Room A', facilityCode: 'FAC-1007',
       description: 'Internal sprint planning session',
       fromDate: '22 Jun', fromTime: '02:00 PM', toDate: '22 Jun', toTime: '03:30 PM',
       fromDateObj: new Date(2026, 5, 22), toDateObj: new Date(2026, 5, 22)
@@ -88,7 +88,7 @@ export class AssetsSchedulingComponent {
   ];
 
   calendarCells: CalendarCell[] = [];
-  selectedRows: AssetRow[] = [];
+  selectedRows: FacilityRow[] = [];
   hoveredCellIndex: number = -1;
 
   constructor() {
@@ -255,7 +255,7 @@ export class AssetsSchedulingComponent {
     this.calendarCells = cells;
   }
 
-  getTasksForDate(date: Date): AssetRow[] {
+  getTasksForDate(date: Date): FacilityRow[] {
     return this.rows.filter(r => {
       const from = this.stripTime(r.fromDateObj);
       const to   = this.stripTime(r.toDateObj);
@@ -273,7 +273,7 @@ export class AssetsSchedulingComponent {
     }
   }
 
-  onChipClick(cell: CalendarCell, task: AssetRow, event: MouseEvent): void {
+  onChipClick(cell: CalendarCell, task: FacilityRow, event: MouseEvent): void {
     event.stopPropagation();
     this.selectedDate = cell.date;
     this.selectedRows = cell.tasks;
@@ -296,17 +296,17 @@ export class AssetsSchedulingComponent {
   }
 
   onAdd(): void {
-    console.log('Add new asset booking clicked');
+    console.log('Add new facility booking clicked');
   }
 
-  editAsset(): void {
+  editFacility(): void {
     console.log('Edit clicked');
   }
 
-  deleteAsset(): void {
+  deleteFacility(): void {
     console.log('Delete clicked');
   }
 
-  trackByRow(_i: number, row: AssetRow): number { return row.id; }
+  trackByRow(_i: number, row: FacilityRow): number { return row.id; }
   trackByCell(_i: number, cell: CalendarCell): string { return cell.date.toISOString(); }
 }

@@ -100,54 +100,28 @@ export class ProjectBacklogComponent {
 
   trackById(_i: number, item: { id: string }) { return item.id; }
 
-  // --- inline style helpers ---
-  tabBaseStyle = {
-    border: '1px solid transparent',
-    background: 'transparent',
-    color: '#6b7090',
-    padding: '8px 14px',
-    borderRadius: '8px',
-    fontSize: '13px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all .15s ease',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px'
-  };
+  // --- class helpers (replace former inline style helpers) ---
 
-  getTabStyle(s: Sprint) {
-    if (this.activeTabId !== s.id) return this.tabBaseStyle;
-    const variants: any = {
-      backlog:   { background: '#eef2ff', color: '#4338ca', borderColor: '#c7d2fe' },
-      completed: { background: '#dcfce7', color: '#166534', borderColor: '#bbf7d0' },
-      active:    { background: '#dbeafe', color: '#1d4ed8', borderColor: '#bfdbfe' }
-    };
-    return { ...this.tabBaseStyle, ...variants[s.kind] };
+  getTabClasses(s: Sprint): string[] {
+    const classes = ['tab-btn'];
+    if (this.activeTabId === s.id) {
+      classes.push('tab-btn--active', `tab-btn--${s.kind}`);
+    }
+    return classes;
   }
 
-  getStageStyle(stage: Stage) {
-    const map: Record<Stage, { bg: string; fg: string }> = {
-      Design:      { bg: '#fce7f3', fg: '#9d174d' },
-      Development: { bg: '#dbeafe', fg: '#1d4ed8' },
-      Testing:     { bg: '#fef3c7', fg: '#92400e' },
-      Deployment:  { bg: '#dcfce7', fg: '#166534' }
-    };
-    const c = map[stage];
-    return {
-      display: 'inline-block',
-      padding: '3px 10px',
-      borderRadius: '6px',
-      fontSize: '11px',
-      fontWeight: '600',
-      background: c.bg,
-      color: c.fg
-    };
+  getStageClasses(stage: Stage): string[] {
+    return ['stage-badge', `stage-badge--${stage.toLowerCase()}`];
   }
+
+  colSpanForActiveSprint(): number {
+    return this.activeSprint.kind === 'completed' ? 12 : (this.activeSprint.kind === 'active' ? 11 : 10);
+  }
+
   deleteAsset(){
 
   }
   editAsset(){
-    
+
   }
 }

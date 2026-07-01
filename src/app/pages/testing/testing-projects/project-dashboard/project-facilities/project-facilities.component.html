@@ -1,0 +1,53 @@
+<div class="table-header d-flex justify-content-end mb-3">
+    <button mat-raised-button class="pull-right" matTooltip="Add Issue" (click)="addFacility()" color="primary">
+        <mat-icon class="">add</mat-icon> Add Facility
+    </button>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th class="text-center">Actions</th>
+                <th class="text-center">Status</th>
+                <th>Facility Code</th>
+                <th>Facility Type</th>
+                <th>Facility Name</th>
+                <th>Facility Make</th>
+                <th>Facility Model</th>
+                <th class="text-center">Scheduling</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let facility of facilities">
+                <td class="text-center">
+                    <i class="fa fa-pencil text-primary action-icon" (click)="editFacility(facility)"></i>
+
+                    <i class="fa fa-trash text-danger action-icon ml-2" (click)="deleteFacility(facility)"></i>
+                </td>
+
+                <td class="text-center">
+                    <span [ngClass]="{
+              'status-active': facility.status === 'Active',
+              'status-inactive': facility.status === 'Inactive'
+            }">
+                        {{ facility.status }}
+                    </span>
+                </td>
+
+                <td>{{ facility.facilityCode }}</td>
+                <td>{{ facility.facilityType }}</td>
+                <td>{{ facility.facilityName }}</td>
+                <td>{{ facility.location }}</td>
+                <td>{{ facility.capacity }}</td>
+
+               <td class="text-center">
+  <a href="javascript:void(0)" (click)="viewScheduling(facility)">
+    {{ facility.log }}
+  </a>
+</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

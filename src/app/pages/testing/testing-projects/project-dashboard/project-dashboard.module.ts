@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 
 // --- Highcharts ---
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -38,13 +38,16 @@ import { ProjectAssetsComponent } from './project-assets/project-assets.componen
 import { AssetsSchedulingComponent } from './project-assets/assets-scheduling/assets-scheduling.component';
 import { ProjectExpensesComponent } from './project-expenses/project-expenses.component';
 import { ProjectBacklogComponent } from './project-backlog/project-backlog.component';
+import { ProjectFacilitiesComponent } from './project-facilities/project-facilities.component';
+import { FacilitiesSchedulingComponent } from './project-facilities/facilities-scheduling/facilities-scheduling.component';
+import { ProjectHoursComponent } from './project-hours/project-hours.component';
 
 const routes: Routes = [
   {
-    path: '', 
+    path: '',
     component: ProjectDashboardComponent, // The parent wrapper with the side-nav
     children: [
-      { path: '', redirectTo: 'analytics', pathMatch: 'full' }, 
+      { path: '', redirectTo: 'analytics', pathMatch: 'full' },
       { path: 'documents', component: ProjectDocumentsComponent },
       { path: 'notes', component: ProjectNotesComponent },
       { path: 'photos', component: ProjectPhotosComponent },
@@ -58,13 +61,25 @@ const routes: Routes = [
       { path: 'backlog', component: ProjectBacklogComponent },
       { path: 'sprints', component: PlaceholderImageComponent },
       { path: 'timeline', component: PlaceholderImageComponent },
-      { path: 'assets', component: ProjectAssetsComponent },
-      { path: 'facilities', component: PlaceholderImageComponent },
+      {
+        path: 'assets',
+        children: [
+          { path: '', component: ProjectAssetsComponent },
+          { path: 'sample', component: AssetsSchedulingComponent } // or whatever the scheduling view is called
+        ]
+      },
+      {
+        path: 'facilities',
+        children: [
+          { path: '', component: ProjectFacilitiesComponent },
+          { path: 'facilities_sample', component: FacilitiesSchedulingComponent } // or whatever the scheduling view is called
+        ]
+      },
       { path: 'expenses', component: ProjectExpensesComponent },
       { path: 'hours', component: PlaceholderImageComponent },
       { path: 'timesheet1', component: PlaceholderImageComponent },
       { path: 'timesheet2', component: PlaceholderImageComponent },
-      {path:'sample',component: AssetsSchedulingComponent}
+      // {path:'sample',component: AssetsSchedulingComponent}
     ]
   }
 ];
@@ -88,13 +103,16 @@ const routes: Routes = [
     ProjectAssetsComponent,
     AssetsSchedulingComponent,
     ProjectExpensesComponent,
-    ProjectBacklogComponent
+    ProjectBacklogComponent,
+    ProjectFacilitiesComponent,
+    FacilitiesSchedulingComponent,
+    ProjectHoursComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule, 
-    HighchartsChartModule, 
+    FormsModule,
+    HighchartsChartModule,
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,

@@ -72,3 +72,96 @@
   align-items: center;
   margin-bottom: 15px;
 }   
+
+.main-wrapper {
+  min-width: 1250px;
+  width: 100%;
+  padding: 24px;
+  // font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  margin-top: -20px;
+}
+
+/* --- Header Section --- */
+.header-section {
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+
+    .header-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      h1 {
+        color: #333c48;
+        font-size: 24px;
+        margin: 0; 
+      }
+
+      .subtitle {
+        margin: 0;
+        color: #7a869a;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px; 
+      align-items: flex-end;
+      
+      .back-btn, .add-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 40px;
+        padding: 0 16px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+/* --- Table Container --- */
+.table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 8px;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      background-color: #f1f3f9;
+      color: #333c48;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 18px 24px;
+      text-align: left;
+      border-bottom: 1px solid #e3e6ee;
+    }
+
+    td {
+      padding: 16px 24px;
+      border-bottom: 1px solid #f1f3f9;
+      color: #333c48;
+      font-size: 14px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .font-bold { font-weight: 600; }
+  }
+}

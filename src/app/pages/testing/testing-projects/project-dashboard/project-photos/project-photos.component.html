@@ -1,123 +1,70 @@
-<div class="top-toolbar">
-  
-  <div class="toolbar-actions">
-      <button mat-raised-button class="top-btn"
-    style="display: flex; align-items: center; background-color: black; color: white;"
-    (click)="toggleFilter()">
-    <mat-icon style="vertical-align: middle; margin-right: 4px;">filter_list</mat-icon>Filter
-  </button>
+<div class="main-wrapper">
+  <div class="header-section">
+    <div class="title-row">
+      <div class="header-titles">
+        <h1 style="font-weight: 700; font-size: 24px">
+          Photos (NextGen Assembly Line-2026/MFG/011)
+        </h1>
+        <p class="subtitle">
+          Track, upload, and organize all project site photos.
+        </p>
+      </div>
 
-    <button mat-raised-button class="custom-btn" (click)="Addphoto(null)">
-      <mat-icon style="margin-top:0px">image</mat-icon> Add Photo 
+      <div class="header-actions">
+        <button mat-raised-button class="back-btn" (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
+          <mat-icon>arrow_back</mat-icon> Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar-actions">
+    <button mat-raised-button class="filter-btn" (click)="toggleFilter()">
+      <mat-icon>filter_list</mat-icon> Filter
+    </button>
+    <button mat-raised-button class="add-btn" (click)="Addphoto(null)">
+      <mat-icon>image</mat-icon> Add Photo
     </button>
   </div>
 
- <div *ngIf="showFilter" style="width:101%; margin-left: -8px;">
-  <div fxFlex="100" class="flex-p w-100" style="margin-top: 10px;">
-    <form>
-      <mat-card class="filter">
-        <mat-card-content>
-          <div class="row col-lg-12 col-sm-12">
-
-            
-
-            <div class="col-sm-4 row me-2 mt-3">
-              <div class="col-sm-4 newMarginClass"><b>Select Module:</b></div>
-              <div class="col-sm-8">
-                <mat-select class="form-control" placeholder="Select Date type">
-                  <mat-option value="Pending">Module 1</mat-option>
-                  <mat-option value="Allocation">Module 2</mat-option>
-                  <mat-option value="Progress">Module 3</mat-option>
-                  <mat-option value="Hold">Module 4</mat-option>
-                  <mat-option value="ETA">Module 5</mat-option>
-                </mat-select>
-              </div>
-            </div>
-
-            
-
-            
-
-            <div class="col-sm-4 row me-2 mt-3">
-              <div class="col-sm-4 newMarginClass"><b>Select Stage:</b></div>
-              <div class="col-sm-8">
-                <mat-select class="form-control" placeholder="Select Date type">
-                  <mat-option value="Pending">Stage 1</mat-option>
-                  <mat-option value="Allocation">Stage 2</mat-option>
-                  <mat-option value="Progress">Stage 3</mat-option>
-                  <mat-option value="Hold">Stage 4</mat-option>
-                  <mat-option value="ETA">Stage 5</mat-option>
-                </mat-select>
-              </div>
-            </div>
-
-        
-
-           
-
-             
-
-            
-
-             
-
-            <div class="col-sm-4 row me-2 mt-3">
-              
-            </div>
-
-            <div class="col-sm-12 pull-right mt-3" style="margin-left: -15px;">
-              <a (click)="toggleFilter()" class="pull-right"
-                style="font-size: 25px; cursor: pointer; margin-left: 5px; color: #333;"
-                matTooltip="Close Filter">
-                <i class="fa fa-angle-double-up" aria-hidden="true"></i>
-              </a>
-              <button mat-raised-button class="pull-right btn-default margin-right-10">
-                <mat-icon>settings_backup_restore</mat-icon> Clear
-              </button>
-              <button mat-raised-button style="margin-right: 10px;" color="primary" class="pull-right">
-                <mat-icon>search</mat-icon> Search
-              </button>
-            </div>
-
+  <div *ngIf="showFilter" class="filter-panel">
+    <mat-card class="filter-card">
+      <mat-card-content>
+        <div class="row align-items-center">
+          <div class="col-sm-4">
+            <label><b>Select Module:</b></label>
+            <mat-select class="form-control" placeholder="Select Module">
+              <mat-option value="1">Module 1</mat-option>
+              <mat-option value="2">Module 2</mat-option>
+            </mat-select>
           </div>
-        </mat-card-content>
-      </mat-card>
-    </form>
+          <div class="col-sm-4">
+            <label><b>Select Stage:</b></label>
+            <mat-select class="form-control" placeholder="Select Stage">
+              <mat-option value="1">Stage 1</mat-option>
+              <mat-option value="2">Stage 2</mat-option>
+            </mat-select>
+          </div>
+          <div class="col-sm-4 text-right">
+            <button mat-raised-button class="btn-default" (click)="toggleFilter()"><mat-icon>close</mat-icon> Close</button>
+            <button mat-raised-button color="primary"><mat-icon>search</mat-icon> Search</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-</div>
-</div>
 
-<div class="gallery-grid">
-  <mat-card class="photo-card">
-    <div class="card-header-actions">
-      <mat-icon class="action-icon edit-icon" matTooltip="Edit">edit</mat-icon>
-      <mat-icon class="action-icon delete-icon" matTooltip="Delete">delete</mat-icon>
-    </div>
-    <div class="img-container">
-      <img src="/assets/Swift/Right_Fender.png" alt="X-ray report of Patient">
-    </div>
-    <div class="photo-title">Right Fender</div>
-  </mat-card>
-
-  <mat-card class="photo-card">
-    <div class="card-header-actions">
-      <mat-icon class="action-icon edit-icon" matTooltip="Edit">edit</mat-icon>
-      <mat-icon class="action-icon delete-icon" matTooltip="Delete">delete</mat-icon>
-    </div>
-    <div class="img-container">
-      <img src="/assets/Swift/Roof.png" alt="Doctor Treating the Patient">
-    </div>
-    <div class="photo-title">Roof View</div>
-  </mat-card>
-
-  <mat-card class="photo-card">
-    <div class="card-header-actions">
-      <mat-icon class="action-icon edit-icon" matTooltip="Edit">edit</mat-icon>
-      <mat-icon class="action-icon delete-icon" matTooltip="Delete">delete</mat-icon>
-    </div>
-    <div class="img-container">
-      <img src="/assets/Swift/Bonnet.png" alt="Patient Consultation">
-    </div>
-    <div class="photo-title">Bonnet</div>
-  </mat-card>
+  <div class="gallery-grid">
+    <mat-card class="photo-card" *ngFor="let photo of photoList">
+      <div class="card-header-actions">
+        <mat-icon class="action-icon edit-icon" matTooltip="Edit">edit</mat-icon>
+        <mat-icon class="action-icon delete-icon" matTooltip="Delete">delete</mat-icon>
+      </div>
+      <div class="img-container">
+        <img [src]="photo.url" [alt]="photo.title">
+      </div>
+      <div class="photo-title">{{ photo.title }}</div>
+      <div class="photo-desc">{{ photo.description }}</div>
+    </mat-card>
+  </div>
 </div>

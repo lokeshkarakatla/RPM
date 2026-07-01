@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AddphotoPopComponent } from './addphoto-pop/addphoto-pop.component';
 import { MatDialog } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms'; // Import Forms
 
 @Component({
   selector: 'app-project-photos',
@@ -10,35 +9,25 @@ import { FormBuilder, FormGroup } from '@angular/forms'; // Import Forms
 })
 export class ProjectPhotosComponent implements OnInit {
   
-  showFilters: boolean = false;
-  filterForm: FormGroup; // Declare the form group
+  showFilter: boolean = false;
+  photoList: any[] = [];
 
-  constructor(
-    private dialog: MatDialog, 
-    private fb: FormBuilder // Inject FormBuilder
-  ) { 
-    // Initialize the form controls to match your HTML
-    this.filterForm = this.fb.group({
-      Keyword: [''],
-      Status: [null]
-    });
-  }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.loadPhotos();
   }
 
-  toggleFilters() {
-    this.showFilters = !this.showFilters;
+  loadPhotos() {
+    this.photoList = [
+      { url: '/assets/Swift/Right_Fender.png', title: 'Right Fender', description: 'Freshly painted fender installed today.' },
+      { url: '/assets/Swift/Roof.png', title: 'Roof View', description: 'Structural integrity check completed.' },
+      { url: '/assets/Swift/Bonnet.png', title: 'Bonnet', description: 'Alignment confirmed for closure.' }
+    ];
   }
 
-  clearFilters() {
-    this.filterForm.reset(); // This clears the form inputs
-    console.log("Filters cleared");
-  }
-
-  searchFilters() {
-    // This logs the current values typed into the form
-    console.log("Search triggered with values:", this.filterForm.value);
+  toggleFilter(): void {
+    this.showFilter = !this.showFilter;
   }
 
   Addphoto(value: any) {
@@ -48,15 +37,8 @@ export class ProjectPhotosComponent implements OnInit {
       width: '500px',
     });
   }
-  showFilter: boolean = false;
 
-
-
-
-
-
-
-    toggleFilter(): void {
-    this.showFilter = !this.showFilter;
+  goBack() {
+    window.history.back();
   }
 }

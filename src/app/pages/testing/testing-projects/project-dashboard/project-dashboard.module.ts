@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 // --- Highcharts ---
 import { HighchartsChartModule } from 'highcharts-angular';
 
+// --- Flex Layout ---
+import { FlexLayoutModule } from '@angular/flex-layout'; // <-- ADDED THIS IMPORT
+
 // --- Material Modules ---
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -17,7 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu'; // <-- ADDED THIS IMPORT FOR THE ACTION MENU
+import { MatMenuModule } from '@angular/material/menu'; 
 
 // --- Components ---
 import { ProjectDashboardComponent } from './project-dashboard.component';
@@ -37,6 +40,8 @@ import { ProjectBudgetComponent } from './project-budget/project-budget.componen
 import { ProjectAssetsComponent } from './project-assets/project-assets.component';
 import { AssetsSchedulingComponent } from './project-assets/assets-scheduling/assets-scheduling.component';
 import { ProjectExpensesComponent } from './project-expenses/project-expenses.component';
+import { ProjectMaterialsComponent } from './project-materials/project-materials.component';
+import { AddRequisitionPopComponent } from './project-materials/add-requisition-pop/add-requisition-pop.component';
 import { ProjectBacklogComponent } from './project-backlog/project-backlog.component';
 import { ProjectFacilitiesComponent } from './project-facilities/project-facilities.component';
 import { FacilitiesSchedulingComponent } from './project-facilities/facilities-scheduling/facilities-scheduling.component';
@@ -79,7 +84,8 @@ const routes: Routes = [
       { path: 'hours', component: ProjectHoursComponent },
       { path: 'timesheet1', component: PlaceholderImageComponent },
       { path: 'timesheet2', component: PlaceholderImageComponent },
-      // {path:'sample',component: AssetsSchedulingComponent}
+      { path: 'sample', component: AssetsSchedulingComponent },
+      { path: 'materials', component: ProjectMaterialsComponent }
     ]
   }
 ];
@@ -103,6 +109,8 @@ const routes: Routes = [
     ProjectAssetsComponent,
     AssetsSchedulingComponent,
     ProjectExpensesComponent,
+    ProjectMaterialsComponent,
+    AddRequisitionPopComponent
     ProjectBacklogComponent,
     ProjectFacilitiesComponent,
     FacilitiesSchedulingComponent,
@@ -111,6 +119,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    FormsModule, 
+    FlexLayoutModule, // <-- ADDED TO IMPORTS ARRAY
     FormsModule,
     HighchartsChartModule,
     MatIconModule,
@@ -123,7 +133,7 @@ const routes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatMenuModule // <-- ADDED TO IMPORTS ARRAY
+    MatMenuModule 
   ]
 })
 export class ProjectDashboardModule { }

@@ -41,32 +41,32 @@
     </div>
   </div>
 
-  <div class="stats-grid">
-    <div class="stat-card blue">
-      <span class="label1">BUDGET</span>
-      <span class="value">Rs. 20,00,000</span>
-    </div>
-    <div class="stat-card green">
-      <span class="label2">ACTUAL</span>
-      <span class="value">Rs. 8,50,000</span>
-    </div>
-    <div class="stat-card orange">
-      <span class="label3">COMPLETION</span>
-      <span class="value">45%</span>
-    </div>
-    <div class="stat-card purple">
-      <span class="label4">PROJECTED BUDGET</span>
-      <span class="value">Rs. 18,88,889</span>
-    </div>
-    <div class="stat-card red">
-      <span class="label5">DUE DATE</span>
-      <span class="value">30 Oct 2026</span>
-    </div>
-    <div class="stat-card cyan">
-      <span class="label6">ETA</span>
-      <span class="value">20 Oct 2026</span>
-    </div>
+<div class="stats-grid">
+  <div class="stat-card blue">
+    <span class="label">BUDGET</span>
+    <span class="label">Rs. 20,00,000</span>
   </div>
+  <div class="stat-card green">
+    <span class="label1">ACTUAL</span>
+    <span class="label1">Rs. 8,50,000</span>
+  </div>
+  <div class="stat-card orange">
+    <span class="label2">COMPLETION</span>
+    <span class="label2">45%</span>
+  </div>
+  <div class="stat-card purple">
+    <span class="label3">PROJECTED BUDGET</span>
+    <span class="label3">Rs. 18,88,889</span>
+  </div>
+  <div class="stat-card red">
+    <span class="label4">DUE DATE</span>
+    <span class="label4">30 Oct 2026</span>
+  </div>
+  <div class="stat-card cyan">
+    <span class="label5">ETA</span>
+    <span class="label5">20 Oct 2026</span>
+  </div>
+</div>
 
   <div class="table-container">
     <table>
@@ -90,16 +90,16 @@
           <td>{{ row.module }}</td>
           <td>{{ row.task }}</td>
           <td>{{ row.allocation }}</td>
-          <td class="text-right">{{ row.standardHours }}</td>
+          <td class="text-center">{{ row.standardHours }}</td>
           <td class="text-right">{{ fmt(row.budget) }}</td>
-          <td class="text-right">{{ row.actualHours }}</td>
+          <td class="text-center">{{ row.actualHours }}</td>
           <td
-            class="text-right font-bold"
+            class="text-center font-bold"
             [style.color]="getCompColor(row.completion)"
           >
             {{ row.completion }}%
           </td>
-          <td class="text-right">{{ fmt(row.expenses) }}</td>
+          <td class="text-center">{{ fmt(row.expenses) }}</td>
           <td class="text-right">{{ fmt(row.actual) }}</td>
         </tr>
       </tbody>

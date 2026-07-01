@@ -22,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { JobCodesPopComponent } from './users/job-codes-pop/job-codes-pop.component';
+import { UserLocationsPopComponent } from './users/user-locations-pop/user-locations-pop.component';
 
 
 
@@ -50,7 +51,8 @@ export const routes = [
     SplPermissionsComponent,
     UserAudittypeComponent,
     ManagerDialogComponent,
-    JobCodesPopComponent
+    JobCodesPopComponent,
+    UserLocationsPopComponent
 
   ],
   imports: [

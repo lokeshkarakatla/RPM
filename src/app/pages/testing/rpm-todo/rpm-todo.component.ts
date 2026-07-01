@@ -17,7 +17,7 @@ export interface TaskElement {
   Responsibility: string;
   ProjectName: string;
 }
-//This is comment
+
 @Component({
   selector: 'app-rpm-todo',
   templateUrl: './rpm-todo.component.html',

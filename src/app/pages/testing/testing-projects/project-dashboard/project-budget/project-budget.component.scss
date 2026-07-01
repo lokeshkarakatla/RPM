@@ -47,6 +47,7 @@
     }
   }
 
+ 
   .btn-go {
     background-color: #1a66ff;
     color: white;
@@ -77,18 +78,15 @@
     gap: 5px;
     border: 1px solid transparent;
 
-    .label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
+    /* Now that the HTML uses class="label", this will apply */
+ 
 
     .value {
       font-size: 15px;
       font-weight: 500;
     }
 
-    // Colors matched to reference image
+    // These colors will naturally flow down into .label and .value
     &.blue { background-color: #ebf3ff; color: #2e5da3; border-color: #d6e6ff; }
     &.green { background-color: #ebf9f1; color: #329663; border-color: #d1f0df; }
     &.orange { background-color: #fff4e5; color: #c2781d; border-color: #ffe8cc; }
@@ -110,7 +108,7 @@
     
     th {
       background-color: #f1f3f9;
-      color: #5e6c84;
+      color: #000000;
       font-size: 13px;
       font-weight: 700;
       padding: 15px;
@@ -121,7 +119,7 @@
     td {
       padding: 12px 15px;
       border-bottom: 1px solid #f1f3f9;
-      color: #444;
+      color: #000000;
       font-size: 13px;
     }
 
@@ -179,4 +177,56 @@
   border-radius: 4px;
   margin-right: -17px;
   margin-bottom: -24px;
+}
+
+
+
+
+.label{
+  color: #385590;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+.label1{
+  color: #225c45;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+.label2{
+  color: #e28925;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+}
+.label3{
+  color: #9525c9;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.label4{
+  color: #a03c1d;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.label5{
+  color: #225c45;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
 }

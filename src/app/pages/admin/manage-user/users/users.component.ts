@@ -15,6 +15,7 @@ import { ResetPasswordDialogComponent } from './reset-password-dialog/reset-pass
 import { ManagerDialogComponent } from './manager-dialog/manager-dialog.component';
 import { admindata } from '../../admindata';
 import { JobCodesPopComponent } from './job-codes-pop/job-codes-pop.component';
+import { UserLocationsPopComponent } from './user-locations-pop/user-locations-pop.component';
 
 @Component({
   selector: 'app-users',
@@ -83,12 +84,12 @@ export class UsersComponent implements OnInit {
   ];
 
   userss =[
-    { name: 'Satya', managers: 1, email: 'spaswan383@gmail.com', phone: '7070936188', agency: 'R & D', department: 'Developer', role: 'Group Leader', cft: false, auditor: true, webAccess: true, mobileAccess: false, managerialRole: true, auditTypes: 19, twoFactor: false, resetPassword: true, status: 'Active', job:'3/40' },
-    { name: 'Pavan Kalyan', managers: 3, email: 'pavankalyan@gmail.com', phone: '9347153602', agency: 'Engineering', department: 'Developer', role: 'Group Leader', cft: true, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 36, twoFactor: false, resetPassword: true, status: 'Active' , job:'7/40' },
-    { name: 'Gaurav', managers: 1, email: 'gvrav@gmail.com', phone: '7894444444', agency: 'Engineering', department: 'Test', role: 'Shop Head', cft: false, auditor: false, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 0, twoFactor: false, resetPassword: true, status: 'Active', job:'6/40'  },
-    { name: 'Ayush', managers: 1, email: 'ak@gmail.com', phone: '1234563213', agency: 'Inspection', department: 'QA', role: 'General Manager', cft: false, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 0, twoFactor: false, resetPassword: true, status: 'Active' , job:'22/40' },
-    { name: 'santosh', managers: 1, email: 'santosh@gmail.com', phone: '9878998887', agency: 'R & D', department: 'Developer', role: 'Test', cft: false, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 19, twoFactor: false, resetPassword: true, status: 'Active', job:'32/40'  },
-    { name: 'satya', managers: 1, email: 'satya@gmail.com', phone: '8047847387', agency: 'Engineering', department: 'QA', role: 'General Manager', cft: false, auditor: false, webAccess: true, mobileAccess: false, managerialRole: true, auditTypes: 0, twoFactor: true, resetPassword: true, status: 'Active', job:'14/40'  }
+    { name: 'Satya', managers: 1, email: 'spaswan383@gmail.com', phone: '7070936188', agency: 'R & D', department: 'Developer', role: 'Group Leader', cft: false, auditor: true, webAccess: true, mobileAccess: false, managerialRole: true, auditTypes: 19, twoFactor: false, resetPassword: true, status: 'Active', job:'3/40',locations:'6/10' },
+    { name: 'Pavan Kalyan', managers: 3, email: 'pavankalyan@gmail.com', phone: '9347153602', agency: 'Engineering', department: 'Developer', role: 'Group Leader', cft: true, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 36, twoFactor: false, resetPassword: true, status: 'Active' , job:'7/40',locations:'4/10' },
+    { name: 'Gaurav', managers: 1, email: 'gvrav@gmail.com', phone: '7894444444', agency: 'Engineering', department: 'Test', role: 'Shop Head', cft: false, auditor: false, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 0, twoFactor: false, resetPassword: true, status: 'Active', job:'6/40' ,locations:'6/10' },
+    { name: 'Ayush', managers: 1, email: 'ak@gmail.com', phone: '1234563213', agency: 'Inspection', department: 'QA', role: 'General Manager', cft: false, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 0, twoFactor: false, resetPassword: true, status: 'Active' , job:'22/40',locations:'7/10' },
+    { name: 'santosh', managers: 1, email: 'santosh@gmail.com', phone: '9878998887', agency: 'R & D', department: 'Developer', role: 'Test', cft: false, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 19, twoFactor: false, resetPassword: true, status: 'Active', job:'32/40',locations:'4/10'  },
+    { name: 'satya', managers: 1, email: 'satya@gmail.com', phone: '8047847387', agency: 'Engineering', department: 'QA', role: 'General Manager', cft: false, auditor: false, webAccess: true, mobileAccess: false, managerialRole: true, auditTypes: 0, twoFactor: true, resetPassword: true, status: 'Active', job:'14/40' ,locations:'8/10' }
   ]
   Departments = [
   { value: 'Developer', name: 'Developer' },
@@ -307,6 +308,16 @@ Roles = [
       data: null,
       height: 'auto',
       width: '1200px'
+    });
+
+  }
+
+  openlocationpop()
+  {
+    this.dialog.open(UserLocationsPopComponent, {
+      data: null,
+      height: 'auto',
+      width: '600px'
     });
 
   }

@@ -1,0 +1,33 @@
+<div class="NewHeader mb-3">
+  <h1 mat-dialog-title style="margin-bottom: 0;">
+    <span>Location</span>
+  </h1>
+</div>
+
+<div mat-dialog-content style="overflow-x: hidden;">
+    <div class="table-responsive w-100">
+      <table class="table table-bordered table-hover">
+            <thead class="tbl-head">
+                <tr class="tr-grid-header">
+                    <th class="text-center">S.No</th>
+                    <th>Location</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of locationData; let i = index">
+                    <td class="text-center">{{ i + 1 }}</td>
+                    <td>{{ item.location }}</td>
+                    <td>{{ item.department }}</td>
+                </tr>
+                <tr *ngIf="locationData == null || locationData.length == 0">
+                    <td colspan="3" class="text-center">No locations found</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="close-btn" style="background-color: rgba(0, 98, 255, 0.703); color:white">Close</button>
+</div>

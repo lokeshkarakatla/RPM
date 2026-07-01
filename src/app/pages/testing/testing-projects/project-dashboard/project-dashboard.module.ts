@@ -36,6 +36,7 @@ import { ProjectScheduleComponent } from './project-schedule/project-schedule.co
 import { ProjectBudgetComponent } from './project-budget/project-budget.component';
 import { ProjectAssetsComponent } from './project-assets/project-assets.component';
 import { AssetsSchedulingComponent } from './project-assets/assets-scheduling/assets-scheduling.component';
+import { ProjectExpensesComponent } from './project-expenses/project-expenses.component';
 
 const routes: Routes = [
   {
@@ -58,7 +59,7 @@ const routes: Routes = [
       { path: 'timeline', component: PlaceholderImageComponent },
       { path: 'assets', component: ProjectAssetsComponent },
       { path: 'facilities', component: PlaceholderImageComponent },
-      { path: 'expenses', component: PlaceholderImageComponent },
+      { path: 'expenses', component: ProjectExpensesComponent },
       { path: 'hours', component: PlaceholderImageComponent },
       { path: 'timesheet1', component: PlaceholderImageComponent },
       { path: 'timesheet2', component: PlaceholderImageComponent },
@@ -84,7 +85,8 @@ const routes: Routes = [
     ProjectScheduleComponent,
     ProjectBudgetComponent,
     ProjectAssetsComponent,
-    AssetsSchedulingComponent
+    AssetsSchedulingComponent,
+    ProjectExpensesComponent
   ],
   imports: [
     CommonModule,

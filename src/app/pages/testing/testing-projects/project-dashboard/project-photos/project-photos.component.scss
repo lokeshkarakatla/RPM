@@ -1,13 +1,74 @@
-/* Container for the gallery */
+/* --- Toolbar Styles --- */
+.top-toolbar {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 7px 0 7px;
+  gap: 16px;
+
+  .toolbar-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    // border: 2px solid black;
+    gap:20px;
+
+    .filter-toggle-btn {
+      color: #ffffff;
+      border-color: #ccc;
+      background-color: rgb(0, 0, 0);
+    }
+
+    .custom-btn {
+      background-color: rgb(52, 146, 214) !important;
+      color: white !important;
+      height: 40px;
+    }
+  }
+
+  .expanded-filters {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+
+    .custom-filter {
+      width: 200px;
+
+      ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+      
+      ::ng-deep .mat-mdc-text-field-wrapper {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    .filter-actions {
+      display: flex;
+      gap: 8px;
+      margin-left: 8px;
+      
+      /* Optional: scale up icons slightly for better clicking area */
+      button {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+/* --- Gallery Styles --- */
 .gallery-grid {
   display: grid;
-  /* Forces exactly 3 equal-width columns */
   grid-template-columns: repeat(3, 1fr); 
   gap: 40px;
   padding: 7px;
-  padding-top: 50px;
- /* Very light gray background matching the image */
- 
+  padding-top: 30px; 
 }
 
 /* Individual Card Styling */
@@ -39,12 +100,10 @@
       opacity: 0.6;
     }
 
-    /* Soft Blue/Purple for Edit */
     &.edit-icon {
       color: #7986cb; 
     }
 
-    /* Soft Red/Salmon for Delete */
     &.delete-icon {
       color: #e57373; 
     }
@@ -54,18 +113,17 @@
 /* Image Wrapper */
 .img-container {
   width: 100%;
-  height: 200px; /* Keeps all cards uniform in height */
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   margin-bottom: 16px;
-  background-color: #fafafa; /* Optional: Slight bg color if image is transparent */
+  background-color: #fafafa;
 
   img {
     max-width: 100%;
     max-height: 100%;
-    /* 'contain' ensures no part of a medical image gets cropped out */
     object-fit: contain; 
   }
 }
@@ -79,26 +137,26 @@
   padding-bottom: 4px;
 }
 
-/* Optional: Make it responsive on smaller screens */
+/* Responsive adjustments */
 @media (max-width: 1024px) {
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr); /* Drops to 2 per row on tablets */
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
 
 @media (max-width: 600px) {
   .gallery-grid {
-    grid-template-columns: 1fr; /* Drops to 1 per row on phones */
+    grid-template-columns: 1fr; 
   }
-}
-
-.custom-btn
-{
-  background-color: rgb(44, 77, 226);
-  color: white;
-}
-
-.custom-btn {
-  background-color: rgb(52, 146, 214) !important;
-  color: white !important;
+  
+  .top-toolbar {
+    .expanded-filters {
+      flex-direction: column;
+      align-items: flex-start;
+      
+      .custom-filter {
+        width: 100%;
+      }
+    }
+  }
 }

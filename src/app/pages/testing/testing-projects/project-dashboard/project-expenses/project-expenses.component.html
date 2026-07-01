@@ -1,0 +1,167 @@
+<div class="schedule-dashboard">
+  
+  <div class="header-section">
+    <div class="header-title mb-2">
+      <div>
+        <h1>Expenses</h1>
+        <p>Track and manage all expense claims</p>
+      </div>
+    </div>
+    
+   <div class="header-actions">
+  <button mat-raised-button class="custom-back-btn mt-3" style="margin-right: -17px;" (click)="goBack()">
+    <mat-icon >arrow_back</mat-icon> Back
+  </button>
+
+  <div class="secondary-actions">
+    <div class="date-picker-btn">
+      <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Jun 1 - Jun 30, 2025
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    
+    <div class="filter-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+      Filters
+    </div>
+  </div>
+</div>
+  </div>
+
+  <div class="dashboard-content">
+    
+    <aside class="calendar-sidebar">
+      <div class="calendar-card">
+        <!-- <div class="calendar-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <h3>Expense Calendar</h3>
+        </div> -->
+        <div class="month-selector">
+          <button class="nav-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+          <strong>June 2025</strong>
+          <button class="nav-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        </div>
+        
+        <div class="calendar-grid">
+          <div class="weekday">SUN</div><div class="weekday">MON</div><div class="weekday">TUE</div><div class="weekday">WED</div><div class="weekday">THU</div><div class="weekday">FRI</div><div class="weekday">SAT</div>
+          
+          <div class="day-cell" *ngFor="let day of calendarDays" 
+               [class.faded]="day.isPrevMonth || day.isNextMonth"
+               [class.active]="selectedDate === day.date && !day.isPrevMonth && !day.isNextMonth"
+               (click)="filterByDate(day)">
+            <span class="date-num">{{ day.date }}</span>
+            <span class="claims-num" *ngIf="day.claims > 0" 
+                  [ngClass]="{'c-1': day.claims <= 2, 'c-3': day.claims >= 3 && day.claims <= 4, 'c-5': day.claims >= 5}">
+              {{ day.claims }}
+            </span>
+          </div>
+        </div>
+
+        <div class="total-claims-box">
+          <div class="box-text">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7"/><path d="M21 16a2 2 0 0 0-2-2h-3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-2z"/></svg>
+            <div>
+              <strong>Total Claims in Selected Range</strong>
+              <small>Daily average: 1.60 claims</small>
+            </div>
+          </div>
+          <div class="total-number">48</div>
+        </div>
+      </div>
+    </aside>
+
+   <main class="table-container">
+      
+      <div class="table-actions-bar">
+        <button class="scroll-btn" (click)="scrollTable('left')" title="Scroll Left (Rewind)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+        </button>
+        <button class="scroll-btn" (click)="scrollTable('right')" title="Scroll Right (Fast Forward)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+        </button>
+      </div>
+
+      <div class="table-responsive" #tableWrapper>
+        <table class="expenses-table">
+          <thead>
+            <tr>
+                <th>Actions</th>
+              <th>Name</th>
+              <th>Subject</th>
+              <th>Description</th>
+              <th>Approved By</th>
+              <th>Stage</th>
+              <th>Module</th>
+              <th>Task</th>
+              <th>Amount</th>
+              <th>PDF</th>
+              <th>Approved<br>
+                 <th>Paid</th>
+              <th>Declined</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="paginatedExpenses.length === 0">
+              <td colspan="12" class="text-center" style="padding: 30px;">No expenses found for this selection.</td>
+            </tr>
+            <tr *ngFor="let expense of paginatedExpenses">
+                <td class="text-center">
+  <i class="fas fa-pen action-icon" ></i>
+  <i class="fas fa-trash-alt action-icon delete-icon" ></i>
+</td>
+              <td>
+                <div class="user-info">
+                  <!-- <div class="avatar" [ngStyle]="{'background-color': expense.avatarBg}">{{ expense.initials }}</div> -->
+                  <span>{{ expense.name }}</span>
+                </div>
+              </td>
+              <td [ngClass]="{'text-green': expense.stage === 'Approved', 'text-red': expense.stage === 'Declined'}">{{ expense.subject }}</td>
+              
+              <td class="description-cell" [title]="expense.description">
+                {{ truncateDescription(expense.description) }}
+              </td>
+              
+              <td>{{ expense.approvedBy }}</td>
+              <td><span class="badge" [ngClass]="expense.stageClass">{{ expense.stage }}</span></td>
+              <td>{{ expense.module }}</td>
+              <td>{{ expense.task }}</td>
+              <td>{{ expense.amount }}</td>
+              <td>
+                <div class="pdf-cell">
+                  <img *ngIf="expense.pdfCount > 0" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444'><path d='M19.5 0H4.5A1.5 1.5 0 0 0 3 1.5v21A1.5 1.5 0 0 0 4.5 24h15a1.5 1.5 0 0 0 1.5-1.5v-21A1.5 1.5 0 0 0 19.5 0zM12 18.75a3.75 3.75 0 1 1 0-7.5 3.75 3.75 0 0 1 0 7.5zm5.25-13.5H6.75V3h10.5v2.25z'/></svg>" alt="PDF" class="pdf-icon">
+                  <img *ngIf="expense.pdfCount > 1" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239ca3af'><path d='M19.5 0H4.5A1.5 1.5 0 0 0 3 1.5v21A1.5 1.5 0 0 0 4.5 24h15a1.5 1.5 0 0 0 1.5-1.5v-21A1.5 1.5 0 0 0 19.5 0zM12 18.75a3.75 3.75 0 1 1 0-7.5 3.75 3.75 0 0 1 0 7.5zm5.25-13.5H6.75V3h10.5v2.25z'/></svg>" alt="PDF" class="pdf-icon-secondary">
+                  <span class="pdf-count" *ngIf="expense.pdfCount > 0">+{{ expense.pdfCount }}</span>
+                </div>
+              </td>
+              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-green" [checked]="expense.approved" disabled></td>
+              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-dark" [checked]="expense.paid" disabled></td>
+              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-red" [checked]="expense.declined" disabled></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="pagination-footer">
+        <span class="showing-text">Showing {{ showingStart }} to {{ showingEnd }} of {{ filteredExpenses.length }} entries</span>
+        <div class="pagination-controls">
+          <span class="rows-label">Rows per page:</span>
+          
+          <select class="rows-select" (change)="changePageSize($event)">
+            <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size == pageSize">{{ size }}</option>
+          </select>
+          
+          <div class="page-nav">
+            <button class="nav-arrow" (click)="prevPage()" [disabled]="currentPage === 1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="active-page">{{ currentPage }}</button>
+            <button class="nav-arrow" (click)="nextPage()" [disabled]="currentPage >= totalPages || totalPages === 0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>

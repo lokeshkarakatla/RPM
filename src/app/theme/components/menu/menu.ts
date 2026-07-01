@@ -112,10 +112,20 @@ export const horizontalMenuItems = [
     0,
   ),
 
+      new Menu(14, "Stages",   "/app/testing/stages", null, "layers", null, false, 0),
+
+
+
+        new Menu(5, "Gates", "/app/testing/gates", null, "door_front", null, false, 0),
+
+
+
+         new Menu(5, "Master Data", "/app/testing/testing-masterData", null, "storage", null, false, 0),
+
   // 3. Setup (Now ONLY contains Stages, Gates, and Master Data)
-  new Menu(3, "Setup", "/app/testing/stages", null, "build", null, true, 0),
+  // new Menu(3, "Setup", "/app/testing/stages", null, "build", null, true, 0),
   new Menu(
-    301,
+    4,
     "Stages",
     "/app/testing/stages",
     null,
@@ -147,6 +157,8 @@ export const horizontalMenuItems = [
 
   // ✅ ADDED: 5. Tasks as Top-Level
   new Menu(5, "Tasks", "/app/testing/tasks", null, "task", null, false, 0),
+
+
 
   // ✅ ADDED: 6. Issues as Top-Level
   new Menu(

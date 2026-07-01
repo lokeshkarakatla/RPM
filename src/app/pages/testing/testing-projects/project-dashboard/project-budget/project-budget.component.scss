@@ -9,10 +9,48 @@
 }
 
 .header-section {
-  h1 {
-    color: #333c48;
-    font-size: 24px;
+  .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; // Aligns the button with the top of the title
     margin-bottom: 25px;
+
+    .header-titles {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      h1 {
+        color: #333c48;
+        font-size: 24px;
+        margin: 0; // Removed bottom margin so gap handles spacing
+      }
+
+      .subtitle {
+        margin: 0;
+        color: #7a869a;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    .btn-back {
+      background-color: white;
+      color: #5e6c84;
+      border: 1px solid #dfe1e6;
+      padding: 6px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+
+      &:hover {
+        background-color: #f1f3f9;
+        color: #172b4d;
+      }
+    }
   }
 }
 

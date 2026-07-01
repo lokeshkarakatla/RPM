@@ -76,7 +76,7 @@ const routes: Routes = [
         ]
       },
       { path: 'expenses', component: ProjectExpensesComponent },
-      { path: 'hours', component: PlaceholderImageComponent },
+      { path: 'hours', component: ProjectHoursComponent },
       { path: 'timesheet1', component: PlaceholderImageComponent },
       { path: 'timesheet2', component: PlaceholderImageComponent },
       // {path:'sample',component: AssetsSchedulingComponent}

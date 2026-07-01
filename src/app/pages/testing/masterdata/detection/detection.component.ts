@@ -26,9 +26,9 @@ export class DetectionComponent implements OnInit {
  filteredUsers = [];
  allRoles: any;
  valuesD: any;
- canCreate: boolean = UserPermissionService.fnGetCreatePermissions(12);
- canDelete: boolean = UserPermissionService.fnGetDeletePermissions(12);
- canUpdate: boolean = UserPermissionService.fnGetUpdatePermissions(12);
+ canCreate: boolean = true;
+ canDelete: boolean = true;
+ canUpdate: boolean = true;
 
 
  constructor(

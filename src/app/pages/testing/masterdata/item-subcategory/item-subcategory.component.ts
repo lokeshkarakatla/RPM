@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AdditemSubCategoryComponent } from './additem-sub-category/additem-sub-category.component';
 
 export interface ItemSubcategory {
   SubCategoryId?: number;
@@ -29,14 +31,16 @@ export class ItemSubcategoryComponent implements OnInit {
   // Table Data
   tableList: ItemSubcategory[] = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.formInit();
-    this.getCategory(); // Loads the initial data
+    this.getCategory();
   }
 
-  // Initialize the Filter Form
   formInit(): void {
     this.filterForm = this.fb.group({
       Keyword: [''],
@@ -44,9 +48,7 @@ export class ItemSubcategoryComponent implements OnInit {
     });
   }
 
-  // Fetch Subcategory Data (Kept the name getCategory to match your HTML button click bindings)
   getCategory(): void {
-    // Injecting dummy data mapped to your HTML structure
     this.tableList = [
       { SubCategoryId: 101, CategoryName: 'Metals', IsActive: true },
       { SubCategoryId: 102, CategoryName: 'Plastics', IsActive: true },
@@ -62,32 +64,30 @@ export class ItemSubcategoryComponent implements OnInit {
     this.totalSize = this.tableList.length;
   }
 
-  // Action Methods
-  openEditDialog(item: any): void {
-    if (item) {
-      console.log('Edit Subcategory triggered for:', item);
-      // Logic for editing goes here
-    } else {
-      console.log('Add New Subcategory triggered');
-      // Logic for adding goes here
-    }
+  openEditDialog(value: any) {
+    let dialogRef = this.dialog.open(AdditemSubCategoryComponent, {
+      data: value,
+      height: 'auto',
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data) {
+        this.getCategory();
+      }
+    })
   }
 
   deleteConfirmation(item: any): void {
     console.log('Delete Subcategory triggered for:', item);
-    // Logic for deleting goes here
   }
 
   Confirmation(item: any): void {
-    // Toggles the Active/Inactive status directly from the table
     item.IsActive = !item.IsActive;
     console.log('Status changed for:', item.CategoryName, '-> New Status:', item.IsActive);
   }
 
-  // Pagination Handler
   fnHandlePage(event: any): void {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-    // In a real scenario, you would call your API fetch method here for server-side pagination
   }
 }

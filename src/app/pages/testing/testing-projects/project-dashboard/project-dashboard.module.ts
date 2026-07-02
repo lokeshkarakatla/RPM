@@ -47,6 +47,7 @@ import { ProjectFacilitiesComponent } from "./project-facilities/project-facilit
 import { FacilitiesSchedulingComponent } from "./project-facilities/facilities-scheduling/facilities-scheduling.component";
 import { ProjectHoursComponent } from "./project-hours/project-hours.component";
 import { AddAssetPopComponent } from './project-assets/add-asset-pop/add-asset-pop.component';
+import { AddFacilityPopComponent } from './project-facilities/add-facility-pop/add-facility-pop.component';
 
 const routes: Routes = [
   {
@@ -120,6 +121,7 @@ const routes: Routes = [
     FacilitiesSchedulingComponent,
     ProjectHoursComponent,
     AddAssetPopComponent,
+    AddFacilityPopComponent,
   ],
   imports: [
     CommonModule,

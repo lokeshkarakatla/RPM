@@ -1,6 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AddFacilityPopComponent } from './add-facility-pop/add-facility-pop.component';
 
 interface Facility {
   facilityCode: string;
@@ -60,7 +62,8 @@ export class ProjectFacilitiesComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void { }
@@ -74,18 +77,18 @@ export class ProjectFacilitiesComponent implements OnInit {
   }
 
   addFacility(): void {
-    console.log('Add Facility clicked');
-    // Example:
-    // this.router.navigate(['/facilities/add']);
+    this.dialog.open(AddFacilityPopComponent, {
+      width: '750px',
+      height: 'auto',
+    });
   }
 
   viewScheduling(facility: Facility): void {
     this.router.navigate(['facilities_sample'], { relativeTo: this.route });
   }
 
-   goBack(): void {
+  goBack(): void {
     this.location.back();
   }
-
 
 }

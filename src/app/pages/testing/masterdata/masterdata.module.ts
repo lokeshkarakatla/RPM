@@ -29,6 +29,11 @@ import { ItemCategoryComponent } from './item-category/item-category.component';
 import { ItemSubcategoryComponent } from './item-subcategory/item-subcategory.component';
 import { AdditemComponent } from './item-master/additem/additem.component';
 import { AddItemCategoryComponent } from './item-category/add-item-category/add-item-category.component';
+import { AdditemSubCategoryComponent } from './item-subcategory/additem-sub-category/additem-sub-category.component';
+import { AssetMasterComponent } from './asset-master/asset-master.component';
+import { AddAssetmasterComponent } from './asset-master/add-assetmaster/add-assetmaster.component';
+import { FacilityMasterComponent } from './facility-master/facility-master.component';
+import { AddFacilityMasterComponent } from './facility-master/add-facility-master/add-facility-master.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'category', pathMatch: 'full' },
@@ -72,6 +77,18 @@ const routes: Routes = [
     path: 'item-cat',
     component: ItemCategoryComponent
   },
+     {
+    path: 'asset-master',
+    component: AssetMasterComponent
+  },
+     {
+    path: 'asset-master',
+    component: AssetMasterComponent
+  },
+     {
+    path: 'facility-master',
+    component: FacilityMasterComponent
+  },
 
 ]
 
@@ -84,7 +101,7 @@ const routes: Routes = [
     AddresparasComponent,
     AddeditscorematrixComponent,
     AddeditsubgroupComponent,
-    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent],
+    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent, AdditemSubCategoryComponent, AssetMasterComponent, AddAssetmasterComponent, FacilityMasterComponent, AddFacilityMasterComponent],
   imports: [
 
     CommonModule,

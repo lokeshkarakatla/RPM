@@ -1,0 +1,106 @@
+<div class="NewHeader">
+    <h3 style="padding-top:10px;">Add Facility</h3>
+</div>
+
+<div>
+    <div fxLayout="row wrap" class="col-sm-12">
+        <div class="col-sm-12" style="margin-top: 0px; padding-left: 20px;">
+            <form>
+                <div>
+                    
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Facility Code:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Code">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Facility Type:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Type">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Facility Name:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Name">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Facility Make:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Make">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">Facility Model:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Model">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">From Date:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="date" style="height:35px;" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">From Time:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="time" style="height:35px;" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">To Date:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="date" style="height:35px;" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 12px;">
+                        <div class="col-sm-4">
+                            <label class="control-label" style="margin-top:5px;">To Time:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="time" style="height:35px;" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <mat-dialog-actions align="end" style="margin-top: 15px;">
+                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
+                    <mat-icon>cancel</mat-icon> Close
+                </button>
+                <button mat-raised-button type="button" class="save" color="primary">
+                    <mat-icon>save</mat-icon> Save
+                </button>
+            </mat-dialog-actions>
+            
+        </div>
+    </div>
+</div>

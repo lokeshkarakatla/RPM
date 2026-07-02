@@ -85,6 +85,40 @@
       border-color: #bfdbfe;
     }
   }
+
+  &--sprint-1 {
+    background: #f0fdf4;
+    color: #15803d;
+    border-color: #bbf7d0;
+
+    &:hover {
+      background: #dcfce7;
+    }
+
+    &.tab-btn--active {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+    }
+  }
+
+  &--sprint-2 {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
+
+    &:hover {
+      background: #dbeafe;
+    }
+
+    &.tab-btn--active {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+  }
 }
 
 .add-sprint-btn {

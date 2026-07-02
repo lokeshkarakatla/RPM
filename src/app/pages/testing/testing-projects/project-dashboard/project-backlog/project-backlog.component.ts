@@ -108,6 +108,7 @@ export class ProjectBacklogComponent {
     if (this.activeTabId === s.id) {
       classes.push('tab-btn--active', `tab-btn--${s.kind}`);
     }
+    classes.push(`tab-btn--${s.id}`);
     return classes;
   }
 

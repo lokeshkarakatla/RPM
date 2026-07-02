@@ -11,10 +11,10 @@ export class AddcategoryComponent implements OnInit {
 
   isSubmitting = false;
   roles: any;
-  myGroup: FormGroup;
-  users: any[];
-  agencies: any[];
-  managers: any[];
+  myGroup!: FormGroup;
+  users!: any[];
+  agencies!: any[];
+  managers!: any[];
 
   constructor(
     public _fb: FormBuilder,

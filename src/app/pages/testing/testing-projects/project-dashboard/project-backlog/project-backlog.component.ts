@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 export type Stage = 'Design' | 'Development' | 'Testing' | 'Deployment';
@@ -124,4 +125,13 @@ export class ProjectBacklogComponent {
   editAsset(){
 
   }
+
+
+
+    constructor(private location: Location) { }
+     goBack(): void {
+    this.location.back();
+  }
+
+
 }

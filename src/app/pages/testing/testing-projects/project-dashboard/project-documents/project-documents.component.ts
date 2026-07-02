@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddReferralDocComponent } from './add-referral-doc/add-referral-doc.component';
+import { Location } from '@angular/common';
 
 export interface DocumentItem {
   documentType: string;
@@ -32,7 +33,7 @@ export class ProjectDocumentsComponent implements OnInit {
   // Dummy categories 
   categories: string[] = ['category 1', 'cat 2', 'cat 3'];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private location: Location) { }
 
   ngOnInit(): void {
   }
@@ -70,5 +71,18 @@ export class ProjectDocumentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // Handle returned data here if needed
     });
+  }
+
+
+
+
+
+
+
+
+
+
+   goBack(): void {
+    this.location.back();
   }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AddAssetPopComponent } from './add-asset-pop/add-asset-pop.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 
 interface Asset {
   assetCode: string;
@@ -79,9 +82,10 @@ export class ProjectAssetsComponent implements OnInit {
   ];
 
   constructor(
-
+    private dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location:Location
 
   ) { }
   ngOnInit(): void { }
@@ -95,13 +99,31 @@ export class ProjectAssetsComponent implements OnInit {
   }
 
   addAsset(): void {
-    console.log('Add Asset clicked');
-    // Example:
-    // this.router.navigate(['/assets/add']);
+    this.dialog.open(AddAssetPopComponent, {
+            width: '750px',
+           height: 'auto',
+            
+         })
   }
 
 viewScheduling(asset: Asset): void {
   this.router.navigate(['sample'], { relativeTo: this.route }); // now relative, no '../'
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+ goBack(): void {
+    this.location.back();
+  }
 
 }

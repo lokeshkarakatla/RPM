@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 export interface AssetRow {
@@ -91,13 +92,15 @@ export class AssetsSchedulingComponent {
   selectedRows: AssetRow[] = [];
   hoveredCellIndex: number = -1;
 
-  constructor() {
+  constructor(private location:Location) {
+    
     this.buildCalendar();
     // Pre-select today (or the first day of the month if today isn't in view)
     const today = new Date();
     const defaultDate = this.calendarCells.find(c => this.isSameDay(c.date, today))
       ?? this.calendarCells.find(c => c.inCurrentMonth)!;
     this.onSelectDate(defaultDate);
+    // private location: Location
   }
 
   // ─── Getters ────────────────────────────────────────────────────────────────
@@ -295,8 +298,10 @@ export class AssetsSchedulingComponent {
       && a.getDate()       === b.getDate();
   }
 
-  onAdd(): void {
-    console.log('Add new asset booking clicked');
+ 
+     goBack(): void {
+    this.location.back();
+  
   }
 
   editAsset(): void {

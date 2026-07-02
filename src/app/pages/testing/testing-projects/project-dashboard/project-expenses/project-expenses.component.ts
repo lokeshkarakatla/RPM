@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 interface Expense {
@@ -66,7 +67,7 @@ export class ProjectExpensesComponent implements OnInit {
     { date: 29, initials: 'AP', avatarBg: '#ffedd5', name: 'Anjali Patel', subject: 'Hotel Booking', description: 'Hotel stay during client visit', approvedBy: 'Jane Smith', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Client Meeting', amount: '₹2,200', pdfCount: 2, approved: false, paid: false, declined: true }
   ];
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit(): void {
     this.buildCalendar();
@@ -219,7 +220,7 @@ export class ProjectExpensesComponent implements OnInit {
     return text;
   }
 
-  goBack(){
-    
+   goBack(): void {
+    this.location.back();
   }
 }

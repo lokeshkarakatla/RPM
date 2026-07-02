@@ -400,25 +400,14 @@ $bg-light: #f9fafb;
 
 
 
-/* --- Custom Back Button --- */
-.custom-back-btn {
-  background-color: rgb(130, 130, 130) !important;
-  color: white !important;
+.back-btn {
+  margin-left: auto;
   display: flex;
   align-items: center;
-  
-  /* Makes sure the icon and text are vertically centered */
-  ::ng-deep .mdc-button__label {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  mat-icon {
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-    
-  }
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 4px;
+  margin-right: -17px;
 }
 

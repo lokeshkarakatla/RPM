@@ -46,6 +46,7 @@ import { ProjectBacklogComponent } from "./project-backlog/project-backlog.compo
 import { ProjectFacilitiesComponent } from "./project-facilities/project-facilities.component";
 import { FacilitiesSchedulingComponent } from "./project-facilities/facilities-scheduling/facilities-scheduling.component";
 import { ProjectHoursComponent } from "./project-hours/project-hours.component";
+import { AddAssetPopComponent } from './project-assets/add-asset-pop/add-asset-pop.component';
 
 const routes: Routes = [
   {
@@ -118,6 +119,7 @@ const routes: Routes = [
     ProjectFacilitiesComponent,
     FacilitiesSchedulingComponent,
     ProjectHoursComponent,
+    AddAssetPopComponent,
   ],
   imports: [
     CommonModule,

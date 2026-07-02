@@ -1,8 +1,11 @@
 .main-wrapper {
+  min-width: 1250px;
+  width: 100%;
   padding: 24px;
-  font-family: 'Inter', sans-serif;
+  // background-color: $bg-color;
+  // font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
-  background-color: #fafafa;
+  margin-top: -20px;
 }
 
 /* Header Section */
@@ -70,4 +73,14 @@
     gap: 10px;
     .action-icon { font-size: 18px; cursor: pointer; &.edit-icon { color: #5c6bc0; } &.delete-icon { color: #ef5350; } }
   }
+}
+.back-btn {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 4px;
+  margin-right: -17px;
 }

@@ -139,6 +139,7 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #e3e6ee;
 
   table {
     width: 100%;
@@ -267,4 +268,14 @@
   font-weight: 500;
   display: flex;
   justify-content: flex-start;
+}
+.back-btn {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 4px;
+  margin-right: -17px;
 }

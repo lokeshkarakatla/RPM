@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -58,7 +59,8 @@ export class ProjectFacilitiesComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit(): void { }
@@ -80,5 +82,10 @@ export class ProjectFacilitiesComponent implements OnInit {
   viewScheduling(facility: Facility): void {
     this.router.navigate(['facilities_sample'], { relativeTo: this.route });
   }
+
+   goBack(): void {
+    this.location.back();
+  }
+
 
 }

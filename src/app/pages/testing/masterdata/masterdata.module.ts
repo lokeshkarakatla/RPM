@@ -27,6 +27,8 @@ import { AddJobcodePopComponent } from './job-code/add-jobcode-pop/add-jobcode-p
 import { ItemMasterComponent } from './item-master/item-master.component';
 import { ItemCategoryComponent } from './item-category/item-category.component';
 import { ItemSubcategoryComponent } from './item-subcategory/item-subcategory.component';
+import { AdditemComponent } from './item-master/additem/additem.component';
+import { AddItemCategoryComponent } from './item-category/add-item-category/add-item-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'category', pathMatch: 'full' },
@@ -82,7 +84,7 @@ const routes: Routes = [
     AddresparasComponent,
     AddeditscorematrixComponent,
     AddeditsubgroupComponent,
-    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent],
+    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent],
   imports: [
 
     CommonModule,

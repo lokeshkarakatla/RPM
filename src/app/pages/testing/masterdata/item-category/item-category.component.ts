@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AddItemCategoryComponent } from './add-item-category/add-item-category.component';
 
 export interface ItemCategory {
   CategoryId?: number;
@@ -16,7 +18,7 @@ export class ItemCategoryComponent implements OnInit {
   // UI Controls
   filterToggle: boolean = false;
   filterForm!: FormGroup;
-  
+
   // Permissions (used in HTML for ngClass disable-custom)
   canUpdate: boolean = true;
   canDelete: boolean = true;
@@ -29,14 +31,16 @@ export class ItemCategoryComponent implements OnInit {
   // Table Data
   tableList: ItemCategory[] = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.formInit();
-    this.getCategory(); // Load initial data on init
+    this.getCategory();
   }
 
-  // Initialize the Filter Form
   formInit(): void {
     this.filterForm = this.fb.group({
       Keyword: [''],
@@ -44,10 +48,7 @@ export class ItemCategoryComponent implements OnInit {
     });
   }
 
-  // Fetch Category Data
   getCategory(): void {
-    // Note: In a real app, you would pass filterForm values to your API service here.
-    // Injecting dummy data mapped to your HTML structure
     this.tableList = [
       { CategoryId: 1, CategoryName: 'Raw Materials', IsActive: true },
       { CategoryId: 2, CategoryName: 'Finished Goods', IsActive: true },
@@ -56,37 +57,34 @@ export class ItemCategoryComponent implements OnInit {
       { CategoryId: 5, CategoryName: 'Spare Parts', IsActive: true },
       { CategoryId: 6, CategoryName: 'Hardware', IsActive: true }
     ];
-    
+
     this.totalSize = this.tableList.length;
   }
 
-  // Action Methods
-  openEditDialog(item: any): void {
-    if (item) {
-      console.log('Edit Category triggered for:', item);
-      // Logic to open modal/dialog in Edit mode goes here
-    } else {
-      console.log('Add New Category triggered');
-      // Logic to open modal/dialog in Add mode goes here
-    }
-  }
+  openEditDialog(item: any) {
+    let dialogRef = this.dialog.open(AddItemCategoryComponent, {
+      data: item,
+      height: 'auto',
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data) {
+        this.getCategory();
+      }
+    });
+  } 
 
   deleteConfirmation(item: any): void {
     console.log('Delete Category triggered for:', item);
-    // Logic to open a confirmation dialog and then call delete API goes here
   }
 
   Confirmation(item: any): void {
-    // Toggles the Active/Inactive status directly from the table
     item.IsActive = !item.IsActive;
     console.log('Status changed for:', item.CategoryName, 'New Status:', item.IsActive);
-    // Call API to update status in the backend here
   }
 
-  // Pagination Handler
   fnHandlePage(event: any): void {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-    // Usually, you call getCategory() here again if you are doing server-side pagination
   }
 }

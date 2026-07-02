@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AdditemComponent } from './additem/additem.component';
 
 interface ItemMaster {
   IsActive: boolean;
@@ -31,11 +33,14 @@ export class ItemMasterComponent implements OnInit {
   // Table Data
   tableList: ItemMaster[] = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.formInit();
-    this.getCategory(); // Load initial data
+    this.getCategory();
   }
 
   formInit() {
@@ -46,7 +51,6 @@ export class ItemMasterComponent implements OnInit {
   }
 
   getCategory() {
-    // Injecting dummy data with Indian Rupee (INR) amounts
     this.tableList = [
       { ItemCode: 'RAW-METL', ItemName: 'Raw Metals', ItemCategory: 'Raw Materials', ItemSubCategory: 'Metals', AvailableQuantity: 450, UnitRate: 1250.00, IsActive: true },
       { ItemCode: 'RAW-PLAS', ItemName: 'Raw Plastics', ItemCategory: 'Raw Materials', ItemSubCategory: 'Plastics', AvailableQuantity: 1200, UnitRate: 425.00, IsActive: true },
@@ -63,9 +67,17 @@ export class ItemMasterComponent implements OnInit {
     ];
   }
 
-  // Placeholder methods for HTML actions
   openEditDialog(item: any) {
-    console.log('Edit item:', item);
+    let dialogRef = this.dialog.open(AdditemComponent, {
+      data: item,
+      height: 'auto',
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data) {
+        this.getCategory();
+      }
+    });
   }
 
   deleteConfirmation(item: any) {
@@ -73,7 +85,6 @@ export class ItemMasterComponent implements OnInit {
   }
 
   Confirmation(item: any) {
-    // Toggle active status
     item.IsActive = !item.IsActive;
   }
 

@@ -1,4 +1,3 @@
-
 <!-- Add Filter Tabs -->
 <div style="margin-bottom: 50px;"></div>
 <div class="container-fluid w-50 mt-3 mb-3">
@@ -95,44 +94,43 @@
                                 <tr>
                                     <th class="text-center">Actions</th>
                                     <th class="text-center">Status</th>
-                                    <th class="text-center">Asset Name</th>
-                                    <th class="text-center">Asset Code</th>
-                                    <th class="text-center">Asset Category</th>
+                                    <th class="text-center">Facility Name</th>
+                                    <th class="text-center">Facility Code</th>
+                                    <!-- <th class="text-center">Asset Category</th>
                                     <th class="text-center">Asset Sub Category</th>
                                     <th class="text-center">Available Quantity</th>
-                                    <th class="text-center">Unit Rate</th>
-
+                                    <th class="text-center">Unit Rate</th> -->
                                 </tr>
                             </thead>
-                           <tbody>
-    <tr *ngFor="let item of tableList">
-        <td class="text-center editDel">
-            <a style="cursor: pointer;margin-right:10px;"
-                [ngClass]="{'disable-custom' : !canUpdate}" matTooltip="Edit"
-                (click)="openEditDialog(item)">
-                <i class="fa fa-edit" style="color: cornflowerblue"></i>
-            </a>
-            <a><i class="fa fa-trash red" matTooltip="Delete"
-                    [ngClass]="{'disable-custom' : !canDelete}" style="cursor: pointer;"
-                    (click)="deleteConfirmation(item)"></i></a>
-        </td>
-        <td style="text-align: center !important;" class="text-center">
-            <a [ngStyle]="{'color' : item.IsActive ? 'blue' : 'red'}"
-                [ngClass]="{'disable-custom' : !canUpdate}">
-                <span *ngIf="!item.IsActive" (click)="Confirmation(item)"
-                    style="color:red">Inactive</span>
-                <span *ngIf=" item.IsActive" (click)="Confirmation(item)"
-                    style="color:blue;">Active</span>
-            </a>
-        </td>
-        <td class="text-center">{{item.FacilityName}}</td>
-        <td class="text-center">{{item.FacilityCode}}</td>
-        <td class="text-center">{{item.FacilityCategory}}</td>
-        <td class="text-center">{{item.FacilitySubCategory}}</td>
-        <td class="text-center">{{item.AvailableQuantity}}</td>
-        <td class="text-center">{{item.UnitRate}}</td>
-    </tr>
-</tbody>
+                            <tbody>
+                                <tr *ngFor="let item of tableList">
+                                    <td class="text-center editDel">
+                                        <a style="cursor: pointer;margin-right:10px;"
+                                            [ngClass]="{'disable-custom' : !canUpdate}" matTooltip="Edit"
+                                            (click)="openEditDialog(item)">
+                                            <i class="fa fa-edit" style="color: cornflowerblue"></i>
+                                        </a>
+                                        <a><i class="fa fa-trash red" matTooltip="Delete"
+                                                [ngClass]="{'disable-custom' : !canDelete}" style="cursor: pointer;"
+                                                (click)="deleteConfirmation(item)"></i></a>
+                                    </td>
+                                    <td style="text-align: center !important;" class="text-center">
+                                        <a [ngStyle]="{'color' : item.IsActive ? 'blue' : 'red'}"
+                                            [ngClass]="{'disable-custom' : !canUpdate}">
+                                            <span *ngIf="!item.IsActive" (click)="Confirmation(item)"
+                                                style="color:red">Inactive</span>
+                                            <span *ngIf=" item.IsActive" (click)="Confirmation(item)"
+                                                style="color:blue;">Active</span>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">{{item.FacilityName}}</td>
+                                    <td class="text-center">{{item.FacilityCode}}</td>
+                                    <!-- <td class="text-center">{{item.FacilityCategory}}</td>
+                                    <td class="text-center">{{item.FacilitySubCategory}}</td>
+                                    <td class="text-center">{{item.AvailableQuantity}}</td>
+                                    <td class="text-center">{{item.UnitRate}}</td> -->
+                                </tr>
+                            </tbody>
                             <tr *ngIf="tableList == null || tableList.length == 0">
                                 <td colspan="12" class="text-center">No records found</td>
                             </tr>

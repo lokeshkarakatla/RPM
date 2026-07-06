@@ -212,8 +212,12 @@ export class RpmTasksComponent implements OnInit {
     this.currentTime = `${formattedHours}:${minutes} ${now.getHours() >= 12 ? "PM" : "AM"}`;
   }
 
-  toggleView(): void {
-    this.isCalendarView = !this.isCalendarView;
+  showCalendarView(): void {
+    this.isCalendarView = true;
+  }
+
+  showGridView(): void {
+    this.isCalendarView = false;
   }
 
   toggleWeekend(): void {

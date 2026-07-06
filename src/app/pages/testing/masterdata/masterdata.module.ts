@@ -34,6 +34,10 @@ import { AssetMasterComponent } from './asset-master/asset-master.component';
 import { AddAssetmasterComponent } from './asset-master/add-assetmaster/add-assetmaster.component';
 import { FacilityMasterComponent } from './facility-master/facility-master.component';
 import { AddFacilityMasterComponent } from './facility-master/add-facility-master/add-facility-master.component';
+import { ProjectTypesComponent } from './project-types/project-types.component';
+import { ProjectStatusComponent } from './project-status/project-status.component';
+import { AddProjectStatusComponent } from './project-status/add-project-status/add-project-status.component';
+import { AddProjectTypesComponent } from './project-types/add-project-types/add-project-types.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'category', pathMatch: 'full' },
@@ -61,34 +65,44 @@ const routes: Routes = [
     path: 'score-matrix',
     component: ScoreMatrixComponent
   },
-   {
+  {
     path: 'job-code',
     component: JobCodeComponent
   },
-     {
+  {
     path: 'item-master',
     component: ItemMasterComponent
   },
-   {
+  {
     path: 'item-sub',
     component: ItemSubcategoryComponent
   },
-     {
+  {
     path: 'item-cat',
     component: ItemCategoryComponent
   },
-     {
+  {
     path: 'asset-master',
     component: AssetMasterComponent
   },
-     {
+  {
     path: 'asset-master',
     component: AssetMasterComponent
   },
-     {
+
+  {
     path: 'facility-master',
     component: FacilityMasterComponent
   },
+
+  {
+    path: 'project-types',
+    component: ProjectTypesComponent
+  },
+  {
+    path: 'project-status',
+    component: ProjectStatusComponent
+  }
 
 ]
 
@@ -101,7 +115,7 @@ const routes: Routes = [
     AddresparasComponent,
     AddeditscorematrixComponent,
     AddeditsubgroupComponent,
-    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent, AdditemSubCategoryComponent, AssetMasterComponent, AddAssetmasterComponent, FacilityMasterComponent, AddFacilityMasterComponent],
+    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent, AdditemSubCategoryComponent, AssetMasterComponent, AddAssetmasterComponent, FacilityMasterComponent, AddFacilityMasterComponent, ProjectTypesComponent, ProjectStatusComponent, AddProjectStatusComponent, AddProjectTypesComponent],
   imports: [
 
     CommonModule,

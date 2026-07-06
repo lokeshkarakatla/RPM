@@ -3,11 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-add-facility-master',
-  templateUrl: './add-facility-master.component.html',
-  styleUrls: ['./add-facility-master.component.scss']
+  selector: 'app-add-project-status',
+  templateUrl: './add-project-status.component.html',
+  styleUrls: ['./add-project-status.component.scss']
 })
-export class AddFacilityMasterComponent implements OnInit {
+
+
+export class AddProjectStatusComponent implements OnInit {
 
   myGroup: FormGroup;
   isEditMode = false;
@@ -15,22 +17,22 @@ export class AddFacilityMasterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<AddFacilityMasterComponent>,
+    private dialogRef: MatDialogRef<AddProjectStatusComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.myGroup = this.fb.group({
-      FacilityName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]],
-      FacilityCode: ['', [Validators.required]]
+      ProjectStatus: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]],
+      Description: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
-    // If editing, pre-fill the form with existing data
     this.isEditMode = !!this.data;
+
     if (this.data) {
       this.myGroup.patchValue({
-        FacilityName: this.data.FacilityName ?? '',
-        FacilityCode: this.data.FacilityCode ?? '',
+        ProjectStatus: this.data.ProjectStatus ?? '',
+        Description: this.data.Description ?? ''
       });
     }
   }

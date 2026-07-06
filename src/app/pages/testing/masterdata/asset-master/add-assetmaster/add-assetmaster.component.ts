@@ -10,6 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddAssetmasterComponent implements OnInit {
 
   myGroup: FormGroup;
+  isEditMode = false;
   isSubmitting = false;
 
   constructor(
@@ -21,22 +22,24 @@ export class AddAssetmasterComponent implements OnInit {
       AssetName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]],
       AssetCode: ['', [Validators.required]],
       AssetCategory: ['', [Validators.required]],
-      AssetSubCategory: ['', [Validators.required]],
-      AvailableQuantity: [null, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      UnitRate: [null, [Validators.required, Validators.pattern(/^[0-9]*\.?[0-9]*$/)]]
+      // AssetSubCategory: ['', [Validators.required]],
+      // AvailableQuantity: [null, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      // UnitRate: [null, [Validators.required, Validators.pattern(/^[0-9]*\.?[0-9]*$/)]]
     });
   }
 
   ngOnInit(): void {
-    // If editing, pre-fill the form with existing data
+
+    this.isEditMode = !!this.data;
+
     if (this.data) {
       this.myGroup.patchValue({
         AssetName: this.data.AssetName ?? '',
         AssetCode: this.data.AssetCode ?? '',
         AssetCategory: this.data.AssetCategory ?? '',
-        AssetSubCategory: this.data.AssetSubCategory ?? '',
-        AvailableQuantity: this.data.AvailableQuantity ?? null,
-        UnitRate: this.data.UnitRate ?? null
+        // AssetSubCategory: this.data.AssetSubCategory ?? '',
+        // AvailableQuantity: this.data.AvailableQuantity ?? null,
+        // UnitRate: this.data.UnitRate ?? null
       });
     }
   }

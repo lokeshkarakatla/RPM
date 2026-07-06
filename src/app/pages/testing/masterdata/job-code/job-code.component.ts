@@ -25,11 +25,11 @@ export class JobCodeComponent implements OnInit {
   filterToggle: boolean;
   filterForm: FormGroup;
   Status = [];
-  
+
   canCreate: boolean = UserPermissionService.fnGetCreatePermissions(12);
   canDelete: boolean = UserPermissionService.fnGetDeletePermissions(12);
   canUpdate: boolean = UserPermissionService.fnGetUpdatePermissions(12);
-  
+
   constructor(
     private router: Router,
     public dialog: MatDialog,
@@ -77,8 +77,8 @@ export class JobCodeComponent implements OnInit {
       (data: any) => {
         if (data) {
           // Toggle status manually for frontend demo purpose
-          item.isActive = !item.isActive; 
-          
+          item.isActive = !item.isActive;
+
           // this._MasterDataService.StatusCategory({ CategoryId: data.CategoryId }).subscribe((data: any) => {
           //   if (data['Success']) {
           //     this.getCategory();

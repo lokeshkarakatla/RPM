@@ -48,7 +48,7 @@ mat-paginator {
   right: 40px;
   background-color: #e6e6e6 !important;
   z-index: 9999;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .scroll-controls {
@@ -104,3 +104,128 @@ mat-paginator {
   color: white !important;
 }
 
+.rpm-tasks-container {
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+.rpm-tasks-inner {
+  margin-top: 10px;
+}
+
+.rpm-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.view-toggle {
+  display: inline-flex;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  height: 36px;
+  box-sizing: border-box;
+}
+
+.view-btn {
+  border-radius: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  border: none !important;
+  padding: 0 16px !important;
+  height: 100% !important;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &.active {
+    background-color: black !important;
+    color: white !important;
+  }
+
+  &:not(.active) {
+    background-color: white !important;
+    color: black !important;
+  }
+}
+
+.action-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: black !important;
+  color: white !important;
+  height: 36px !important;
+  padding: 0 16px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  border-radius: 4px !important;
+  border: none !important;
+  box-sizing: border-box;
+
+  mat-icon {
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+}
+
+.freeze-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: black !important;
+  color: white !important;
+  height: 36px !important;
+  padding: 0 16px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  border-radius: 4px !important;
+  border: none !important;
+  box-sizing: border-box;
+
+  .icon-wrapper {
+    margin-right: 4px;
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+      color: white;
+    }
+  }
+}
+
+.calendar-days {
+  width: 100%;
+}
+
+.calendar-day-column {
+  vertical-align: top;
+  padding: 10px;
+  background-color: #fafafa;
+  min-height: 400px;
+}
+
+.day-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

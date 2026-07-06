@@ -1,6 +1,6 @@
 <div class="NewHeader">
     <h1 mat-dialog-title style="color:white;">
-        {{ isEditMode ? 'Update Facility' : 'Add Facility' }}
+        {{ isEditMode ? 'Update Project Type' : 'Add Project Type' }}
     </h1>
 </div>
 
@@ -9,24 +9,25 @@
         <form [formGroup]="myGroup">
             <div class="row" style="margin-bottom: 12px;">
                 <div class="col-sm-3 ">
-                    <label class="add-member-label control-label" style="margin-top:5px; ">Facility Name :</label>
+                    <label class="add-member-label control-label" style="margin-top:5px; ">Project Type :</label>
                 </div>
                 <div class="col-sm-9">
                     <div>
-                        <input class="form-control name back" maxlength="50" placeholder="Enter Facility Name"
-                            formControlName="FacilityName" type="text" value="">
+                        <input class="form-control name back" maxlength="50" placeholder="Enter Project Type"
+                            formControlName="ProjectType" type="text" value="">
                     </div>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 12px;">
                 <div class="col-sm-3 ">
-                    <label class="add-member-label control-label" style="margin-top:5px; ">Facility Code
+                    <label class="add-member-label control-label" style="margin-top:5px; ">Description
                         :</label>
                 </div>
                 <div class="col-sm-9">
                     <div>
-                        <input class="form-control name back" maxlength="50" placeholder="Enter Facility Code"
-                            formControlName="FacilityCode" type="text" value="">
+                        <input class="form-control name back" maxlength="50"
+                            placeholder="Enter Project Type Description" formControlName="Description" type="text"
+                            value="">
                     </div>
                 </div>
             </div>

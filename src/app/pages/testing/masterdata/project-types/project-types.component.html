@@ -10,7 +10,7 @@
                             <div>
                                 <button mat-raised-button color="primary" class="pull-right btn-primary mt-3"
                                     style="margin-left:10px;" matTooltip="Add Category" (click)="openEditDialog(null)">
-                                    <mat-icon>add</mat-icon> Add Asset
+                                    <mat-icon>add</mat-icon> Add Project Type
                                 </button>
 
                                 <button mat-raised-button matTooltip="Filter" style="background-color:black;color:white"
@@ -94,13 +94,12 @@
                                 <tr>
                                     <th class="text-center">Actions</th>
                                     <th class="text-center">Status</th>
-                                    <th class="text-center">Asset Name</th>
-                                    <th class="text-center">Asset Code</th>
-                                    <th class="text-center">Asset Category</th>
-                                    <!-- <th class="text-center">Asset Sub Category</th>
+                                    <th class="text-center">Project Type</th>
+                                    <th class="text-center">Description</th>
+                                    <!-- <th class="text-center">Asset Category</th>
+                                    <th class="text-center">Asset Sub Category</th>
                                     <th class="text-center">Available Quantity</th>
                                     <th class="text-center">Unit Rate</th> -->
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -124,10 +123,10 @@
                                                 style="color:blue;">Active</span>
                                         </a>
                                     </td>
-                                    <td class="text-center">{{item.AssetName}}</td>
-                                    <td class="text-center">{{item.AssetCode}}</td>
-                                    <td class="text-center">{{item.AssetCategory}}</td>
-                                    <!-- <td class="text-center">{{item.AssetSubCategory}}</td>
+                                    <td class="text-center">{{item.ProjectType}}</td>
+                                    <td class="text-center">{{item.Description}}</td>
+                                    <!-- <td class="text-center">{{item.FacilityCategory}}</td>
+                                    <td class="text-center">{{item.FacilitySubCategory}}</td>
                                     <td class="text-center">{{item.AvailableQuantity}}</td>
                                     <td class="text-center">{{item.UnitRate}}</td> -->
                                 </tr>

@@ -42,7 +42,7 @@ const routes: Routes = [
     component: EscalationComponent,
     loadChildren: () =>
       import("./escalation/escalation.module").then((m) => m.EscalationModule),
-    data: { breadcrumb: 'Escalation Matrix', description: 'The delay thresholds that drives 4 levels of escalation for the action items are configured on this screen' }
+    data: { breadcrumb: 'Escalation Matrix', description: 'Settings related to escalation are managed here.' }
   },
 
 
@@ -52,25 +52,25 @@ const routes: Routes = [
     path: "settings",
     component: SettingsComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Preferences', description: "Default settings that apply across the entire application are updated here." }
+    data: { breadcrumb: 'Preferences', description: "Application settings are updated here." }
   },
   {
     path: "lookups",
     component: LookupComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Lookup Options', description: "Choices that appear in drop down select boxes are updated here." }
+    data: { breadcrumb: 'Lookup Options', description: "Codes and Lookup options are managed here." }
   },
    {
     path: "departments",
     component: MdataDeptsComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Departments', description: "Choices that appear in drop down select boxes are updated here." }
+    data: { breadcrumb: 'Departments', description: "The list of departments is managed here." }
   },
   {
     path: 'event-log',
     component: EventLogComponent,
     pathMatch: "full",
-    data: { breadcrumb: 'Event Log', description: "Actions performed by various users across the project are logged here and can be filtered by role, date range, module and event type" }
+    data: { breadcrumb: 'Event Log', description: "Create, read, update and delete event across the application are logged here." }
   },
 
   {

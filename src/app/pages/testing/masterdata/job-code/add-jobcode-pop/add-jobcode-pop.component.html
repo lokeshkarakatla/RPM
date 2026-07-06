@@ -27,34 +27,34 @@
             <div class="row align-items-center" style="margin-bottom: 15px;">
                 <div class="col-sm-4 text-right">
                     <label class="  control-label" style="margin-top:5px; font-weight: 600;">
-                        Job Code Title :
+                        Narration :
                     </label>
                 </div>
                 <div class="col-sm-8">
-                    <input class="form-control" maxlength="100" placeholder="Enter Job Code Title"
-                        formControlName="jobCodeTitle" type="text"
+                    <input class="form-control" maxlength="100" placeholder="Enter Narration"
+                        formControlName="narration" type="text"
                         style="background-color: #ffffff; border: 1px solid #9ecaed; height: 38px; border-radius: 4px;">
-                    <div *ngIf="isSubmitting && f['jobCodeTitle'].errors" class="text-danger mt-1" style="font-size: 12px;">
-                        <div *ngIf="f['jobCodeTitle'].errors['required']">Job Code Title is required</div>
+                    <div *ngIf="isSubmitting && f['narration'].errors" class="text-danger mt-1" style="font-size: 12px;">
+                        <div *ngIf="f['narration'].errors['required']">Narration is required</div>
                     </div>
                 </div>
             </div>
 
-            <div class="row align-items-center" style="margin-bottom: 15px;">
-                <div class="col-sm-4 text-right">
-                    <label class=" control-label" style="margin-top:5px; font-weight: 600;">
-                        Category :
-                    </label>
-                </div>
-                <div class="col-sm-8">
-                    <input class="form-control" maxlength="100" placeholder="Enter Category"
-                        formControlName="jobCodeCategory" type="text"
-                        style="background-color: #ffffff; border: 1px solid #9ecaed; height: 38px; border-radius: 4px;">
-                    <div *ngIf="isSubmitting && f['jobCodeCategory'].errors" class="text-danger mt-1" style="font-size: 12px;">
-                        <div *ngIf="f['jobCodeCategory'].errors['required']">Category is required</div>
-                    </div>
-                </div>
-            </div>
+           <div class="row align-items-center" style="margin-bottom: 15px;">
+    <div class="col-sm-4 text-right">
+        <label class=" control-label" style="margin-top:5px; font-weight: 600;">
+            Description :
+        </label>
+    </div>
+    <div class="col-sm-8">
+        <textarea class="form-control" maxlength="100" placeholder="Enter Description"
+            formControlName="description" rows="3"
+            style="background-color: #ffffff; border: 1px solid #9ecaed; border-radius: 4px; resize: vertical;"></textarea>
+        <div *ngIf="isSubmitting && f['description'].errors" class="text-danger mt-1" style="font-size: 12px;">
+            <div *ngIf="f['description'].errors['required']">Description is required</div>
+        </div>
+    </div>
+</div>
 
             <div class="row align-items-center" style="margin-bottom: 25px;">
                 <div class="col-sm-4 text-right">

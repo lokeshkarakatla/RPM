@@ -20,6 +20,18 @@ export class AdditemSubCategoryComponent implements OnInit {
   ) {
   }
 
+  categoryList: { CategoryId: number; CategoryName: string }[] = [
+  { CategoryId: 1, CategoryName: 'Metals' },
+  { CategoryId: 2, CategoryName: 'Plastics' },
+  { CategoryId: 3, CategoryName: 'Electronics' },
+  { CategoryId: 4, CategoryName: 'Hardware' },
+  { CategoryId: 5, CategoryName: 'Internal Assemblies' },
+  { CategoryId: 6, CategoryName: 'Primary Packaging' },
+  { CategoryId: 7, CategoryName: 'Secondary Packaging' },
+  { CategoryId: 8, CategoryName: 'Tools' },
+  { CategoryId: 9, CategoryName: 'Safety Equipment' }
+];
+
   ngOnInit() {
     if (this.data) {
       this.formInit(this.data)

@@ -5,7 +5,8 @@ import { AdditemSubCategoryComponent } from './additem-sub-category/additem-sub-
 
 export interface ItemSubcategory {
   SubCategoryId?: number;
-  CategoryName: string; // Matches the {{item.CategoryName}} binding in your HTML
+  CategoryName: string;      // Matches the Category column
+  SubCategoryName: string;   // Matches the Sub Category Name column
   IsActive: boolean;
 }
 
@@ -50,15 +51,21 @@ export class ItemSubcategoryComponent implements OnInit {
 
   getCategory(): void {
     this.tableList = [
-      { SubCategoryId: 101, CategoryName: 'Metals', IsActive: true },
-      { SubCategoryId: 102, CategoryName: 'Plastics', IsActive: true },
-      { SubCategoryId: 103, CategoryName: 'Electronics', IsActive: true },
-      { SubCategoryId: 104, CategoryName: 'Hardware', IsActive: false },
-      { SubCategoryId: 105, CategoryName: 'Internal Assemblies', IsActive: true },
-      { SubCategoryId: 106, CategoryName: 'Primary Packaging', IsActive: true },
-      { SubCategoryId: 107, CategoryName: 'Secondary Packaging', IsActive: true },
-      { SubCategoryId: 108, CategoryName: 'Tools', IsActive: true },
-      { SubCategoryId: 109, CategoryName: 'Safety Equipment', IsActive: false }
+      { SubCategoryId: 101, CategoryName: 'Metals', SubCategoryName: 'Aluminum', IsActive: true },
+      { SubCategoryId: 102, CategoryName: 'Metals', SubCategoryName: 'Stainless Steel', IsActive: true },
+      { SubCategoryId: 103, CategoryName: 'Plastics', SubCategoryName: 'ABS', IsActive: true },
+      { SubCategoryId: 104, CategoryName: 'Plastics', SubCategoryName: 'Polycarbonate', IsActive: false },
+      { SubCategoryId: 105, CategoryName: 'Electronics', SubCategoryName: 'PCB Assemblies', IsActive: true },
+      { SubCategoryId: 106, CategoryName: 'Electronics', SubCategoryName: 'Connectors', IsActive: true },
+      { SubCategoryId: 107, CategoryName: 'Hardware', SubCategoryName: 'Fasteners', IsActive: false },
+      { SubCategoryId: 108, CategoryName: 'Hardware', SubCategoryName: 'Bearings', IsActive: true },
+      { SubCategoryId: 109, CategoryName: 'Internal Assemblies', SubCategoryName: 'Sub-frames', IsActive: true },
+      { SubCategoryId: 110, CategoryName: 'Primary Packaging', SubCategoryName: 'Bottles', IsActive: true },
+      { SubCategoryId: 111, CategoryName: 'Primary Packaging', SubCategoryName: 'Blister Packs', IsActive: true },
+      { SubCategoryId: 112, CategoryName: 'Secondary Packaging', SubCategoryName: 'Cartons', IsActive: true },
+      { SubCategoryId: 113, CategoryName: 'Tools', SubCategoryName: 'Hand Tools', IsActive: true },
+      { SubCategoryId: 114, CategoryName: 'Tools', SubCategoryName: 'Power Tools', IsActive: true },
+      { SubCategoryId: 115, CategoryName: 'Safety Equipment', SubCategoryName: 'PPE Kits', IsActive: false }
     ];
 
     this.totalSize = this.tableList.length;

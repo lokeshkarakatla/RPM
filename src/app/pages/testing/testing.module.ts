@@ -42,11 +42,14 @@ import { RpmTodoComponent } from './rpm-todo/rpm-todo.component';
 import { DragulaModule } from 'ng2-dragula';
 import { AddStagePopComponent } from './rpm-stages/add-stage-pop/add-stage-pop.component';
 import { ProcedurePopComponent } from './rpm-stages/rpm-stages-wbs/procedure-pop/procedure-pop.component';
+import { de } from 'date-fns/locale';
 
 const routes: Routes = [
     { path: "", redirectTo: "test-dashboard", pathMatch: "full" },
     { path: 'test-dashboard', component: TestdashboardComponent, data: { breadcrum: 'Radar' } },
-    { path: 'issues', component: TestingIssuesComponent, data: { breadcrumb: 'Issues' } },
+    { path: 'issues', component: TestingIssuesComponent, data: { breadcrumb: 'Issues',
+        description: 'Issues accross the projects are managed here.' } },
+     
     { path: 'tractorstatus', component: TractorstatusComponent, data: { breadcrumb: 'Tractor Status' } },
     { path: 'teststatus', component: TeststatusComponent, data: { breadcrumb: 'Test Status' } },
     { path: 'activity', component: ActivityRpmComponent, data: { breadcrumb: 'Activity' } },
@@ -70,7 +73,8 @@ const routes: Routes = [
         // data: { breadcrumb: 'Projects' } 
     },
     { path: 'testing-kanban', component: TestingKanbanComponent, data: { breadcrumb: 'Kanban' } },
-    { path: 'todo', component: RpmTodoComponent, data: { breadcrumb: 'To do' } },
+    { path: 'todo', component: RpmTodoComponent, 
+        data: { breadcrumb: 'To do', description: 'The list of todo items are managed here.' } },
     {
         path: "gates",
         component: GatesComponent,

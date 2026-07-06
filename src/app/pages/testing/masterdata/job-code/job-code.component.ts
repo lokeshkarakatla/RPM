@@ -22,8 +22,8 @@ export class JobCodeComponent implements OnInit {
   fromIndex: number = 0;
 
   tableList: any[] = [];
-  filterToggle: boolean;
-  filterForm: FormGroup;
+  filterToggle!: boolean;
+  filterForm!: FormGroup;
   Status = [];
 
   canCreate: boolean = UserPermissionService.fnGetCreatePermissions(12);
@@ -43,29 +43,28 @@ export class JobCodeComponent implements OnInit {
     this.getCategory();
   }
 
-  getCategory() {
-    // Replaced the dummy data with the exact rows from the screenshot
-    this.tableList = [
-      { jobCode: '1DC', jobCodeTitle: '1st Draft Corrections', jobCodeCategory: 'Legal Team', chargeoutRate: 80, isActive: true },
-      { jobCode: '1DR', jobCodeTitle: '1st Draft Reviewer', jobCodeCategory: 'Production Team', chargeoutRate: 60, isActive: true },
-      { jobCode: 'AA', jobCodeTitle: 'Admin Assistant', jobCodeCategory: 'Business Services Team', chargeoutRate: 60, isActive: true },
-      { jobCode: 'ACCCHK', jobCodeTitle: 'Accounts checking', jobCodeCategory: 'Production Team', chargeoutRate: 50, isActive: true },
-      { jobCode: 'BSM', jobCodeTitle: 'Business Services Manager', jobCodeCategory: 'Business Services Team', chargeoutRate: 100, isActive: true },
-      { jobCode: 'CC', jobCodeTitle: 'Construction Coordinator', jobCodeCategory: 'Construction Team', chargeoutRate: 150, isActive: true },
-      { jobCode: 'CCAD1', jobCodeTitle: 'Construction CAD 1', jobCodeCategory: 'Business Services Team', chargeoutRate: 75, isActive: true },
-      { jobCode: 'CCAD2', jobCodeTitle: 'Construction CAD 2', jobCodeCategory: 'Construction Team', chargeoutRate: 85, isActive: true },
-      { jobCode: 'CCAD3', jobCodeTitle: 'Construction CAD 3', jobCodeCategory: 'Construction Team', chargeoutRate: 95, isActive: true },
-      { jobCode: 'CFA', jobCodeTitle: 'Construction Field Assistant', jobCodeCategory: 'Construction Team', chargeoutRate: 55, isActive: true },
-      { jobCode: 'CLCNT', jobCodeTitle: 'Client Contact', jobCodeCategory: 'Business Services Team', chargeoutRate: 30, isActive: true },
-      { jobCode: 'CLCT', jobCodeTitle: 'Calculations', jobCodeCategory: 'Production Team', chargeoutRate: 50, isActive: true },
-      { jobCode: 'CLINT', jobCodeTitle: 'Client Interaction', jobCodeCategory: 'Business Services Team', chargeoutRate: 30, isActive: true },
-      { jobCode: 'CPC1', jobCodeTitle: 'Construction Party Chief 1', jobCodeCategory: 'Construction Team', chargeoutRate: 100, isActive: true },
-      { jobCode: 'CPC2', jobCodeTitle: 'Construction Party Chief 2', jobCodeCategory: 'Construction Team', chargeoutRate: 110, isActive: true },
-      { jobCode: 'CPC3', jobCodeTitle: 'Construction Party Chief 3', jobCodeCategory: 'Construction Team', chargeoutRate: 120, isActive: true },
-      { jobCode: 'CRCTN', jobCodeTitle: 'Corrections', jobCodeCategory: 'Legal Team', chargeoutRate: 48, isActive: true },
-      { jobCode: 'CTL', jobCodeTitle: 'Construction Team Lead', jobCodeCategory: 'Construction Team', chargeoutRate: 150, isActive: true }
-    ];
-  }
+getCategory() {
+  this.tableList = [
+    { jobCode: '1DC', narration: '1st Draft Corrections', description: 'Legal Team', chargeoutRate: 80, isActive: true },
+    { jobCode: '1DR', narration: '1st Draft Reviewer', description: 'Production Team', chargeoutRate: 60, isActive: true },
+    { jobCode: 'AA', narration: 'Admin Assistant', description: 'Business Services Team', chargeoutRate: 60, isActive: true },
+    { jobCode: 'ACCCHK', narration: 'Accounts checking', description: 'Production Team', chargeoutRate: 50, isActive: true },
+    { jobCode: 'BSM', narration: 'Business Services Manager', description: 'Business Services Team', chargeoutRate: 100, isActive: true },
+    { jobCode: 'CC', narration: 'Construction Coordinator', description: 'Construction Team', chargeoutRate: 150, isActive: true },
+    { jobCode: 'CCAD1', narration: 'Construction CAD 1', description: 'Business Services Team', chargeoutRate: 75, isActive: true },
+    { jobCode: 'CCAD2', narration: 'Construction CAD 2', description: 'Construction Team', chargeoutRate: 85, isActive: true },
+    { jobCode: 'CCAD3', narration: 'Construction CAD 3', description: 'Construction Team', chargeoutRate: 95, isActive: true },
+    { jobCode: 'CFA', narration: 'Construction Field Assistant', description: 'Construction Team', chargeoutRate: 55, isActive: true },
+    { jobCode: 'CLCNT', narration: 'Client Contact', description: 'Business Services Team', chargeoutRate: 30, isActive: true },
+    { jobCode: 'CLCT', narration: 'Calculations', description: 'Production Team', chargeoutRate: 50, isActive: true },
+    { jobCode: 'CLINT', narration: 'Client Interaction', description: 'Business Services Team', chargeoutRate: 30, isActive: true },
+    { jobCode: 'CPC1', narration: 'Construction Party Chief 1', description: 'Construction Team', chargeoutRate: 100, isActive: true },
+    { jobCode: 'CPC2', narration: 'Construction Party Chief 2', description: 'Construction Team', chargeoutRate: 110, isActive: true },
+    { jobCode: 'CPC3', narration: 'Construction Party Chief 3', description: 'Construction Team', chargeoutRate: 120, isActive: true },
+    { jobCode: 'CRCTN', narration: 'Corrections', description: 'Legal Team', chargeoutRate: 48, isActive: true },
+    { jobCode: 'CTL', narration: 'Construction Team Lead', description: 'Construction Team', chargeoutRate: 150, isActive: true }
+  ];
+}
 
   // Active/InActive Status API
   Confirmation(item: any) {

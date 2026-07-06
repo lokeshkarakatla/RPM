@@ -88,11 +88,11 @@
           <thead class="tbl-head">
             <tr>
               <th class="text-center">Actions</th>
-              <th>Job Code</th>
-              <th>Job Code Title</th>
-              <th>Job Code Category</th>
-              <th class="text-center">Hourly Rate ($)</th>
               <th class="text-center">Status</th>
+              <th>Job Code</th>
+              <th>Narration</th>
+              <th>Description</th>
+              <th class="text-center">Hourly Rate ($)</th>
             </tr>
           </thead>
           <tbody>
@@ -110,17 +110,18 @@
                   <mat-icon style="color: #e00d0d; font-size: 20px;">delete</mat-icon>
                 </a>
               </td>
-              <td>{{ item.jobCode }}</td>
-              <td>{{ item.jobCodeTitle }}</td>
-              <td>{{ item.jobCodeCategory }}</td>
-              <td class="text-center">{{ item.chargeoutRate }}</td>
-              <td class="text-center">
+               <td class="text-center">
                 <a [ngStyle]="{'color' : item.isActive ? '#0056b3' : 'red'}"
                   style="text-decoration: underline; cursor: pointer;" [ngClass]="{'disable-custom' : !canUpdate}"
                   (click)="Confirmation(item)">
                   {{ item.isActive ? 'Active' : 'Inactive' }}
                 </a>
               </td>
+              <td>{{ item.jobCode }}</td>
+<td>{{ item.narration }}</td>
+<td>{{ item.description }}</td>
+<td class="text-center">{{ item.chargeoutRate }}</td>
+             
             </tr>
           </tbody>
         </table>

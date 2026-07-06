@@ -8,7 +8,7 @@
           <div class="row">
             <div class="col-xs-12" style="margin-left: 69%; margin-bottom: -15px;">
               <div>
-                <button mat-raised-button
+                <button mat-raised-button   
                         color="primary"
                         class="pull-right btn-primary mt-3"
                         style="margin-left:10px;" matTooltip="Add Category"
@@ -93,46 +93,44 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div id="grid-table-container" class="table-responsive">
-                        <table matSort id="example2" class="table table-bordered table-hover"
-                            >
-                            <thead class="tbl-head">
-                                <tr>
-                                    <th class="text-center"  >Actions</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Sub Category Name</th>
- 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of tableList">
-                                     <td class="text-center editDel">
-                                        <a style="cursor: pointer;margin-right:10px;"
-                                            [ngClass]="{'disable-custom' : !canUpdate}" matTooltip="Edit"
-                                            (click)="openEditDialog(item)">
-                                            <i class="fa fa-edit" style="color: cornflowerblue"></i>
-                                        </a>
-                                        <a><i class="fa fa-trash red" matTooltip="Delete"
-                                                [ngClass]="{'disable-custom' : !canDelete}" style="cursor: pointer;"
-                                                (click)="deleteConfirmation(item)"></i></a>
-                                    </td>
-                                     <td style="text-align: center !important;" class="text-center">
-                                        <a [ngStyle]="{'color' : item.IsActive ? 'blue' : 'red'}"
-                                            [ngClass]="{'disable-custom' : !canUpdate}">
-                                            <span *ngIf="!item.IsActive" (click)="Confirmation(item)"
-                                                style="color:red">Inactive</span>
-                                            <span *ngIf=" item.IsActive" (click)="Confirmation(item)"
-                                                style="color:blue;">Active</span>
-                                        </a>
-                                    </td>
-                                    <td class="text-center">{{item.CategoryName}}</td>
-                                   
-                                   
-                                </tr>
-                            </tbody>
-                            <tr *ngIf="tableList == null || tableList.length == 0">
-                                <td colspan="12" class="text-center">No records found</td>
-                            </tr>
-                        </table>
+                      <table matSort id="example2" class="table table-bordered table-hover">
+    <thead class="tbl-head">
+        <tr>
+            <th class="text-center">Actions</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Sub Category Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of tableList">
+            <td class="text-center editDel">
+                <a style="cursor: pointer;margin-right:10px;"
+                    [ngClass]="{'disable-custom' : !canUpdate}" matTooltip="Edit"
+                    (click)="openEditDialog(item)">
+                    <i class="fa fa-edit" style="color: cornflowerblue"></i>
+                </a>
+                <a><i class="fa fa-trash red" matTooltip="Delete"
+                        [ngClass]="{'disable-custom' : !canDelete}" style="cursor: pointer;"
+                        (click)="deleteConfirmation(item)"></i></a>
+            </td>
+            <td style="text-align: center !important;" class="text-center">
+                <a [ngStyle]="{'color' : item.IsActive ? 'blue' : 'red'}"
+                    [ngClass]="{'disable-custom' : !canUpdate}">
+                    <span *ngIf="!item.IsActive" (click)="Confirmation(item)"
+                        style="color:red">Inactive</span>
+                    <span *ngIf="item.IsActive" (click)="Confirmation(item)"
+                        style="color:blue;">Active</span>
+                </a>
+            </td>
+            <td class="text-center">{{item.CategoryName}}</td>
+            <td class="text-center">{{item.SubCategoryName}}</td>
+        </tr>
+    </tbody>
+    <tr *ngIf="tableList == null || tableList.length == 0">
+        <td colspan="12" class="text-center">No records found</td>
+    </tr>
+</table>
                         <mat-paginator class="col-sm-12" [length]="totalSize" [pageIndex]="currentPage"
                             [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50, 100]" (page)="fnHandlePage($event)"
                             showFirstLastButtons>

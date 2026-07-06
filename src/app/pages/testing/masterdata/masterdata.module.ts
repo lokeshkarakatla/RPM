@@ -51,14 +51,18 @@ const routes: Routes = [
   },
   {
     path: 'category',
-    component: CategoryComponent
+    component: CategoryComponent,
+    data: {
+      breadcrumb: 'Category', screenId: 4,
+      description: 'The categories can be managed here.'
+    }
   },
   {
     path: 'detection',
     component: DetectionComponent
   },
   {
-    path: 'deparmentsxxx',
+    path: 'deparments',
     component: DeparmentsComponent
   },
   {
@@ -67,41 +71,69 @@ const routes: Routes = [
   },
   {
     path: 'job-code',
-    component: JobCodeComponent
+    component: JobCodeComponent,
+     data: {
+      breadcrumb: 'Job Code',
+      description: 'Job codes and their hourly rates can be managed here.'
+    }
   },
   {
     path: 'item-master',
-    component: ItemMasterComponent
+    component: ItemMasterComponent,
+    data: {
+      breadcrumb: 'Item Master',
+      description: 'The list of items are managed here.'
+    }
   },
   {
     path: 'item-sub',
-    component: ItemSubcategoryComponent
+    component: ItemSubcategoryComponent,
+     data: {
+      breadcrumb: 'Item Sub Category',
+      description: 'The master table of sub-categories is managed here.'
+    }
   },
   {
     path: 'item-cat',
-    component: ItemCategoryComponent
+    component: ItemCategoryComponent,
+     data: {
+      breadcrumb: 'Item Category', 
+      description: 'The categories for items can be  managed here.'
+    }
   },
   {
     path: 'asset-master',
-    component: AssetMasterComponent
-  },
-  {
-    path: 'asset-master',
-    component: AssetMasterComponent
+    component: AssetMasterComponent,
+    data: {
+      breadcrumb: 'Asset Master', screenId: 4,
+      description: 'The log of assets are managed here.'
+    }
   },
 
   {
     path: 'facility-master',
-    component: FacilityMasterComponent
+    component: FacilityMasterComponent,
+    data: {
+      breadcrumb: 'Facility Master', 
+      description: 'The list of facilities can be managed here.'
+    }
   },
 
   {
     path: 'project-types',
-    component: ProjectTypesComponent
+    component: ProjectTypesComponent,
+     data: {
+      breadcrumb: 'Project Types',
+      description: 'The list of project types are managed here.'
+    }
   },
   {
     path: 'project-status',
-    component: ProjectStatusComponent
+    component: ProjectStatusComponent,
+     data: {
+      breadcrumb: 'Project Status',
+      description: 'The list of project status code can be managed here.'
+    }
   }
 
 ]

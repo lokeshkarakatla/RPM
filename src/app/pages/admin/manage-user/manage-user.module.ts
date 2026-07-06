@@ -23,17 +23,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { JobCodesPopComponent } from './users/job-codes-pop/job-codes-pop.component';
 import { UserLocationsPopComponent } from './users/user-locations-pop/user-locations-pop.component';
+import { GroupsComponent } from './groups/groups.component';
 
 
 
 export const routes = [
   { path: '', redirectTo: 'users', pathMatch: 'full' },
 
-  { path: 'users', component: UsersComponent, data: { breadcrumb: 'Manage Users', description: 'This screen covers comprehensive list of users managed across the application. User profiles can be created, deleted or modified. Each user profile can be assigned to one or more projects and their respective project role(s) can be designated here.' } },
+  { path: 'users', component: UsersComponent, data: { breadcrumb: 'Manage Users', description: 'User can be managed here along with roles and permissions' } },
   { path: 'users/proj-perm', component: ProjPermComponent },
   { path: 'users/spl-permissions', component: SplPermissionsComponent },
-  { path: 'roles', component: RolesComponent, data: { breadcrumb: 'Manage Roles', description: 'This screen covers comprehensive list of users managed across the application. User profiles can be created, deleted or modified. Each user profile can be assigned to one or more projects and their respective project role(s) can be designated here.' } },
-  { path: 'roles/permission', component: PermissionComponent, data: { breadcrumb: 'Permissions', description: 'This page is used to Permission' } }
+  { path: 'roles', component: RolesComponent, data: { breadcrumb: 'Manage Roles', description: 'Roles are managed and screen permissions are assigned to roles' } },
+  { path: 'roles/permission', component: PermissionComponent, data: { breadcrumb: 'Permissions', description: 'This page is used to Permission' } },
+  {path: 'groups', component: GroupsComponent, data: { breadcrumb: 'Manage Groups', description: 'Groups can be defined and updated  on this screen' } }
 
 ];
 
@@ -52,7 +54,8 @@ export const routes = [
     UserAudittypeComponent,
     ManagerDialogComponent,
     JobCodesPopComponent,
-    UserLocationsPopComponent
+    UserLocationsPopComponent,
+    GroupsComponent
 
   ],
   imports: [

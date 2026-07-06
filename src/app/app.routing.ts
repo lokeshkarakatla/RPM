@@ -44,13 +44,15 @@ const routes: Routes = [
         path: 'app',
         component: PagesComponent, children: [
 
-         { path: '', redirectTo: 'test-dashboard', pathMatch: 'full' },
+            { path: '', redirectTo: 'test-dashboard', pathMatch: 'full' },
 
             {
                 path: "test-dashboard",
                 component: TestdashboardComponent,
-                data: { breadcrumb: 'RPM Dashboard  ' }
-
+                data: {
+                    breadcrumb: 'RPM Dashboard',
+                    description: 'This is a System Dashboard with details of metrics, trends, and distribution across the system'
+                }
             },
             {
                 path: 'inne@r-form', component: LogissueInnerFormComponent,
@@ -75,7 +77,7 @@ const routes: Routes = [
             },
 
 
-             {
+            {
                 path: 'supplier', loadChildren: () =>
                     import("./pages/admin/admin.module").then((m) => m.AdminModule),
                 data: { breadcrumb: 'Admin' }
@@ -90,12 +92,12 @@ const routes: Routes = [
             {
                 path: 'testing', component: TestingComponent,
                 loadChildren: () => import("./pages/testing/testing.module").then((m) => m.TestingModule),
-                // data: { breadcrumb: 'Radar' }
+                data: { breadcrumb: 'Projects', description: 'Projects can be created and managed on this screen click on the project code to see detailed dashboard.' }
             },
-               {
+            {
                 path: 'sq@m', component: SqmComponent,
                 loadChildren: () => import("./pages/sqm/sqm.module").then((m) => m.SqmModule),
-                data: { breadcrumb: 'Dashboard',hideBreadcrumb: true }
+                data: { breadcrumb: 'Dashboard', hideBreadcrumb: true }
             },
 
             {
@@ -195,7 +197,7 @@ const routes: Routes = [
 
                 path: 'prts@-grid', component: PrtsAddgridComponent, loadChildren: () =>
                     import("./pages/prts-addgrid/prts-addgrid.module").then((m) => m.PrtsAddgridModule),
-                   
+
 
             },
 
@@ -218,16 +220,16 @@ const routes: Routes = [
                 data: { breadcrumb: 'Objective Audit', description: 'Audits throught the application are managed here.' }
             },
             {
-    path: 'gates',
-    loadChildren: () => import('./pages/testing/gates/gates.module').then(m => m.GatesModule)
-    // use whichever path actually exists on disk
-},
-// Add this inside the { path: 'app', component: PagesComponent, children: [ ... ] } array
-{
-    path: 'inner@-screens', 
-    loadChildren: () => import('./pages/inner-screens/inner-screens.module').then(m => m.InnerScreensModule),
-    data: { breadcrumb: 'Inner Screens',hideBreadcrumb: true }
-},
+                path: 'gates',
+                loadChildren: () => import('./pages/testing/gates/gates.module').then(m => m.GatesModule)
+                // use whichever path actually exists on disk
+            },
+            // Add this inside the { path: 'app', component: PagesComponent, children: [ ... ] } array
+            {
+                path: 'inner@-screens',
+                loadChildren: () => import('./pages/inner-screens/inner-screens.module').then(m => m.InnerScreensModule),
+                data: { breadcrumb: 'Inner Screens', hideBreadcrumb: true }
+            },
 
 
 

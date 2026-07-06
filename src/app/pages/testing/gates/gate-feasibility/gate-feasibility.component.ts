@@ -120,4 +120,9 @@ export class GateFeasibilityComponent implements OnInit, OnDestroy {
   Confirmation(item: any): void {
     item.status = !item.status;
   }
+
+  uploadGuidelines(item: any): void {
+    console.log('Download Guidelines clicked for', item);
+    // Add download logic here
+  }
 }

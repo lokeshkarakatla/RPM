@@ -1,7 +1,7 @@
 <div class="criteria-wrapper">
   <div class="row" style="margin: 0;">
     
-    <div class="col-lg-2 col-sm-4" style="padding-left: 0; margin-top: 12px;">
+    <!-- <div class="col-lg-2 col-sm-4" style="padding-left: 0; margin-top: 12px;">
       
       <h4 style="margin: 0 0 12px 0; font-weight: 500; color: #333; margin-bottom: 40px; margin-top: -30px; font-size: large;">{{ selectedModule?.name }}</h4>
       
@@ -14,7 +14,7 @@
           <span class="module-name">{{ mod.name }} ({{ mod.criteria.length }})</span>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="col-lg-10 col-sm-8" style="padding-right: 0;">
       
@@ -22,6 +22,9 @@
         <button mat-raised-button color="primary" class="primary-btn" (click)="addCriteria()">
           <mat-icon>add</mat-icon> Add Criteria
         </button>
+        <!-- <button mat-raised-button color="#828282" class="" (click)="addCriteria()">
+          <mat-icon>backward-arrow</mat-icon> Back
+        </button> -->
       </div>
 
       <div class="table-responsive bg-white shadow-sm">
@@ -33,6 +36,7 @@
               <th class="theadcolor text-center" style="width: 80px;">Status</th>
               <th class="theadcolor text-left" style="width: 25%;">Subject</th>
               <th class="theadcolor text-left" style="width: 30%;">Description</th>
+              <th class="theadcolor text-center" style="width: 10%;">Guidelines</th>
               <th class="theadcolor text-center" style="width: 120px;">Priority</th>
               <th class="theadcolor text-center" style="width: 100px;">Mandatory</th>
             </tr>
@@ -68,6 +72,11 @@
 
               <td class="align-middle">{{ item.description }}</td>
 
+<td class="text-center align-middle">
+  <a style="cursor: pointer;" matTooltip="Download Guidelines" (click)="uploadGuidelines(item)">
+    <mat-icon style="color: cornflowerblue;">download</mat-icon>
+  </a>
+</td>
               <td class="text-center align-middle">
                 <select [(ngModel)]="item.priority"
                   style="width: 100%; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; background-color: white; appearance: auto; cursor: pointer;">

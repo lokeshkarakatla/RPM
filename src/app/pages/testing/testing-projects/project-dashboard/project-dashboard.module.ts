@@ -55,21 +55,75 @@ const routes: Routes = [
     component: ProjectDashboardComponent, // The parent wrapper with the side-nav
     children: [
       { path: "", redirectTo: "analytics", pathMatch: "full" },
-      { path: "documents", component: ProjectDocumentsComponent },
-      { path: "notes", component: ProjectNotesComponent },
-      { path: "photos", component: ProjectPhotosComponent },
-      { path: "analytics", component: ProjectAnalyticsComponent },
-      { path: "overview", component: ProjectOverviewComponent },
-      { path: "setup", component: ProjectSetupComponent },
-      { path: "team", component: ProjectTeamComponent },
+      { path: "documents", component: ProjectDocumentsComponent,
+        data: {
+                    breadcrumb: 'Documents (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track and manage all documents.'
+                }
+       },
+      { path: "notes", component: ProjectNotesComponent,
+        data: {
+                    breadcrumb: 'Notes (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Manage project notes and documentation.'
+                }
+       },
+      { path: "photos", component: ProjectPhotosComponent,
+          data: {
+                    breadcrumb: 'Photos (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track, upload, and organize all project site photos..'
+                }
+       },
+      { path: "analytics", component: ProjectAnalyticsComponent,
+        data: {
+                    breadcrumb: 'Project Dashboard (NextGen Assembly Line - 2026/MFG/011 )',
+                    description: 'Real-time overview of NPI timeline, production metrics, and resource allocation.'
+                }
+       },
+      { path: "overview", component: ProjectOverviewComponent,
+        data: {
+                    breadcrumb: 'Project Overview (NextGen Assembly Line - 2026/MFG/011 )',
+                    description: 'High-level summary of project status, key performance indicators, and master schedule.'
+                }
+       },
+      { path: "setup", component: ProjectSetupComponent,
+        data: {
+                    breadcrumb: 'Stage Gate Project Management (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track progress across stages, modules, and tasks.'
+                }
+       },
+      { path: "team", component: ProjectTeamComponent,
+         data: {
+                    breadcrumb: 'Assign Team Members (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Select and move members to build your project team.'
+                }
+       },
       { path: "wbs", component: PlaceholderImageComponent },
-      { path: "schedule", component: ProjectScheduleComponent },
-      { path: "budget", component: ProjectBudgetComponent },
-      { path: "backlog", component: ProjectBacklogComponent },
+      { path: "schedule", component: ProjectScheduleComponent,
+         data: {
+                    breadcrumb: 'Schedule (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track allocation, progress, and ETA across all tasks.'
+                }
+       },
+      { path: "budget", component: ProjectBudgetComponent,
+         data: {
+                    breadcrumb: 'Budget (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track project financial allocations, expenses, and completion status.'
+                }
+       },
+      { path: "backlog", component: ProjectBacklogComponent,
+         data: {
+                    breadcrumb: 'Scrum (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Plan and track tasks across sprints and stages.'
+                }
+       },
       { path: "sprints", component: PlaceholderImageComponent },
       { path: "timeline", component: PlaceholderImageComponent },
       {
         path: "assets",
+         data: {
+                    breadcrumb: 'Assets (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Manage project equipment, machinery, and resource scheduling.'
+                },
         children: [
           { path: "", component: ProjectAssetsComponent },
           { path: "sample", component: AssetsSchedulingComponent }, // or whatever the scheduling view is called
@@ -77,6 +131,10 @@ const routes: Routes = [
       },
       {
         path: "facilities",
+         data: {
+                    breadcrumb: 'Facilities (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Manage project facilities and resource scheduling.'
+                },
         children: [
           { path: "", component: ProjectFacilitiesComponent },
           {
@@ -85,12 +143,27 @@ const routes: Routes = [
           }, // or whatever the scheduling view is called
         ],
       },
-      { path: "expenses", component: ProjectExpensesComponent },
-      { path: "hours", component: ProjectHoursComponent },
+      { path: "expenses", component: ProjectExpensesComponent,
+         data: {
+                    breadcrumb: 'Expenses (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track and manage all expense claims.'
+                }
+       },
+      { path: "hours", component: ProjectHoursComponent,
+       data: {
+                    breadcrumb: 'Hours (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track project time allocation and attendance.'
+                }
+       },
       { path: "timesheet1", component: PlaceholderImageComponent },
       { path: "timesheet2", component: PlaceholderImageComponent },
       { path: "sample", component: AssetsSchedulingComponent },
-      { path: "materials", component: ProjectMaterialsComponent },
+      { path: "materials", component: ProjectMaterialsComponent,
+         data: {
+                    breadcrumb: 'Materials (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track project material availability, allocations, and issue status.'
+                }
+       },
     ],
   },
 ];

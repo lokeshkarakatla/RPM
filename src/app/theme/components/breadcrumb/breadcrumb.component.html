@@ -1,3 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="start center" class="breadcrumb" *ngIf="breadcrumbs.length > 0">
-    <h3 style="margin: 10px 0 10px 15px;">{{Header}}</h3>
+    <div fxLayout="column" class="breadcrumb-content">
+        <h3>{{Header}}</h3>
+        <span class="breadcrumb-description" *ngIf="Description">{{Description}}</span>
+    </div>
 </div>

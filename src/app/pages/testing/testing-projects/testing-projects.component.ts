@@ -899,6 +899,22 @@ goToDashboard(projectCode: string) {
      
     this.router.navigate(['dashboard'], { relativeTo: this.route }); 
 }
+
+goToOverview(){
+  this.router.navigate(['dashboard/overview'], { relativeTo: this.route });
 }
 
+goToFacilities(){
+  this.router.navigate(['dashboard/facilities'], { relativeTo: this.route });
+}
 
+goToAssets(){
+  this.router.navigate(['dashboard/assets'], { relativeTo: this.route });
+}
+
+goToTeams(){
+  this.router.navigate(['dashboard/team'], { relativeTo: this.route });
+
+}
+
+}

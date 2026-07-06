@@ -114,4 +114,8 @@ export class GatePrototypingComponent implements OnInit, OnDestroy {
   Confirmation(item: any): void {
     item.status = !item.status;
   }
+
+  uploadGuidelines(){
+    // Logic to handle guideline upload or download can be implemented here
+  }
 }

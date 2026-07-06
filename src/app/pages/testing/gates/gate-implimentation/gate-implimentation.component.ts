@@ -114,4 +114,8 @@ export class GateImplimentationComponent implements OnInit, OnDestroy {
   Confirmation(item: any): void {
     item.status = !item.status;
   }
+
+  uploadGuidelines(){
+    
+  }
 }

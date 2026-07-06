@@ -25,13 +25,24 @@ import { AddGateComponent } from './add-gate/add-gate.component';
 
 // ✅ routes definition was missing
 const routes: Routes = [
-    { path: "", component: GatesComponent },
-    { path: 'feasibility', component: GateFeasibilityComponent, data: { breadcrum: 'Feasibility' } },
-    { path: 'design', component: GateDesignComponent, data: { breadcrum: 'Design' } },
-    { path: 'prototyping', component: GatePrototypingComponent, data: { breadcrum: 'Prototyping' } },
-    { path: 'testing', component: GateTestingComponent, data: { breadcrum: 'Testing' } },
-    { path: 'launch', component: GateLaunchComponent, data: { breadcrum: 'Launch' } },
-    { path: 'implementation', component: GateImplimentationComponent, data: { breadcrum: 'Implementation' } },
+    {
+        path: '',
+        component: GatesComponent,
+        children: [
+            {
+                path: 'feasibility', component: GateFeasibilityComponent, data: {
+                    breadcrumb: 'Feasibility',
+                    description: 'The list of acceptance criteria along with priority are managed here.'
+                }
+            },
+
+            { path: 'design', component: GateDesignComponent, data: { breadcrumb: 'Design', description: 'Design phase acceptance criteria and management.' } },
+            { path: 'prototyping', component: GatePrototypingComponent, data: { breadcrumb: 'Prototyping', description: 'Prototyping phase acceptance criteria and management.' } },
+            { path: 'testing', component: GateTestingComponent, data: { breadcrumb: 'Testing', description: 'Testing phase acceptance criteria and management.' } },
+            { path: 'launch', component: GateLaunchComponent, data: { breadcrumb: 'Launch', description: 'Launch phase acceptance criteria and management.' } },
+            { path: 'implementation', component: GateImplimentationComponent, data: { breadcrumb: 'Implementation', description: 'Implementation phase acceptance criteria and management.' } },
+        ]
+    },
 ]
 
 @NgModule({

@@ -50,12 +50,23 @@ const routes: Routes = [
     { path: 'tractorstatus', component: TractorstatusComponent, data: { breadcrumb: 'Tractor Status' } },
     { path: 'teststatus', component: TeststatusComponent, data: { breadcrumb: 'Test Status' } },
     { path: 'activity', component: ActivityRpmComponent, data: { breadcrumb: 'Activity' } },
-    { path: 'stages', component: RpmStagesComponent, data: { breadcrumb: 'Stages' } },
+    {
+        path: 'stages', component: RpmStagesComponent,
+        data: {
+            breadcrumb: 'Stages',
+            description: 'The master list of stages / work break down structure (WBS) can be managed here.'
+        }
+    },
     { path: 'tasks', component: RpmTasksComponent, data: { breadcrumb: 'Tasks' } },
-    { path: 'stages/wbs', component: RpmStagesWbsComponent, data: { breadcrumb: 'WBS' } },
-    { 
-        path: 'projects', 
-        loadChildren: () => import('./testing-projects/testing-projects.modules').then(m => m.TestingProjectsModule), 
+    {
+        path: 'stages/wbs', component: RpmStagesWbsComponent, data: {
+            breadcrumb: 'Work Breakdown Structure (Fesibility-STG001)',
+            description: 'The list of task for each module can be updated here.'
+        }
+    },
+    {
+        path: 'projects',
+        loadChildren: () => import('./testing-projects/testing-projects.modules').then(m => m.TestingProjectsModule),
         // data: { breadcrumb: 'Projects' } 
     },
     { path: 'testing-kanban', component: TestingKanbanComponent, data: { breadcrumb: 'Kanban' } },
@@ -65,7 +76,9 @@ const routes: Routes = [
         component: GatesComponent,
         loadChildren: () =>
             import("./gates/gates.module").then((m) => m.GatesModule),
-        data: { breadcrumb: 'Gates', screenId: 4 }
+        data: { breadcrumb: 'Gates', screenId: 4,
+            description: 'The Gates and info about acceptance criteria at each gate is updated here.'
+         }
     },
     {
         path: "testing-masterData", component: MasterdataComponent,

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, UrlSegment, NavigationEnd } from "@angular/router"; 
 import { Title } from '@angular/platform-browser';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
+
 
 @Component({
   selector: 'app-breadcrumb',
@@ -18,7 +19,7 @@ export class BreadcrumbComponent implements OnInit {
         url: string;
         description: string;
     }[] = [];
-    description: string = '';
+    // description: string = '';
     public settings: Settings;
 
     constructor(
@@ -35,22 +36,24 @@ export class BreadcrumbComponent implements OnInit {
         });   
     }
 
+    @Input('description') Description: string | undefined;
+
     // ✅ This fires on refresh/first load when NavigationEnd is already done
     ngOnInit(): void {
         this.buildBreadcrumbs();
     }
 
-    private buildBreadcrumbs(): void {
-        this.breadcrumbs = [];                
-        this.parseRoute(this.router.routerState.snapshot.root); 
-        this.pageTitle = "";
-        this.breadcrumbs.forEach(breadcrumb => {
-            this.pageTitle += ' | ' + breadcrumb.name;
-            this.Header = breadcrumb.name;
-            this.description = breadcrumb.description;
-        });       
-        this.title.setTitle(this.settings.name + this.pageTitle);
-    }
+  private buildBreadcrumbs(): void {
+    this.breadcrumbs = [];                
+    this.parseRoute(this.router.routerState.snapshot.root); 
+    this.pageTitle = "";
+    this.breadcrumbs.forEach(breadcrumb => {
+        this.pageTitle += ' | ' + breadcrumb.name;
+        this.Header = breadcrumb.name;
+        this.Description = breadcrumb.description;   // ← changed from this.description
+    });       
+    this.title.setTitle(this.settings.name + this.pageTitle);
+}
 
     private parseRoute(node: ActivatedRouteSnapshot) { 
         if (node.data['breadcrumb'] && !node.data['hideBreadcrumb']) {

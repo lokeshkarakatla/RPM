@@ -1,7 +1,7 @@
 <div class="criteria-wrapper">
   <div class="row" style="margin: 0;">
     
-    <div class="col-lg-2 col-sm-4" style="padding-left: 0;">
+    <!-- <div class="col-lg-2 col-sm-4" style="padding-left: 0;">
       
       <div style="height: 40px; display: flex; align-items: center; margin-bottom: 12px;">
         <h4 style="margin: 0; font-weight: 500; color: #333; font-size: 16px; margin-bottom: 40px; margin-top: -30px;">{{ selectedModule?.name }}</h4>
@@ -16,7 +16,7 @@
           <span class="module-name">{{ mod.name }} ({{ mod.criteria.length }})</span>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="col-lg-10 col-sm-8" style="padding-right: 0;">
       
@@ -35,6 +35,7 @@
               <th class="theadcolor text-center" style="width: 80px;">Status</th>
               <th class="theadcolor text-left" style="width: 25%;">Subject</th>
               <th class="theadcolor text-left" style="width: 30%;">Description</th>
+               <th class="theadcolor text-center" style="width: 10%;">Guidelines</th>
               <th class="theadcolor text-center" style="width: 120px;">Priority</th>
               <th class="theadcolor text-center" style="width: 100px;">Mandatory</th>
             </tr>
@@ -69,6 +70,11 @@
               <td class="align-middle">{{ item.question }}</td>
 
               <td class="align-middle">{{ item.description }}</td>
+              <td class="text-center align-middle">
+  <a style="cursor: pointer;" matTooltip="Download Guidelines" (click)="uploadGuidelines()">
+    <mat-icon style="color: cornflowerblue;">download</mat-icon>
+  </a>
+</td>
 
               <td class="text-center align-middle">
                 <select [(ngModel)]="item.priority"

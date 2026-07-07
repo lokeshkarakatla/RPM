@@ -7,7 +7,6 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { AddIssuesssComponent } from './add-issuesss/add-issuesss.component';
 import { IssuesGridColumnsComponent } from './issues-grid-columns/issues-grid-columns.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
-import { EditissuesComponent } from 'src/app/editissues/editissues.component';
 
 // --- Kanban Interfaces ---
 export type Status = 'Pending' | 'Allocated' | 'Progress' | 'Hold' | 'Cancelled' | 'Completed';
@@ -34,6 +33,8 @@ export interface Card {
 export class TestingIssuesComponent implements OnInit {
   filterToggle: boolean = false;
   totalSize = 0;
+  currentPage: number = 0;
+  pageSize: number = 5;
   myGroup!: FormGroup;
   
   // Controls which view is currently shown (Table vs Kanban)
@@ -44,6 +45,7 @@ export class TestingIssuesComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    // RESTORE full FormGroup mapping to prevent console binding errors
     this.myGroup = new FormGroup({
       firstName: new FormControl(''),
       Keyword: new FormControl(''),
@@ -60,787 +62,60 @@ export class TestingIssuesComponent implements OnInit {
       sortOrder: new FormControl('')
     });
 
-    // Initialize Kanban Data
-    const savedData = localStorage.getItem('kanbanData');
-    if (savedData) {
-      this.cards = JSON.parse(savedData);
-    } else {
-      this.initializeKanbanData();
-    }
+    this.go();
   }
 
-  // ==================== GRID DATA & LOGIC ====================
- tableList = [
-
+  // ==================== GRID DATA (SOURCE OF TRUTH) ====================
+  originalTableList = [
     {
-
-      projectCode: 'PRJ001',
-
-      serial: 'SN1001',
-
-      tractorId: 'TRX1234',
-
-      issueDescription: 'Hydraulic failure during operation',
-
-      failureHours: 15,
-
-      updationHours: 18,
-
-      hoursAfterUpdation: 3,
-
-      implement: 'Plough',
-
-      issueReportingDate: '2025-06-10',
-
-      partDescription: 'Hydraulic Pump',
-
-      partCode: 'HP-4578',
-
-      photograph: 'https://example.com/photos/photo1.jpg',
-
-      l1Rca: 'Seal leakage due to pressure build-up',
-
-      concernedAcknowledgement: 'Acknowledged by Maintenance Lead',
-
-      finalRca: 'Defective O-ring in hydraulic pump',
-
-      rcaTargetDate: '2025-06-20',
-
-      rcaDocument: 'https://example.com/docs/rca1.pdf',
-
-      interimAction: 'Replace faulty O-ring',
-
-      interimDocument: 'https://example.com/docs/interim1.pdf',
-
-      interimTargetDate: '2025-06-15',
-
-      permanentAction: 'Redesign pump to withstand higher pressure',
-
-      permanentDocument: 'https://example.com/docs/permanent1.pdf',
-
-      permanentTargetDate: '2025-07-01',
-
-      currentStatus: 'Open',
-
-      currentResponsibility: 'Hydraulic Team',
-
-      targetDate: '2025-07-05',
-
-      regularOrNew: 'Regular',
-
-      orcStatus: 'Pending',
-
-      responsibleSection: 'R&D',
-
-      subGroup: 'Hydraulics',
-
-      responsibleSectionLead: 'Anil Kumar',
-
-      projectViLead: 'Ravi Sharma',
-
-      category: 'Mechanical',
-
-      failureEffect: 'Tractor could not operate',
-
-      severity: 8,
-
-      probability: 5,
-
-      detection: 6,
-
-      rpn: 240,
-
-      agingSinceReported: 16,
-
-      documentUpload: 'https://example.com/docs/upload1.pdf'
-
+      id: 1,
+      subject: 'Hydraulic Leakage',
+      issueDescription: 'Hydraulic failure during operation due to valve leak',
+      targetDate: '2026-07-15',
+      remarks: 'Requires immediate replacement of the main valve seal.',
+      status: 'Pending',
+      image: 'assets/sample-image.jpg',
+      document: 'assets/sample-1.pdf'
     },
-
     {
-
-      projectCode: 'PRJ002',
-
-      serial: 'SN1002',
-
-      tractorId: 'TRX5678',
-
-      issueDescription: 'Engine overheating on long runs',
-
-      failureHours: 10,
-
-      updationHours: 12,
-
-      hoursAfterUpdation: 2,
-
-      implement: 'Seeder',
-
-      issueReportingDate: '2025-06-12',
-
-      partDescription: 'Radiator Fan',
-
-      partCode: 'RF-2233',
-
-      photograph: 'https://example.com/photos/photo2.jpg',
-
-      l1Rca: 'Fan not operating at full speed',
-
-      concernedAcknowledgement: 'Acknowledged by Engine Lead',
-
-      finalRca: 'Fan motor defective',
-
-      rcaTargetDate: '2025-06-22',
-
-      rcaDocument: 'https://example.com/docs/rca2.pdf',
-
-      interimAction: 'Install backup fan',
-
-      interimDocument: 'https://example.com/docs/interim2.pdf',
-
-      interimTargetDate: '2025-06-18',
-
-      permanentAction: 'Replace fan motor supplier',
-
-      permanentDocument: 'https://example.com/docs/permanent2.pdf',
-
-      permanentTargetDate: '2025-07-03',
-
-      currentStatus: 'Closed',
-
-      currentResponsibility: 'Cooling Systems Team',
-
-      targetDate: '2025-07-04',
-
-      regularOrNew: 'New',
-
-      orcStatus: 'Completed',
-
-      responsibleSection: 'Production',
-
-      subGroup: 'Cooling',
-
-      responsibleSectionLead: 'Meera Iyer',
-
-      projectViLead: 'Karan Patel',
-
-      category: 'Thermal',
-
-      failureEffect: 'Machine auto-shutdown',
-
-      severity: 7,
-
-      probability: 4,
-
-      detection: 7,
-
-      rpn: 196,
-
-      agingSinceReported: 14,
-
-      documentUpload: 'https://example.com/docs/upload2.pdf'
-
+      id: 2,
+      subject: 'Engine Overheating',
+      issueDescription: 'Engine overheating on long runs above 3000 RPM',
+      targetDate: '2026-07-20',
+      remarks: 'Coolant levels are fine, suspect thermostat failure.',
+      status: 'Process',
+      image: 'assets/sample-image.jpg',
+      document: 'assets/sample-1.pdf'
     },
-
     {
-
-      projectCode: 'PRJ001',
-
-      serial: 'SN1001',
-
-      tractorId: 'TRX1234',
-
-      issueDescription: 'Engine overheating during long operations',
-
-      failureHours: 12,
-
-      updationHours: 15,
-
-      hoursAfterUpdation: 3,
-
-      implement: 'Plough',
-
-      issueReportingDate: '2025-05-22',
-
-      partDescription: 'Radiator',
-
-      partCode: 'RAD-4501',
-
-      photograph: 'https://example.com/photos/photo1.jpg',
-
-      l1Rca: 'Coolant leakage in radiator fins',
-
-      concernedAcknowledgement: 'Maintenance team verified',
-
-      finalRca: 'Worn out radiator fins',
-
-      rcaTargetDate: '2025-06-02',
-
-      rcaDocument: 'https://example.com/docs/rca1.pdf',
-
-      interimAction: 'Top-up coolant',
-
-      interimDocument: 'https://example.com/docs/interim1.pdf',
-
-      interimTargetDate: '2025-05-28',
-
-      permanentAction: 'Replace radiator',
-
-      permanentDocument: 'https://example.com/docs/permanent1.pdf',
-
-      permanentTargetDate: '2025-06-10',
-
-      currentStatus: 'Completed',
-
-      currentResponsibility: 'Service Team',
-
-      targetDate: '2025-06-12',
-
-      regularOrNew: 'Regular',
-
-      orcStatus: 'Closed',
-
-      responsibleSection: 'Mechanical',
-
-      subGroup: 'Cooling System',
-
-      responsibleSectionLead: 'Ravi Mehta',
-
-      projectViLead: 'Kiran Sharma',
-
-      category: 'Mechanical',
-
-      failureEffect: 'Engine shuts down unexpectedly',
-
-      severity: 7,
-
-      probability: 5,
-
-      detection: 4,
-
-      rpn: 140,
-
-      agingSinceReported: 20,
-
-      documentUpload: 'https://example.com/docs/upload1.pdf'
-
+      id: 3,
+      subject: 'Transmission Noise',
+      issueDescription: 'Loud gear grinding noise when shifting to reverse',
+      targetDate: '2026-07-10',
+      remarks: 'Gearbox inspected, synchronizer ring is worn out.',
+      status: 'Closed',
+      image: 'assets/sample-image.jpg',
+      document: 'assets/sample-1.pdf'
     },
-
     {
-
-      projectCode: 'PRJ002',
-
-      serial: 'SN1002',
-
-      tractorId: 'TRX5678',
-
-      issueDescription: 'Hydraulic pump failure',
-
-      failureHours: 18,
-
-      updationHours: 21,
-
-      hoursAfterUpdation: 3,
-
-      implement: 'Seeder',
-
-      issueReportingDate: '2025-06-05',
-
-      partDescription: 'Hydraulic Pump',
-
-      partCode: 'HDP-7810',
-
-      photograph: 'https://example.com/photos/photo2.jpg',
-
-      l1Rca: 'Seal wear due to high pressure',
-
-      concernedAcknowledgement: 'Hydraulics QA verified',
-
-      finalRca: 'Poor quality seal material',
-
-      rcaTargetDate: '2025-06-12',
-
-      rcaDocument: 'https://example.com/docs/rca2.pdf',
-
-      interimAction: 'Lower hydraulic pressure',
-
-      interimDocument: 'https://example.com/docs/interim2.pdf',
-
-      interimTargetDate: '2025-06-08',
-
-      permanentAction: 'Upgrade to high-strength seals',
-
-      permanentDocument: 'https://example.com/docs/permanent2.pdf',
-
-      permanentTargetDate: '2025-06-25',
-
-      currentStatus: 'In Progress',
-
-      currentResponsibility: 'Hydraulics Team',
-
-      targetDate: '2025-06-30',
-
-      regularOrNew: 'Regular',
-
-      orcStatus: 'Open',
-
-      responsibleSection: 'Hydraulics',
-
-      subGroup: 'Pump Systems',
-
-      responsibleSectionLead: 'Neha Kulkarni',
-
-      projectViLead: 'Vikram Rao',
-
-      category: 'Hydraulic',
-
-      failureEffect: 'Implements not lifting properly',
-
-      severity: 8,
-
-      probability: 6,
-
-      detection: 3,
-
-      rpn: 144,
-
-      agingSinceReported: 10,
-
-      documentUpload: 'https://example.com/docs/upload2.pdf'
-
-    },
-
-    {
-
-      projectCode: 'PRJ003',
-
-      serial: 'SN1003',
-
-      tractorId: 'TRX9101',
-
-      issueDescription: 'Transmission not shifting properly',
-
-      failureHours: 20,
-
-      updationHours: 23,
-
-      hoursAfterUpdation: 3,
-
-      implement: 'Rotavator',
-
-      issueReportingDate: '2025-06-15',
-
-      partDescription: 'Transmission Control Unit',
-
-      partCode: 'TCU-8921',
-
-      photograph: 'https://example.com/photos/photo3.jpg',
-
-      l1Rca: 'Software bug in control logic',
-
-      concernedAcknowledgement: 'Software QA verified',
-
-      finalRca: 'Incorrect PID tuning',
-
-      rcaTargetDate: '2025-06-25',
-
-      rcaDocument: 'https://example.com/docs/rca3.pdf',
-
-      interimAction: 'Patch software with temporary fix',
-
-      interimDocument: 'https://example.com/docs/interim3.pdf',
-
-      interimTargetDate: '2025-06-20',
-
-      permanentAction: 'Revise PID parameters and test',
-
-      permanentDocument: 'https://example.com/docs/permanent3.pdf',
-
-      permanentTargetDate: '2025-07-05',
-
-      currentStatus: 'Pending',
-
-      currentResponsibility: 'Software Team',
-
-      targetDate: '2025-07-10',
-
-      regularOrNew: 'New',
-
-      orcStatus: 'In Progress',
-
-      responsibleSection: 'Electronics',
-
-      subGroup: 'Controls',
-
-      responsibleSectionLead: 'Divya Rathi',
-
-      projectViLead: 'Arun Dev',
-
-      category: 'Software',
-
-      failureEffect: 'Jerky gear shifting',
-
-      severity: 6,
-
-      probability: 6,
-
-      detection: 5,
-
-      rpn: 180,
-
-      agingSinceReported: 11,
-
-      documentUpload: 'https://example.com/docs/upload3.pdf'
-
-    },
-
-    {
-
-      projectCode: 'PRJ003',
-
-      serial: 'SN1003',
-
-      tractorId: 'TRX9101',
-
-      issueDescription: 'Transmission not shifting properly',
-
-      failureHours: 20,
-
-      updationHours: 23,
-
-      hoursAfterUpdation: 3,
-
-      implement: 'Rotavator',
-
-      issueReportingDate: '2025-06-15',
-
-      partDescription: 'Transmission Control Unit',
-
-      partCode: 'TCU-8921',
-
-      photograph: 'https://example.com/photos/photo3.jpg',
-
-      l1Rca: 'Software bug in control logic',
-
-      concernedAcknowledgement: 'Software QA verified',
-
-      finalRca: 'Incorrect PID tuning',
-
-      rcaTargetDate: '2025-06-25',
-
-      rcaDocument: 'https://example.com/docs/rca3.pdf',
-
-      interimAction: 'Patch software with temporary fix',
-
-      interimDocument: 'https://example.com/docs/interim3.pdf',
-
-      interimTargetDate: '2025-06-20',
-
-      permanentAction: 'Revise PID parameters and test',
-
-      permanentDocument: 'https://example.com/docs/permanent3.pdf',
-
-      permanentTargetDate: '2025-07-05',
-
-      currentStatus: 'Pending',
-
-      currentResponsibility: 'Software Team',
-
-      targetDate: '2025-07-10',
-
-      regularOrNew: 'New',
-
-      orcStatus: 'In Progress',
-
-      responsibleSection: 'Electronics',
-
-      subGroup: 'Controls',
-
-      responsibleSectionLead: 'Divya Rathi',
-
-      projectViLead: 'Arun Dev',
-
-      category: 'Software',
-
-      failureEffect: 'Jerky gear shifting',
-
-      severity: 6,
-
-      probability: 6,
-
-      detection: 5,
-
-      rpn: 180,
-
-      agingSinceReported: 11,
-
-      documentUpload: 'https://example.com/docs/upload3.pdf'
-
-    },
-
-    {
-
-      projectCode: 'PRJ003',
-
-      serial: 'SN1003',
-
-      tractorId: 'TRX9101',
-
-      issueDescription: 'Transmission not shifting properly',
-
-      failureHours: 20,
-
-      updationHours: 23,
-
-      hoursAfterUpdation: 3,
-
-      implement: 'Rotavator',
-
-      issueReportingDate: '2025-06-15',
-
-      partDescription: 'Transmission Control Unit',
-
-      partCode: 'TCU-8921',
-
-      photograph: 'https://example.com/photos/photo3.jpg',
-
-      l1Rca: 'Software bug in control logic',
-
-      concernedAcknowledgement: 'Software QA verified',
-
-      finalRca: 'Incorrect PID tuning',
-
-      rcaTargetDate: '2025-06-25',
-
-      rcaDocument: 'https://example.com/docs/rca3.pdf',
-
-      interimAction: 'Patch software with temporary fix',
-
-      interimDocument: 'https://example.com/docs/interim3.pdf',
-
-      interimTargetDate: '2025-06-20',
-
-      permanentAction: 'Revise PID parameters and test',
-
-      permanentDocument: 'https://example.com/docs/permanent3.pdf',
-
-      permanentTargetDate: '2025-07-05',
-
-      currentStatus: 'Pending',
-
-      currentResponsibility: 'Software Team',
-
-      targetDate: '2025-07-10',
-
-      regularOrNew: 'New',
-
-      orcStatus: 'In Progress',
-
-      responsibleSection: 'Electronics',
-
-      subGroup: 'Controls',
-
-      responsibleSectionLead: 'Divya Rathi',
-
-      projectViLead: 'Arun Dev',
-
-      category: 'Software',
-
-      failureEffect: 'Jerky gear shifting',
-
-      severity: 6,
-
-      probability: 6,
-
-      detection: 5,
-
-      rpn: 180,
-
-      agingSinceReported: 11,
-
-      documentUpload: 'https://example.com/docs/upload3.pdf'
-
-    },
-
-    {
-
-      projectCode: 'PRJ003',
-
-      serial: 'SN1003',
-
-      tractorId: 'TRX9101',
-
-      issueDescription: 'Transmission not shifting properly',
-
-      failureHours: 20,
-
-      updationHours: 23,
-
-      hoursAfterUpdation: 3,
-
-      implement: 'Rotavator',
-
-      issueReportingDate: '2025-06-15',
-
-      partDescription: 'Transmission Control Unit',
-
-      partCode: 'TCU-8921',
-
-      photograph: 'https://example.com/photos/photo3.jpg',
-
-      l1Rca: 'Software bug in control logic',
-
-      concernedAcknowledgement: 'Software QA verified',
-
-      finalRca: 'Incorrect PID tuning',
-
-      rcaTargetDate: '2025-06-25',
-
-      rcaDocument: 'https://example.com/docs/rca3.pdf',
-
-      interimAction: 'Patch software with temporary fix',
-
-      interimDocument: 'https://example.com/docs/interim3.pdf',
-
-      interimTargetDate: '2025-06-20',
-
-      permanentAction: 'Revise PID parameters and test',
-
-      permanentDocument: 'https://example.com/docs/permanent3.pdf',
-
-      permanentTargetDate: '2025-07-05',
-
-      currentStatus: 'Pending',
-
-      currentResponsibility: 'Software Team',
-
-      targetDate: '2025-07-10',
-
-      regularOrNew: 'New',
-
-      orcStatus: 'In Progress',
-
-      responsibleSection: 'Electronics',
-
-      subGroup: 'Controls',
-
-      responsibleSectionLead: 'Divya Rathi',
-
-      projectViLead: 'Arun Dev',
-
-      category: 'Software',
-
-      failureEffect: 'Jerky gear shifting',
-
-      severity: 6,
-
-      probability: 6,
-
-      detection: 5,
-
-      rpn: 180,
-
-      agingSinceReported: 11,
-
-      documentUpload: 'https://example.com/docs/upload3.pdf'
-
-    },
-
-    {
-
-      projectCode: 'PRJ003',
-
-      serial: 'SN1003',
-
-      tractorId: 'TRX9101',
-
-      issueDescription: 'Transmission not shifting properly',
-
-      failureHours: 20,
-
-      updationHours: 23,
-
-      hoursAfterUpdation: 3,
-
-      implement: 'Rotavator',
-
-      issueReportingDate: '2025-06-15',
-
-      partDescription: 'Transmission Control Unit',
-
-      partCode: 'TCU-8921',
-
-      photograph: 'https://example.com/photos/photo3.jpg',
-
-      l1Rca: 'Software bug in control logic',
-
-      concernedAcknowledgement: 'Software QA verified',
-
-      finalRca: 'Incorrect PID tuning',
-
-      rcaTargetDate: '2025-06-25',
-
-      rcaDocument: 'https://example.com/docs/rca3.pdf',
-
-      interimAction: 'Patch software with temporary fix',
-
-      interimDocument: 'https://example.com/docs/interim3.pdf',
-
-      interimTargetDate: '2025-06-20',
-
-      permanentAction: 'Revise PID parameters and test',
-
-      permanentDocument: 'https://example.com/docs/permanent3.pdf',
-
-      permanentTargetDate: '2025-07-05',
-
-      currentStatus: 'Pending',
-
-      currentResponsibility: 'Software Team',
-
-      targetDate: '2025-07-10',
-
-      regularOrNew: 'New',
-
-      orcStatus: 'In Progress',
-
-      responsibleSection: 'Electronics',
-
-      subGroup: 'Controls',
-
-      responsibleSectionLead: 'Divya Rathi',
-
-      projectViLead: 'Arun Dev',
-
-      category: 'Software',
-
-      failureEffect: 'Jerky gear shifting',
-
-      severity: 6,
-
-      probability: 6,
-
-      detection: 5,
-
-      rpn: 180,
-
-      agingSinceReported: 11,
-
-      documentUpload: 'https://example.com/docs/upload3.pdf'
-
-    },
-
-
-
+      id: 4,
+      subject: 'Electrical Short',
+      issueDescription: 'Console display flickers and shuts down randomly',
+      targetDate: '2026-07-25',
+      remarks: 'Wiring harness check complete, found loose ground wire.',
+      status: 'Hold',
+      image: 'assets/sample-image.jpg',
+      document: 'assets/sample-1.pdf'
+    }
   ];
 
-
-
-
+  tableList: any[] = [];
+  filteredIssues: any[] = [];
 
   tractors = [ { TractorStatusId: 'ID-01' }, { TractorStatusId: 'ID-02' }, { TractorStatusId: 'ID-03' } ];
   TractorIdSections = [ { item_id: 1, item_text: 'ID-01' }, { item_id: 2, item_text: 'ID-02' }, { item_id: 3, item_text: 'ID-03' } ];
   responsibleSections = [ { item_id: 1, item_text: 'Front Axle Bracket Area' }, { item_id: 2, item_text: 'Gearbox' }, { item_id: 3, item_text: 'Cooling Package' }, { item_id: 4, item_text: 'Air Intake System' } ];
   ORCStatuses = [ { item_id: 1, item_text: 'O' }, { item_id: 2, item_text: 'R1' }, { item_id: 3, item_text: 'R2' }, { item_id: 4, item_text: 'C' } ];
-  Probability = [ { item_id: 1, item_text: '1' }, { item_id: 2, item_text: '2' }, { item_id: 3, item_text: '3' }, { item_id: 4, item_text: '4' }, { item_id: 5, item_text: '5' }, { item_id: 6, item_text: '6' }, { item_id: 7, item_text: '7' }, { item_id: 8, item_text: '8' }, { item_id: 9, item_text: '9' }, { item_id: 10, item_text: '10' } ];
   sortOrder = [ { item_id: 1, item_text: 'ASC' }, { item_id: 2, item_text: 'DESC' } ];
   IsNew = [ { item_id: 1, item_text: 'New' }, { item_id: 2, item_text: 'Regular' } ];
   ScoreMatrix = [ { item_id: 1, item_text: 'Assembly' }, { item_id: 2, item_text: 'Service' }, { item_id: 3, item_text: 'Performance' }, { item_id: 4, item_text: 'Functional' } ];
@@ -849,11 +124,74 @@ export class TestingIssuesComponent implements OnInit {
   scorematrix = [ { ScoreMatrixId: 'FE001', ScoreMatrixName: 'High Impact' }, { ScoreMatrixId: 'FE002', ScoreMatrixName: 'Medium Impact' }, { ScoreMatrixId: 'FE003', ScoreMatrixName: 'Low Impact' } ];
   categories = [ { CategoryId: 'C001', CategoryName: 'Detection 1' }, { CategoryId: 'C002', CategoryName: 'Detection 2' }, { CategoryId: 'C003', CategoryName: 'Detection 3' } ];
 
-  // Grid Controls
+  lists: Status[] = ['Pending', 'Allocated', 'Progress', 'Hold', 'Cancelled', 'Completed'];
+
+  cards: Record<Status, Card[]> = {
+    Pending: [], Allocated: [], Progress: [],
+    Hold: [], Cancelled: [], Completed: []
+  };
+
+  // Maps Grid Status to Kanban Status
+  private getKanbanStatus(gridStatus: string): Status {
+    if (gridStatus === 'Process') return 'Progress';
+    if (gridStatus === 'Closed') return 'Completed';
+    if (gridStatus === 'Hold') return 'Hold';
+    if (gridStatus === 'Allocated') return 'Allocated';
+    if (gridStatus === 'Cancelled') return 'Cancelled';
+    return 'Pending';
+  }
+
+  // Maps Kanban Status back to Grid Status
+  private getGridStatus(kanbanStatus: Status): string {
+    if (kanbanStatus === 'Progress') return 'Process';
+    if (kanbanStatus === 'Completed') return 'Closed';
+    if (kanbanStatus === 'Hold') return 'Hold';
+    if (kanbanStatus === 'Allocated') return 'Allocated';
+    if (kanbanStatus === 'Cancelled') return 'Cancelled';
+    return 'Pending';
+  }
+
+  initializeKanbanData(): void {
+    const grouped: Record<Status, Card[]> = {
+      Pending: [], Allocated: [], Progress: [],
+      Hold: [], Cancelled: [], Completed: []
+    };
+
+    this.filteredIssues.forEach((item) => {
+      const kStatus = this.getKanbanStatus(item.status);
+      grouped[kStatus].push({
+        id: item.id,
+        subject: item.subject,
+        LawFirm: item.remarks || '',
+        createdBy: 'Admin',
+        assignedTo: 'Engineer',
+        createdDate: '',
+        dueDate: item.targetDate,
+        expedite: false,
+        notes: [],
+        expanded: false,
+        status: kStatus
+      });
+    });
+
+    this.cards = grouped;
+  }
+
+  // Grid Controls (using AddIssuesssComponent for both Add and Edit)
   addTests(applicant: any) {
-    let dialogRef = this.dialog.open(EditissuesComponent, {
+    let dialogRef = this.dialog.open(AddIssuesssComponent, {
       height: 'auto',
-      width: '5000px',
+      width: '600px',
+      data: applicant
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.originalTableList.findIndex(item => item.id === applicant.id);
+        if (index !== -1) {
+          this.originalTableList[index] = { ...this.originalTableList[index], ...result };
+        }
+        this.go(); // re-evaluates filters and updates tableList & kanban cards
+      }
     });
   }
 
@@ -861,7 +199,27 @@ export class TestingIssuesComponent implements OnInit {
     let dialogRef = this.dialog.open(AddIssuesssComponent, {
       data: id,
       height: 'auto',
-      width: '5000px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (id) {
+          const index = this.originalTableList.findIndex(item => item.id === id.id);
+          if (index !== -1) {
+            this.originalTableList[index] = { ...this.originalTableList[index], ...result };
+          }
+        } else {
+          const newId = this.originalTableList.length ? Math.max(...this.originalTableList.map(t => t.id)) + 1 : 1;
+          this.originalTableList.push({
+            id: newId,
+            ...result,
+            status: result.status || 'Pending',
+            image: result.image || 'assets/sample-image.jpg',
+            document: result.document || 'assets/sample-1.pdf'
+          });
+        }
+        this.go(); // re-evaluates filters and updates tableList & kanban cards
+      }
     });
   }
 
@@ -876,7 +234,13 @@ export class TestingIssuesComponent implements OnInit {
   deleteConfirmation(item: any) {
     let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
-      data: { ProjectId: item.ProjectId, title: 'Delete Confirmation', content: 'Are you sure you want to Delete?' }
+      data: { ProjectId: item.id, title: 'Delete Confirmation', content: 'Are you sure you want to Delete?' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.originalTableList = this.originalTableList.filter(t => t.id !== item.id);
+        this.go(); // re-evaluates filters and updates tableList & kanban cards
+      }
     });
   }
 
@@ -892,68 +256,36 @@ export class TestingIssuesComponent implements OnInit {
 
   clearFilter() {
     this.myGroup.reset();
+    this.currentPage = 0;
+    this.go();
+  }
+
+  fnHandlePage(event: any): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.go();
   }
 
   go() {
-    // search trigger
-  }
-
-  // ==================== KANBAN DATA & LOGIC ====================
-  data = [
-    { subject: 'Global fleet of connected vehicles', distributor: 'Mahindra',   Lead: 'Ravi',  status: 'Pending', TargetDate: '2026-04-25', FailureDate: '2026-04-20' },
-    { subject: 'Engine Overheating',                 distributor: 'Tata Motors', Lead: 'Sneha', status: 'Pending', TargetDate: '2026-04-22', FailureDate: '2026-04-18' },
-    { subject: 'Update Application Dependencies',    distributor: 'Infosys',     Lead: 'Kiran', status: 'Hold',    TargetDate: '2026-04-30', FailureDate: '2026-04-21' },
-    { subject: 'Verify DLL Versions',                distributor: 'Tesla',       Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Bumper Issue',                       distributor: 'Tesla',       Lead: 'Arjun', status: 'Hold',    TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing A',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Pending', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing B',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Hold',    TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing C',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing D',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Closed',  TargetDate: '2026-04-15', FailureDate: '2026-04-10' }
-  ];
-
-  lists: Status[] = ['Pending', 'Allocated', 'Progress', 'Hold', 'Cancelled', 'Completed'];
-
-  cards: Record<Status, Card[]> = {
-    Pending: [], Allocated: [], Progress: [],
-    Hold: [], Cancelled: [], Completed: []
-  };
-
-  private statusMap: Record<string, Status> = {
-    'Pending':   'Pending',
-    'Allocated': 'Allocated',
-    'Process':   'Progress',
-    'Progress':  'Progress',
-    'Hold':      'Hold',
-    'Cancelled': 'Cancelled',
-    'Closed':    'Completed',
-    'Completed': 'Completed'
-  };
-
-  initializeKanbanData(): void {
-    const grouped: Record<Status, Card[]> = {
-      Pending: [], Allocated: [], Progress: [],
-      Hold: [], Cancelled: [], Completed: []
-    };
-
-    this.data.forEach((item, index) => {
-      const status: Status = this.statusMap[item.status] ?? 'Pending';
-      grouped[status].push({
-        id: index + 1,
-        subject: item.subject,
-        LawFirm: item.distributor,
-        createdBy: item.Lead,
-        assignedTo: item.Lead,
-        createdDate: item.FailureDate,
-        dueDate: item.TargetDate,
-        expedite: false,
-        notes: [],
-        expanded: false,
-        status
-      });
+    const filterVals = this.myGroup.value;
+    const keyword = (filterVals.Keyword || '').toLowerCase().trim();
+    
+    this.filteredIssues = this.originalTableList.filter(item => {
+      if (keyword) {
+        const matchesSubject = (item.subject || '').toLowerCase().includes(keyword);
+        const matchesDesc = (item.issueDescription || '').toLowerCase().includes(keyword);
+        const matchesRemarks = (item.remarks || '').toLowerCase().includes(keyword);
+        if (!matchesSubject && !matchesDesc && !matchesRemarks) {
+          return false;
+        }
+      }
+      return true;
     });
 
-    this.cards = grouped;
-    localStorage.setItem('kanbanData', JSON.stringify(this.cards));
+    this.totalSize = this.filteredIssues.length;
+    this.tableList = this.filteredIssues.slice(this.currentPage * this.pageSize, (this.currentPage + 1) * this.pageSize);
+
+    this.initializeKanbanData();
   }
 
   drop(event: CdkDragDrop<Card[]>, targetList: Status): void {
@@ -967,13 +299,25 @@ export class TestingIssuesComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-      this.cards[currentList][event.currentIndex].status = currentList;
+      
+      const movedCard = this.cards[currentList][event.currentIndex];
+      movedCard.status = currentList;
+
+      // Update status in both original and displayed lists
+      const issue = this.originalTableList.find(item => item.id === movedCard.id);
+      if (issue) {
+        issue.status = this.getGridStatus(currentList);
+      }
+      
+      const displayedIssue = this.tableList.find(item => item.id === movedCard.id);
+      if (displayedIssue) {
+        displayedIssue.status = this.getGridStatus(currentList);
+      }
     } else {
       moveItemInArray(this.cards[targetList], event.previousIndex, event.currentIndex);
     }
 
     this.cards = { ...this.cards };
-    localStorage.setItem('kanbanData', JSON.stringify(this.cards));
   }
 
   toggleCard(card: Card): void {

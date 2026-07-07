@@ -19,7 +19,7 @@
           </button>
           <button mat-button class="view-btn" [class.active]="!isCalendarView" (click)="showGridView()">
             <mat-icon style="vertical-align: middle; margin-right: 4px;">view_column</mat-icon>
-            Grid View
+            Table View
           </button>
         </div>
 
@@ -27,19 +27,8 @@
           <mat-icon style="vertical-align: middle; margin-right: 4px;">filter_list</mat-icon>Filter
         </button>
 
-        <button mat-raised-button class="freeze-btn" (click)="gridview()">
-          <span class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="icon icon-tabler icon-tabler-layout-grid">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M4 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
-              <path d="M14 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
-              <path d="M4 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
-              <path d="M14 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
-            </svg>
-          </span>
-          <span>Grid Layout</span>
+        <button mat-raised-button class="action-btn" (click)="gridview()">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">grid_on</mat-icon>Grid Columns
         </button>
       </div>
     </div>
@@ -316,7 +305,7 @@
                     <div style="color: #444;">{{ card.projectName }}</div>
                     <div style="color: #666; margin-top: 4px;">
                       <mat-icon
-                        style="font-size: 12px; vertical-align: middle; height: 14px; width: 14px;">person</mat-icon>
+                        style="font-size: 12px; vertical-align: middle; height: 14px; width: 14px; margin-top: 12px;">person</mat-icon>
                       {{ card.user }}
                     </div>
                     <div style="margin-top: 4px;">

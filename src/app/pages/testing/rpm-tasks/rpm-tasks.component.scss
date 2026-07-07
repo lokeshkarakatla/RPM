@@ -185,33 +185,6 @@ mat-paginator {
   }
 }
 
-.freeze-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background-color: black !important;
-  color: white !important;
-  height: 36px !important;
-  padding: 0 16px !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  border-radius: 4px !important;
-  border: none !important;
-  box-sizing: border-box;
-
-  .icon-wrapper {
-    margin-right: 4px;
-    display: flex;
-    align-items: center;
-
-    svg {
-      width: 18px;
-      height: 18px;
-      vertical-align: middle;
-      color: white;
-    }
-  }
-}
 
 .calendar-days {
   width: 100%;

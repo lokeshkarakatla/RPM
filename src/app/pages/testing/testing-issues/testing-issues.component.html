@@ -1,23 +1,27 @@
 <div class="col-lg-12" style="overflow: hidden; margin-top: 40px; margin-left:-10px">
-  <div style="margin-bottom: -10px; margin-top: 1px; margin-right: 15px">
-    <button mat-raised-button class="pull-right" matTooltip="Add Issue" (click)="addIssues(null)" color="primary">
-      <mat-icon class="">person_add</mat-icon> Add Issue
-    </button>
+  
+  <div class="rpm-toolbar" style="display: flex; justify-content: flex-end; align-items: center; width: 100%; margin-bottom: 15px; padding: 0 15px;">
 
-    <button mat-raised-button style="background-color: black; color: white; margin-right: 10px" class="pull-right"
-      matTooltip="Kanban View" (click)="isKanbanView = true">
-      <mat-icon class="">view_kanban</mat-icon> Kanban
-    </button>
+    <div class="toolbar-right" style="display: flex; align-items: center; gap: 10px;">
+      <div class="view-toggle">
+        <button mat-button class="view-btn" [class.active]="!isKanbanView" (click)="isKanbanView = false">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">grid_on</mat-icon>
+          Grid View
+        </button>
+        <button mat-button class="view-btn" [class.active]="isKanbanView" (click)="isKanbanView = true">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">view_kanban</mat-icon>
+          Kanban View
+        </button>
+      </div>
 
-    <button mat-raised-button style="background-color: black; color: white; margin-right: 10px" class="pull-right"
-      matTooltip="Grid View" (click)="isKanbanView = false">
-      <mat-icon class="">grid_on</mat-icon> Grid
-    </button>
+      <button mat-raised-button style="background-color: black; color: white; height: 36px; display: inline-flex; align-items: center;" class="pull-right" (click)="filterToggle = !filterToggle" matTooltip="Filter">
+        <mat-icon>filter_list</mat-icon> Filter
+      </button>
 
-    <button mat-raised-button matTooltip="Filter" style="background-color: black; color: white"
-      class="pull-right filter-hover margin-right-10" (click)="filterToggle = !filterToggle">
-      <mat-icon class="">filter_list</mat-icon> Filter
-    </button>
+      <button mat-raised-button color="primary" class="pull-right btn-primary" style="height: 36px; display: inline-flex; align-items: center; margin-left: 10px;" (click)="addIssues(null)" matTooltip="Add Issue">
+        <mat-icon>add</mat-icon> Add Issue
+      </button>
+    </div>
   </div>
 
   <div class="col-lg-12" fxLayout="row wrap" *ngIf="filterToggle" style="margin-bottom: 0px; width: 100.7%; margin-left: -4px;">
@@ -26,6 +30,7 @@
         <mat-card class="filter">
           <mat-card-content>
             <div class="row col-lg-12 col-sm-12">
+              <!-- Keyword Filter -->
               <div class="col-sm-4 row me-2 mt-3">
                 <div class="col-sm-4 newMarginClass"><b>Keyword:</b></div>
                 <div class="col-sm-8">
@@ -33,132 +38,22 @@
                 </div>
               </div>
 
+              <!-- Status Filter -->
               <div class="col-sm-4 row me-2 mt-3">
-                <div class="col-sm-4 newMarginClass"><b>Equipment Id:</b></div>
+                <div class="col-sm-4 newMarginClass"><b>Status:</b></div>
                 <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="TractorIdSections" placeholder="Select Tractor Id Section">
-                    <mat-option *ngFor="let section of TractorIdSections" [value]="section.item_id">
-                      {{ section.item_text }}
-                    </mat-option>
+                  <mat-select class="form-control" formControlName="Status" placeholder="Select Status">
+                    <mat-option value="Pending">Pending</mat-option>
+                    <mat-option value="Allocated">Allocated</mat-option>
+                    <mat-option value="Process">Process</mat-option>
+                    <mat-option value="Hold">Hold</mat-option>
+                    <mat-option value="Cancelled">Cancelled</mat-option>
+                    <mat-option value="Closed">Closed</mat-option>
                   </mat-select>
                 </div>
               </div>
 
-              <div class="col-sm-4 row me-2 mt-3">
-                <div class="col-sm-4 newMarginClass"><b>Responsible Section:</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="ResponsibleSections" placeholder="Select Responsible Section">
-                    <mat-option *ngFor="let section of responsibleSections" [value]="section.item_id">
-                      {{ section.item_text }}
-                    </mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-3">
-                <div class="col-sm-4 newMarginClass"><b>Responsible Section Lead:</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="ResponsibleSectionLeadId" placeholder="Select Responsible Section Lead">
-                    <mat-option *ngFor="let item of resSectionFilterLeads" [value]="item.UserId">
-                      {{ item.UserName }}
-                    </mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-3">
-                <div class="col-sm-4 newMarginClass"><b>Sub Group:</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="SubGroupId" placeholder="Select Sub Group">
-                    <mat-option *ngFor="let item of FilterSubgroup" [value]="item.SubGroupId">
-                      {{ item.SubGroupName }}
-                    </mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-3">
-                <div class="col-sm-4 newMarginClass"><b>ORC Status:</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="ORCStatuses" placeholder="Select ORC Status">
-                    <mat-option *ngFor="let status of ORCStatuses" [value]="status.item_id">
-                      {{ status.item_text }}
-                    </mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-3">
-                <div class="col-sm-4 newMarginClass"><b>New / Regular:</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="IsNew" placeholder="Select New or Regular">
-                    <mat-option [value]="true">New</mat-option>
-                    <mat-option [value]="false">Regular</mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-3">
-                <div class="col-sm-4 newMarginClass"><b>Failure Effect:</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="ScoreMatrix" placeholder="Select Failure Effect">
-                    <mat-option *ngFor="let item of scorematrix" [value]="item.ScoreMatrixId">
-                      {{ item.ScoreMatrixName }}
-                    </mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-3">
-                <div class="col-sm-4 newMarginClass"><b>Probability:</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="Probability" placeholder="Select Probability">
-                    <mat-option *ngFor="let num of [1,2,3,4,5,6,7,8,9,10]" [value]="num">
-                      {{ num }}
-                    </mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-4">
-                <div class="col-sm-4 newMarginClass"><b>Part Code:</b></div>
-                <div class="col-sm-8">
-                  <input type="text" formControlName="PartCode" class="form-control" placeholder="Search by Part Code" />
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-4">
-                <div class="col-sm-4 newMarginClass"><b>Detection:</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="CategoryId" placeholder="Select Detection">
-                    <mat-option *ngFor="let item of categories" [value]="item.CategoryId">
-                      {{ item.CategoryName }}
-                    </mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-4">
-                <div class="col-sm-4 newMarginClass"><b>Project Lead</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="sortOrder" placeholder="Select Project Lead">
-                    <mat-option value="ASC">ASC</mat-option>
-                    <mat-option value="DESC">DESC</mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-4 row me-2 mt-4 ">
-                <div class="col-sm-4 newMarginClass"><b>Current Responsibility</b></div>
-                <div class="col-sm-8">
-                  <mat-select class="form-control" formControlName="sortOrder" placeholder="Select Current Responsibility">
-                    <mat-option value="ASC">ASC</mat-option>
-                    <mat-option value="DESC">DESC</mat-option>
-                  </mat-select>
-                </div>
-              </div>
-
-              <div class="col-sm-12 pull-right mt-3" style="margin-left: -15px;">
+              <div class="col-sm-4 pull-right mt-3">
                 <a (click)="filterToggle = !filterToggle" class="pull-right" style="font-size: 25px; cursor: pointer; margin-left: 5px">
                   <i class="fa fa-angle-double-up" aria-hidden="true"></i>
                 </a>
@@ -199,14 +94,10 @@
                   {{ card.expanded ? "remove" : "add" }}
                 </span>
               </div>
-              <div class="card-info">
-                <p class="info-item">
-                  <mat-icon>business</mat-icon>
+              <div style="margin-bottom: 8px;">
+                <p style="display: flex; align-items: flex-start; gap: 6px; margin: 4px 0; color: gray; font-size: 12px; white-space: normal;">
+                  <mat-icon style="font-size: 18px; width: 18px; height: 18px; line-height: 18px; flex-shrink: 0; margin-top: 2px;">business</mat-icon>
                   <span>{{ card.LawFirm }}</span>
-                </p>
-                <p class="info-item">
-                  <mat-icon>calendar_today</mat-icon>
-                  <span>{{ card.createdDate }}</span>
                 </p>
               </div>
 
@@ -248,80 +139,64 @@
     </div>
     <div *ngIf="!isKanbanView">
       <div class="table-responsive" id="grid-table-container">
-        <table mat-table class="table table-bordered table-hover">
-          <thead class="tbl-head">
+        <table class="table table-bordered table-hover text-center">
+          <thead class="tbl-head" style="background-color: #f5f5f5;">
             <tr>
-              <th mat-header-cell mat-sort-header class="text-center">Action</th>
-              <th mat-header-cell mat-sort-header class="text-center">Project Code</th>
-              <th mat-header-cell mat-sort-header class="text-center">Equipment ID</th>
-              <th mat-header-cell mat-sort-header class="text-center">Issue Description</th>
-              <th mat-header-cell mat-sort-header class="text-center">Part Code</th>
-              <th mat-header-cell mat-sort-header class="text-center">Part Description</th>
-              <th mat-header-cell mat-sort-header class="text-center">Failure Hours</th>
-              <th mat-header-cell mat-sort-header class="text-center">Updation Hours</th>
-              <th mat-header-cell mat-sort-header class="text-center">Current Status</th>
-              <th mat-header-cell mat-sort-header class="text-center">Target Date</th>
-              <th mat-header-cell mat-sort-header class="text-center">Review Done</th>
-              <th mat-header-cell mat-sort-header class="text-center">Regular/New</th>
-              <th mat-header-cell mat-sort-header class="text-center">Responsible Section</th>
-              <th mat-header-cell mat-sort-header class="text-center">Sub Group</th>
-              <th mat-header-cell mat-sort-header class="text-center"> Section Lead</th>
-              <th mat-header-cell mat-sort-header class="text-center">ORC Status</th>
-              <th mat-header-cell mat-sort-header class="text-center">Project Lead</th>
-              <th mat-header-cell mat-sort-header class="text-center">Category</th>
-              <th mat-header-cell mat-sort-header class="text-center">Failure Effect</th>
-              <th mat-header-cell mat-sort-header class="text-center">Severity</th>
-              <th mat-header-cell mat-sort-header class="text-center">Probability</th>
-              <th mat-header-cell mat-sort-header class="text-center">Root Cause Analysis</th>
-              <th mat-header-cell mat-sort-header class="text-center">Photograph</th>
-              <th mat-header-cell mat-sort-header class="text-center">Relevant Document</th>
-              <th mat-header-cell mat-sort-header class="text-center">Context</th>
+              <th class="text-center" style="min-width: 100px;">Actions</th>
+              <th class="text-center" style="min-width: 250px;">Issue Description</th>
+              <th class="text-center" style="min-width: 180px;">Subject</th>
+              <th class="text-center" style="min-width: 130px;">Due Date</th>
+              <th class="text-center" style="min-width: 200px;">Remarks</th>
+              <th class="text-center" style="min-width: 120px;">Status</th>
+              <th class="text-center" style="min-width: 100px;">Image</th>
+              <th class="text-center" style="min-width: 100px;">Document</th>
             </tr>
           </thead>
 
           <tbody>
             <tr *ngFor="let applicant of tableList">
               <td class="text-center">
-                <a matTooltip="Edit User" (click)="addTests(applicant)">
+                <a matTooltip="Edit Issue" (click)="addTests(applicant)" style="cursor: pointer; margin-right: 12px; color: cornflowerblue;">
                   <i class="fa fa-edit"></i>
                 </a>
-                <a matTooltip="Delete User" (click)="deleteConfirmation(applicant)">
-                  <i class="fa fa-trash red"></i>
+                <a matTooltip="Delete Issue" (click)="deleteConfirmation(applicant)" style="cursor: pointer; color: red;">
+                  <i class="fa fa-trash"></i>
                 </a>
               </td>
-              <td class="text-center">{{ applicant.projectCode }}</td>
-              <td class="text-center">{{ applicant.tractorId }}</td>
-              <td class="text-center">{{ applicant.issueDescription }}</td>
-              <td class="text-center">{{ applicant.partCode }}</td>
-              <td class="text-center">{{ applicant.partDescription }}</td>
-              <td class="text-center">{{ applicant.failureHours }}</td>
-              <td class="text-center">{{ applicant.updationHours }}</td>
-              <td class="text-center">{{ applicant.currentStatus }}</td>
-              <td class="text-center">{{ applicant.targetDate | date }}</td>
-              <td class="text-center">{{ applicant.concernedAcknowledgement }}</td>
-              <td class="text-center">{{ applicant.regularOrNew }}</td>
-              <td class="text-center">{{ applicant.responsibleSection }}</td>
-              <td class="text-center">{{ applicant.subGroup }}</td>
-              <td class="text-center">{{ applicant.responsibleSectionLead }}</td>
-              <td class="text-center">{{ applicant.orcStatus }}</td>
-              <td class="text-center">{{ applicant.projectViLead }}</td>
-              <td class="text-center">{{ applicant.category }}</td>
-              <td class="text-center">{{ applicant.failureEffect }}</td>
-              <td class="text-center">{{ applicant.severity }}</td>
-              <td class="text-center">{{ applicant.probability }}</td>
-              <td class="text-center">{{ applicant.l1Rca }}</td>
+              <td class="text-left" style="white-space: normal;">{{ applicant.issueDescription }}</td>
+              <td class="text-center">{{ applicant.subject }}</td>
+              <td class="text-center">{{ applicant.targetDate | date:'dd MMM yyyy' }}</td>
+              <td class="text-left" style="white-space: normal;">{{ applicant.remarks }}</td>
               <td class="text-center">
-                <ng-container *ngIf="applicant.photograph && applicant.photograph !== 'NA'; else noPhoto">
-                  <a [href]="applicant.photograph" target="_blank" matTooltip="View Photograph">
-                    <mat-icon color="primary">visibility</mat-icon>
+                <span class="badge" [ngStyle]="{'background-color': getColor(applicant.status), 'color': 'white', 'padding': '4px 8px', 'border-radius': '4px'}">
+                  {{ applicant.status }}
+                </span>
+              </td>
+              <td class="text-center">
+                <ng-container *ngIf="applicant.image; else noImg">
+                  <a [href]="applicant.image" target="_blank" matTooltip="View Image" style="margin-right: 8px; color: black; cursor: pointer;">
+                    <mat-icon style="vertical-align: middle;">visibility</mat-icon>
+                  </a>
+                  <a [href]="applicant.image" download matTooltip="Download Image" style="color: black; cursor: pointer;">
+                    <mat-icon style="vertical-align: middle;">download</mat-icon>
                   </a>
                 </ng-container>
-                <ng-template #noPhoto>NA</ng-template>
+                <ng-template #noImg>NA</ng-template>
               </td>
               <td class="text-center">
-                <a [href]="applicant.documentUpload" target="_blank">View</a>
+                <ng-container *ngIf="applicant.document; else noDoc">
+                  <a [href]="applicant.document" target="_blank" matTooltip="View Document" style="margin-right: 8px; color: black; cursor: pointer;">
+                    <mat-icon style="vertical-align: middle;">visibility</mat-icon>
+                  </a>
+                  <a [href]="applicant.document" download matTooltip="Download Document" style="color: black; cursor: pointer;">
+                    <mat-icon style="vertical-align: middle;">download</mat-icon>
+                  </a>
+                </ng-container>
+                <ng-template #noDoc>NA</ng-template>
               </td>
-              <td>{{ applicant.failureEffect }}</td>
+            </tr>
+            <tr *ngIf="!tableList || tableList.length === 0">
+              <td colspan="8" class="text-center">No records found</td>
             </tr>
           </tbody>
         </table>
@@ -334,7 +209,7 @@
         </button>
       </div>
       
-      <mat-paginator [length]="totalSize" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [length]="totalSize" [pageSize]="pageSize" [pageIndex]="currentPage" [pageSizeOptions]="[5, 10, 25, 50, 100]" (page)="fnHandlePage($event)" showFirstLastButtons></mat-paginator>
     </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import HC_Gantt from 'highcharts/modules/gantt';
 
@@ -21,6 +22,11 @@ interface ScheduleTask {
   styleUrls: ['./project-schedule.component.scss']
 })
 export class ProjectScheduleComponent implements OnInit {
+
+    constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   Highcharts: typeof Highcharts = Highcharts;
 
@@ -144,8 +150,7 @@ export class ProjectScheduleComponent implements OnInit {
 
   ];
 
-  constructor() {}
-
+ 
   get displayedTasks(): ScheduleTask[] {
 
     if (this.isMaskingPending) {
@@ -332,8 +337,8 @@ private loadChart(): void {
 }
 
 
-  goBack(): void {
-  window.history.back();
-}
+ goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import HighchartsGantt from 'highcharts/modules/gantt';
 
@@ -157,12 +158,14 @@ export class ProjectOverviewComponent implements OnInit {
     }]
   };
 
-  constructor(private location:Location) { }
+   constructor(
+     private router: Router,
+     private route: ActivatedRoute
+   ) { }
 
 
-
- goBack(): void {
-    this.location.back();
+    goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
   }
   ngOnInit(): void {
   }

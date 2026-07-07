@@ -1,7 +1,7 @@
 @import "../theme/styles/variables";
 
 /* ── Page-header bar height token ── */
-$page-header-bar-height: 56px;
+$page-header-bar-height: 100px;
 
 /* ── Page header: breadcrumb title + back button ──
    Sits between the toolbar and the scroll container; never scrolls.
@@ -9,7 +9,7 @@ $page-header-bar-height: 56px;
 .page-header-bar {
     position: absolute;
     top: $toolbar-height;
-    left: 0;
+    left: 29px;
     right: 0;
     height: $page-header-bar-height;
     z-index: 6;
@@ -78,7 +78,7 @@ $page-header-bar-height: 56px;
 
   /* When the page-header-bar is visible, shift down so it is never covered. */
   &.with-page-header {
-    top: $toolbar-height + $page-header-bar-height;
+    
     min-height: calc(100% - (#{$toolbar-height} + #{$page-header-bar-height} + #{$inner-sidenav-content-padding}*2));
   }
 

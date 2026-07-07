@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import HighchartsGantt from 'highcharts/modules/gantt';
 
@@ -168,8 +169,12 @@ export class ProjectAnalyticsComponent implements OnInit {
       { type: 'column', name: 'Maintenance & Setup', data: [10, 15, 60, 50, 50, 40], color: '#f59e0b' }
     ]
   };
+  // route: ActivatedRoute | null | undefined;
 
-  constructor(private location: Location) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void { }
 
@@ -276,8 +281,7 @@ export class ProjectAnalyticsComponent implements OnInit {
   }
 
 
-
   goBack(): void {
-    this.location.back();
+    this.router.navigateByUrl('/app/testing/projects');
   }
 }

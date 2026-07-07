@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-team',
@@ -35,7 +36,10 @@ export class ProjectTeamComponent implements OnInit {
   selectedAvailable: string[] = [];
   selectedAssigned: string[] = [];
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
   }
@@ -99,7 +103,7 @@ export class ProjectTeamComponent implements OnInit {
 
 
 
-    goBack(): void {
-  window.history.back();
-}
+  goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
+  }
 }

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddTasksComponent } from './add-tasks/add-tasks.component';
 import { FreezepanesDialogComponent } from '../testing-projects/freezepanes-dialog/freezepanes-dialog.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rpm-tasks',
@@ -43,7 +44,12 @@ export class RpmTasksComponent implements OnInit {
   // Dynamic Array holding calendar format of the grid data
   calendarCards: any[] = [];
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private dialog: MatDialog) {
+  constructor(
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private router: Router
+  ) {
     this.FilterForm = this.fb.group({ KeyWord: null });
   }
 
@@ -54,10 +60,10 @@ export class RpmTasksComponent implements OnInit {
   }
 
   getSliderColor(percent: number): string {
-    if (percent <= 30) return '#0000ff'; 
-    if (percent > 30 && percent <= 80) return '#ffb300'; 
-    if (percent === 100) return '#ff0000'; 
-    return '#008000'; 
+    if (percent <= 30) return '#0000ff';
+    if (percent > 30 && percent <= 80) return '#ffb300';
+    if (percent === 100) return '#ff0000';
+    return '#008000';
   }
 
   getAllProjects(): void {
@@ -66,10 +72,10 @@ export class RpmTasksComponent implements OnInit {
         IsActive: true,
         ProjectName: 'Portal Upgrade',
         ProjectCode: '202605/Engg/001',
-        PercentCompletion: 100, 
+        PercentCompletion: 100,
         TaskName: 'UI Design Implementation',
         TaskType: 'Development',
-        Responsibility: 'Alice Johnson', 
+        Responsibility: 'Alice Johnson',
         Duration: '5 days',
         Effort: '20',
         Description: 'Implement the new dashboard UI layout.',
@@ -166,6 +172,174 @@ export class RpmTasksComponent implements OnInit {
         Priority: 'High',
         Complexity: 'High',
         Template: 'Security Audit Template'
+      },
+      {
+        IsActive: true,
+        ProjectName: 'Customer Portal Revamp',
+        ProjectCode: '202606/CPR/002',
+        PercentCompletion: 45,
+        TaskName: 'UI Design',
+        TaskType: 'Design',
+        Responsibility: 'Sophia Carter',
+        Duration: '8 days',
+        Effort: '40',
+        Description: 'Design responsive user interface for the customer portal.',
+        PlanStart: '2025-02-01',
+        PlanEnd: '2025-02-08',
+        ActualStart: '2025-02-01',
+        ActualEnd: '',
+        ETA: '2025-02-10',
+        Status: 'In Progress',
+        Priority: 'Medium',
+        Complexity: 'Medium',
+        Template: 'UI Design Template'
+      },
+      {
+        IsActive: false,
+        ProjectName: 'Inventory Management System',
+        ProjectCode: '202606/IMS/003',
+        PercentCompletion: 100,
+        TaskName: 'Database Setup',
+        TaskType: 'Development',
+        Responsibility: 'Michael Johnson',
+        Duration: '5 days',
+        Effort: '30',
+        Description: 'Create database schema and optimize indexes.',
+        PlanStart: '2025-02-10',
+        PlanEnd: '2025-02-14',
+        ActualStart: '2025-02-10',
+        ActualEnd: '2025-02-14',
+        ETA: '2025-02-14',
+        Status: 'Completed',
+        Priority: 'High',
+        Complexity: 'High',
+        Template: 'Database Setup Template'
+      },
+      {
+        IsActive: true,
+        ProjectName: 'HR Management Platform',
+        ProjectCode: '202606/HRM/004',
+        PercentCompletion: 20,
+        TaskName: 'Employee Login Module',
+        TaskType: 'Development',
+        Responsibility: 'Daniel Wilson',
+        Duration: '10 days',
+        Effort: '60',
+        Description: 'Develop secure employee authentication and authorization.',
+        PlanStart: '2025-02-15',
+        PlanEnd: '2025-02-24',
+        ActualStart: '2025-02-16',
+        ActualEnd: '',
+        ETA: '2025-02-26',
+        Status: 'In Progress',
+        Priority: 'High',
+        Complexity: 'High',
+        Template: 'Authentication Module Template'
+      },
+      {
+        IsActive: false,
+        ProjectName: 'Mobile Banking App',
+        ProjectCode: '202606/MBA/005',
+        PercentCompletion: 75,
+        TaskName: 'API Integration',
+        TaskType: 'Integration',
+        Responsibility: 'Emma Thompson',
+        Duration: '7 days',
+        Effort: '42',
+        Description: 'Integrate payment gateway and account services APIs.',
+        PlanStart: '2025-03-01',
+        PlanEnd: '2025-03-07',
+        ActualStart: '2025-03-01',
+        ActualEnd: '',
+        ETA: '2025-03-09',
+        Status: 'Testing',
+        Priority: 'Critical',
+        Complexity: 'High',
+        Template: 'API Integration Template'
+      },
+      {
+        IsActive: true,
+        ProjectName: 'E-Commerce Website',
+        ProjectCode: '202606/ECW/006',
+        PercentCompletion: 10,
+        TaskName: 'Product Catalog',
+        TaskType: 'Development',
+        Responsibility: 'Olivia Martinez',
+        Duration: '9 days',
+        Effort: '36',
+        Description: 'Develop product listing and filtering functionality.',
+        PlanStart: '2025-03-05',
+        PlanEnd: '2025-03-13',
+        ActualStart: '2025-03-05',
+        ActualEnd: '',
+        ETA: '2025-03-15',
+        Status: 'In Progress',
+        Priority: 'Medium',
+        Complexity: 'Medium',
+        Template: 'Catalog Module Template'
+      },
+      {
+        IsActive: false,
+        ProjectName: 'Cloud Migration',
+        ProjectCode: '202606/CLD/007',
+        PercentCompletion: 90,
+        TaskName: 'Server Migration',
+        TaskType: 'Infrastructure',
+        Responsibility: 'James Anderson',
+        Duration: '12 days',
+        Effort: '72',
+        Description: 'Migrate application servers to cloud infrastructure.',
+        PlanStart: '2025-03-10',
+        PlanEnd: '2025-03-21',
+        ActualStart: '2025-03-10',
+        ActualEnd: '',
+        ETA: '2025-03-23',
+        Status: 'Review',
+        Priority: 'Critical',
+        Complexity: 'Very High',
+        Template: 'Cloud Migration Template'
+      },
+      {
+        IsActive: true,
+        ProjectName: 'AI Chatbot',
+        ProjectCode: '202606/AIB/008',
+        PercentCompletion: 55,
+        TaskName: 'Intent Recognition',
+        TaskType: 'AI Development',
+        Responsibility: 'Lucas Brown',
+        Duration: '14 days',
+        Effort: '84',
+        Description: 'Implement NLP-based intent recognition for chatbot.',
+        PlanStart: '2025-03-15',
+        PlanEnd: '2025-03-28',
+        ActualStart: '2025-03-15',
+        ActualEnd: '',
+        ETA: '2025-03-30',
+        Status: 'In Progress',
+        Priority: 'High',
+        Complexity: 'Very High',
+        Template: 'AI Module Template'
+      },
+      {
+        IsActive: false,
+        ProjectName: 'Payroll Automation',
+        ProjectCode: '202606/PAY/009',
+        PercentCompletion: 100,
+        TaskName: 'Salary Calculation',
+        TaskType: 'Development',
+        Responsibility: 'Ava Davis',
+        Duration: '6 days',
+        Effort: '32',
+        Description: 'Implement automated salary and tax calculations.',
+        PlanStart: '2025-04-01',
+        PlanEnd: '2025-04-06',
+        ActualStart: '2025-04-01',
+        ActualEnd: '2025-04-06',
+        ETA: '2025-04-06',
+        Status: 'Completed',
+        Priority: 'Medium',
+        Complexity: 'Medium',
+        Template: 'Payroll Template'
       }
     ];
 
@@ -173,7 +347,7 @@ export class RpmTasksComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
     this.allProjects = mockData.slice(start, end);
-    
+
     // Generate calendar data based directly on grid data
     this.generateCalendarData();
   }
@@ -256,7 +430,7 @@ export class RpmTasksComponent implements OnInit {
   }
 
   openProject(item: any): void {
-    console.log('Opening project details for:', item.ProjectCode);
+    this.router.navigate(['/app/testing/projects/dashboard']);
   }
 
   fnHandlePage(event: any): void {
@@ -287,7 +461,7 @@ export class RpmTasksComponent implements OnInit {
   }
 
   openPdf(fileName: string): void {
-    const pdfUrl = `assets/${fileName}`; 
+    const pdfUrl = `assets/${fileName}`;
     window.open(pdfUrl, '_blank');
   }
 
@@ -304,7 +478,7 @@ export class RpmTasksComponent implements OnInit {
 
   setSelectedTab1(tab: string) { this.selectedTab1 = tab; }
   setSelectedTab2(index: number) { this.selectedTab2 = index; }
-  clearFilter() {}
-  go() {}
+  clearFilter() { }
+  go() { }
 
 }

@@ -10,6 +10,7 @@ export interface TaskItem {
 export interface ModuleItem {
   id: number;
   name: string;
+  completed?: boolean;
   tasks: TaskItem[];
 }
 
@@ -17,6 +18,7 @@ export interface StageItem {
   id: number;
   name: string;
   type: 'stage' | 'gate'; 
+  completed?: boolean;
   modules: ModuleItem[];
 }
 
@@ -95,8 +97,10 @@ export class ProjectSetupComponent implements OnInit {
     // Trigger delete confirmation or API call here
   }
 
-
-
+  toggleCompleted(event: Event, item: any) {
+    event.stopPropagation();
+    item.completed = !item.completed;
+  }
 
   goBack(): void {
   window.history.back();

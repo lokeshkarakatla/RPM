@@ -1,3 +1,5 @@
+import { Location } from '@angular/common';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AddcriteriaComponent } from '../addcriteria/addcriteria.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +12,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./gate-prototyping.component.scss']
 })
 export class GatePrototypingComponent implements OnInit, OnDestroy {
+  goBack(): void {
+    this.location.back();
+  }
+
 
   private subs = new Subscription();
 
@@ -52,7 +58,7 @@ export class GatePrototypingComponent implements OnInit, OnDestroy {
     }
   ];
 
-  constructor(private dragulaService: DragulaService, private dialog: MatDialog) {
+  constructor(private dragulaService: DragulaService, private dialog: MatDialog, private location: Location) {
     if (this.dragulaService.find('PROTOTYPING_ROWS')) {
       this.dragulaService.destroy('PROTOTYPING_ROWS');
     }
@@ -108,7 +114,15 @@ export class GatePrototypingComponent implements OnInit, OnDestroy {
   }
 
   deleteConfirmation(item: any): void {
-    console.log('Delete clicked for', item);
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: 'auto',
+      data: { title: 'Change Status', content: 'Are you sure you want to Change the Status ?' }
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data) {
+        console.log('Delete clicked for', item);
+      }
+    });
   }
 
   Confirmation(item: any): void {

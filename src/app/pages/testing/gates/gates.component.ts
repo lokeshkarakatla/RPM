@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';   // ✅ Import Location
 import { filter } from 'rxjs/operators';
 import { AddGateComponent } from './add-gate/add-gate.component';
+import { PageHeaderService } from 'src/app/shared/page-header.service';
 
 @Component({
   selector: 'app-gates',
@@ -47,7 +48,8 @@ export class GatesComponent implements OnInit, OnDestroy {
     private dragulaService: DragulaService, 
     private router: Router,
     private _activeRoute: ActivatedRoute,
-    private location: Location   // ✅ Inject Location
+    private location: Location,
+    private pageHeaderService: PageHeaderService
   ) {
     // ✅ Only destroy if group already exists to avoid errors
     if (this.dragulaService.find('MONITORSTEPS')) {

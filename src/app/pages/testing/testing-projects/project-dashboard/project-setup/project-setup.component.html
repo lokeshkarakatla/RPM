@@ -33,7 +33,7 @@
              (click)="selectStage(item)">
              
           <div class="item-left">
-            <div class="custom-checkbox"></div>
+            <div class="custom-checkbox" [class.checked]="item.completed" (click)="toggleCompleted($event, item)"></div>
             <span class="item-name">{{ item.name }}</span>
           </div>
           
@@ -66,7 +66,7 @@
                (click)="selectModule(mod)">
                
             <div class="item-left">
-              <div class="custom-checkbox"></div>
+              <div class="custom-checkbox" [class.checked]="mod.completed" (click)="toggleCompleted($event, mod)"></div>
               <span class="item-name">{{ mod.name }}</span>
             </div>
             
@@ -99,7 +99,7 @@
         <ng-container *ngIf="selectedModule?.tasks">
           <div class="list-item is-task" *ngFor="let task of selectedModule?.tasks">
             <div class="item-left">
-              <div class="custom-checkbox"></div>
+              <div class="custom-checkbox" [class.checked]="task.completed" (click)="toggleCompleted($event, task)"></div>
               <span class="item-name">{{ task.name }}</span>
             </div>
             <div class="item-right">

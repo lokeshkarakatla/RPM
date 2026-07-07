@@ -5,6 +5,7 @@ import { AddModuleComponent } from './add-module/add-module.component';
 import { AddTaskComponent } from '../../rpm-tasks/add-task/add-task.component';
 import { AddphotoPopComponent } from '../../testing-projects/project-dashboard/project-photos/addphoto-pop/addphoto-pop.component';
 import { ProcedurePopComponent } from './procedure-pop/procedure-pop.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-rpm-stages-wbs',
@@ -13,7 +14,11 @@ import { ProcedurePopComponent } from './procedure-pop/procedure-pop.component';
 })
 export class RpmStagesWbsComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private location: Location) { }
+
+  goBack(): void {
+    this.location.back();
+  }
 
   @ViewChild('tableContainer', { static: false }) tableContainer!: ElementRef;
 

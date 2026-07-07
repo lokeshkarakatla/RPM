@@ -1,3 +1,4 @@
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -81,7 +82,15 @@ export class FacilityMasterComponent implements OnInit {
   }
 
   deleteConfirmation(item: any): void {
-    console.log('Delete Facility triggered for:', item);
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: 'auto',
+      data: { title: 'Change Status', content: 'Are you sure you want to Change the Status ?' }
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data) {
+        console.log('Delete Facility triggered for:', item);
+      }
+    });
   }
 
   Confirmation(item: any): void {

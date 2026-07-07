@@ -183,23 +183,17 @@ export class TractorstatusComponent implements OnInit {
       width: 'auto',
       data: { TractorStatusId: item.TractorStatusId, title: 'Change Status', content: 'Are you sure you want to Change the Status ?' }
     });
-    // dialogRef.afterClosed().subscribe(
-    //   (data: any) => {
-    //     if (data) {
-    //       this._SetupService.tractorStatus({ TractorStatusId: data.TractorStatusId }).subscribe((data: any) => {
-    //         if (data['Success']) {
-    //           this.getTractors();
-    //         }
-    //       })
-    //     }
-    //   }
-    // );
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data) {
+        item.IsActive = !item.IsActive;
+      }
+    });
   }
-    deleteConfirmation(item: any) {
+ 
+  deleteConfirmation(item: any) {
     let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
       data: { ProjectId: item.ProjectId, title: 'Delete Confirmation', content: 'Are you sure you want to Delete?' }
     });
- 
-}
+  }
 }

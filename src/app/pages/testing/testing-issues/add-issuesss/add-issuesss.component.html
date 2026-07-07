@@ -3,48 +3,60 @@
         {{ data ? 'Edit' : 'Add'}} Issue
     </h1>
 </div>
- 
+
 <div mat-dialog-content style="padding: 20px 25px;">
     <div class="col-sm-12" style="margin-bottom: 10px;">
         <form [formGroup]="form" (ngSubmit)="form.valid && dialogRef.close(form.value)">
-            
+
             <!-- Subject -->
             <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
                 <div class="col-4">
-                    <label class="add-member-label control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Subject <span style="color: red;">*</span> :</label>
+                    <label class="add-member-label control-label"
+                        style="font-weight: 500; margin: 0; white-space: nowrap;">Subject <span
+                            style="color: red;"></span> :</label>
                 </div>
                 <div class="col-8">
-                    <input class="form-control back" placeholder="Enter Subject" formControlName="subject" type="text" required style="height: 35px;" />
+                    <input class="form-control back" placeholder="Enter Subject" formControlName="subject" type="text"
+                        required style="height: 35px;" />
                 </div>
             </div>
 
             <!-- Issue Description -->
             <div class="row" style="margin-bottom: 12px; display: flex; align-items: flex-start;">
                 <div class="col-4" style="padding-top: 5px;">
-                    <label class="add-member-label control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Description <span style="color: red;">*</span> :</label>
+                    <label class="add-member-label control-label"
+                        style="font-weight: 500; margin: 0; white-space: nowrap;">Description <span
+                            style="color: red;"></span> :</label>
                 </div>
                 <div class="col-8">
-                    <textarea class="form-control back" rows="3" placeholder="Enter Issue Description" formControlName="issueDescription" required style="resize: vertical;"></textarea>
+                    <textarea class="form-control back" rows="3" placeholder="Enter Issue Description"
+                        formControlName="issueDescription" required style="resize: vertical;"></textarea>
                 </div>
             </div>
 
             <!-- Due Date -->
             <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
                 <div class="col-4">
-                    <label class="add-member-label control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Due Date <span style="color: red;">*</span> :</label>
+                    <label class="add-member-label control-label"
+                        style="font-weight: 500; margin: 0; white-space: nowrap;">Due Date <span
+                            style="color: red;"></span> :</label>
                 </div>
                 <div class="col-8">
-                    <input class="form-control back" type="date" formControlName="targetDate" required style="height: 35px;" />
+                    <input class="form-control back" type="date" formControlName="targetDate" required
+                        style="height: 35px;" />
                 </div>
             </div>
 
             <!-- Status -->
             <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
                 <div class="col-4">
-                    <label class="add-member-label control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Status <span style="color: red;">*</span> :</label>
+                    <label class="add-member-label control-label"
+                        style="font-weight: 500; margin: 0; white-space: nowrap;">Status <span
+                            style="color: red;">*</span> :</label>
                 </div>
                 <div class="col-8">
-                    <mat-select formControlName="status" class="form-control back" placeholder="Select Status" style="height: 35px; line-height: 23px;">
+                    <mat-select formControlName="status" class="form-control back" placeholder="Select Status"
+                        style="height: 35px; line-height: 23px;">
                         <mat-option value="Pending">Pending</mat-option>
                         <mat-option value="Allocated">Allocated</mat-option>
                         <mat-option value="Process">Process</mat-option>
@@ -58,30 +70,36 @@
             <!-- Remarks -->
             <div class="row" style="margin-bottom: 12px; display: flex; align-items: flex-start;">
                 <div class="col-4" style="padding-top: 5px;">
-                    <label class="add-member-label control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Remarks :</label>
+                    <label class="add-member-label control-label"
+                        style="font-weight: 500; margin: 0; white-space: nowrap;">Remarks :</label>
                 </div>
                 <div class="col-8">
-                    <textarea class="form-control back" rows="2" placeholder="Enter Remarks" formControlName="remarks" style="resize: vertical;"></textarea>
+                    <textarea class="form-control back" rows="2" placeholder="Enter Remarks" formControlName="remarks"
+                        style="resize: vertical;"></textarea>
                 </div>
             </div>
 
             <!-- Upload Image -->
             <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
                 <div class="col-4">
-                    <label class="add-member-label control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Upload Image :</label>
+                    <label class="add-member-label control-label"
+                        style="font-weight: 500; margin: 0; white-space: nowrap;">Upload Image :</label>
                 </div>
                 <div class="col-8">
-                    <input type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control back" style="height: auto; padding: 4px;" />
+                    <input type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control back"
+                        style="height: auto; padding: 4px;" />
                 </div>
             </div>
 
             <!-- Upload File -->
             <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
                 <div class="col-4">
-                    <label class="add-member-label control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Upload File :</label>
+                    <label class="add-member-label control-label"
+                        style="font-weight: 500; margin: 0; white-space: nowrap;">Upload File :</label>
                 </div>
                 <div class="col-8">
-                    <input type="file" (change)="onFileSelected($event)" class="form-control back" style="height: auto; padding: 4px;" />
+                    <input type="file" (change)="onFileSelected($event)" class="form-control back"
+                        style="height: auto; padding: 4px;" />
                 </div>
             </div>
 
@@ -92,8 +110,7 @@
                         style="background-color: lightgray; color: red">
                         <mat-icon>cancel</mat-icon> Close
                     </button>
-                    <button mat-raised-button type="submit"
-                        style="margin-right: 5px;" color="primary">
+                    <button mat-raised-button type="submit" style="margin-right: 5px;" color="primary">
                         <mat-icon>save</mat-icon> Save
                     </button>
                 </div>

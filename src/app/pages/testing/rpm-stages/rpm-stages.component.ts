@@ -90,25 +90,74 @@ this.subs.add(
   }
 
   Confirmation(item: any) {
-    this.dialog.open(StatusConfirmationDialogComponent, {
+    let dialogRef = this.dialog.open(StatusConfirmationDialogComponent, {
       width: 'auto',
       data: { TractorStatusId: item.TractorStatusId, title: 'Change Status', content: 'Are you sure you want to Change the Status ?' }
     });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data) {
+        item.status = item.status === 'Active' ? 'Inactive' : 'Active';
+      }
+    });
   }
 
-  openEditDialog(item: any) { console.log('Edit:', item); }
-  deleteConfirmation(item: any) { console.log('Delete:', item); }
-
-
-
- 
-
-
-    addstage( ) {
-    this.dialog.open(AddStagePopComponent, {
-       width: '500px',
+  openEditDialog(item: any) {
+    let dialogRef = this.dialog.open(AddStagePopComponent, {
+      width: '500px',
       height: 'auto',
-       
+      data: item
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        item.stageName = result.stageName;
+        item.phase = result.stageName;
+        item.gateCode = result.gateCode;
+        item.stageDescription = result.stageDescription;
+        item.description = result.stageDescription;
+        this.updatePageData();
+      }
+    });
+  }
+
+  deleteConfirmation(item: any) {
+    let dialogRef = this.dialog.open(StatusConfirmationDialogComponent, {
+      width: 'auto',
+      data: { title: 'Delete Confirmation', content: 'Are you sure you want to Delete?' }
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (data) {
+        const index = this.tdata.indexOf(item);
+        if (index > -1) {
+          this.tdata.splice(index, 1);
+          this.totalSize = this.tdata.length;
+          this.updatePageData();
+        }
+      }
+    });
+  }
+
+  addstage() {
+    let dialogRef = this.dialog.open(AddStagePopComponent, {
+      width: '500px',
+      height: 'auto'
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        const nextId = this.tdata.length + 1;
+        const newStage = {
+          phase: result.stageName,
+          description: result.stageDescription,
+          tasks: 0,
+          status: "Active",
+          stageCode: `STG00${nextId}`,
+          stageName: result.stageName,
+          gateCode: result.gateCode,
+          stageDescription: result.stageDescription
+        };
+        this.tdata.push(newStage);
+        this.totalSize = this.tdata.length;
+        this.updatePageData();
+      }
     });
   }
 }

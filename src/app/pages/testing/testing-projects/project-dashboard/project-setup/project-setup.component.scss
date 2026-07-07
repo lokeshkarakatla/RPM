@@ -179,11 +179,37 @@
   border-radius: 4px;
   border: 1.5px solid #cbd5e1;
   background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+
+  &.checked {
+    background-color: #2563eb;
+    border-color: #2563eb;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      margin-bottom: 2px;
+    }
+  }
 }
 
 .is-active .custom-checkbox {
   border-color: #93c5fd;
   background-color: #eff6ff;
+  
+  &.checked {
+    background-color: #2563eb;
+    border-color: #2563eb;
+  }
 }
 
 .dashed-add-btn {

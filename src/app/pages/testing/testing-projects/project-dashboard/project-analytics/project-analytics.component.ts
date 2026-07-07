@@ -57,7 +57,7 @@ export class ProjectAnalyticsComponent implements OnInit {
       title: { text: undefined },
       grid: { enabled: true, borderColor: '#f3f4f6' },
       labels: {
-        align: 'right',
+        align: 'center',
         // Increased x padding to -40 to ensure text does not touch the bars
         x: -40,
         style: { fontSize: '12px', color: '#1f2937', fontWeight: '500' }
@@ -103,8 +103,8 @@ export class ProjectAnalyticsComponent implements OnInit {
       { title: { text: '' }, labels: { format: '{value}%' }, opposite: true, max: 60 }
     ],
     series: [
-      { type: 'column', name: 'Scrap Rate %', data: [6, 5, 4, 3, 2, 2, 1], color: '#ef4444', yAxis: 0 },
-      { type: 'line', name: 'Overall Equipment Effectiveness (OEE)', data: [45, 50, 52, 55, 58, 60, 62], color: '#10b981', yAxis: 1, dashStyle: 'Dash', marker: { enabled: false } }
+      { type: 'column', name: 'Completed this month', data: [6, 5, 4, 3, 2, 2, 1], color: '#ef4444', yAxis: 0 },
+      { type: 'line', name: 'Total completed', data: [45, 50, 52, 55, 58, 60, 62], color: '#10b981', yAxis: 1, dashStyle: 'Dash', marker: { enabled: false } }
     ]
   };
 
@@ -132,8 +132,8 @@ export class ProjectAnalyticsComponent implements OnInit {
     xAxis: { categories: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10'] },
     yAxis: { title: { text: '' }, labels: { format: '{value}%' }, max: 40 },
     series: [
-      { type: 'line', name: 'Inventory Buffer Consumed %', data: [0, 4, 10, 18, 25, 30, 33, 35, 37, 38], color: '#f59e0b', dashStyle: 'ShortDash', marker: { symbol: 'circle' } },
-      { type: 'line', name: 'Order Fulfillment %', data: [0, 5, 8, 12, 15, 20, 21, 23, 24, 26], color: '#10b981', dashStyle: 'ShortDash', marker: { symbol: 'circle' } }
+      { type: 'line', name: 'Buffer Consumed', data: [0, 4, 10, 18, 25, 30, 33, 35, 37, 38], color: '#f59e0b', dashStyle: 'ShortDash', marker: { symbol: 'circle' } },
+      { type: 'line', name: 'Buffer Completed', data: [0, 5, 8, 12, 15, 20, 21, 23, 24, 26], color: '#10b981', dashStyle: 'ShortDash', marker: { symbol: 'circle' } }
     ]
   };
 
@@ -147,10 +147,10 @@ export class ProjectAnalyticsComponent implements OnInit {
     yAxis: { title: { text: '' }, labels: { format: '{value}L' } },
     plotOptions: { column: { stacking: 'normal', borderWidth: 0 } },
     series: [
-      { type: 'column', name: 'Direct Labour', data: [5, 8, 12, 11, 14, 10], color: '#3b82f6' },
-      { type: 'column', name: 'Raw Materials', data: [3, 6, 8, 7, 9, 7], color: '#10b981' },
-      { type: 'column', name: 'Factory Overhead', data: [2, 3, 4, 3, 4, 3], color: '#f59e0b' },
-      { type: 'column', name: 'Tooling & Machining', data: [1, 1, 2, 2, 2, 1], color: '#ef4444' }
+      { type: 'column', name: 'Labour', data: [5, 8, 12, 11, 14, 10], color: '#3b82f6' },
+      { type: 'column', name: 'Materials', data: [3, 6, 8, 7, 9, 7], color: '#10b981' },
+      { type: 'column', name: 'Overhead', data: [2, 3, 4, 3, 4, 3], color: '#f59e0b' },
+      // { type: 'column', name: 'Tooling & Machining', data: [1, 1, 2, 2, 2, 1], color: '#ef4444' }
     ]
   };
 

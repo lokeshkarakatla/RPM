@@ -177,13 +177,6 @@
        =================================================== -->
   <ng-container *ngIf="isChildRouteActive">
 
-    <!-- ✅ Back button pinned to the right -->
-    <div class="back-btn-row">
-      <button mat-raised-button style="background-color: #808080; color: white; margin-top: -75px;;margin-right: 10px;" (click)="goBack()">
-        <mat-icon>arrow_back</mat-icon> Back
-      </button>
-    </div>
-
     <router-outlet></router-outlet>
 
   </ng-container>

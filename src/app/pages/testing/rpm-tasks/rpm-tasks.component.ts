@@ -4,6 +4,7 @@ import { AddTasksComponent } from './add-tasks/add-tasks.component';
 import { FreezepanesDialogComponent } from '../testing-projects/freezepanes-dialog/freezepanes-dialog.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-rpm-tasks',
@@ -422,7 +423,15 @@ export class RpmTasksComponent implements OnInit {
   }
 
   deleteConfirmation(item: any): void {
-    console.log('Delete:', item);
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: 'auto',
+      data: { title: 'Change Status', content: 'Are you sure you want to Change the Status ?' }
+    });
+    dialogRef.afterClosed().subscribe((data: any) => {
+      if (!data) {
+        item.IsActive = !item.IsActive;
+      }
+    });
   }
 
   Confirmation(item: any): void {

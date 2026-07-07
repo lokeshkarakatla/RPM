@@ -903,3 +903,141 @@ a {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
 }
+
+/* ==========================================================================
+   POPUP & DIALOG STANDARD STYLING (Aesthetics & Consistency)
+   ========================================================================== */
+
+/* 1. Standardized popup/dialog header (Blue, centered, white text) */
+.NewHeader, 
+.custom-header {
+  background: #286ba5 !important;
+  color: white !important;
+  text-align: center !important;
+  margin-left: -24px !important;
+  margin-top: -24px !important;
+  margin-right: -24px !important;
+  padding: 13px !important;
+  margin-bottom: 20px !important;
+  min-height: 50px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-top-left-radius: 4px !important;
+  border-top-right-radius: 4px !important;
+  
+  h1, h2, h3, h4, span, [mat-dialog-title] {
+    color: white !important;
+    margin: 0 !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+}
+
+/* 2. Standardized popup/dialog fields background (Light Yellow: #fefec4) */
+.mat-dialog-container .form-control,
+.mat-mdc-dialog-container .form-control,
+.mat-dialog-content .form-control,
+.mat-dialog-container input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+.mat-mdc-dialog-container input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+.mat-dialog-container textarea,
+.mat-mdc-dialog-container textarea,
+.mat-dialog-container select,
+.mat-mdc-dialog-container select,
+.mat-dialog-container mat-select,
+.mat-mdc-dialog-container mat-select,
+.cdk-overlay-pane input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+.cdk-overlay-pane textarea,
+.cdk-overlay-pane select,
+.cdk-overlay-pane mat-select {
+  background-color: #fefec4 !important;
+}
+
+/* Ensure placeholder text displays well on yellow background */
+.mat-dialog-container ::placeholder,
+.mat-mdc-dialog-container ::placeholder {
+  color: #6b7280 !important;
+}
+
+/* 3. Keep dropdown list option backgrounds white (never yellow) */
+.mat-option,
+.mat-mdc-option,
+.mat-select-panel,
+.mat-mdc-select-panel,
+.mat-select-panel-wrap,
+.mat-select-panel .mat-option,
+.mat-mdc-select-panel .mat-mdc-option {
+  background-color: #ffffff !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.mat-option.mat-selected,
+.mat-mdc-option.mat-mdc-option-selected,
+.mat-option:hover:not(.mat-option-disabled),
+.mat-mdc-option:hover:not(.mat-mdc-option-disabled),
+.mat-option.mat-active,
+.mat-mdc-option.mat-mdc-active {
+  background-color: #1485cc !important;
+  color: #ffffff !important;
+}
+
+/* Standard select option dropdown background */
+select option {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Dropdown arrow alignment and styling rules */
+.mat-select-trigger,
+::ng-deep .mat-select-trigger,
+.mat-mdc-select-trigger,
+::ng-deep .mat-mdc-select-trigger {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.mat-select-value,
+::ng-deep .mat-select-value,
+.mat-mdc-select-value,
+::ng-deep .mat-mdc-select-value {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  max-width: calc(100% - 20px) !important;
+  text-align: left !important;
+  display: inline-block !important;
+}
+
+.mat-select-arrow-wrapper,
+::ng-deep .mat-select-arrow-wrapper,
+.mat-mdc-select-arrow-wrapper,
+::ng-deep .mat-mdc-select-arrow-wrapper {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  width: 16px !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  order: 2 !important; /* Force to the right */
+}
+
+.mat-select-arrow,
+::ng-deep .mat-select-arrow,
+.mat-mdc-select-arrow,
+::ng-deep .mat-mdc-select-arrow {
+  color: #555555 !important;
+  border-left: 5px solid transparent !important;
+  border-right: 5px solid transparent !important;
+  border-top: 5px solid !important;
+  margin: 0 !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+

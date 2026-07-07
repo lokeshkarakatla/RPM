@@ -1,9 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
-import HighchartsGantt from 'highcharts/modules/gantt'; 
+import HighchartsGantt from 'highcharts/modules/gantt';
 
-HighchartsGantt(Highcharts); 
+HighchartsGantt(Highcharts);
 
 interface Task {
   name: string;
@@ -20,7 +21,7 @@ interface Task {
 export class ProjectAnalyticsComponent implements OnInit {
 
   Highcharts: typeof Highcharts = Highcharts;
-  updateFlag: boolean = false; 
+  updateFlag: boolean = false;
 
   // --- Task Data (Manufacturing Focus) ---
   overdueTasks: Task[] = [
@@ -40,29 +41,29 @@ export class ProjectAnalyticsComponent implements OnInit {
   // 1. Gantt Chart Options
   ganttChartOptions: Highcharts.Options = {
     // Increased marginLeft to 200 to give the labels plenty of space
-    chart: { backgroundColor: 'transparent', marginLeft: 200 }, 
+    chart: { backgroundColor: 'transparent', marginLeft: 200 },
     title: { text: '' },
     credits: { enabled: false },
     xAxis: {
-      min: Date.UTC(2026, 5, 1),  
-      max: Date.UTC(2026, 8, 30), 
-      tickInterval: 1000 * 60 * 60 * 24 * 30, 
-      labels: { format: '{value:%b}' }, 
+      min: Date.UTC(2026, 5, 1),
+      max: Date.UTC(2026, 8, 30),
+      tickInterval: 1000 * 60 * 60 * 24 * 30,
+      labels: { format: '{value:%b}' },
       gridLineWidth: 1
     },
     yAxis: {
-      type: 'category', 
-      reversed: true,   
-      title: { text: undefined }, 
+      type: 'category',
+      reversed: true,
+      title: { text: undefined },
       grid: { enabled: true, borderColor: '#f3f4f6' },
-      labels: { 
-        align: 'right', 
+      labels: {
+        align: 'right',
         // Increased x padding to -40 to ensure text does not touch the bars
-        x: -40, 
-        style: { fontSize: '12px', color: '#1f2937', fontWeight: '500' } 
+        x: -40,
+        style: { fontSize: '12px', color: '#1f2937', fontWeight: '500' }
       },
       categories: [
-        'Component Sourcing', 'Tooling & Dies', 'Assembly Line Setup', 'PLC Programming', 
+        'Component Sourcing', 'Tooling & Dies', 'Assembly Line Setup', 'PLC Programming',
         'Dry Run Testing', 'First Article Inspection', 'Quality Certification', 'Mass Production Ramp'
       ]
     },
@@ -74,7 +75,7 @@ export class ProjectAnalyticsComponent implements OnInit {
       name: 'Production Timeline',
       dataLabels: {
         enabled: true,
-        format: '{point.custom.label}', 
+        format: '{point.custom.label}',
         style: { color: '#ffffff', textOutline: 'none', fontWeight: 'bold', fontSize: '10px' }
       },
       data: [
@@ -95,7 +96,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
-    legend: { itemMarginTop: 8, itemMarginBottom: 8 }, 
+    legend: { itemMarginTop: 8, itemMarginBottom: 8 },
     xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'] },
     yAxis: [
       { title: { text: '' }, labels: { format: '{value}%' }, max: 8 },
@@ -112,7 +113,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
-    legend: { itemMarginTop: 8, itemMarginBottom: 8 }, 
+    legend: { itemMarginTop: 8, itemMarginBottom: 8 },
     xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
     yAxis: { title: { text: '' }, labels: { format: '{value}L' } },
     plotOptions: { column: { borderRadius: 2 } },
@@ -127,7 +128,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'line', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
-    legend: { itemMarginTop: 8, itemMarginBottom: 8 }, 
+    legend: { itemMarginTop: 8, itemMarginBottom: 8 },
     xAxis: { categories: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10'] },
     yAxis: { title: { text: '' }, labels: { format: '{value}%' }, max: 40 },
     series: [
@@ -141,7 +142,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
-    legend: { itemMarginTop: 10, itemMarginBottom: 10, itemDistance: 20 }, 
+    legend: { itemMarginTop: 10, itemMarginBottom: 10, itemDistance: 20 },
     xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
     yAxis: { title: { text: '' }, labels: { format: '{value}L' } },
     plotOptions: { column: { stacking: 'normal', borderWidth: 0 } },
@@ -158,7 +159,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
-    legend: { itemMarginTop: 10, itemMarginBottom: 10, itemDistance: 20 }, 
+    legend: { itemMarginTop: 10, itemMarginBottom: 10, itemDistance: 20 },
     xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
     yAxis: { title: { text: '' }, max: 800 },
     plotOptions: { column: { stacking: 'normal', borderWidth: 0 } },
@@ -168,8 +169,12 @@ export class ProjectAnalyticsComponent implements OnInit {
       { type: 'column', name: 'Maintenance & Setup', data: [10, 15, 60, 50, 50, 40], color: '#f59e0b' }
     ]
   };
+  // route: ActivatedRoute | null | undefined;
 
-  constructor(private location:Location) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void { }
 
@@ -276,8 +281,7 @@ export class ProjectAnalyticsComponent implements OnInit {
   }
 
 
-
- goBack(): void {
-    this.location.back();
+  goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
   }
 }

@@ -60,7 +60,7 @@ const routes: Routes = [
             description: 'The master list of stages / work break down structure (WBS) can be managed here.'
         }
     },
-    { path: 'tasks', component: RpmTasksComponent, data: { breadcrumb: 'Tasks' } },
+    { path: 'tasks', component: RpmTasksComponent, data: { breadcrumb: 'Tasks', description: 'The list of tasks can be managed here.' } },
     {
         path: 'stages/wbs', component: RpmStagesWbsComponent, data: {
             breadcrumb: 'Work Breakdown Structure (Fesibility-STG001)',

@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export type Stage = 'Design' | 'Development' | 'Testing' | 'Deployment';
 export type SprintKind = 'backlog' | 'completed' | 'active';
@@ -129,9 +130,13 @@ export class ProjectBacklogComponent {
 
 
 
-    constructor(private location: Location) { }
-     goBack(): void {
-    this.location.back();
+   constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
+
+   goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
   }
 
 

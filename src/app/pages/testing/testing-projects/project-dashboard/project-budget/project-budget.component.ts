@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface BudgetItem {
   stage: string;
@@ -36,7 +37,10 @@ export class ProjectBudgetComponent implements OnInit {
   stages: string[] = [];
   modules: string[] = [];
 
-  constructor() { }
+   constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.stages = [...new Set(this.allRows.map(r => r.stage))];
@@ -69,7 +73,7 @@ export class ProjectBudgetComponent implements OnInit {
 
 
 
-    goBack(): void {
-  window.history.back();
-}
+ goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
+  }
 }

@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadDocumentComponent } from './upload-document/upload-document.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface NoteData {
   actions: string;
@@ -27,7 +28,13 @@ export class ProjectNotesComponent implements OnInit {
   // Sample tags for the dropdown
   availableTags: string[] = ['Side View', 'Face View', 'Demerit','Process Stage'];
 
-  constructor(private location :Location, private dialog:MatDialog) { }
+  // constructor(private location :Location, private dialog:MatDialog) { }
+
+    constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+     private dialog:MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
@@ -35,7 +42,7 @@ export class ProjectNotesComponent implements OnInit {
 
   
   goBack(): void {
-    this.location.back();
+    this.router.navigateByUrl('/app/testing/projects');
   }
 
   uploaddoc(value: any) {

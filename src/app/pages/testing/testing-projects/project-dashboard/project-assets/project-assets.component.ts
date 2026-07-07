@@ -122,8 +122,8 @@ viewScheduling(asset: Asset): void {
 
 
 
- goBack(): void {
-    this.location.back();
+  goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // Interfaces to define our hierarchical data structure
 export interface TaskItem {
@@ -64,7 +65,10 @@ export class ProjectSetupComponent implements OnInit {
     { id: 11, name: 'Post-Implementation Review', type: 'stage', modules: [] }
   ];
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.selectStage(this.stagesAndGates[0]);
@@ -99,6 +103,6 @@ export class ProjectSetupComponent implements OnInit {
 
 
   goBack(): void {
-  window.history.back();
-}
+    this.router.navigateByUrl('/app/testing/projects');
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddRequisitionPopComponent } from './add-requisition-pop/add-requisition-pop.component';
 import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface ProjectMaterial {
   stage: string;
@@ -35,7 +36,13 @@ export class ProjectMaterialsComponent implements OnInit {
 
   displayedRows: ProjectMaterial[] = [];
 
-  constructor(private dialog: MatDialog,private location: Location) { }
+  // constructor(private dialog: MatDialog,private location: Location) { }
+
+    constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,private location: Location
+  ) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -362,8 +369,8 @@ export class ProjectMaterialsComponent implements OnInit {
     }
   }
 
-   goBack(): void {
-    this.location.back();
+    goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
   }
 
   addMaterial() {

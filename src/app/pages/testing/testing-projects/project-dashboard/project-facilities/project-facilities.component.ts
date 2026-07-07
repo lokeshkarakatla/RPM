@@ -88,7 +88,6 @@ export class ProjectFacilitiesComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigateByUrl('/app/testing/projects');
   }
-
 }

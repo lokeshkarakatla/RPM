@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface HourEntry {
   dateObj: Date;
@@ -65,7 +66,10 @@ export class ProjectHoursComponent implements OnInit {
     { dateObj: new Date(2025, 5, 29), jobCode: 'JB-208', subject: 'Site Visit', name: 'Anjali Patel', description: 'Coordinated hotel stay for client visit', stage: 'Hold', stageClass: 'stage-hold', module: 'Project Management', task: 'Client Meeting', hours: 2.5, notes: 'Awaiting client confirmation', approved: false, declined: false, hold: true }
   ];
 
-  constructor(private location: Location) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.buildCalendar();
@@ -225,7 +229,7 @@ export class ProjectHoursComponent implements OnInit {
     console.log('Delete', entry);
   }
 
- goBack(): void {
-    this.location.back();
+  goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
   }
 }

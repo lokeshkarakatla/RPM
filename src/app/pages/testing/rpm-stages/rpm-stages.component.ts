@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { StatusConfirmationDialogComponent } from '../testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
 import { AddStagePopComponent } from './add-stage-pop/add-stage-pop.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-rpm-stages',
@@ -19,17 +20,17 @@ export class RpmStagesComponent implements OnInit, OnDestroy {
   canUpdate = true;
   canDelete = true;
 
-  totalSize = 0; 
+  totalSize = 0;
   currentPage = 0;
-  pageSize = 10; 
+  pageSize = 10;
 
   tdata = [
-    { phase: "Feasibility", description: "Evaluate project viability", tasks: 45, status:"Active",stageCode:"STG001", stageName:"Feasibility", gateCode:"GT001", stageDescription:"Evaluate project viability" },
-    { phase: "Design", description: "Create functional, technical", tasks: 58, status:"Active",stageCode:"STG002", stageName:"Design", gateCode:"GT002", stageDescription:"Create functional, technical" },
-    { phase: "Prototyping", description: "Develop an initial working.", tasks: 39, status:"Inactive",stageCode:"STG003", stageName:"Prototyping", gateCode:"GT003", stageDescription:"Develop an initial working." },
-    { phase: "Testing", description: "Validate functionality, quality", tasks: 51, status:"Active",stageCode:"STG004", stageName:"Testing", gateCode:"GT004", stageDescription:"Validate functionality, quality" },
-    { phase: "Launch", description: "Prepare and release the product", tasks: 41, status:"Inactive",stageCode:"STG005", stageName:"Launch", gateCode:"GT005", stageDescription:"Prepare and release the product" },
-    { phase: "Implementation", description: "Execute full-scale adoption", tasks: 27, status:"Inactive",stageCode:"STG006", stageName:"Implementation", gateCode:"GT006", stageDescription:"Execute full-scale adoption" }
+    { phase: "Feasibility", description: "Evaluate project viability", tasks: 45, status: "Active", stageCode: "STG001", stageName: "Feasibility", gateCode: "GT001", stageDescription: "Evaluate project viability" },
+    { phase: "Design", description: "Create functional, technical", tasks: 58, status: "Active", stageCode: "STG002", stageName: "Design", gateCode: "GT002", stageDescription: "Create functional, technical" },
+    { phase: "Prototyping", description: "Develop an initial working.", tasks: 39, status: "Inactive", stageCode: "STG003", stageName: "Prototyping", gateCode: "GT003", stageDescription: "Develop an initial working." },
+    { phase: "Testing", description: "Validate functionality, quality", tasks: 51, status: "Active", stageCode: "STG004", stageName: "Testing", gateCode: "GT004", stageDescription: "Validate functionality, quality" },
+    { phase: "Launch", description: "Prepare and release the product", tasks: 41, status: "Inactive", stageCode: "STG005", stageName: "Launch", gateCode: "GT005", stageDescription: "Prepare and release the product" },
+    { phase: "Implementation", description: "Execute full-scale adoption", tasks: 27, status: "Inactive", stageCode: "STG006", stageName: "Implementation", gateCode: "GT006", stageDescription: "Execute full-scale adoption" }
   ];
 
   pagedData: any[] = [];
@@ -48,12 +49,12 @@ export class RpmStagesComponent implements OnInit, OnDestroy {
     });
 
     // ✅ Listen to dropModel to get the automatically reordered page slice
-this.subs.add(
-  this.dragulaService.dropModel('STAGE_ROWS').subscribe(({ targetModel }) => {
-    this.pagedData = [...targetModel];  // ✅ full reordered array
-    this.syncMasterArray();
-  })
-);
+    this.subs.add(
+      this.dragulaService.dropModel('STAGE_ROWS').subscribe(({ targetModel }) => {
+        this.pagedData = [...targetModel];  // ✅ full reordered array
+        this.syncMasterArray();
+      })
+    );
   }
 
   ngOnInit(): void {
@@ -81,7 +82,7 @@ this.subs.add(
   // ✅ Clean, math-based replacement instead of unreliable DOM parsing
   syncMasterArray() {
     const startIndex = this.currentPage * this.pageSize;
-    
+
     // Replace the modified segment inside the master data matrix
     this.tdata.splice(startIndex, this.pageSize, ...this.pagedData);
 
@@ -120,9 +121,12 @@ this.subs.add(
   }
 
   deleteConfirmation(item: any) {
-    let dialogRef = this.dialog.open(StatusConfirmationDialogComponent, {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
-      data: { title: 'Delete Confirmation', content: 'Are you sure you want to Delete?' }
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
     });
     dialogRef.afterClosed().subscribe((data: any) => {
       if (data) {

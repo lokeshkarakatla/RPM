@@ -63,6 +63,18 @@ export class LookupComponent implements OnInit {
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        if (applicant) {
+          applicant.CodeMasterName = data.CodeMasterName;
+          applicant.LookupName = data.LookupName;
+        } else {
+          this.tableList.push({
+            vcStatus: true,
+            CodeMasterName: data.CodeMasterName,
+            LookupName: data.LookupName
+          });
+        }
+      }
     });
   }
 

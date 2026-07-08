@@ -5,6 +5,8 @@ import { AddcriteriaComponent } from '../addcriteria/addcriteria.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { StatusConfirmationDialogComponent } from '../../testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
 
 @Component({
   selector: 'app-gate-implimentation',
@@ -110,23 +112,49 @@ export class GateImplimentationComponent implements OnInit, OnDestroy {
   // --- HTML Binding Methods ---
   
   addmodule(item: any): void {
-    console.log('Edit clicked for', item);
+    let dialogRef = this.dialog.open(AddcriteriaComponent, {
+      width: '850px',
+      height: 'auto',
+      data: item
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        item.question = result.question;
+        item.description = result.description;
+        item.priority = result.priority;
+        item.mandatory = result.mandatory;
+      }
+    });
   }
 
   deleteConfirmation(item: any): void {
-    let dialogRef = this.dialog.open(DialogComponent, {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
-      data: { title: 'Change Status', content: 'Are you sure you want to Change the Status ?' }
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
     });
-    dialogRef.afterClosed().subscribe((data: any) => {
-      if (data) {
-        console.log('Delete clicked for', item);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.selectedModule.criteria = this.selectedModule.criteria.filter((c: any) => c !== item);
       }
     });
   }
 
   Confirmation(item: any): void {
-    item.status = !item.status;
+    let dialogRef = this.dialog.open(StatusConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Change Status',
+        content: 'Are you sure you want to Change the Status ?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        item.status = !item.status;
+      }
+    });
   }
 
   uploadGuidelines(){

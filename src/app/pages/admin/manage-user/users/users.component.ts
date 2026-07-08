@@ -161,11 +161,54 @@ Roles = [
       width: '850px'
     });
     dialogRef.afterClosed().subscribe(data => {
-
       console.log(data, "data")
-      if (data === "SAVE") {
-
-        this.getallusers();
+      if (data) {
+        if (data === "SAVE") {
+          this.getallusers();
+        } else if (data.action === "SAVE") {
+          if (item) {
+            item.name = data.values.UserName;
+            item.email = data.values.UserEmail;
+            item.phone = data.values.UserPhone;
+            const foundRole = [
+              { RoleName : "Data Collector", RoleId: 1 },
+              { RoleName: "Field Coordinator", RoleId: 2 },
+              { RoleName: "Field Monitor", RoleId: 3 },
+              { RoleName: "Supervisors", RoleId: 4 },
+              { RoleName: "Business Analyst", RoleId: 5 }
+            ].find(r => r.RoleId === data.values.RoleId);
+            item.role = foundRole ? foundRole.RoleName : 'Group Leader';
+          } else {
+            const foundRole = [
+              { RoleName : "Data Collector", RoleId: 1 },
+              { RoleName: "Field Coordinator", RoleId: 2 },
+              { RoleName: "Field Monitor", RoleId: 3 },
+              { RoleName: "Supervisors", RoleId: 4 },
+              { RoleName: "Business Analyst", RoleId: 5 }
+            ].find(r => r.RoleId === data.values.RoleId);
+            const newUser = {
+              name: data.values.UserName,
+              managers: 1,
+              email: data.values.UserEmail,
+              phone: data.values.UserPhone,
+              agency: 'Engineering',
+              department: 'Developer',
+              role: foundRole ? foundRole.RoleName : 'Group Leader',
+              cft: false,
+              auditor: false,
+              webAccess: true,
+              mobileAccess: false,
+              managerialRole: false,
+              auditTypes: 0,
+              twoFactor: false,
+              resetPassword: true,
+              status: 'Active',
+              job: '0/40',
+              locations: '0/10'
+            };
+            this.userss.push(newUser);
+          }
+        }
       }
     });
   }

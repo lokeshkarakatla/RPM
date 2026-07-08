@@ -1,6 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AddHoursPopComponent } from './add-hours-pop/add-hours-pop.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 interface HourEntry {
   dateObj: Date;
@@ -68,7 +71,8 @@ export class ProjectHoursComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -222,11 +226,54 @@ export class ProjectHoursComponent implements OnInit {
   }
 
   editEntry(entry: HourEntry): void {
-    console.log('Edit', entry);
+    let dialogRef = this.dialog.open(AddHoursPopComponent, {
+      width: '750px',
+      height: 'auto',
+      data: entry
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Object.assign(entry, result);
+        entry.stageClass = result.stage === 'Approved' ? 'stage-approved' : 
+                           (result.stage === 'Paid' ? 'stage-paid' : 
+                           (result.stage === 'Declined' ? 'stage-declined' : 
+                           (result.stage === 'Hold' ? 'stage-hold' : 'stage-review')));
+        entry.approved = result.stage === 'Approved';
+        entry.declined = result.stage === 'Declined';
+        entry.hold = result.stage === 'Hold';
+        
+        // update calendar entries count / rebuild
+        this.buildCalendar();
+        if (this.selectedDate) {
+          const selectedDay = this.calendarDays.find(d => this.isSameDay(d.date, this.selectedDate!));
+          if (selectedDay) {
+            this.filterByDate(selectedDay);
+          }
+        }
+      }
+    });
   }
 
   deleteEntry(entry: HourEntry): void {
-    console.log('Delete', entry);
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.entries = this.entries.filter(e => e !== entry);
+        this.buildCalendar();
+        if (this.selectedDate) {
+          const selectedDay = this.calendarDays.find(d => this.isSameDay(d.date, this.selectedDate!));
+          if (selectedDay) {
+            this.filterByDate(selectedDay);
+          }
+        }
+      }
+    });
   }
 
   goBack(): void {

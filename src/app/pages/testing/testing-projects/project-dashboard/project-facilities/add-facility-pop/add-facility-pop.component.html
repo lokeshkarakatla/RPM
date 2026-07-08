@@ -1,102 +1,110 @@
 <div class="NewHeader">
-    <h3 style="padding-top:10px;">Add Facility</h3>
+    <h3 style="padding-top:10px; color: white; text-align: center;">{{ isEditMode ? 'Edit Facility' : 'Add Facility' }}</h3>
 </div>
 
 <div>
     <div fxLayout="row wrap" class="col-sm-12">
-        <div class="col-sm-12" style="margin-top: 0px; padding-left: 20px;">
-            <form>
+        <div class="col-sm-12" style="margin-top: 20px; padding-left: 20px; padding-right: 20px;">
+            <form #facilityForm="ngForm">
                 <div>
-                    
+                    <!-- Facility Code -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
                             <label class="control-label" style="margin-top:5px;">Facility Code:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Code">
+                            <input type="text" name="facilityCode" [(ngModel)]="facilityCode" style="height:35px;" class="form-control back" placeholder="Enter Facility Code" required>
                         </div>
                     </div>
 
+                    <!-- Facility Type -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
                             <label class="control-label" style="margin-top:5px;">Facility Type:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Type">
+                            <input type="text" name="facilityType" [(ngModel)]="facilityType" style="height:35px;" class="form-control back" placeholder="Enter Facility Type" required>
                         </div>
                     </div>
 
+                    <!-- Facility Name -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
                             <label class="control-label" style="margin-top:5px;">Facility Name:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Name">
+                            <input type="text" name="facilityName" [(ngModel)]="facilityName" style="height:35px;" class="form-control back" placeholder="Enter Facility Name" required>
                         </div>
                     </div>
 
+                    <!-- Location -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Facility Make:</label>
+                            <label class="control-label" style="margin-top:5px;">Location:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Make">
+                            <input type="text" name="location" [(ngModel)]="location" style="height:35px;" class="form-control back" placeholder="Enter Location" required>
                         </div>
                     </div>
 
+                    <!-- Capacity -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Facility Model:</label>
+                            <label class="control-label" style="margin-top:5px;">Capacity:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" style="height:35px;" class="form-control" placeholder="Enter Facility Model">
+                            <input type="number" name="capacity" [(ngModel)]="capacity" style="height:35px;" class="form-control back" placeholder="Enter Capacity" required>
                         </div>
                     </div>
 
+                    <!-- From Date -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
                             <label class="control-label" style="margin-top:5px;">From Date:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="date" style="height:35px;" class="form-control">
+                            <input type="date" name="fromDate" [(ngModel)]="fromDate" style="height:35px;" class="form-control back">
                         </div>
                     </div>
 
+                    <!-- From Time -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
                             <label class="control-label" style="margin-top:5px;">From Time:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="time" style="height:35px;" class="form-control">
+                            <input type="time" name="fromTime" [(ngModel)]="fromTime" style="height:35px;" class="form-control back">
                         </div>
                     </div>
 
+                    <!-- To Date -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
                             <label class="control-label" style="margin-top:5px;">To Date:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="date" style="height:35px;" class="form-control">
+                            <input type="date" name="toDate" [(ngModel)]="toDate" style="height:35px;" class="form-control back">
                         </div>
                     </div>
 
+                    <!-- To Time -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
                             <label class="control-label" style="margin-top:5px;">To Time:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="time" style="height:35px;" class="form-control">
+                            <input type="time" name="toTime" [(ngModel)]="toTime" style="height:35px;" class="form-control back">
                         </div>
                     </div>
 
                 </div>
             </form>
 
-            <mat-dialog-actions align="end" style="margin-top: 15px;">
+            <mat-dialog-actions align="end" style="margin-top: 15px; padding-bottom: 15px;">
                 <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
                     <mat-icon>cancel</mat-icon> Close
                 </button>
-                <button mat-raised-button type="button" class="save" color="primary">
+                <button mat-raised-button type="button" class="save" color="primary" (click)="save()" [disabled]="!facilityForm.valid">
                     <mat-icon>save</mat-icon> Save
                 </button>
             </mat-dialog-actions>

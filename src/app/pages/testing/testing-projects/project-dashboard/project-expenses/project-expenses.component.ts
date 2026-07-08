@@ -1,6 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AddExpensePopComponent } from './add-expense-pop/add-expense-pop.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 interface Expense {
   date: number;
@@ -68,9 +71,10 @@ export class ProjectExpensesComponent implements OnInit {
     { date: 29, initials: 'AP', avatarBg: '#ffedd5', name: 'Anjali Patel', subject: 'Hotel Booking', description: 'Hotel stay during client visit', approvedBy: 'Jane Smith', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Client Meeting', amount: '₹2,200', pdfCount: 2, approved: false, paid: false, declined: true }
   ];
 
-    constructor(
+  constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -222,6 +226,56 @@ export class ProjectExpensesComponent implements OnInit {
       return words.slice(0, 4).join(' ') + '...';
     }
     return text;
+  }
+
+  editExpense(expense: Expense): void {
+    let dialogRef = this.dialog.open(AddExpensePopComponent, {
+      width: '750px',
+      height: 'auto',
+      data: expense
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Object.assign(expense, result);
+        expense.stageClass = result.stage === 'Approved' ? 'stage-approved' : 
+                             (result.stage === 'Paid' ? 'stage-paid' : 
+                             (result.stage === 'Declined' ? 'stage-declined' : 'stage-review'));
+        expense.approved = result.stage === 'Approved' || result.stage === 'Paid';
+        expense.paid = result.stage === 'Paid';
+        expense.declined = result.stage === 'Declined';
+        
+        // update calendar claims count
+        this.buildCalendar();
+        if (this.selectedDate) {
+          const selectedDay = this.calendarDays.find(d => this.isSameDay(d.date, this.selectedDate!));
+          if (selectedDay) {
+            this.filterByDate(selectedDay);
+          }
+        }
+      }
+    });
+  }
+
+  deleteExpense(expense: Expense): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.expenses = this.expenses.filter(e => e !== expense);
+        this.buildCalendar();
+        if (this.selectedDate) {
+          const selectedDay = this.calendarDays.find(d => this.isSameDay(d.date, this.selectedDate!));
+          if (selectedDay) {
+            this.filterByDate(selectedDay);
+          }
+        }
+      }
+    });
   }
 
    goBack(): void {

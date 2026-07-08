@@ -30,10 +30,9 @@
                     <mat-icon style="color: #9e9e9e; cursor: grab;">drag_indicator</mat-icon>
                 </td>
                 <td class="text-center">
-                    <a matTooltip="Edit Project" [ngClass]="{'disable-custom' : !canUpdate}"
-                        style="margin-right: 10px; cursor: pointer; color: cornflowerblue;"
-                        (click)="openEditDialog(item)">
-                        <i class="fa fa-edit"></i>
+                    <a [ngClass]="{'disable-custom' : !canUpdate}">
+                        <i style="cursor: pointer; color: cornflowerblue; margin-right: 10px;" matTooltip="Edit Project" class="fa fa-edit"
+                            (click)="openEditDialog(item)"></i>
                     </a>
                     <a [ngClass]="{'disable-custom' : !canDelete || item.TotalUsed}">
                         <i style="cursor: pointer;" matTooltip="Delete Project" class="fa fa-trash red"

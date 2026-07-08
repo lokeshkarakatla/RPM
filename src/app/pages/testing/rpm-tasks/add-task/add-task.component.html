@@ -5,9 +5,9 @@
 <div>
     <div fxLayout="row wrap" class="col-sm-12">
         <div class="col-sm-12" style="margin-top: 0px; padding-left: 20px;">
-            <form>
-                <div>
-                    
+            <form style="margin-top: 10px; margin-bottom: 10px; display: flex; flex-direction: row; gap: 30px;">
+                <div style="width:70%;">
+
                     <!-- Select Stage -->
                     <div class="row" style="margin-bottom: 12px;">
                         <div class="col-sm-4">
@@ -15,8 +15,9 @@
                         </div>
                         <div class="col-sm-8">
 
-                                                        <input type="text" maxlength="150" style="height:35px;" class="form-control back" value="Feasibility" readonly placeholder="Enter Task Subject">
-                            
+                            <input type="text" maxlength="150" style="height:35px;" class="form-control back"
+                                value="Feasibility" readonly placeholder="Enter Task Subject">
+
                             <!-- <mat-select placeholder="Select Stage" class="form-control">
                                 <mat-option value="Feasibility">Feasibility</mat-option>
                                 <mat-option value="Design">Design</mat-option>
@@ -48,7 +49,8 @@
                             <label class="add-member-label mt5 required" style="margin-top:5px;">Task Subject:</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" maxlength="150" style="height:35px;" class="form-control back" placeholder="Enter Task Subject">
+                            <input type="text" maxlength="150" style="height:35px;" class="form-control back"
+                                placeholder="Enter Task Subject">
                         </div>
                     </div>
 
@@ -58,23 +60,53 @@
                             <label class="control-label mt-1">Description:</label>
                         </div>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" placeholder="Enter Description" style="resize: vertical;"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Enter Description"
+                                style="resize: vertical;"></textarea>
                         </div>
                     </div>
 
+                </div>
+
+                <div class="drag-drop-zone" [class.drag-over]="isDragOver" (click)="fileInput.click()"
+                    (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+
+                    <div class="upload-text">
+                        Drag and drop files here
+                    </div>
+
+                    <button mat-raised-button type="button" class="browse-btn"
+                        (click)="$event.stopPropagation(); fileInput.click()">
+                        Browse Files
+                    </button>
+
+                    <input #fileInput type="file" multiple hidden (change)="onFileSelected($event)">
+
+                    <div class="file-list" *ngIf="selectedFiles.length > 0" (click)="$event.stopPropagation()">
+                        <div class="file-item" *ngFor="let file of selectedFiles; let i = index">
+                            <mat-icon class="file-icon">insert_drive_file</mat-icon>
+                            <div class="file-info">
+                                <span class="file-name">{{ file.name }}</span>
+                                <span class="file-size">{{ formatFileSize(file.size) }}</span>
+                            </div>
+                            <button mat-icon-button class="remove-btn" (click)="removeFile(i)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </form>
 
             <!-- Actions -->
             <mat-dialog-actions align="end" style="margin-top: 15px;">
-                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
+                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()"
+                    style="background-color: lightgray; color: red; margin-right: 5px;">
                     <mat-icon>cancel</mat-icon> Close
                 </button>
-                <button mat-raised-button type="button" class="save" color="primary"  >
+                <button mat-raised-button type="button" class="save" color="primary">
                     <mat-icon>save</mat-icon> Save
                 </button>
             </mat-dialog-actions>
-            
+
         </div>
     </div>
 </div>

@@ -138,7 +138,7 @@ export class RpmStagesWbsComponent implements OnInit {
 
   addTask() {
     this.dialog.open(AddTaskComponent, {
-      width: '550px',
+      width: '750px',
       data: {} 
     });
   }

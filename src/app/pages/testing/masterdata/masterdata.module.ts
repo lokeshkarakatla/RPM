@@ -40,7 +40,7 @@ import { AddProjectStatusComponent } from './project-status/add-project-status/a
 import { AddProjectTypesComponent } from './project-types/add-project-types/add-project-types.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'category', pathMatch: 'full' },
+  { path: '', redirectTo: 'asset-master', pathMatch: 'full' },
   {
     path: 'respareas',
     component: RespareasComponent

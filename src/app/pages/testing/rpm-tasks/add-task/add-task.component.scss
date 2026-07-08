@@ -1,0 +1,120 @@
+.drag-drop-zone {
+  flex: 1;
+  min-width: 260px;
+  min-height: 220px;
+  box-sizing: border-box;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  background-color: #fafafa;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &.drag-over {
+    border-color: #1e5799;
+    background-color: #eef4fb;
+  }
+
+  // Center the prompt + button vertically only while no files are present
+  &:not(:has(.file-list)) {
+    justify-content: center;
+  }
+
+  .upload-text {
+    font-size: 15px;
+    color: #444;
+    text-align: center;
+  }
+
+  ::ng-deep .browse-btn.mat-raised-button {
+    background-color: #1e5799 !important;
+    color: #fff !important;
+    font-weight: 600;
+    line-height: 36px;
+    padding: 0 20px;
+    border-radius: 4px;
+    box-shadow: none;
+
+    &:hover {
+      background-color: #164070 !important;
+    }
+  }
+
+  .file-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+    max-height: 180px;
+    overflow-y: auto;
+    cursor: default;
+  }
+
+  .file-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+
+    .file-icon {
+      flex-shrink: 0;
+      color: #1e5799;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    .file-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      .file-name {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .file-size {
+        font-size: 11px;
+        color: #888;
+      }
+    }
+
+    .remove-btn {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: #999;
+      }
+
+      &:hover mat-icon {
+        color: #dc3545;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <div class="schedule-dashboard">
-  
+
   <div class="header-section">
     <div class="header-title mb-2" style="visibility: hidden;">
       <div>
@@ -7,13 +7,13 @@
         <p>Track and manage all expense claims</p>
       </div>
     </div>
-    
-   <div class="header-actions">
-  <button mat-raised-button class="custom-back-btn mt-3"(click)="goBack()">
-    <mat-icon >arrow_back</mat-icon> Back
-  </button>
 
-  <!-- <div class="secondary-actions">
+    <div class="header-actions">
+      <button mat-raised-button class="custom-back-btn mt-3" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
+
+      <!-- <div class="secondary-actions">
     <div class="date-picker-btn">
       <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       Jun 1 - Jun 30, 2025
@@ -25,119 +25,145 @@
       Filters
     </div>
   </div> -->
-</div>
+    </div>
   </div>
 
   <div class="dashboard-content">
-    
-   <aside class="calendar-sidebar">
-  <div class="calendar-card">
-    <div class="month-selector">
-      <button class="nav-arrow" (click)="prevMonth()" aria-label="Previous month">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-      </button>
-      <strong>{{ currentMonthLabel }}</strong>
-      <button class="nav-arrow" (click)="nextMonth()" aria-label="Next month">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </button>
-    </div>
 
-    <div class="calendar-grid">
-      <div class="weekday" *ngFor="let d of dayNames">{{ d }}</div>
+    <aside class="calendar-sidebar">
+      <div class="calendar-card">
+        <div class="month-selector">
+          <button class="nav-arrow" (click)="prevMonth()" aria-label="Previous month">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <strong>{{ currentMonthLabel }}</strong>
+          <button class="nav-arrow" (click)="nextMonth()" aria-label="Next month">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
 
-      <div class="day-cell" *ngFor="let day of calendarDays"
-           [class.faded]="!day.inCurrentMonth"
-           [class.active]="day.isSelected"
-           (click)="filterByDate(day)">
-        <span class="date-num">{{ day.dayNumber }}</span>
-        <span class="claims-num" *ngIf="day.claims > 0">{{ day.claims }}</span>
+        <div class="calendar-grid">
+          <div class="weekday" *ngFor="let d of dayNames">{{ d }}</div>
+
+          <div class="day-cell" *ngFor="let day of calendarDays" [class.faded]="!day.inCurrentMonth"
+            [class.active]="day.isSelected" (click)="filterByDate(day)">
+            <span class="date-num">{{ day.dayNumber }}</span>
+            <span class="claims-num" *ngIf="day.claims > 0">{{ day.claims }}</span>
+          </div>
+        </div>
+
+        <div class="total-claims-box">
+          <div class="box-text">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7" />
+              <path d="M21 16a2 2 0 0 0-2-2h-3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-2z" />
+            </svg>
+            <strong>Total Claims in Selected Range</strong>
+          </div>
+          <div class="total-number">{{ totalClaimsInRange }}</div>
+        </div>
       </div>
-    </div>
+    </aside>
 
-   <div class="total-claims-box">
-  <div class="box-text">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7"/><path d="M21 16a2 2 0 0 0-2-2h-3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-2z"/></svg>
-    <strong>Total Claims in Selected Range</strong>
-  </div>
-  <div class="total-number">{{ totalClaimsInRange }}</div>
-</div>
-  </div>
-</aside>
+    <main class="table-container">
 
-   <main class="table-container">
-      
       <div class="table-actions-bar">
         <button class="scroll-btn" (click)="scrollTable('left')" title="Scroll Left (Rewind)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="11 17 6 12 11 7"></polyline>
+            <polyline points="18 17 13 12 18 7"></polyline>
+          </svg>
         </button>
         <button class="scroll-btn" (click)="scrollTable('right')" title="Scroll Right (Fast Forward)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="13 17 18 12 13 7"></polyline>
+            <polyline points="6 17 11 12 6 7"></polyline>
+          </svg>
         </button>
       </div>
 
       <div class="table-responsive" #tableWrapper>
-  <table class="expenses-table">
-    <thead>
-      <tr>
-        <th>Action</th>
-        <th>Date</th>
-        <th>Job Code</th>
-        <th>Subject</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Stage</th>
-        <th>Module</th>
-        <th>Task</th>
-        <th>Hours</th>
-        <th>Notes</th>
-        <th>Approved</th>
-        <th>Decline</th>
-        <th>Hold</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngIf="paginatedEntries.length === 0">
-        <td colspan="14" class="text-center" style="padding: 30px;">No hours logged for this selection.</td>
-      </tr>
-      <tr *ngFor="let entry of paginatedEntries">
-        <td class="text-center">
-          <i class="fas fa-pen action-icon" (click)="editEntry(entry)"></i>
-          <i class="fas fa-trash-alt action-icon delete-icon" (click)="deleteEntry(entry)"></i>
-        </td>
-        <td>{{ formatDate(entry.dateObj) }}</td>
-        <td>{{ entry.jobCode }}</td>
-        <td [ngClass]="{'text-green': entry.stage === 'Approved', 'text-red': entry.stage === 'Declined'}">{{ entry.subject }}</td>
-        <td>{{ entry.name }}</td>
-        <td class="description-cell" [title]="entry.description">{{ truncateDescription(entry.description) }}</td>
-        <td><span class="badge" [ngClass]="entry.stageClass">{{ entry.stage }}</span></td>
-        <td>{{ entry.module }}</td>
-        <td>{{ entry.task }}</td>
-        <td>{{ entry.hours }}</td>
-        <td class="description-cell" [title]="entry.notes">{{ entry.notes || '-' }}</td>
-        <td class="text-center"><input type="checkbox" class="custom-checkbox cb-green" [checked]="entry.approved" disabled></td>
-        <td class="text-center"><input type="checkbox" class="custom-checkbox cb-red" [checked]="entry.declined" disabled></td>
-        <td class="text-center"><input type="checkbox" class="custom-checkbox cb-dark" [checked]="entry.hold" disabled></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-      
+        <table class="expenses-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Date</th>
+              <th>Job Code</th>
+              <th>Subject</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Stage</th>
+              <th>Module</th>
+              <th>Task</th>
+              <th>Hours</th>
+              <th>Notes</th>
+              <th>Approved</th>
+              <th>Decline</th>
+              <th>Hold</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="paginatedEntries.length === 0">
+              <td colspan="14" class="text-center" style="padding: 30px;">No hours logged for this selection.</td>
+            </tr>
+            <tr *ngFor="let entry of paginatedEntries">
+              <td class="text-center">
+                <div
+                  style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
+                  <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;"
+                    (click)="editEntry(entry)"></i>
+                  <i class="fa fa-trash text-danger action-icon" style="cursor:pointer;"
+                    (click)="deleteEntry(entry)"></i>
+                </div>
+              </td>
+              <td>{{ formatDate(entry.dateObj) }}</td>
+              <td>{{ entry.jobCode }}</td>
+              <td [ngClass]="{'text-green': entry.stage === 'Approved', 'text-red': entry.stage === 'Declined'}">{{
+                entry.subject }}</td>
+              <td>{{ entry.name }}</td>
+              <td class="description-cell" [title]="entry.description">{{ truncateDescription(entry.description) }}</td>
+              <td><span class="badge" [ngClass]="entry.stageClass">{{ entry.stage }}</span></td>
+              <td>{{ entry.module }}</td>
+              <td>{{ entry.task }}</td>
+              <td>{{ entry.hours }}</td>
+              <td class="description-cell" [title]="entry.notes">{{ entry.notes || '-' }}</td>
+              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-green" [checked]="entry.approved"
+                  disabled></td>
+              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-red" [checked]="entry.declined"
+                  disabled></td>
+              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-dark" [checked]="entry.hold"
+                  disabled></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="pagination-footer">
-       <span class="showing-text">Showing {{ showingStart }} to {{ showingEnd }} of {{ filteredEntries.length }} entries</span>
+        <span class="showing-text">Showing {{ showingStart }} to {{ showingEnd }} of {{ filteredEntries.length }}
+          entries</span>
         <div class="pagination-controls">
           <span class="rows-label">Rows per page:</span>
-          
+
           <select class="rows-select" (change)="changePageSize($event)">
-            <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size == pageSize">{{ size }}</option>
+            <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size == pageSize">{{ size }}
+            </option>
           </select>
-          
+
           <div class="page-nav">
             <button class="nav-arrow" (click)="prevPage()" [disabled]="currentPage === 1">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
             </button>
             <button class="active-page">{{ currentPage }}</button>
             <button class="nav-arrow" (click)="nextPage()" [disabled]="currentPage >= totalPages || totalPages === 0">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
             </button>
           </div>
         </div>

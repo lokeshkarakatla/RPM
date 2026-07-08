@@ -48,6 +48,9 @@ import { FacilitiesSchedulingComponent } from "./project-facilities/facilities-s
 import { ProjectHoursComponent } from "./project-hours/project-hours.component";
 import { AddAssetPopComponent } from './project-assets/add-asset-pop/add-asset-pop.component';
 import { AddFacilityPopComponent } from './project-facilities/add-facility-pop/add-facility-pop.component';
+import { EditBacklogTaskComponent } from './project-backlog/edit-backlog-task/edit-backlog-task.component';
+import { AddExpensePopComponent } from './project-expenses/add-expense-pop/add-expense-pop.component';
+import { AddHoursPopComponent } from './project-hours/add-hours-pop/add-hours-pop.component';
 
 const routes: Routes = [
   {
@@ -195,6 +198,9 @@ const routes: Routes = [
     ProjectHoursComponent,
     AddAssetPopComponent,
     AddFacilityPopComponent,
+    EditBacklogTaskComponent,
+    AddExpensePopComponent,
+    AddHoursPopComponent,
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddFacilityPopComponent } from '../add-facility-pop/add-facility-pop.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 export interface FacilityRow {
   id: number;
@@ -91,7 +94,7 @@ export class FacilitiesSchedulingComponent {
   selectedRows: FacilityRow[] = [];
   hoveredCellIndex: number = -1;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.buildCalendar();
     // Pre-select today (or the first day of the month if today isn't in view)
     const today = new Date();
@@ -296,15 +299,64 @@ export class FacilitiesSchedulingComponent {
   }
 
   onAdd(): void {
-    console.log('Add new facility booking clicked');
+    let dialogRef = this.dialog.open(AddFacilityPopComponent, {
+      width: '750px',
+      height: 'auto'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.rows.push({
+          id: this.rows.length + 1,
+          facilityName: result.facilityName,
+          facilityCode: result.facilityCode,
+          description: '',
+          fromDate: result.fromDate,
+          fromTime: result.fromTime,
+          toDate: result.toDate,
+          toTime: result.toTime,
+          fromDateObj: new Date(result.fromDate),
+          toDateObj: new Date(result.toDate)
+        });
+        this.buildCalendar();
+      }
+    });
   }
 
-  editFacility(): void {
-    console.log('Edit clicked');
+  editFacility(row: FacilityRow): void {
+    let dialogRef = this.dialog.open(AddFacilityPopComponent, {
+      width: '750px',
+      height: 'auto',
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        row.facilityName = result.facilityName;
+        row.facilityCode = result.facilityCode;
+        row.fromDate = result.fromDate;
+        row.fromTime = result.fromTime;
+        row.toDate = result.toDate;
+        row.toTime = result.toTime;
+        row.fromDateObj = new Date(result.fromDate);
+        row.toDateObj = new Date(result.toDate);
+        this.buildCalendar();
+      }
+    });
   }
 
-  deleteFacility(): void {
-    console.log('Delete clicked');
+  deleteFacility(row: FacilityRow): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.rows = this.rows.filter(r => r.id !== row.id);
+        this.buildCalendar();
+      }
+    });
   }
 
   trackByRow(_i: number, row: FacilityRow): number { return row.id; }

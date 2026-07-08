@@ -23,10 +23,10 @@
       </button>
     </div>
 
-    <button type="button"
-      style="border:none;background:#1a73e8;color:#ffffff;font-size:14px;font-weight:600;padding:8px 18px;border-radius:7px;cursor:pointer;display:flex;align-items:center;gap:7px;"
+    <button mat-raised-button
+      style="background-color: rgb(130, 130, 130); color: white; display: inline-flex; align-items: center; gap: 6px;"
       (click)="goBack()">
-      <i class="fa fa-arrow-left" style="font-size:12px;" aria-hidden="true"></i>
+      <mat-icon>arrow_back</mat-icon>
       Back
     </button>
   </div>
@@ -48,8 +48,8 @@
       <tbody>
         <tr *ngFor="let row of rows; trackBy: trackByRow">
           <td style="padding:14px;font-size:14px;color:#1f2937;border-bottom:1px solid #f0f1f3;text-align:center;">
-            <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;margin-right:8px;" (click)="editAsset()"></i>
-            <i class="fa fa-trash text-danger action-icon" style="cursor:pointer;" (click)="deleteAsset()"></i>
+            <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;margin-right:8px;" (click)="editAsset(row)"></i>
+            <i class="fa fa-trash text-danger action-icon" style="cursor:pointer; margin-left: 10px;" (click)="deleteAsset(row)"></i>
           </td>
           <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;font-weight:600;color:#14213d;white-space:nowrap;">{{ row.assetName }}</td>
           <td style="padding:14px;font-size:14px;border-bottom:1px solid #f0f1f3;color:#6b7280;white-space:nowrap;">{{ row.assetCode }}</td>

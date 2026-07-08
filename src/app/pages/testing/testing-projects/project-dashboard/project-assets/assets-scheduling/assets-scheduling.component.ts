@@ -1,5 +1,8 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddAssetPopComponent } from '../add-asset-pop/add-asset-pop.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 export interface AssetRow {
   id: number;
@@ -92,7 +95,7 @@ export class AssetsSchedulingComponent {
   selectedRows: AssetRow[] = [];
   hoveredCellIndex: number = -1;
 
-  constructor(private location:Location) {
+  constructor(private location: Location, private dialog: MatDialog) {
     
     this.buildCalendar();
     // Pre-select today (or the first day of the month if today isn't in view)
@@ -304,12 +307,39 @@ export class AssetsSchedulingComponent {
   
   }
 
-  editAsset(): void {
-    console.log('Edit clicked');
+  editAsset(row: AssetRow): void {
+    let dialogRef = this.dialog.open(AddAssetPopComponent, {
+      width: '750px',
+      height: 'auto',
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        row.assetName = result.assetName;
+        row.assetCode = result.assetCode;
+        row.fromDate = result.fromDate;
+        row.fromTime = result.fromTime;
+        row.toDate = result.toDate;
+        row.toTime = result.toTime;
+        this.buildCalendar();
+      }
+    });
   }
 
-  deleteAsset(): void {
-    console.log('Delete clicked');
+  deleteAsset(row: AssetRow): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.rows = this.rows.filter(r => r.id !== row.id);
+        this.buildCalendar();
+      }
+    });
   }
 
   trackByRow(_i: number, row: AssetRow): number { return row.id; }

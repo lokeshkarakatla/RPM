@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddAssetPopComponent } from './add-asset-pop/add-asset-pop.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { StatusConfirmationDialogComponent } from '../../add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
 
 interface Asset {
   assetCode: string;
@@ -90,37 +92,78 @@ export class ProjectAssetsComponent implements OnInit {
   ) { }
   ngOnInit(): void { }
 
+  Confirmation(asset: Asset): void {
+    let dialogRef = this.dialog.open(StatusConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Change Status',
+        content: 'Are you sure you want to Change the Status ?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        asset.status = asset.status === 'Active' ? 'Inactive' : 'Active';
+      }
+    });
+  }
+
   editAsset(asset: Asset): void {
-    console.log('Edit', asset);
+    let dialogRef = this.dialog.open(AddAssetPopComponent, {
+      width: '750px',
+      height: 'auto',
+      data: asset
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        asset.assetCode = result.assetCode;
+        asset.assetType = result.assetType;
+        asset.assetName = result.assetName;
+        asset.assetMake = result.assetMake;
+        asset.assetModel = result.assetModel;
+      }
+    });
   }
 
   deleteAsset(asset: Asset): void {
-    console.log('Delete', asset);
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.assets = this.assets.filter(a => a.assetCode !== asset.assetCode);
+      }
+    });
   }
 
   addAsset(): void {
-    this.dialog.open(AddAssetPopComponent, {
-            width: '750px',
-           height: 'auto',
-            
-         })
+    let dialogRef = this.dialog.open(AddAssetPopComponent, {
+      width: '750px',
+      height: 'auto'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.assets.push({
+          assetCode: result.assetCode,
+          assetType: result.assetType,
+          assetName: result.assetName,
+          assetMake: result.assetMake,
+          assetModel: result.assetModel,
+          log: 0,
+          pmChecklist: 0,
+          monitoring: 0,
+          status: 'Active'
+        });
+      }
+    });
   }
 
-viewScheduling(asset: Asset): void {
-  this.router.navigate(['sample'], { relativeTo: this.route }); // now relative, no '../'
-}
-
-
-
-
-
-
-
-
-
-
-
-
+  viewScheduling(asset: Asset): void {
+    this.router.navigate(['sample'], { relativeTo: this.route });
+  }
 
   goBack(): void {
     this.router.navigateByUrl('/app/testing/projects');

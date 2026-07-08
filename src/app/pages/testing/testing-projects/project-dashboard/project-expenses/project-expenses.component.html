@@ -100,10 +100,12 @@
               <td colspan="12" class="text-center" style="padding: 30px;">No expenses found for this selection.</td>
             </tr>
             <tr *ngFor="let expense of paginatedExpenses">
-                <td class="text-center">
-  <i class="fas fa-pen action-icon" ></i>
-  <i class="fas fa-trash-alt action-icon delete-icon" ></i>
-</td>
+              <td class="text-center">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
+                  <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;" (click)="editExpense(expense)"></i>
+                  <i class="fa fa-trash text-danger action-icon" style="cursor:pointer;" (click)="deleteExpense(expense)"></i>
+                </div>
+              </td>
               <td>
                 <div class="user-info">
                   <!-- <div class="avatar" [ngStyle]="{'background-color': expense.avatarBg}">{{ expense.initials }}</div> -->

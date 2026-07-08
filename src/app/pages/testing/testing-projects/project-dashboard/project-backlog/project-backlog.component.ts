@@ -1,6 +1,9 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EditBacklogTaskComponent } from './edit-backlog-task/edit-backlog-task.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 export type Stage = 'Design' | 'Development' | 'Testing' | 'Deployment';
 export type SprintKind = 'backlog' | 'completed' | 'active';
@@ -121,18 +124,39 @@ export class ProjectBacklogComponent {
     return this.activeSprint.kind === 'completed' ? 12 : (this.activeSprint.kind === 'active' ? 11 : 10);
   }
 
-  deleteAsset(){
-
+  deleteAsset(item: Task): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const sprint = this.activeSprint;
+        sprint.tasks = sprint.tasks.filter(t => t.id !== item.id);
+      }
+    });
   }
-  editAsset(){
 
+  editAsset(item: Task): void {
+    let dialogRef = this.dialog.open(EditBacklogTaskComponent, {
+      width: '600px',
+      height: 'auto',
+      data: item
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Object.assign(item, result);
+      }
+    });
   }
 
-
-
-   constructor(
+  constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
    goBack(): void {

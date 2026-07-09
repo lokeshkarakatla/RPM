@@ -80,31 +80,31 @@ export class UsersComponent implements OnInit {
     // this.titleService.setTitle(newTitle);
   }
   users = [
-    
+
   ];
 
-  userss =[
-    { name: 'Satya', managers: 1, email: 'spaswan383@gmail.com', phone: '7070936188', agency: 'R & D', department: '1', role: 'Group Leader', cft: false, auditor: true, webAccess: true, mobileAccess: false, managerialRole: true, auditTypes: 19, twoFactor: false, resetPassword: true, status: 'Active', job:'3/40',locations:'6/10',workhours:'8-10' },
-    { name: 'Pavan Kalyan', managers: 3, email: 'pavankalyan@gmail.com', phone: '9347153602', agency: 'Engineering', department: '2', role: 'Group Leader', cft: true, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 36, twoFactor: false, resetPassword: true, status: 'Active' , job:'7/40',locations:'4/10',workhours:'8-10' },
-    { name: 'Gaurav', managers: 1, email: 'gvrav@gmail.com', phone: '7894444444', agency: 'Engineering', department: '1', role: 'Shop Head', cft: false, auditor: false, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 0, twoFactor: false, resetPassword: true, status: 'Active', job:'6/40' ,locations:'6/10',workhours:'8-10' },
-    { name: 'Ayush', managers: 1, email: 'ak@gmail.com', phone: '1234563213', agency: 'Inspection', department: '2', role: 'General Manager', cft: false, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 0, twoFactor: false, resetPassword: true, status: 'Active' , job:'22/40',locations:'7/10',workhours:'8-10' },
-    { name: 'santosh', managers: 1, email: 'santosh@gmail.com', phone: '9878998887', agency: 'R & D', department: '1', role: 'Test', cft: false, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 19, twoFactor: false, resetPassword: true, status: 'Active', job:'32/40',locations:'4/10',workhours:'8-10'  },
+  userss = [
+    { name: 'Satya', managers: 1, email: 'spaswan383@gmail.com', phone: '7070936188', agency: 'R & D', department: '1', role: 'Group Leader', cft: false, auditor: true, webAccess: true, mobileAccess: false, managerialRole: true, auditTypes: 19, twoFactor: false, resetPassword: true, status: 'Active', job: '3/40', locations: '6/10', workhours: '8-10' },
+    { name: 'Pavan Kalyan', managers: 3, email: 'pavankalyan@gmail.com', phone: '9347153602', agency: 'Engineering', department: '2', role: 'Group Leader', cft: true, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 36, twoFactor: false, resetPassword: true, status: 'Active', job: '7/40', locations: '4/10', workhours: '8-10' },
+    { name: 'Gaurav', managers: 1, email: 'gvrav@gmail.com', phone: '7894444444', agency: 'Engineering', department: '1', role: 'Shop Head', cft: false, auditor: false, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 0, twoFactor: false, resetPassword: true, status: 'Active', job: '6/40', locations: '6/10', workhours: '8-10' },
+    { name: 'Ayush', managers: 1, email: 'ak@gmail.com', phone: '1234563213', agency: 'Inspection', department: '2', role: 'General Manager', cft: false, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 0, twoFactor: false, resetPassword: true, status: 'Active', job: '22/40', locations: '7/10', workhours: '8-10' },
+    { name: 'santosh', managers: 1, email: 'santosh@gmail.com', phone: '9878998887', agency: 'R & D', department: '1', role: 'Test', cft: false, auditor: true, webAccess: true, mobileAccess: true, managerialRole: false, auditTypes: 19, twoFactor: false, resetPassword: true, status: 'Active', job: '32/40', locations: '4/10', workhours: '8-10' },
     // { name: 'satya', managers: 1, email: 'satya@gmail.com', phone: '8047847387', agency: 'Engineering', department: '2', role: 'General Manager', cft: false, auditor: false, webAccess: true, mobileAccess： false, managerialRole: true, auditTypes: 0, twoFactor: true, resetPassword： true, status： 'Active', job:'14/40' ,locations:'8/10',workhours:'8-10' }
   ]
   Departments = [
-  { value: 'Developer', name: 'Developer' },
-  { value: 'Test', name: 'Test' },
-  { value: 'QA', name: 'QA' },
-//  { value: 'Admin', name: 'Admin' }
-];
-Roles = [
-  { value: 'Shop Head', name: 'Shop Head' },
-  { value: 'Test', name: 'Test' },
-  { value: 'General Manager', name: 'General Manager' },
-  { value: 'Group Leader', name: 'Group Leader' }
-];
+    { value: 'Developer', name: 'Developer' },
+    { value: 'Test', name: 'Test' },
+    { value: 'QA', name: 'QA' },
+    //  { value: 'Admin', name: 'Admin' }
+  ];
+  Roles = [
+    { value: 'Shop Head', name: 'Shop Head' },
+    { value: 'Test', name: 'Test' },
+    { value: 'General Manager', name: 'General Manager' },
+    { value: 'Group Leader', name: 'Group Leader' }
+  ];
 
-  
+
 
 
   ngOnInit() {
@@ -171,7 +171,7 @@ Roles = [
             item.email = data.values.UserEmail;
             item.phone = data.values.UserPhone;
             const foundRole = [
-              { RoleName : "Data Collector", RoleId: 1 },
+              { RoleName: "Data Collector", RoleId: 1 },
               { RoleName: "Field Coordinator", RoleId: 2 },
               { RoleName: "Field Monitor", RoleId: 3 },
               { RoleName: "Supervisors", RoleId: 4 },
@@ -180,7 +180,7 @@ Roles = [
             item.role = foundRole ? foundRole.RoleName : 'Group Leader';
           } else {
             const foundRole = [
-              { RoleName : "Data Collector", RoleId: 1 },
+              { RoleName: "Data Collector", RoleId: 1 },
               { RoleName: "Field Coordinator", RoleId: 2 },
               { RoleName: "Field Monitor", RoleId: 3 },
               { RoleName: "Supervisors", RoleId: 4 },
@@ -204,7 +204,8 @@ Roles = [
               resetPassword: true,
               status: 'Active',
               job: '0/40',
-              locations: '0/10'
+              locations: '0/10',
+              workhours: '8-10'
             };
             this.userss.push(newUser);
           }
@@ -345,8 +346,7 @@ Roles = [
 
 
 
-  openjobpop()
-  {
+  openjobpop() {
     this.dialog.open(JobCodesPopComponent, {
       data: null,
       height: 'auto',
@@ -355,8 +355,7 @@ Roles = [
 
   }
 
-  openlocationpop()
-  {
+  openlocationpop() {
     this.dialog.open(UserLocationsPopComponent, {
       data: null,
       height: 'auto',

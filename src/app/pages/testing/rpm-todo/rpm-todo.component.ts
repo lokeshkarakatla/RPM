@@ -44,7 +44,7 @@ export class RpmTodoComponent implements OnInit {
   showFilter: boolean = false;
 
   // --- Calendar Specific Properties ---
-  showWeekend: boolean = false;
+
   showWeekend: boolean = false;
   displayDays: number[] = [1, 2, 3, 4, 5]; // Monday - Friday
   hoursList = ["1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM"];
@@ -241,7 +241,7 @@ export class RpmTodoComponent implements OnInit {
         hour: this.hoursList[i % this.hoursList.length],
         user: project.Responsibility,
         dayPlacement: (i % daysToDistribute) + 1,
-        
+
         taskName: project.Subject,
         projectName: project.ProjectName,
         status: statusText,
@@ -324,15 +324,15 @@ export class RpmTodoComponent implements OnInit {
 
   // --- Kanban Specific Logic ---
   data = [
-    { subject: 'Global fleet of connected vehicles', distributor: 'Mahindra',   Lead: 'Ravi',  status: 'Pending', TargetDate: '2026-04-25', FailureDate: '2026-04-20' },
-    { subject: 'Engine Overheating',                 distributor: 'Tata Motors', Lead: 'Sneha', status: 'Pending', TargetDate: '2026-04-22', FailureDate: '2026-04-18' },
-    { subject: 'Update Application Dependencies',    distributor: 'Infosys',     Lead: 'Kiran', status: 'Hold',    TargetDate: '2026-04-30', FailureDate: '2026-04-21' },
-    { subject: 'Verify DLL Versions',                distributor: 'Tesla',       Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Bumper Issue',                       distributor: 'Tesla',       Lead: 'Arjun', status: 'Hold',    TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing A',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Pending', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing B',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Hold',    TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing C',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
-    { subject: 'Error Testing D',                    distributor: 'Tesla',       Lead: 'Arjun', status: 'Closed',  TargetDate: '2026-04-15', FailureDate: '2026-04-10' }
+    { subject: 'Global fleet of connected vehicles', distributor: 'Mahindra', Lead: 'Ravi', status: 'Pending', TargetDate: '2026-04-25', FailureDate: '2026-04-20' },
+    { subject: 'Engine Overheating', distributor: 'Tata Motors', Lead: 'Sneha', status: 'Pending', TargetDate: '2026-04-22', FailureDate: '2026-04-18' },
+    { subject: 'Update Application Dependencies', distributor: 'Infosys', Lead: 'Kiran', status: 'Hold', TargetDate: '2026-04-30', FailureDate: '2026-04-21' },
+    { subject: 'Verify DLL Versions', distributor: 'Tesla', Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Bumper Issue', distributor: 'Tesla', Lead: 'Arjun', status: 'Hold', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Error Testing A', distributor: 'Tesla', Lead: 'Arjun', status: 'Pending', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Error Testing B', distributor: 'Tesla', Lead: 'Arjun', status: 'Hold', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Error Testing C', distributor: 'Tesla', Lead: 'Arjun', status: 'Process', TargetDate: '2026-04-15', FailureDate: '2026-04-10' },
+    { subject: 'Error Testing D', distributor: 'Tesla', Lead: 'Arjun', status: 'Closed', TargetDate: '2026-04-15', FailureDate: '2026-04-10' }
   ];
 
   lists: Status[] = ['Pending', 'Allocated', 'Progress', 'Hold', 'Cancelled', 'Completed'];
@@ -343,13 +343,13 @@ export class RpmTodoComponent implements OnInit {
   };
 
   private statusMap: Record<string, Status> = {
-    'Pending':   'Pending',
+    'Pending': 'Pending',
     'Allocated': 'Allocated',
-    'Process':   'Progress',  
-    'Progress':  'Progress',
-    'Hold':      'Hold',
+    'Process': 'Progress',
+    'Progress': 'Progress',
+    'Hold': 'Hold',
     'Cancelled': 'Cancelled',
-    'Closed':    'Completed', 
+    'Closed': 'Completed',
     'Completed': 'Completed'
   };
 
@@ -382,7 +382,7 @@ export class RpmTodoComponent implements OnInit {
 
   drop(event: CdkDragDrop<Card[]>, targetList: Status): void {
     const previousList = event.previousContainer.id as Status;
-    const currentList  = event.container.id as Status;
+    const currentList = event.container.id as Status;
 
     if (previousList !== currentList) {
       transferArrayItem(
@@ -427,10 +427,10 @@ export class RpmTodoComponent implements OnInit {
 
   getColor(status: string): string {
     const colors: Record<string, string> = {
-      'Pending':   '#e24b4a',
+      'Pending': '#e24b4a',
       'Allocated': '#ef9f27',
-      'Progress':  '#378add',
-      'Hold':      '#f0995b',
+      'Progress': '#378add',
+      'Hold': '#f0995b',
       'Cancelled': '#888780',
       'Completed': '#639922'
     };
@@ -439,10 +439,10 @@ export class RpmTodoComponent implements OnInit {
 
   getCardClass(status: string): string {
     const classes: Record<string, string> = {
-      'Pending':   'pending-card',
+      'Pending': 'pending-card',
       'Allocated': 'allocated-card',
-      'Progress':  'progress-card',
-      'Hold':      'hold-card',
+      'Progress': 'progress-card',
+      'Hold': 'hold-card',
       'Cancelled': 'cancelled-card',
       'Completed': 'completed-card'
     };

@@ -187,6 +187,16 @@ export const horizontalMenuItems = [
     false,
     4,
   ),
+  new Menu(
+    402,
+    "Availability",
+    "/app/admin/availability",
+    null,
+    "group_add",
+    null,
+    false,
+    4,
+  ),
   // new Menu(402, 'Master Data', '/app/setups/setup-masterdata/status-master', null, 'storage', null, false, 4),
   new Menu(
     403,

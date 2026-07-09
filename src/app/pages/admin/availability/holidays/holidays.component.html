@@ -1,0 +1,58 @@
+<div class="holidays-card">
+
+  <div class="holidays-header">
+    <div class="holidays-title-block">
+      <span class="eyebrow">Calendar Year 2026</span>
+      <h2 class="title">General Holidays</h2>
+    </div>
+
+    <div class="filter-toggle" role="tablist">
+      <button
+        type="button"
+        role="tab"
+        *ngFor="let filter of filters"
+        class="filter-btn"
+        [class.active]="activeFilter === filter"
+        [attr.aria-selected]="activeFilter === filter"
+        (click)="applyFilter(filter)">
+        {{ filter }}
+      </button>
+    </div>
+  </div>
+
+  <div class="holidays-list">
+    <div class="holiday-row" *ngFor="let holiday of filteredHolidays; trackBy: trackByHoliday">
+
+      <div class="holiday-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 9H21" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="holiday-info">
+        <div class="holiday-name-row">
+          <span class="holiday-name">{{ holiday.name }}</span>
+          <span class="badge" [ngClass]="getBadgeClass(holiday.type)">
+            <span class="badge-dot"></span>
+            {{ holiday.type }}
+          </span>
+        </div>
+        <span class="holiday-desc">{{ holiday.description }}</span>
+      </div>
+
+      <div class="holiday-date">
+        <span class="date-main">{{ getFormattedDate(holiday.date) }}</span>
+        <span class="date-day">{{ getDayName(holiday.date) }}</span>
+      </div>
+
+    </div>
+
+    <div class="empty-state" *ngIf="filteredHolidays.length === 0">
+      No holidays found for this filter.
+    </div>
+  </div>
+
+</div>

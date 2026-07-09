@@ -1,0 +1,52 @@
+<div class="paid-leave-card">
+
+  <div class="paid-leave-header">
+    <div class="title-block">
+      <h2 class="title">Paid leave</h2>
+      <p class="subtitle">Approved and pending time-off requests.</p>
+    </div>
+
+    <div class="header-actions">
+      <div class="usage-block">
+        <span class="usage-label">Used</span>
+        <span class="usage-value">{{ usedDays }} / {{ totalAllowance }} days</span>
+      </div>
+
+      <button type="button" class="add-leave-btn" (click)="onAddLeave()">
+        <span class="plus">+</span> Add leave
+      </button>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="leave-table">
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th>Days</th>
+          <th>Reason</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let leave of leaveRequests; trackBy: trackByLeave">
+          <td class="cell-date">{{ getFormattedDate(leave.from) }}</td>
+          <td class="cell-date">{{ getFormattedDate(leave.to) }}</td>
+          <td class="cell-days">{{ leave.days }}</td>
+          <td class="cell-reason">{{ leave.reason }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(leave.status)">
+              {{ leave.status }}
+            </span>
+          </td>
+        </tr>
+
+        <tr *ngIf="leaveRequests.length === 0">
+          <td class="empty-state" colspan="5">No leave requests yet.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

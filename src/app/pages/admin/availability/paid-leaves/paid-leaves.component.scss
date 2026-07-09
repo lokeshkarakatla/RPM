@@ -1,0 +1,218 @@
+// ==========================================================================
+// Paid leave component
+// ==========================================================================
+
+$border-color: #edeef1;
+$text-primary: #1a1d23;
+$text-muted: #9aa0ac;
+$text-link: #6b8ecb;
+
+$header-bg: #f8f9fb;
+
+$approved-color: #4b5566;
+$approved-bg: #e7e9ee;
+
+$pending-color: #8a6d1c;
+$pending-bg: #f5efe0;
+
+$rejected-color: #b0403a;
+$rejected-bg: #fbe7e6;
+
+.paid-leave-card {
+  background: #ffffff;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+// -- Header ----------------------------------------------------------------
+
+.paid-leave-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: $text-primary;
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: 13px;
+    color: $text-muted;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.usage-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.3;
+
+  .usage-label {
+    font-size: 12px;
+    color: $text-muted;
+  }
+
+  .usage-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+.add-leave-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  cursor: pointer;
+  background: #14161a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 9px;
+  transition: background-color 0.15s ease;
+
+  .plus {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  &:hover {
+    background: #262930;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #5b6ee1;
+    outline-offset: 2px;
+  }
+}
+
+// -- Table -------------------------------------------------------------------
+
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+}
+
+.leave-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+
+  thead {
+    background: $header-bg;
+
+    th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: $text-muted;
+      padding: 12px 20px;
+      white-space: nowrap;
+    }
+  }
+
+  tbody {
+    tr {
+      border-top: 1px solid $border-color;
+
+      &:hover {
+        background: #fafbfc;
+      }
+    }
+
+    td {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: $text-primary;
+      white-space: nowrap;
+    }
+  }
+}
+
+.cell-date {
+  color: $text-primary;
+}
+
+.cell-days {
+  color: $text-primary;
+}
+
+.cell-reason {
+  color: $text-link;
+}
+
+// -- Status badges -----------------------------------------------------------
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  line-height: 1.4;
+}
+
+.status-approved {
+  color: $approved-color;
+  background: $approved-bg;
+}
+
+.status-pending {
+  color: $pending-color;
+  background: $pending-bg;
+}
+
+.status-rejected {
+  color: $rejected-color;
+  background: $rejected-bg;
+}
+
+// -- Empty state -----------------------------------------------------------
+
+.empty-state {
+  text-align: center;
+  color: $text-muted;
+  padding: 32px 16px !important;
+  white-space: normal;
+}
+
+// -- Responsive --------------------------------------------------------------
+
+@media (max-width: 560px) {
+  .paid-leave-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-actions {
+    justify-content: space-between;
+  }
+}

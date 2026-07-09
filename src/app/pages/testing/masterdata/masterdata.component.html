@@ -83,6 +83,20 @@
         </a>
       </li>
 
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['./section']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Section">play_circle_outline</mat-icon>
+          <span *ngIf="isNavOpen">Section</span>
+        </a>
+      </li>
+
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['./department']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Department">play_circle_outline</mat-icon>
+          <span *ngIf="isNavOpen">Department</span>
+        </a>
+      </li>
+
 
 
 

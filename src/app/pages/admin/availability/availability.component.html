@@ -1,0 +1,41 @@
+<div class="w-100">
+    <div class="flex-p">
+        <div class="row wrap">
+            <div class="col-sm-12 no-padding">
+                <div class="row-wrap">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col-xs-12" style="margin-bottom: 15px;">
+                                <div class="pills">
+                                    <ul class="nav nav-pills" style="margin-left: 10px;margin-bottom: -25px;">
+                                        <li routerLinkActive="active" [routerLink]="['./timings']">
+                                            <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">
+                                                Timings
+                                            </a>
+                                        </li>
+                                        <li routerLinkActive="active" [routerLink]="['./holidays']">
+                                            <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">
+                                                Holidays
+                                            </a>
+                                        </li>
+                                        <li routerLinkActive="active" [routerLink]="['./paid-leaves']">
+                                            <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">
+                                              Paid Leaves
+                                            </a>
+                                        </li>
+                                        <li routerLinkActive="active" [routerLink]="['./exemptions']">
+                                            <a mat-raised-button class="navtabWidth" style="margin-top: 10px;">
+                                               Exemptions
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

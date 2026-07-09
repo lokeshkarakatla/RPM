@@ -23,7 +23,8 @@ import { DistributorComponent } from './masterdata/distributor/distributor.compo
 import { AddDistributorComponent } from './masterdata/distributor/add-distributor/add-distributor.component';
 import { MDepartmentsComponent } from './masterdata/m-departments/m-departments.component';
 import { MdataDeptsComponent } from '../setups/test-master-data/mdata-depts/mdata-depts.component';
-  // for mat-raised-button and button features
+import { AvailabilityComponent } from './availability/availability.component';
+// for mat-raised-button and button features
 
 
 
@@ -36,6 +37,15 @@ const routes: Routes = [
     loadChildren: () =>
       import("./manage-user/manage-user.module").then((m) => m.ManageUserModule),
     data: { breadcrumb: 'Manage Users', description: 'This page is used to manage User' }
+  },
+
+
+  {
+    path: "availability",
+    component: AvailabilityComponent,
+    loadChildren: () =>
+      import("./availability/availability.module").then((m) => m.AvailabilityModule),
+    data: { breadcrumb: 'Availability', description: 'This page is used to manage user availability' }
   },
   {
     path: "escalation",
@@ -60,7 +70,7 @@ const routes: Routes = [
     pathMatch: "full",
     data: { breadcrumb: 'Lookup Options', description: "Codes and Lookup options are managed here." }
   },
-   {
+  {
     path: "departments",
     component: MdataDeptsComponent,
     pathMatch: "full",
@@ -100,8 +110,9 @@ const routes: Routes = [
     CredentialsComponent,
     AuditConfigComponent,
     MasterdataComponent,
-    MdataDeptsComponent
-   
+    MdataDeptsComponent,
+    AvailabilityComponent
+
   ],
   imports: [
     CommonModule,
@@ -114,7 +125,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatCardModule,
     MatSelectModule,
-     FormsModule
+    FormsModule
   ],
   // entryComponents: [],
   providers: [DragulaService]

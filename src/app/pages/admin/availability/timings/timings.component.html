@@ -1,0 +1,100 @@
+<div class="working-schedule-container">
+  <!-- Header -->
+  <div class="schedule-header">
+    <h3 class="schedule-label">WORKING SCHEDULE</h3>
+    
+    <div class="month-year-container">
+      <button class="nav-button" (click)="previousMonth()">
+        <span>&lt;</span>
+      </button>
+      
+      <div class="month-year">
+        <h2>{{ currentMonth }} {{ currentYear }}</h2>
+      </div>
+      
+      <button class="nav-button" (click)="nextMonth()">
+        <span>&gt;</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Legend - Clickable to Toggle -->
+  <div class="legend">
+    <div class="legend-item" 
+         [ngClass]="{ 'inactive': !visibleTypes.working }"
+         (click)="toggleType('working')"
+         title="Click to toggle Working Days">
+      <span class="legend-dot working"></span>
+      <span class="legend-text">Working Day</span>
+    </div>
+    <div class="legend-item" 
+         [ngClass]="{ 'inactive': !visibleTypes.off }"
+         (click)="toggleType('off')"
+         title="Click to toggle Week Off">
+      <span class="legend-dot off"></span>
+      <span class="legend-text">Week Off</span>
+    </div>
+    <div class="legend-item" 
+         [ngClass]="{ 'inactive': !visibleTypes.weekend }"
+         (click)="toggleType('weekend')"
+         title="Click to toggle Weekends">
+      <span class="legend-dot weekend"></span>
+      <span class="legend-text">Weekend</span>
+    </div>
+  </div>
+
+  <!-- Schedule Grid -->
+  <div class="schedule-grid">
+    <!-- Header Row -->
+    <div class="grid-row header-row">
+      <div class="grid-cell week-label">WEEK</div>
+      <div class="grid-cell day-header mon">MON</div>
+      <div class="grid-cell day-header tue">TUE</div>
+      <div class="grid-cell day-header wed">WED</div>
+      <div class="grid-cell day-header thu">THU</div>
+      <div class="grid-cell day-header fri">FRI</div>
+      <div class="grid-cell day-header sat">SAT</div>
+      <div class="grid-cell day-header sun">SUN</div>
+    </div>
+
+    <!-- Data Rows -->
+    <div class="grid-row" *ngFor="let week of weeks">
+      <div class="grid-cell week-label">{{ week.weekNumber }}</div>
+      
+      <div class="grid-cell day-cell" 
+           *ngFor="let day of week.days"
+           [ngClass]="[getStatusClass(day.type), 
+                       day.isCurrentMonth ? 'current-month' : 'other-month',
+                       isTypeHidden(day.type) ? 'hidden-type' : '',
+                       day.type === 'weekend' || !day.isCurrentMonth ? 'not-clickable' : 'clickable']"
+           (click)="toggleDayType(day)">
+        <div class="day-content">
+          <!-- Show "AB" if type is hidden -->
+          <ng-container *ngIf="isTypeHidden(day.type); else showNormal">
+            <span class="absent-text">AB</span>
+          </ng-container>
+
+          <!-- Normal display if type is visible -->
+          <ng-template #showNormal>
+            <ng-container [ngSwitch]="day.type">
+              <!-- Working Day -->
+              <div *ngSwitchCase="'working'" class="status-icon working-icon">
+                <mat-icon *ngIf="day.isCurrentMonth">check_circle</mat-icon>
+              </div>
+              
+              <!-- Week Off -->
+              <div *ngSwitchCase="'off'" class="status-icon off-icon">
+                <div class="empty-box"></div>
+              </div>
+              
+              <!-- Weekend -->
+              <div *ngSwitchCase="'weekend'" class="status-icon weekend-icon">
+                <div class="empty-box"></div>
+              </div>
+            </ng-container>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

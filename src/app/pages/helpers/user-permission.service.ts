@@ -12,27 +12,34 @@ export class UserPermissionService {
 
     static fnGetReadPermissions(screenId: number): boolean {
         let userId = JSON.parse(localStorage.getItem('userId'));
-
         let user = users.find(x => x.userId == userId);
-        return user.permissions.find(x => x.screenId == screenId).canRead;
+        if (!user || !user.permissions) return false;
+        const permission = user.permissions.find(x => x.screenId == screenId);
+        return !!permission?.canRead;
     }
 
     static fnGetCreatePermissions(screenId: number): boolean {
         let userId = JSON.parse(localStorage.getItem('userId'));
         let user = users.find(x => x.userId == userId);
-        return user.permissions.find(x => x.screenId == screenId)?.canRead;
+        if (!user || !user.permissions) return false;
+        const permission = user.permissions.find(x => x.screenId == screenId);
+        return !!permission?.canCreate;
     }
 
     static fnGetUpdatePermissions(screenId: number): boolean {
         let userId = JSON.parse(localStorage.getItem('userId'));
         let user = users.find(x => x.userId == userId);
-        return user.permissions.find(x => x.screenId == screenId)?.canUpdate;
+        if (!user || !user.permissions) return false;
+        const permission = user.permissions.find(x => x.screenId == screenId);
+        return !!permission?.canUpdate;
     }
 
     static fnGetDeletePermissions(screenId: number): boolean {
         let userId = JSON.parse(localStorage.getItem('userId'));
         let user = users.find(x => x.userId == userId);
-        return user.permissions.find(x => x.screenId == screenId)?.canDelete;
+        if (!user || !user.permissions) return false;
+        const permission = user.permissions.find(x => x.screenId == screenId);
+        return !!permission?.canDelete;
     }
 
     static fnGetUserModuleMenu(): any {

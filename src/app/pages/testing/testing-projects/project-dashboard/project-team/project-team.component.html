@@ -1,25 +1,24 @@
-<div mat-dialog-content class="dialog-container">
+<div class="dialog-container">
       <!-- <div class="mb-4">
   <b>Project Name : </b>NextGen Assembly Line <br>
   	2026/MFG/011
 </div> -->
   <div class="header-section">
-  <div class="header-content">
-    <div class="header-titles" style="visibility: hidden;">
-      <h2 class="assign-title">Assign Team Members (NextGen Assembly Line-2026/MFG/011)</h2>
-      <p class="assign-subtitle">
-        Select and move members to build your project team.
-      </p>
+    <div class="header-content">
+      <div class="header-titles">
+        <h2 class="assign-title">Assign Team Members</h2>
+        <p class="assign-subtitle">
+          Select and move members to build your project team.
+        </p>
+      </div>
     </div>
-
-        <button mat-raised-button class="back-btn" (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
-    <mat-icon>arrow_back</mat-icon>
-    Back
-  </button>
+    <button mat-flat-button class="back-btn" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
   </div>
-</div>
 
-    <div class="transfer-layout">
+  <div class="transfer-layout">
         <div class="list-panel">
             <div class="panel-header">
                 <span>Available Members</span>
@@ -76,7 +75,7 @@
 </div>
 
 <div mat-dialog-actions class="dialog-footer">
-    <button mat-button class="close-btn" style="background-color: rgba(213, 211, 211, 0.733);">
+    <button mat-button class="close-btn" style="background-color: rgba(213, 211, 211, 0.733);" (click)="closeDialog()">
         Cancel
     </button>
     <button mat-flat-button class="save-btn" (click)="save()">

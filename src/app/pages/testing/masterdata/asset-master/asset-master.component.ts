@@ -13,6 +13,7 @@ export interface Asset {
   AvailableQuantity: number;
   UnitRate: number;
   IsActive: boolean;
+  Description: string;
 }
 
 @Component({
@@ -56,12 +57,12 @@ export class AssetMasterComponent implements OnInit {
 
   getCategory(): void {
     this.tableList = [
-      { AssetId: 1, AssetName: 'Dell XPS 15', AssetCode: 'AST-1001', AssetCategory: 'IT Equipment', AssetSubCategory: 'Laptop', AvailableQuantity: 12, UnitRate: 125000.00, IsActive: true },
-      { AssetId: 2, AssetName: 'Epson EB Projector', AssetCode: 'AST-1002', AssetCategory: 'IT Equipment', AssetSubCategory: 'Projector', AvailableQuantity: 5, UnitRate: 45000.00, IsActive: true },
-      { AssetId: 3, AssetName: 'Sony A7 III', AssetCode: 'AST-1003', AssetCategory: 'Media Equipment', AssetSubCategory: 'Camera', AvailableQuantity: 3, UnitRate: 180000.00, IsActive: true },
-      { AssetId: 4, AssetName: 'iPad Pro', AssetCode: 'AST-1004', AssetCategory: 'IT Equipment', AssetSubCategory: 'Tablet', AvailableQuantity: 8, UnitRate: 95000.00, IsActive: false },
-      { AssetId: 5, AssetName: 'Server Rack Unit', AssetCode: 'AST-1005', AssetCategory: 'Infrastructure', AssetSubCategory: 'Server', AvailableQuantity: 2, UnitRate: 350000.00, IsActive: true },
-      { AssetId: 6, AssetName: 'Excel Workstation', AssetCode: 'AST-1006', AssetCategory: 'IT Equipment', AssetSubCategory: 'Workstation', AvailableQuantity: 15, UnitRate: 65000.00, IsActive: true }
+      { AssetId: 1, AssetName: 'Dell XPS 15', AssetCode: 'AST-1001', AssetCategory: 'IT Equipment', AssetSubCategory: 'Laptop', AvailableQuantity: 12, UnitRate: 125000.00, IsActive: true, Description: 'High-performance laptop for professionals' },
+      { AssetId: 2, AssetName: 'Epson EB Projector', AssetCode: 'AST-1002', AssetCategory: 'IT Equipment', AssetSubCategory: 'Projector', AvailableQuantity: 5, UnitRate: 45000.00, IsActive: true, Description: 'Portable projector for presentations' },
+      { AssetId: 3, AssetName: 'Sony A7 III', AssetCode: 'AST-1003', AssetCategory: 'Media Equipment', AssetSubCategory: 'Camera', AvailableQuantity: 3, UnitRate: 180000.00, IsActive: true, Description: 'Professional-grade digital camera' },
+      { AssetId: 4, AssetName: 'iPad Pro', AssetCode: 'AST-1004', AssetCategory: 'IT Equipment', AssetSubCategory: 'Tablet', AvailableQuantity: 8, UnitRate: 95000.00, IsActive: false, Description: 'Powerful tablet for creative work' },
+      { AssetId: 5, AssetName: 'Server Rack Unit', AssetCode: 'AST-1005', AssetCategory: 'Infrastructure', AssetSubCategory: 'Server', AvailableQuantity: 2, UnitRate: 350000.00, IsActive: true, Description: 'Standard server rack for data centers' },
+      { AssetId: 6, AssetName: 'Excel Workstation', AssetCode: 'AST-1006', AssetCategory: 'IT Equipment', AssetSubCategory: 'Workstation', AvailableQuantity: 15, UnitRate: 65000.00, IsActive: true, Description: 'High-performance workstation for design tasks' }
     ];
 
     this.totalSize = this.tableList.length;

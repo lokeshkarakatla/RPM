@@ -18,7 +18,6 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
   activeDashboard: "resp" | "category" | "ageing" | "rpn" = "resp";
   currentView: "graph" | "grid" = "graph";
 
-
   getSprintLabel(num: number): string {
     if (num === 0) return 'Start';
     return '1' + String.fromCharCode(64 + num); // 1 -> '1A', 2 -> '1B', 3 -> '1C', ...
@@ -76,9 +75,9 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
   filteredBufferSprintData: any[] = [];
 
   // --- Buffer chart interaction state ---
-bufferBarChart: Highcharts.Chart | null = null;
-bufferStageChart: Highcharts.Chart | null = null;
-selectedStageDrilldown: string | null = null;
+  bufferBarChart: Highcharts.Chart | null = null;
+  bufferStageChart: Highcharts.Chart | null = null;
+  selectedStageDrilldown: string | null = null;
 
   // Gate/Sprint header structure
   gateHeaders = [
@@ -129,7 +128,6 @@ selectedStageDrilldown: string | null = null;
     { PERIOD: "40-50", ISSUES: 15 }, { PERIOD: "50-100", ISSUES: 10 },
     { PERIOD: "100+", ISSUES: 30 },
   ];
-
 
   // --- Buffer Data ---
   bufferSprintData = [
@@ -358,11 +356,11 @@ selectedStageDrilldown: string | null = null;
     });
   }
 
- onBufferFilterChange() {
-  this.selectedStageDrilldown = null;
-  this.applyBufferFilter();
-  this.renderRpnChart();
-}
+  onBufferFilterChange() {
+    this.selectedStageDrilldown = null;
+    this.applyBufferFilter();
+    this.renderRpnChart();
+  }
 
   // ─── Budget Gantt Chart ───────────────────────────────────────────────────
 
@@ -412,210 +410,207 @@ selectedStageDrilldown: string | null = null;
     this.renderBufferBarChart();
     this.renderBufferPieChart();
   }
- renderBufferBarChart() {
-  const containerId = 'bufferBarChartContainer';
-  if (!document.getElementById(containerId)) return;
 
-  const dataSource = this.selectedStageDrilldown
-    ? this.filteredBufferSprintData.filter(d => d.stage === this.selectedStageDrilldown)
-    : this.filteredBufferSprintData;
+  renderBufferBarChart() {
+    const containerId = 'bufferBarChartContainer';
+    if (!document.getElementById(containerId)) return;
 
-  const maxSprint = Math.max(...dataSource.map(d => d.sprint), 5);
-  const lineData: [number, number][] = [];
-  for (let i = 0; i <= maxSprint + 1; i++) lineData.push([i, i]);
+    const dataSource = this.selectedStageDrilldown
+      ? this.filteredBufferSprintData.filter(d => d.stage === this.selectedStageDrilldown)
+      : this.filteredBufferSprintData;
 
-  const columnData = dataSource.map(d => ({
-    x: d.sprint,
-    y: d.bufferUsed,
-    color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745',
-    status: d.bufferUsed > d.sprint ? 'Over Budget' : 'On Track',
-    stage: d.stage
-  }));
+    const maxSprint = Math.max(...dataSource.map(d => d.sprint), 5);
+    const lineData: [number, number][] = [];
+    for (let i = 0; i <= maxSprint + 1; i++) lineData.push([i, i]);
 
-  const self = this;
-  const stageLabel = this.selectedStageDrilldown
-    ? this.gateHeaders.find(g => g.key === this.selectedStageDrilldown)?.label
-    : null;
+    const columnData = dataSource.map(d => ({
+      x: d.sprint,
+      y: d.bufferUsed,
+      color: d.bufferUsed > d.sprint ? '#dc3545' : '#28a745',
+      status: d.bufferUsed > d.sprint ? 'Over Budget' : 'On Track',
+      stage: d.stage
+    }));
 
-  this.bufferBarChart = Highcharts.chart(containerId, {
-    chart: { type: 'column' },
-    title: {
-      text: stageLabel
-        ? `Buffer Consumed vs % Completion — ${stageLabel}`
-        : 'Buffer Consumed vs % Completion'
-    },
-    subtitle: stageLabel ? { text: 'Click the stage chart bar again to clear this filter' } : undefined,
-    credits: { enabled: false },
-    xAxis: {
-      title: { text: '% completion' },
-      min: 0,
-      tickInterval: 1,
-      labels: {
+    const self = this;
+    const stageLabel = this.selectedStageDrilldown
+      ? this.gateHeaders.find(g => g.key === this.selectedStageDrilldown)?.label
+      : null;
+
+    this.bufferBarChart = Highcharts.chart(containerId, {
+      chart: { type: 'column' },
+      title: {
+        text: stageLabel
+          ? `Buffer Consumed vs % Completion — ${stageLabel}`
+          : 'Buffer Consumed vs % Completion'
+      },
+      subtitle: stageLabel ? { text: 'Click the stage chart bar again to clear this filter' } : undefined,
+      credits: { enabled: false },
+      xAxis: {
+        title: { text: '% completion' },
+        min: 0,
+        tickInterval: 1,
+        labels: {
+          formatter: function () {
+            return self.getSprintLabel(this.value as number);
+          }
+        }
+      },
+      yAxis: { title: { text: 'Buffer Time Used' }, min: 0 },
+      tooltip: {
+        shared: false,
+        useHTML: true,
         formatter: function () {
-          return self.getSprintLabel(this.value as number);
+          const sprintName = self.getSprintLabel(this.x as number);
+          if (this.series.name === 'Average Threshold (y=x)') {
+            return `<b>Average Threshold</b><br/>${sprintName}<br/>Expected Buffer: ${this.y}`;
+          }
+          return `
+            <div style="font-size: 13px; color: #333;">
+              <b>${sprintName}</b><br/>
+              <span style="color: ${this.point.color}">\u25CF</span> Buffer Used: <b>${this.y}</b><br/>
+              Status: <i>${(this.point as any).options.status}</i>
+            </div>
+          `;
         }
-      }
-    },
-    yAxis: { title: { text: 'Buffer Time Used' }, min: 0 },
-    tooltip: {
-      shared: false,
-      useHTML: true,
-      formatter: function () {
-        const sprintName = self.getSprintLabel(this.x as number);
-        if (this.series.name === 'Average Threshold (y=x)') {
-          return `<b>Average Threshold</b><br/>${sprintName}<br/>Expected Buffer: ${this.y}`;
-        }
-        return `
-          <div style="font-size: 13px; color: #333;">
-            <b>${sprintName}</b><br/>
-            <span style="color: ${this.point.color}">\u25CF</span> Buffer Used: <b>${this.y}</b><br/>
-            Status: <i>${(this.point as any).options.status}</i>
-          </div>
-        `;
-      }
-    },
-    plotOptions: {
-      column: {
-        point: {
-          events: {
-            mouseOver: function () {
-              const stage = (this as any).options.stage;
-              const stageChart = self.bufferStageChart;
-              if (!stageChart) return;
-              stageChart.series[0].points.forEach(p => {
-                if ((p as any).stageKey === stage) p.setState('hover');
-              });
-            },
-            mouseOut: function () {
-              const stageChart = self.bufferStageChart;
-              if (!stageChart) return;
-              stageChart.series[0].points.forEach(p => p.setState(''));
+      },
+      plotOptions: {
+        column: {
+          point: {
+            events: {
+              mouseOver: function () {
+                const stage = (this as any).options.stage;
+                const stageChart = self.bufferStageChart;
+                if (!stageChart) return;
+                stageChart.series[0].points.forEach(p => {
+                  if ((p as any).stageKey === stage) p.setState('hover');
+                });
+              },
+              mouseOut: function () {
+                const stageChart = self.bufferStageChart;
+                if (!stageChart) return;
+                stageChart.series[0].points.forEach(p => p.setState(''));
+              }
             }
           }
         }
-      }
-    },
-    series: [
-      { type: 'column', name: 'Buffer Used', data: columnData, dataLabels: { enabled: true, format: '{point.y}' } },
-      { type: 'line', name: 'Average Threshold (y=x)', data: lineData, color: '#007bff', dashStyle: 'Dash', marker: { enabled: false }, enableMouseTracking: true },
-    ],
-  } as any);
-}
+      },
+      series: [
+        { type: 'column', name: 'Buffer Used', data: columnData, dataLabels: { enabled: true, format: '{point.y}' } },
+        { type: 'line', name: 'Average Threshold (y=x)', data: lineData, color: '#007bff', dashStyle: 'Dash', marker: { enabled: false }, enableMouseTracking: true },
+      ],
+    } as any);
+  }
 
-renderBufferPieChart() {
-  const containerId = 'bufferPieChartContainer';
-  if (!document.getElementById(containerId)) return;
+  renderBufferPieChart() {
+    const containerId = 'bufferPieChartContainer';
+    if (!document.getElementById(containerId)) return;
 
-  const stageOrder = new Map<string, number>();
-  this.gateHeaders.forEach((g, i) => stageOrder.set(g.key, i + 1));
+    const stageOrder = new Map<string, number>();
+    this.gateHeaders.forEach((g, i) => stageOrder.set(g.key, i + 1));
 
-  const stageMap = new Map<string, { actualTotal: number; count: number }>();
-  this.filteredBufferSprintData.forEach(d => {
-    const entry = stageMap.get(d.stage) || { actualTotal: 0, count: 0 };
-    entry.actualTotal += d.bufferUsed;
-    entry.count += 1;
-    stageMap.set(d.stage, entry);
-  });
-
-  // Tolerance band: variance above -35% still counts as "on track" (green)
-  const TOLERANCE_PCT = -30;
-
-  const stageData = this.gateHeaders
-    .filter(g => stageMap.has(g.key))
-    .map(g => {
-      const entry = stageMap.get(g.key)!;
-      const avgActual = entry.actualTotal / entry.count;
-      const expected = stageOrder.get(g.key)!;
-      const variancePct = +(((avgActual - expected) / expected) * 100).toFixed(1);
-      return {
-        name: g.label,
-        y: variancePct,
-        avgActual: +avgActual.toFixed(2),
-        expected,
-        stageKey: g.key,
-        color: variancePct >= TOLERANCE_PCT ? '#00a859' : '#dc3545'
-      };
+    const stageMap = new Map<string, { actualTotal: number; count: number }>();
+    this.filteredBufferSprintData.forEach(d => {
+      const entry = stageMap.get(d.stage) || { actualTotal: 0, count: 0 };
+      entry.actualTotal += d.bufferUsed;
+      entry.count += 1;
+      stageMap.set(d.stage, entry);
     });
 
-  const self = this;
+    // UPDATED: Simplified color logic - green for positive, red for negative
+    const stageData = this.gateHeaders
+      .filter(g => stageMap.has(g.key))
+      .map(g => {
+        const entry = stageMap.get(g.key)!;
+        const avgActual = entry.actualTotal / entry.count;
+        const expected = stageOrder.get(g.key)!;
+        const variancePct = +(((avgActual - expected) / expected) * 100).toFixed(1);
+        return {
+          name: g.label,
+          y: variancePct,
+          avgActual: +avgActual.toFixed(2),
+          expected,
+          stageKey: g.key,
+          // Dynamic color: green for positive/zero, red for negative
+          color: variancePct >= 0 ? '#00a859' : '#dc3545'
+        };
+      });
 
-  this.bufferStageChart = Highcharts.chart(containerId, {
-    chart: { type: 'column' },
-    title: { text: 'Buffer Variance - Stage-wise Distribution' },
-    subtitle: { text: 'Click a bar to drill into that stage\u2019s sprints' },
-    credits: { enabled: false },
-    xAxis: {
-      categories: stageData.map(s => s.name),
-      lineWidth: 1,
-      lineColor: '#1b2e5e',
-      gridLineWidth: 0
-    },
-    yAxis: {
-      title: { text: 'Variance (%)' },
-      gridLineWidth: 0,
-      lineWidth: 1,
-      lineColor: '#1b2e5e',
-      plotLines: [{ value: 0, width: 2, color: '#1b2e5e', zIndex: 4 }]
-    },
-    tooltip: {
-      useHTML: true,
-      formatter: function () {
-        const p = this.point as any;
-        const status = p.y >= TOLERANCE_PCT ? 'On Track' : 'Under Threshold';
-        return `
-          <div style="font-size: 13px;">
-            <b>${this.key}</b><br/>
-            Avg Buffer Used: <b>${p.avgActual}</b><br/>
-            Expected Baseline: <b>${p.expected}</b><br/>
-            Variance: <b>${p.y}%</b><br/>
-            <i>${status}</i>
-          </div>
-        `;
-      }
-    },
-    plotOptions: {
-      column: {
-        borderRadius: 3,
-        borderWidth: 1,
-        borderColor: '#000000',
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '{point.y}%',
-          style: { fontWeight: 'bold', color: '#333' }
-        },
-        point: {
-          events: {
-            click: function () {
-              const stageKey = (this as any).stageKey;
-              self.selectedStageDrilldown = self.selectedStageDrilldown === stageKey ? null : stageKey;
-              self.renderBufferBarChart();
-            },
-            mouseOver: function () {
-              const stageKey = (this as any).stageKey;
-              const barChart = self.bufferBarChart;
-              if (!barChart) return;
-              barChart.series[0].points.forEach(p => {
-                if ((p as any).options.stage === stageKey) p.setState('hover');
-              });
-            },
-            mouseOut: function () {
-              const barChart = self.bufferBarChart;
-              if (!barChart) return;
-              barChart.series[0].points.forEach(p => p.setState(''));
+    const self = this;
+
+    this.bufferStageChart = Highcharts.chart(containerId, {
+      chart: { type: 'column' },
+      title: { text: 'Buffer Variance - Stage-wise Distribution' },
+      subtitle: { text: 'Click a bar to drill into that stage\'s sprints' },
+      credits: { enabled: false },
+      xAxis: {
+        categories: stageData.map(s => s.name),
+        lineWidth: 1,
+        lineColor: '#1b2e5e',
+        gridLineWidth: 0
+      },
+      yAxis: {
+        title: { text: 'Variance (%)' },
+        gridLineWidth: 0,
+        lineWidth: 1,
+        lineColor: '#1b2e5e',
+        plotLines: [{ value: 0, width: 2, color: '#1b2e5e', zIndex: 4 }]
+      },
+      tooltip: {
+        useHTML: true,
+        formatter: function () {
+          const p = this.point as any;
+          const status = p.y >= 0 ? 'Positive Variance' : 'Negative Variance';
+          return `
+            <div style="font-size: 13px;">
+              <b>${this.key}</b><br/>
+              Avg Buffer Used: <b>${p.avgActual}</b><br/>
+              Expected Baseline: <b>${p.expected}</b><br/>
+              Variance: <b>${p.y}%</b><br/>
+              <i>${status}</i>
+            </div>
+          `;
+        }
+      },
+      plotOptions: {
+        column: {
+          borderRadius: 3,
+          borderWidth: 1,
+          borderColor: '#000000',
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '{point.y}%',
+            style: { fontWeight: 'bold', color: '#333' }
+          },
+          point: {
+            events: {
+              click: function () {
+                const stageKey = (this as any).stageKey;
+                self.selectedStageDrilldown = self.selectedStageDrilldown === stageKey ? null : stageKey;
+                self.renderBufferBarChart();
+              },
+              mouseOver: function () {
+                const stageKey = (this as any).stageKey;
+                const barChart = self.bufferBarChart;
+                if (!barChart) return;
+                barChart.series[0].points.forEach(p => {
+                  if ((p as any).options.stage === stageKey) p.setState('hover');
+                });
+              },
+              mouseOut: function () {
+                const barChart = self.bufferBarChart;
+                if (!barChart) return;
+                barChart.series[0].points.forEach(p => p.setState(''));
+              }
             }
           }
         }
-      }
-    },
-    series: [{
-      type: 'column',
-      name: 'Buffer Variance',
-      data: stageData
-    }],
-  } as any);
+      },
+      series: [{
+        type: 'column',
+        name: 'Buffer Variance',
+        data: stageData
+      }],
+    } as any);
+  }
 }
-
-
-}
- 

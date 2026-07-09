@@ -34,7 +34,7 @@ export class ProjectScheduleComponent implements OnInit {
 
   updateFlag = false;
 
-  viewMode: 'grid' | 'gantt' = 'grid';
+ viewMode: 'grid' | 'gantt' = 'gantt';
 
   isMaskingPending = false;
 
@@ -165,7 +165,7 @@ export class ProjectScheduleComponent implements OnInit {
   this.loadChart();
 }
 
-  setView(mode: 'grid' | 'gantt'): void {
+ setView(mode: 'grid' | 'gantt'): void {
     this.viewMode = mode;
   }
 

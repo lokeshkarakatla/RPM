@@ -91,6 +91,60 @@ export class ProjectAnalyticsComponent implements OnInit {
     }]
   };
 
+  bufferSprintData = [
+    { sprint: 1, bufferUsed: 0.8, project: 'Project Alpha', stage: 'g1' },
+    { sprint: 2, bufferUsed: 2.5, project: 'Project Alpha', stage: 'g2' },
+    { sprint: 3, bufferUsed: 2.2, project: 'Project Alpha', stage: 'g2' },
+    { sprint: 4, bufferUsed: 4.8, project: 'Project Alpha', stage: 'g3' },
+    { sprint: 5, bufferUsed: 4.0, project: 'Project Alpha', stage: 'g4' },
+    { sprint: 6, bufferUsed: 6.5, project: 'Project Alpha', stage: 'g5' }
+  ];
+
+  gateHeaders = [
+    { key: 'g1', label: 'Gate 1' }, { key: 'g2', label: 'Gate 2' }, { key: 'g3', label: 'Gate 3' }, { key: 'g4', label: 'Gate 4' }, { key: 'g5', label: 'Gate 5' }
+  ];
+
+  // UPDATED: Buffer Bar Chart with alternating green and pink colors
+  bufferBarChartOptions: Highcharts.Options = {
+    chart: { type: 'column', backgroundColor: 'transparent' },
+    title: { text: '' },
+    credits: { enabled: false },
+    xAxis: { 
+      title: { text: '% completion' }, 
+      categories: this.bufferSprintData.map(d => 'S' + d.sprint) 
+    },
+    yAxis: { 
+      title: { text: 'Buffer Time Used' }, 
+      min: 0 
+    },
+    tooltip: { shared: false, useHTML: true },
+    plotOptions: { 
+      column: { 
+        dataLabels: { enabled: true } 
+      } 
+    },
+    series: [
+      { 
+        type: 'column', 
+        name: 'Buffer Used', 
+        data: this.bufferSprintData.map((d, idx) => ({ 
+          y: d.bufferUsed, 
+          stage: d.stage,
+          // Alternating colors: green for even indices, pink for odd
+          color: idx % 2 === 0 ? '#10b981' : '#DC3545'
+        }))
+      },
+      { 
+        type: 'line', 
+        name: 'Average Threshold (y=x)', 
+        data: this.bufferSprintData.map(d => d.sprint), 
+        color: '#3b82f6', 
+        dashStyle: 'Dash', 
+        marker: { enabled: false } 
+      }
+    ]
+  };
+
   // 2. Combo Bar/Line Chart Container (Production Yield vs Planned)
   velocityChartOptions: Highcharts.Options = {
     chart: { type: 'column', backgroundColor: 'transparent' },
@@ -137,6 +191,33 @@ export class ProjectAnalyticsComponent implements OnInit {
     ]
   };
 
+  // UPDATED: Buffer Stage Chart with dynamic coloring (green for positive, red for negative)
+  bufferStageChartOptions: Highcharts.Options = {
+    chart: { type: 'column', backgroundColor: 'transparent' },
+    title: { text: '' },
+    credits: { enabled: false },
+    xAxis: { categories: this.gateHeaders.map(g => g.label) },
+    yAxis: { title: { text: 'Variance (%)' } },
+    plotOptions: { column: { dataLabels: { enabled: true, format: '{point.y}%' } } },
+    series: [
+      { 
+        type: 'column', 
+        name: 'Buffer Variance', 
+        data: this.gateHeaders.map(g => {
+          const variance = Math.round(Math.random() * 10 - 3);
+          return {
+            y: variance,
+            avgActual: 2.5,
+            expected: 2,
+            stageKey: g.key,
+            // Dynamic color: green for positive, red for negative
+            color: variance >= 0 ? '#10b981' : '#ef4444'
+          };
+        })
+      }
+    ]
+  };
+
   // 5. Stacked Bar Chart (Factory Expenses)
   expensesChartOptions: Highcharts.Options = {
     chart: { type: 'column', backgroundColor: 'transparent' },
@@ -149,8 +230,7 @@ export class ProjectAnalyticsComponent implements OnInit {
     series: [
       { type: 'column', name: 'Labour', data: [5, 8, 12, 11, 14, 10], color: '#3b82f6' },
       { type: 'column', name: 'Materials', data: [3, 6, 8, 7, 9, 7], color: '#10b981' },
-      { type: 'column', name: 'Overhead', data: [2, 3, 4, 3, 4, 3], color: '#f59e0b' },
-      // { type: 'column', name: 'Tooling & Machining', data: [1, 1, 2, 2, 2, 1], color: '#ef4444' }
+      { type: 'column', name: 'Overhead', data: [2, 3, 4, 3, 4, 3], color: '#f59e0b' }
     ]
   };
 
@@ -169,14 +249,57 @@ export class ProjectAnalyticsComponent implements OnInit {
       { type: 'column', name: 'Maintenance & Setup', data: [10, 15, 60, 50, 50, 40], color: '#f59e0b' }
     ]
   };
-  // route: ActivatedRoute | null | undefined;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.bufferBarChartOptions = {
+      chart: { type: 'column', backgroundColor: 'transparent' },
+      xAxis: { categories: this.bufferSprintData.map(d => 'S' + d.sprint) },
+      series: [
+        { 
+          type: 'column', 
+          name: 'Buffer Used', 
+          data: this.bufferSprintData.map((d, idx) => ({ 
+            y: d.bufferUsed, 
+            stage: d.stage,
+            color: idx % 2 === 0 ? '#10b981' : '#DC3545'
+          })) 
+        },
+        { 
+          type: 'line', 
+          name: 'Average Threshold (y=x)', 
+          data: this.bufferSprintData.map(d => d.sprint),
+          color: '#3b82f6',
+          dashStyle: 'Dash',
+          marker: { enabled: false }
+        }
+      ]
+    };
+
+    this.bufferStageChartOptions = {
+      chart: { type: 'column', backgroundColor: 'transparent' },
+      xAxis: { categories: this.gateHeaders.map(g => g.label) },
+      series: [
+        { 
+          type: 'column', 
+          name: 'Buffer Variance', 
+          data: this.gateHeaders.map(g => {
+            const variance = Math.round(Math.random() * 10 - 3);
+            return {
+              y: variance,
+              stageKey: g.key,
+              // Dynamic color: green for positive, red for negative
+              color: variance >= 0 ? '#10b981' : '#ef4444'
+            };
+          })
+        }
+      ]
+    };
+  }
 
   setTimeframe(frame: string): void {
     this.selectedTimeframe = frame;
@@ -279,7 +402,6 @@ export class ProjectAnalyticsComponent implements OnInit {
       this.updateFlag = true;
     });
   }
-
 
   goBack(): void {
     this.router.navigateByUrl('/app/testing/projects');

@@ -129,6 +129,7 @@
                             <!-- <th>Agency</th> -->
                             <th>Department</th>
                             <th>Role</th>
+                            <th>Work Hours</th>
                             <th style="min-width: 90px;">Job Code</th>
                              <th style="min-width: 90px;">Location</th>
                             <th>HOD</th>
@@ -218,10 +219,13 @@
                             <!-- <td>
                                 {{applicant.agency}}
                             </td> -->
-                            <td>
+                            <td class="text-center">
                                 {{applicant.department}}
                             </td>
                             <td>{{applicant.role}}</td>
+                            <td class="text-center">
+                                {{applicant.workhours}}
+                            </td>
                              <td (click)="openjobpop()" style="color:blue; cursor: pointer;" class="text-center">{{applicant.job}}</td>
                                 <td (click)="openlocationpop()" style="color:blue; cursor: pointer;" class="text-center">{{applicant.locations}}</td>
                             <td class="text-center">

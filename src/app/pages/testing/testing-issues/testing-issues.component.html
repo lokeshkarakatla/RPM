@@ -145,6 +145,7 @@
               <th class="text-center" style="min-width: 100px;">Actions</th>
               <th class="text-center" style="min-width: 250px;">Issue Description</th>
               <th class="text-center" style="min-width: 180px;">Subject</th>
+              <th class="text-center" style="min-width: 150px;">Responsibility</th>
               <th class="text-center" style="min-width: 130px;">Due Date</th>
               <th class="text-center" style="min-width: 200px;">Remarks</th>
               <th class="text-center" style="min-width: 120px;">Status</th>
@@ -165,6 +166,7 @@
               </td>
               <td class="text-left" style="white-space: normal;">{{ applicant.issueDescription }}</td>
               <td class="text-center">{{ applicant.subject }}</td>
+              <td class="text-center">{{ applicant.responsibility }}</td>
               <td class="text-center">{{ applicant.targetDate | date:'dd MMM yyyy' }}</td>
               <td class="text-left" style="white-space: normal;">{{ applicant.remarks }}</td>
               <td class="text-center">

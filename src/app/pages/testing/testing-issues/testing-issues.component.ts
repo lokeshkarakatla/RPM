@@ -75,7 +75,8 @@ export class TestingIssuesComponent implements OnInit {
       remarks: 'Requires immediate replacement of the main valve seal.',
       status: 'Pending',
       image: 'assets/sample-image.jpg',
-      document: 'assets/sample-1.pdf'
+      document: 'assets/sample-1.pdf',
+      responsibility: 'Roshan'
     },
     {
       id: 2,
@@ -85,7 +86,8 @@ export class TestingIssuesComponent implements OnInit {
       remarks: 'Coolant levels are fine, suspect thermostat failure.',
       status: 'Process',
       image: 'assets/sample-image.jpg',
-      document: 'assets/sample-1.pdf'
+      document: 'assets/sample-1.pdf',
+      responsibility: 'Lokesh'
     },
     {
       id: 3,
@@ -95,7 +97,8 @@ export class TestingIssuesComponent implements OnInit {
       remarks: 'Gearbox inspected, synchronizer ring is worn out.',
       status: 'Closed',
       image: 'assets/sample-image.jpg',
-      document: 'assets/sample-1.pdf'
+      document: 'assets/sample-1.pdf',
+      responsibility: 'Tejaswi'
     },
     {
       id: 4,
@@ -105,7 +108,8 @@ export class TestingIssuesComponent implements OnInit {
       remarks: 'Wiring harness check complete, found loose ground wire.',
       status: 'Hold',
       image: 'assets/sample-image.jpg',
-      document: 'assets/sample-1.pdf'
+      document: 'assets/sample-1.pdf',
+      responsibility: 'Santosh'
     }
   ];
 

@@ -25,6 +25,8 @@
   </div>
 </div>
 
+
+
 <div fxLayout="row wrap" *ngIf="filterToggle" style=" margin-bottom: 0px;">
   <div fxFlex="50" class="flex-p w-50" style="width: 66% !important; margin-left: 17px;">
     <form [formGroup]="filterForm">
@@ -73,59 +75,71 @@
   </div>
 </div>
 
-<div class="col-sm-8" style="margin-left: 10px;">
-  <div>
-    <div class="flex-p ">
-      <div class="row">
-        <div class="col-sm-12">
-          <div id="grid-table-container" class="table-responsive">
-            <table matSort id="example2" class="table table-bordered table-hover">
-              <thead class="tbl-head">
-                <tr>
-                  <th class="text-center">Actions</th>
-                  <th class="text-center">Status</th>
-                  <th class="text-center">Item Name</th>
-                  <th class="text-center">Item Code</th>
-                  <th class="text-center">Item Category</th>
-                  <th class="text-center">Item Sub Category</th>
-                  <th class="text-center">Available Quantity</th>
-                  <th class="text-center">Unit Rate</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of tableList">
-                  <td class="text-center editDel">
-                    <a style="cursor: pointer;margin-right:10px;" [ngClass]="{'disable-custom' : !canUpdate}"
-                      matTooltip="Edit" (click)="openEditDialog(item)">
-                      <i class="fa fa-edit" style="color: cornflowerblue"></i>
-                    </a>
-                    <a><i class="fa fa-trash red" matTooltip="Delete" [ngClass]="{'disable-custom' : !canDelete}"
-                        style="cursor: pointer;" (click)="deleteConfirmation(item)"></i></a>
-                  </td>
-                  <td style="text-align: center !important;" class="text-center">
-                    <a [ngStyle]="{'color' : item.IsActive ? 'blue' : 'red'}"
-                      [ngClass]="{'disable-custom' : !canUpdate}">
-                      <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color:red; cursor:pointer;">Inactive</span>
-                      <span *ngIf=" item.IsActive" (click)="Confirmation(item)" style="color:blue; cursor:pointer;">Active</span>
-                    </a>
-                  </td>
-                  <td class="text-center">{{item.ItemName}}</td>
-                  <td class="text-center">{{item.ItemCode}}</td>
-                  <td class="text-center">{{item.ItemCategory}}</td>
-                  <td class="text-center">{{item.ItemSubCategory}}</td>
-                  <td class="text-center">{{item.AvailableQuantity}}</td>
-                  <td class="text-center">{{item.UnitRate }}</td>
-                </tr>
-              </tbody>
-              <tr *ngIf="tableList == null || tableList.length == 0">
-                <td colspan="8" class="text-center">No records found</td>
-              </tr>
-            </table>
+<div class="container-fluid">
+  <div class="flex-p">
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="grid-table-container" class="table-responsive">
+           <table matSort id="example2" class="table table-bordered table-hover">
+  <colgroup>
+    <col style="width: 90px;">   <!-- Actions -->
+    <col style="width: 80px;">   <!-- Status -->
+    <col style="width: 100px;">  <!-- Item Name -->
+    <col style="width: 100px;">  <!-- Item Code -->
+    <col style="width: 100px;">  <!-- Item Category -->
+    <col style="width: 100px;">  <!-- Item Sub Category -->
+    <col style="width: 100px;">  <!-- Available Quantity -->
+    <col style="width: 70px;">  <!-- Unit Rate -->
+    <col style="width: 150px;">   <!-- Description (takes remaining space) -->
+  </colgroup>
+
+  <thead class="tbl-head">
+    <tr>
+      <th class="text-center">Actions</th>
+      <th class="text-center">Status</th>
+      <th class="text-center">Item Name</th>
+      <th class="text-center">Item Code</th>
+      <th class="text-center">Item Category</th>
+      <th class="text-center">Item Sub Category</th>
+      <th class="text-center">Available Quantity</th>
+      <th class="text-center">Unit Rate</th>
+      <th class="text-center">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of tableList">
+      <td class="text-center editDel">
+        <a style="cursor: pointer;margin-right:10px;" [ngClass]="{'disable-custom' : !canUpdate}"
+          matTooltip="Edit" (click)="openEditDialog(item)">
+          <i class="fa fa-edit" style="color: cornflowerblue"></i>
+        </a>
+        <a><i class="fa fa-trash red" matTooltip="Delete" [ngClass]="{'disable-custom' : !canDelete}"
+            style="cursor: pointer;" (click)="deleteConfirmation(item)"></i></a>
+      </td>
+      <td style="text-align: center !important;" class="text-center">
+        <a [ngStyle]="{'color' : item.IsActive ? 'blue' : 'red'}"
+          [ngClass]="{'disable-custom' : !canUpdate}">
+          <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color:red; cursor:pointer;">Inactive</span>
+          <span *ngIf=" item.IsActive" (click)="Confirmation(item)" style="color:blue; cursor:pointer;">Active</span>
+        </a>
+      </td>
+      <td class="text-center">{{item.ItemName}}</td>
+      <td class="text-center">{{item.ItemCode}}</td>
+      <td class="text-center">{{item.ItemCategory}}</td>
+      <td class="text-center">{{item.ItemSubCategory}}</td>
+      <td class="text-center">{{item.AvailableQuantity}}</td>
+      <td class="text-center">{{item.UnitRate }}</td>
+      <td class="text-center description-cell" [innerHTML]="formatDescription(item.Description)"></td>
+    </tr>
+  </tbody>
+  <tr *ngIf="tableList == null || tableList.length == 0">
+    <td colspan="8" class="text-center">No records found</td>
+  </tr>
+</table>
             <mat-paginator class="col-sm-12" [length]="totalSize" [pageIndex]="currentPage" [pageSize]="pageSize"
               [pageSizeOptions]="[5, 10, 20, 50, 100]" (page)="fnHandlePage($event)" showFirstLastButtons>
             </mat-paginator>
-          </div>
-        </div>
+           </div>
       </div>
     </div>
   </div>

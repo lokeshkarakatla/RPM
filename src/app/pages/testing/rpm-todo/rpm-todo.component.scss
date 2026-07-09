@@ -64,6 +64,23 @@ mat-paginator {
   overflow-y: hidden;
 }
 
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.overdue-checkbox {
+  margin-right: 10px;
+}
+
+.overdue-date {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
 /* Custom Range Slider Styles */
 .custom-range {
   -webkit-appearance: none;

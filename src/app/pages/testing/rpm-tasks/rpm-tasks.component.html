@@ -212,7 +212,10 @@
                 {{ item.ProjectCode }}
               </a>
             </td>
-            <td class="text-center">{{ item.TaskName }}</td>
+          <td class="text-center" [style.color]="getSliderColor(item.PercentCompletion) === '#ff0000' ? '#ff0000' : null"
+    [style.font-weight]="getSliderColor(item.PercentCompletion) === '#ff0000' ? '600' : null">
+  {{ item.TaskName }}
+</td>
             <td class="text-center">{{ item.TaskType }}</td>
             <td class="text-center">{{ item.Responsibility }}</td>
             <td class="text-center">{{ item.Duration }}</td>

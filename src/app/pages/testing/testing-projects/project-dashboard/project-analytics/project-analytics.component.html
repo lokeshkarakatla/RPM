@@ -21,6 +21,16 @@
 
 
   <div class="kpi-grid">
+
+    <div class="card kpi-card">
+      <div class="kpi-header">
+        <div class="icon-box green"><mat-icon>layers</mat-icon></div>
+      </div>
+      <h2 class="text-green">Prototyping</h2>
+      <p class="title">Current Stage</p>
+      <p class="subtitle">Prototyping - Stage 3 of 7</p>
+    </div>
+
     <div class="card kpi-card">
       <div class="kpi-header">
         <div class="icon-box blue"><mat-icon>trending_up</mat-icon></div>
@@ -31,14 +41,7 @@
       <p class="subtitle">-4% vs plan</p>
     </div>
 
-    <div class="card kpi-card">
-      <div class="kpi-header">
-        <div class="icon-box green"><mat-icon>layers</mat-icon></div>
-      </div>
-      <h2 class="text-green">Prototyping</h2>
-      <p class="title">Current Stage</p>
-      <p class="subtitle">Prototyping - Stage 3 of 7</p>
-    </div>
+
 
     <div class="card kpi-card">
       <div class="kpi-header">
@@ -106,22 +109,38 @@
     </div>
   </div>
 
-  <div class="row-3-grid">
-    <div class="card chart-card full-width">
+  <!-- TWO CHARTS SIDE BY SIDE - FIXED SECTION -->
+  <div class="row-2-charts-grid">
+    <div class="card chart-card">
       <div class="card-header">
         <div>
-          <h3>Completion velocity</h3>
-          <p class="subtitle">Monthly delivery vs cumulative plan trajectory</p>
+          <h3>Buffer Consumed vs % Completion</h3>
+          <p class="subtitle">Sprint-level buffer consumption</p>
         </div>
       </div>
-      <div class="chart-container" style="height: 300px; border: none; background: transparent;">
-        <highcharts-chart [Highcharts]="Highcharts" [options]="velocityChartOptions" [(update)]="updateFlag"
+      <div class="chart-container" style="height: 320px; border: none; background: transparent;">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="bufferBarChartOptions" [(update)]="updateFlag"
+          style="width: 100%; height: 100%; display: block;">
+        </highcharts-chart>
+      </div>
+    </div>
+
+    <div class="card chart-card">
+      <div class="card-header">
+        <div>
+          <h3>Buffer variance - Stage-wise Distribution</h3>
+          <p class="subtitle">Average buffer variance by stage</p>
+        </div>
+      </div>
+      <div class="chart-container" style="height: 320px; border: none; background: transparent;">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="bufferStageChartOptions" [(update)]="updateFlag"
           style="width: 100%; height: 100%; display: block;">
         </highcharts-chart>
       </div>
     </div>
   </div>
 
+  <!-- BOTTOM CHARTS GRID -->
   <div class="bottom-grid">
     <div class="card chart-card">
       <div class="card-header">
@@ -179,5 +198,4 @@
       </div>
     </div>
   </div>
-
 </div>

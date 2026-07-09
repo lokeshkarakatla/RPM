@@ -6,6 +6,7 @@ import { AddTaskComponent } from '../../rpm-tasks/add-task/add-task.component';
 import { AddphotoPopComponent } from '../../testing-projects/project-dashboard/project-photos/addphoto-pop/addphoto-pop.component';
 import { ProcedurePopComponent } from './procedure-pop/procedure-pop.component';
 import { Location } from '@angular/common';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-rpm-stages-wbs',
@@ -137,9 +138,77 @@ export class RpmStagesWbsComponent implements OnInit {
   }
 
   addTask() {
-    this.dialog.open(AddTaskComponent, {
+    let dialogRef = this.dialog.open(AddTaskComponent, {
       width: '750px',
       data: {} 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const nextId = this.tableData.length + 1;
+        const newTask = {
+          task: result.task,
+          taskCode: 'TC-' + (100 + nextId),
+          jobCode: 'INIT' + nextId,
+          effort: '0',
+          duration: '0',
+          description: result.description,
+          procedure: '',
+          planned: '0.00',
+          assignedTo: '',
+          assigned: '0.00',
+          actual: '0.00',
+          cost: '0.00',
+          worked: '0.00',
+          remaining: '0.00',
+          scheduled: '-',
+          date: '-',
+          status: 'Pending',
+          submitted: '-'
+        };
+        this.tableData.push(newTask);
+        this.totalItems = this.tableData.length;
+        this.sidebarMenus[0].count = this.tableData1.length;
+        this.sidebarMenus[1].count = this.tableData2.length;
+        this.sidebarMenus[2].count = this.tableData3.length;
+        this.updatePaginatedData();
+      }
+    });
+  }
+
+  editTask(row: any): void {
+    let dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '750px',
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        row.task = result.task;
+        row.description = result.description;
+        this.updatePaginatedData();
+      }
+    });
+  }
+
+  deleteTask(row: any): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.tableData.indexOf(row);
+        if (index > -1) {
+          this.tableData.splice(index, 1);
+          this.sidebarMenus[0].count = this.tableData1.length;
+          this.sidebarMenus[1].count = this.tableData2.length;
+          this.sidebarMenus[2].count = this.tableData3.length;
+          this.totalItems = this.tableData.length;
+          this.updatePaginatedData();
+        }
+      }
     });
   }
 

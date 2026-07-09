@@ -1,0 +1,5 @@
+/* Edit Todo Styles */
+.required::after {
+  content: " *";
+  color: red;
+}

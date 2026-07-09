@@ -541,7 +541,7 @@ renderBufferPieChart() {
 
   this.bufferStageChart = Highcharts.chart(containerId, {
     chart: { type: 'column' },
-    title: { text: 'Buffer Variance - Stage-wise Distribution' },
+    title: { text: 'Sprint Buffer Distribution' },
     subtitle: { text: 'Click a bar to drill into that stage\u2019s sprints' },
     credits: { enabled: false },
     xAxis: {

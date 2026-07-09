@@ -141,17 +141,19 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let item of tableList">
-                                    <td class=" text-center">
-                                        <a matTooltip="Edit Test" [ngClass]="{'disable-custom' : !canUpdate  }"
-                                            style="margin-right: 10px; cursor: pointer; color: cornflowerblue;"
-                                            (click)="addtests(item)">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a [ngClass]="{'disable-custom' : !canDelete}">
-                                            <i style="cursor: pointer;" matTooltip="Delete Test" class="fa fa-trash red"
-                                                (click)="deleteConfirmation(item)"></i>
-                                        </a>
-                                    </td>
+                                     <td class="text-center">
+                                         <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
+                                             <a matTooltip="Edit Test" [ngClass]="{'disable-custom' : !canUpdate || (departmentName != 'Testing' ) && departmentName !='Protoshop' && roleName != 'Admin'}"
+                                                 style="cursor: pointer; color: cornflowerblue;"
+                                                 (click)="addtests(item)">
+                                                 <i class="fa fa-edit"></i>
+                                             </a>
+                                             <a [ngClass]="{'disable-custom' : !canDelete}">
+                                                 <i style="cursor: pointer;" matTooltip="Delete Test" class="fa fa-trash red"
+                                                     (click)="deleteConfirmation(item)"></i>
+                                             </a>
+                                         </div>
+                                     </td>
                                     <td class="text-center" style="text-align: center !important;">
                                         <a [ngStyle]="{'color':  item.IsActive? 'blue' : 'red','cursor':'pointer'}"
                                             [ngClass]="{'disable-custom' : !canUpdate}">

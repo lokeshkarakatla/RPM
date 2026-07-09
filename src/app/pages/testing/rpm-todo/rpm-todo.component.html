@@ -203,18 +203,21 @@
               <th class="text-center">Due Date</th>
               <th class="text-center">Completion Date</th>
               <th class="text-center">Responsibility</th>
+              <th class="text-center">Group</th>
               <th class="text-center">Project Name</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of mockdata">
               <td class="text-center">
-                <a matTooltip="Edit Task" style="margin-right: 8px; cursor: pointer;" (click)="openEditDialog(item)">
-                  <i class="fa fa-edit" style="color: cornflowerblue;"></i>
-                </a>
-                <a matTooltip="Delete Task" style="cursor: pointer;" (click)="deleteConfirmation(item)">
-                  <i class="fa fa-trash" style="color: red;"></i>
-                </a>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
+                  <a matTooltip="Edit Task" style="cursor: pointer;" (click)="openEditDialog(item)">
+                    <i class="fa fa-edit" style="color: cornflowerblue;"></i>
+                  </a>
+                  <a matTooltip="Delete Task" style="cursor: pointer;" (click)="deleteConfirmation(item)">
+                    <i class="fa fa-trash" style="color: red;"></i>
+                  </a>
+                </div>
               </td>
               <td class="text-center" style="cursor: pointer;">
                 <span *ngIf="!item.IsActive" (click)="Confirmation(item)" style="color: red;">Inactive</span>
@@ -225,6 +228,7 @@
               <td class="text-center">{{ item.DueDate | date: 'mediumDate' }}</td>
               <td class="text-center">{{ item.CompletionDate ? (item.CompletionDate | date: 'mediumDate') : 'N/A' }}</td>
               <td class="text-center">{{ item.Responsibility }}</td>
+              <td class="text-center"> </td>
               <td class="text-center">{{ item.ProjectName }}</td>
             </tr>
             <tr *ngIf="!mockdata || mockdata.length === 0">

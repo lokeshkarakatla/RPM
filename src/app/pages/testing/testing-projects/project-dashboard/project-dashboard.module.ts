@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 // --- Highcharts ---
 import { HighchartsChartModule } from "highcharts-angular";
@@ -209,6 +210,7 @@ const routes: Routes = [
     FlexLayoutModule, // <-- ADDED TO IMPORTS ARRAY
     FormsModule,
     HighchartsChartModule,
+    DragDropModule,
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,

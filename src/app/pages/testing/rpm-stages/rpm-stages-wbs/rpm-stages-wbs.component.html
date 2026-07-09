@@ -49,9 +49,9 @@
           <tr *ngFor="let row of paginatedData">
             
             <td class="text-center">
-              <div style="display: flex; justify-content: center; gap: 12px; align-items: center;">
-                <mat-icon style="cursor: pointer; color: #3b82f6; font-size: 20px; width: 20px; height: 20px;" title="Edit">edit</mat-icon>
-                <mat-icon style="cursor: pointer; color: #ef4444; font-size: 20px; width: 20px; height: 20px;" title="Delete">delete</mat-icon>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
+                <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;" (click)="editTask(row)"></i>
+                <i class="fa fa-trash text-danger action-icon" style="cursor:pointer;" (click)="deleteTask(row)"></i>
               </div>
             </td>
             <td>{{ row.task }}</td>

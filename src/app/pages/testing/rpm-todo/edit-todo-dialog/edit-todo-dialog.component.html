@@ -1,0 +1,87 @@
+<div class="NewHeader">
+    <h3 style="padding-top:10px;">Edit Todo Task</h3>
+</div>
+
+<div>
+    <div fxLayout="row wrap" class="col-sm-12">
+        <div class="col-sm-12" style="margin-top: 0px; padding-left: 20px;">
+            <form style="margin-top: 10px; margin-bottom: 10px;">
+                <!-- Subject -->
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4">
+                        <label class="add-member-label mt5 required" style="margin-top:5px;">Subject:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="subject" [(ngModel)]="subject" style="height:35px;" class="form-control back" placeholder="Enter Subject">
+                    </div>
+                </div>
+
+                <!-- Distributor -->
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4">
+                        <label class="add-member-label mt5 required" style="margin-top:5px;">Distributor:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="distributor" [(ngModel)]="distributor" style="height:35px;" class="form-control back" placeholder="Enter Distributor">
+                    </div>
+                </div>
+
+                <!-- Lead -->
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4">
+                        <label class="add-member-label mt5 required" style="margin-top:5px;">Lead/Responsibility:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" name="lead" [(ngModel)]="lead" style="height:35px;" class="form-control back" placeholder="Enter Lead Name">
+                    </div>
+                </div>
+
+                <!-- Target Date -->
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4">
+                        <label class="add-member-label mt5" style="margin-top:5px;">Target Date:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="date" name="targetDate" [(ngModel)]="targetDate" style="height:35px;" class="form-control back">
+                    </div>
+                </div>
+
+                <!-- Failure Date -->
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4">
+                        <label class="add-member-label mt5" style="margin-top:5px;">Failure Date:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="date" name="failureDate" [(ngModel)]="failureDate" style="height:35px;" class="form-control back">
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="row" style="margin-bottom: 12px;">
+                    <div class="col-sm-4">
+                        <label class="add-member-label mt5 required" style="margin-top:5px;">Status:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <mat-select name="status" [(ngModel)]="status" class="form-control">
+                            <mat-option value="Pending">Pending</mat-option>
+                            <mat-option value="Allocated">Allocated</mat-option>
+                            <mat-option value="Progress">Progress</mat-option>
+                            <mat-option value="Hold">Hold</mat-option>
+                            <mat-option value="Cancelled">Cancelled</mat-option>
+                            <mat-option value="Completed">Completed</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </form>
+
+            <mat-dialog-actions align="end" style="margin-top: 15px;">
+                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
+                    <mat-icon>cancel</mat-icon> Close
+                </button>
+                <button mat-raised-button type="button" class="save" color="primary" (click)="save()">
+                    <mat-icon>save</mat-icon> Save
+                </button>
+            </mat-dialog-actions>
+        </div>
+    </div>
+</div>

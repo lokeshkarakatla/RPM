@@ -5,6 +5,9 @@ import { FreezepanesDialogComponent } from '../testing-projects/freezepanes-dial
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { StatusConfirmationDialogComponent } from '../testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 @Component({
   selector: 'app-rpm-tasks',
@@ -419,23 +422,56 @@ export class RpmTasksComponent implements OnInit {
   }
 
   openEditDialog(item: any): void {
-    console.log('Edit:', item);
+    let dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '750px',
+      data: item
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        item.TaskName = result.TaskName;
+        item.Description = result.Description;
+        item.Stage = result.Stage;
+        item.Module = result.Module;
+        this.generateCalendarData();
+      }
+    });
   }
 
   deleteConfirmation(item: any): void {
-    let dialogRef = this.dialog.open(DialogComponent, {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
-      data: { title: 'Change Status', content: 'Are you sure you want to Change the Status ?' }
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
     });
-    dialogRef.afterClosed().subscribe((data: any) => {
-      if (!data) {
-        item.IsActive = !item.IsActive;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.allProjects = this.allProjects.filter(p => p !== item);
+        this.totalSize = this.allProjects.length;
+        this.generateCalendarData();
       }
     });
   }
 
   Confirmation(item: any): void {
-    console.log(`Status changed for Task '${item.TaskName}' to Active: ${item.IsActive}`);
+    let dialogRef = this.dialog.open(StatusConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Change Status',
+        content: 'Are you sure you want to Change the Status ?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Status is already toggled by mat-checkbox binding [(ngModel)]
+        this.generateCalendarData();
+      } else {
+        // Revert since user cancelled
+        item.IsActive = !item.IsActive;
+        this.generateCalendarData();
+      }
+    });
   }
 
   openProject(item: any): void {

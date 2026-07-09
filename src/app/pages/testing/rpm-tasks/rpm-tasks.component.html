@@ -192,12 +192,14 @@
         <tbody>
           <tr *ngFor="let item of allProjects">
             <td class="text-center">
-              <a matTooltip="Edit Task" style="margin-right: 8px; cursor: pointer;" (click)="openEditDialog(item)">
-                <i class="fa fa-edit" style="color: cornflowerblue;"></i>
-              </a>
-              <a matTooltip="Delete Task" style="cursor: pointer;" (click)="deleteConfirmation(item)">
-                <i class="fa fa-trash" style="color: red;"></i>
-              </a>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
+                <a matTooltip="Edit Task" style="cursor: pointer;" (click)="openEditDialog(item)">
+                  <i class="fa fa-edit" style="color: cornflowerblue;"></i>
+                </a>
+                <a matTooltip="Delete Task" style="cursor: pointer;" (click)="deleteConfirmation(item)">
+                  <i class="fa fa-trash" style="color: red;"></i>
+                </a>
+              </div>
             </td>
             <td class="text-center">
               <mat-checkbox color="primary" [(ngModel)]="item.IsActive" (change)="Confirmation(item)"></mat-checkbox>

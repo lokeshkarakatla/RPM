@@ -1,3 +1,19 @@
 .style {
-    text-align: center !important;
+  text-align: center !important;
+}
+
+.toggle-btn {
+  background-color: transparent !important;
+  color: #3f51b5 !important;
+  border: 1px solid #3f51b5 !important;
+  box-shadow: none !important;
+}
+
+.toggle-btn.active {
+  background-color: #3f51b5 !important;
+  color: #fff !important;
+}
+
+.toggle-btn.active .mat-icon {
+  color: #fff !important;
 }

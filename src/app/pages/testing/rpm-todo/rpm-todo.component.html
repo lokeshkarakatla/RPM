@@ -203,6 +203,7 @@
               <th class="text-center">Due Date</th>
               <th class="text-center">Completion Date</th>
               <th class="text-center">Responsibility</th>
+              <th class="text-center">Group</th>
               <th class="text-center">Project Name</th>
             </tr>
           </thead>
@@ -227,6 +228,7 @@
               <td class="text-center">{{ item.DueDate | date: 'mediumDate' }}</td>
               <td class="text-center">{{ item.CompletionDate ? (item.CompletionDate | date: 'mediumDate') : 'N/A' }}</td>
               <td class="text-center">{{ item.Responsibility }}</td>
+              <td class="text-center"> </td>
               <td class="text-center">{{ item.ProjectName }}</td>
             </tr>
             <tr *ngIf="!mockdata || mockdata.length === 0">

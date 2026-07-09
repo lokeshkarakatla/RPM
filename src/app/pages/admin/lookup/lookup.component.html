@@ -44,11 +44,12 @@
     </div>
 
     <div style="min-width: 200px;">
-      <mat-select class="form-control" style="margin-left: -29px;margin-top: 4px;" placeholder="Select Code" required multiple>
+      <mat-select class="form-control" style="margin-left: -29px;margin-top: 4px;" placeholder="Select Code" required
+        multiple>
         <mat-option [value]="0">Side View</mat-option>
         <mat-option [value]="1">Face View</mat-option>
         <mat-option [value]="2">Demerit</mat-option>
-          <mat-option [value]="3">Process Stage</mat-option>
+        <mat-option [value]="3">Process Stage</mat-option>
       </mat-select>
     </div>
 
@@ -172,36 +173,51 @@
     margin-left: 11px;">
         <thead class="tbl-head">
           <tr class="tr-grid-header">
-         
-            <th >Lookup</th>
-               <th class="text-center">Code</th>
+
+            <th>Lookup</th>
+            <th class="text-center">Code</th>
             <th class="text-center">Status</th>
             <th class="text-center">Actions</th>
+            <th class="text-center">Category</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let applicant of tableList">
-            <td>{{applicant.CodeMasterName}}</td>
-            <td class="text-center">{{applicant.LookupName}}</td>
-            <td class="text-center">
-              <a [ngStyle]="{'color': applicant.vcStatus? 'blue' : 'red','cursor':'pointer'}"
-                (confirm)="saveStatus();applicant.vcStatus=!applicant.vcStatus" matTooltip="">
-                {{applicant.vcStatus?'Active':'Inactive'}}
-              </a>
-            </td>
-            <td class="text-center">
-              <a style="margin-right: 10px; cursor: pointer; color: cornflowerblue" matTooltip="Edit"
-                (click)="addlookup(applicant)">
-                <i class="fa fa-edit"></i>
-              </a>
-              <a matTooltip="Delete" placement="left" (confirm)="deleteLookup(item)">
-                <i style="cursor: pointer;" title="Delete" class="fa fa-trash red"></i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-    </div>
-  </div>
-</div>
+  <tr *ngFor="let applicant of tableList">
+    <td>{{ applicant.CodeMasterName }}</td>
+
+    <td class="text-center">
+      {{ applicant.LookupName }}
+    </td>
+
+    <td class="text-center">
+      <a
+        [ngStyle]="{'color': applicant.vcStatus ? 'blue' : 'red','cursor':'pointer'}"
+        (confirm)="saveStatus(); applicant.vcStatus=!applicant.vcStatus">
+        {{ applicant.vcStatus ? 'Active' : 'Inactive' }}
+      </a>
+    </td>
+
+    <td class="text-center">
+      <a
+        style="margin-right:10px;cursor:pointer;color:cornflowerblue"
+        (click)="addlookup(applicant)">
+        <i class="fa fa-edit"></i>
+      </a>
+
+      <a>
+        <i style="cursor:pointer" class="fa fa-trash red"></i>
+      </a>
+    </td>
+
+    <td class="text-center">
+      {{ applicant.AssetCategory }}
+    </td>
+  </tr>
+</tbody>
+
+</table>
+
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 25, 50, 100]"
+  showFirstLastButtons>
+</mat-paginator>

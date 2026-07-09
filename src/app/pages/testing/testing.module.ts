@@ -43,6 +43,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { AddStagePopComponent } from './rpm-stages/add-stage-pop/add-stage-pop.component';
 import { ProcedurePopComponent } from './rpm-stages/rpm-stages-wbs/procedure-pop/procedure-pop.component';
 import { de } from 'date-fns/locale';
+import { EditTodoDialogComponent } from './rpm-todo/edit-todo-dialog/edit-todo-dialog.component';
 
 const routes: Routes = [
     { path: "", redirectTo: "test-dashboard", pathMatch: "full" },
@@ -115,6 +116,7 @@ const routes: Routes = [
         RpmTodoComponent,
         AddStagePopComponent,
         ProcedurePopComponent,
+        EditTodoDialogComponent,
     ],
     imports: [
         CommonModule,

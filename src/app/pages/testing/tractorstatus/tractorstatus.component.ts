@@ -4,34 +4,34 @@ import { MatDialog } from '@angular/material/dialog'; // ✅ Import MatDialog
 import { AddtractorsComponent } from 'src/app/addtractors/addtractors.component';
 import { StatusConfirmationDialogComponent } from '../testing-projects/add-projects/status-confirmation-dialog/status-confirmation-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
- 
+
 @Component({
   selector: 'app-tractorstatus',
   templateUrl: './tractorstatus.component.html',
   styleUrls: ['./tractorstatus.component.scss']
 })
 export class TractorstatusComponent implements OnInit {
- 
+
   filterToggle = false;
   filterForm!: FormGroup;
   tableList: any[] = [];
   totalSize = 0;
   currentPage = 0;
   pageSize = 10;
- 
+
   canCreate = true;
   canUpdate = true;
   canDelete = true;
   departmentName = 'Testing';
   roleName = 'Admin';
- 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {} // ✅ Inject MatDialog
- 
+
+  constructor(private fb: FormBuilder, private dialog: MatDialog) { } // ✅ Inject MatDialog
+
   ngOnInit(): void {
     this.initForm();
     this.loadMockData();
   }
- 
+
   initForm(): void {
     this.filterForm = this.fb.group({
       Keyword: [''],
@@ -39,7 +39,7 @@ export class TractorstatusComponent implements OnInit {
       ProjectId: [null]
     });
   }
- 
+
   loadMockData(): void {
     this.tableList = [
       {
@@ -68,111 +68,111 @@ export class TractorstatusComponent implements OnInit {
         IsActive: false,
         TotalUsed: true
       },
-{
-  TractorNumber: 'TR-003',
-  ProjectCode: 'PC-300',
-  Config: 'Config-C',
-  ChassisNo: 'CH-456',
-  EngineNo: 'EN-321',
-  TestActivityPlan: 'Endurance',
-  TestingHours: 150,
-  ActualTestingHours: 140,
-  Remarks: 'Testing on track',
-  IsActive: true,
-  TotalUsed: false
-},
-{
-  TractorNumber: 'TR-004',
-  ProjectCode: 'PC-400',
-  Config: 'Config-D',
-  ChassisNo: 'CH-654',
-  EngineNo: 'EN-654',
-  TestActivityPlan: 'Field',
-  TestingHours: 90,
-  ActualTestingHours: 85,
-  Remarks: 'Field test completed',
-  IsActive: false,
-  TotalUsed: true
-},
-{
-  TractorNumber: 'TR-005',
-  ProjectCode: 'PC-500',
-  Config: 'Config-E',
-  ChassisNo: 'CH-987',
-  EngineNo: 'EN-987',
-  TestActivityPlan: 'Validation',
-  TestingHours: 130,
-  ActualTestingHours: 125,
-  Remarks: 'Slight vibration observed',
-  IsActive: true,
-  TotalUsed: true
-},
-{
-  TractorNumber: 'TR-006',
-  ProjectCode: 'PC-600',
-  Config: 'Config-F',
-  ChassisNo: 'CH-741',
-  EngineNo: 'EN-852',
-  TestActivityPlan: 'Stress',
-  TestingHours: 200,
-  ActualTestingHours: 190,
-  Remarks: 'Overheating under load',
-  IsActive: false,
-  TotalUsed: false
-},
-{
-  TractorNumber: 'TR-007',
-  ProjectCode: 'PC-700',
-  Config: 'Config-G',
-  ChassisNo: 'CH-159',
-  EngineNo: 'EN-753',
-  TestActivityPlan: 'Noise & Vibration',
-  TestingHours: 110,
-  ActualTestingHours: 105,
-  Remarks: 'Noise levels acceptable',
-  IsActive: true,
-  TotalUsed: false
-}
- 
- 
- 
- 
+      {
+        TractorNumber: 'TR-003',
+        ProjectCode: 'PC-300',
+        Config: 'Config-C',
+        ChassisNo: 'CH-456',
+        EngineNo: 'EN-321',
+        TestActivityPlan: 'Endurance',
+        TestingHours: 150,
+        ActualTestingHours: 140,
+        Remarks: 'Testing on track',
+        IsActive: true,
+        TotalUsed: false
+      },
+      {
+        TractorNumber: 'TR-004',
+        ProjectCode: 'PC-400',
+        Config: 'Config-D',
+        ChassisNo: 'CH-654',
+        EngineNo: 'EN-654',
+        TestActivityPlan: 'Field',
+        TestingHours: 90,
+        ActualTestingHours: 85,
+        Remarks: 'Field test completed',
+        IsActive: false,
+        TotalUsed: true
+      },
+      {
+        TractorNumber: 'TR-005',
+        ProjectCode: 'PC-500',
+        Config: 'Config-E',
+        ChassisNo: 'CH-987',
+        EngineNo: 'EN-987',
+        TestActivityPlan: 'Validation',
+        TestingHours: 130,
+        ActualTestingHours: 125,
+        Remarks: 'Slight vibration observed',
+        IsActive: true,
+        TotalUsed: true
+      },
+      {
+        TractorNumber: 'TR-006',
+        ProjectCode: 'PC-600',
+        Config: 'Config-F',
+        ChassisNo: 'CH-741',
+        EngineNo: 'EN-852',
+        TestActivityPlan: 'Stress',
+        TestingHours: 200,
+        ActualTestingHours: 190,
+        Remarks: 'Overheating under load',
+        IsActive: false,
+        TotalUsed: false
+      },
+      {
+        TractorNumber: 'TR-007',
+        ProjectCode: 'PC-700',
+        Config: 'Config-G',
+        ChassisNo: 'CH-159',
+        EngineNo: 'EN-753',
+        TestActivityPlan: 'Noise & Vibration',
+        TestingHours: 110,
+        ActualTestingHours: 105,
+        Remarks: 'Noise levels acceptable',
+        IsActive: true,
+        TotalUsed: false
+      }
+
+
+
+
     ];
     this.totalSize = this.tableList.length;
   }
- 
+
   getTractors(): void {
     console.log('Filter Applied:', this.filterForm.value);
   }
- 
+
   clearFilter(): void {
     this.filterForm.reset();
     this.getTractors();
   }
- 
+
   addtractors(value: any) {
     const dialogRef = this.dialog.open(AddtractorsComponent, {
       data: value,
       height: 'auto',
       width: '1150px',
     });
- 
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'Update') {
         this.loadMockData(); // Or refresh your list
       }
     });
   }
- 
+
   // deleteConfirmation(item: any): void {
   //   console.log('Delete Tractor:', item);
   // }
- 
+
   // Confirmation(item: any): void {
   //   console.log('Toggle status for:', item);
   //   item.IsActive = !item.IsActive;
   // }
- 
+
   fnHandlePage(event: any): void {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
@@ -189,11 +189,20 @@ export class TractorstatusComponent implements OnInit {
       }
     });
   }
- 
+
   deleteConfirmation(item: any) {
     let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: 'auto',
-      data: { ProjectId: item.ProjectId, title: 'Delete Confirmation', content: 'Are you sure you want to Delete?' }
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.tableList = this.tableList.filter(x => x !== item);
+        this.totalSize = this.tableList.length;
+      }
     });
   }
 }

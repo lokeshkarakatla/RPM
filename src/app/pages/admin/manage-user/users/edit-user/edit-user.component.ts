@@ -26,18 +26,26 @@
             UserEmail: new FormControl('', Validators.compose([Validators.required, Validators.email])),
             UserPhone: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
             RoleId: new FormControl('', Validators.compose([Validators.required])),
-             DepartmentId: new FormControl('', Validators.compose([Validators.required])),
+            DepartmentId: new FormControl('', Validators.compose([Validators.required])),
             RoleName: new FormControl(''),
           });
         }
         else {
+          const userName = this.data.UserName || this.data.name || '';
+          const userEmail = this.data.UserEmail || this.data.email || '';
+          const userPhone = this.data.UserPhone || this.data.phone || '';
+          const roleId = this.data.RoleId || 1;
+          const departmentId = this.data.DepartmentId || 1;
+          const roleName = this.data.RoleName || this.data.role || '';
+
           this.myGroup = this.fb.group({
-            UserId: new FormControl(''),
-            UserName: new FormControl(this.data.UserName, Validators.compose([Validators.required])),
-            UserEmail: new FormControl('', Validators.compose([Validators.required, Validators.email])),
-            UserPhone: new FormControl(this.data.UserPhone, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
-            RoleId: new FormControl(this.data.RoleId, Validators.compose([Validators.required])),
-            RoleName: new FormControl(this.data.RoleName, Validators.compose([Validators.required]))
+            UserId: new FormControl(this.data.UserId || ''),
+            UserName: new FormControl(userName, Validators.compose([Validators.required])),
+            UserEmail: new FormControl(userEmail, Validators.compose([Validators.required, Validators.email])),
+            UserPhone: new FormControl(userPhone, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+            RoleId: new FormControl(roleId, Validators.compose([Validators.required])),
+            DepartmentId: new FormControl(departmentId, Validators.compose([Validators.required])),
+            RoleName: new FormControl(roleName, Validators.compose([Validators.required]))
           });
         }
     }
@@ -46,43 +54,37 @@
 
     ngOnInit() {
       console.log(this.data);
-      this.service.GetAllUsers().subscribe(data => {
-        if (data != null) {
-          this.users = data['Data'];
-
-        }
-      });
-    
-      this.getAllRoles();
-    // this.GetPermanentEmployees();
+      if (this.service) {
+        this.service.GetAllUsers().subscribe(data => {
+          if (data != null) {
+            this.users = data['Data'];
+          }
+        });
+        this.getAllRoles();
+      }
     }
     options: Array<any> = [
       { RoleName : "Data Collector", RoleId:1,Agency:'Research Development',Manager:'Navin'},
       { RoleName: "Field Coordinator", RoleId: 2, Agency: 'Quality Assurance', Manager: 'SaiKumar' },
       { RoleName: "Field Monitor", RoleId: 3, Agency: 'Maintenance', Manager: 'Satya' },
       { RoleName: "Supervisors", RoleId: 4, Agency: 'Inspection', Manager: 'Gaddam' },
-       { RoleName: "Business Analyst", RoleId: 4, Agency: 'Supply Chain', Manager: 'Gaddam' },
+      { RoleName: "Business Analyst", RoleId: 5, Agency: 'Supply Chain', Manager: 'Gaddam' },
     ]
     checkDuplicateUser(val: any) {
-
-      if (this.users.length == 0) {
+      if (!this.users) {
         this.setvalues(val);
       }
-
       else {
         this.users.forEach(element => {
           if (element.UserName == val.UserName) {
-            this.alertService.createAlert("User Already Exists", 0);
+            if (this.alertService) this.alertService.createAlert("User Already Exists", 0);
             this.myGroup.invalid;
-            // this.close(element);
           }
           else {
             this.setvalues(val);
           }
-
         });
       }
-
     }
 
     setvalues(val: any) {
@@ -91,78 +93,77 @@
         UserName: new FormControl(val.UserName, Validators.compose([Validators.required])),
         UserEmail:new FormControl(val.UserEmail, Validators.compose([Validators.required, Validators.email])),
         UserPhone: new FormControl(val.UserPhone, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
-        RoleId: new FormControl(val.RoleId, Validators.compose([Validators.required]))
+        RoleId: new FormControl(val.RoleId, Validators.compose([Validators.required])),
+        DepartmentId: new FormControl(val.DepartmentId || 1, Validators.compose([Validators.required]))
       });
     }
     getAllRoles() {
-      this.service.GetAllRoles().subscribe(res => {
-        if (res['Success'] == true) {
-          this.options = res['Data'];
-        }
-        else {
-          this.alertService.createAlert(res['Message'], 0);
-        }
-      });
+      if (this.service) {
+        this.service.GetAllRoles().subscribe(res => {
+          if (res['Success'] == true) {
+            this.options = res['Data'];
+          }
+          else {
+            if (this.alertService) this.alertService.createAlert(res['Message'], 0);
+          }
+        });
+      }
     }
 
     permanentEmployeeDetails: any;
 
-    // GetPermanentEmployees() {
-    //   this.service.GetPermanentEmployees().subscribe(res => {
-    //     if (res['Success'] == true) {
-    //       this.permanentEmployeeDetails = res['Data'];
-    //     }
-    //     else {
-    //       this.alertService.createAlert(res['Message'], 0);
-    //     }
-    //   });
-    // }
-
     upsertuser() {
       console.log(this.data);
-      if (this.data == null) {
-        var list = {
-          UserId: null,
-          UserName: this.myGroup.value.UserName,
-          UserEmail: this.myGroup.value.UserEmail,
-          UserPhone: this.myGroup.value.UserPhone,
-          RoleId: this.myGroup.value.RoleId,
-          CreatedBy: localStorage.getItem('UserName'),
-          result: null
-        }
-        console.log(list);
-        this.service.UpsertUser(list).subscribe(data => {
-          if (data != null) {
-            if (data['Success'] == true) {
-              this.alertService.createAlert('User Added Successfully', 1);
-              this.dialogRef.close("SAVE")
-            }
-            else {
-              this.alertService.createAlert(data['Message'], 0);
-            }
+      if (this.service) {
+        if (this.data == null) {
+          var list = {
+            UserId: null,
+            UserName: this.myGroup.value.UserName,
+            UserEmail: this.myGroup.value.UserEmail,
+            UserPhone: this.myGroup.value.UserPhone,
+            RoleId: this.myGroup.value.RoleId,
+            CreatedBy: localStorage.getItem('UserName'),
+            result: null
           }
-        });
-      }
-      else {
-        var list = {
-          UserId: this.data.UserId,
-          UserName: this.myGroup.value.UserName,
-          UserEmail: this.myGroup.value.UserEmail,
-          UserPhone: this.myGroup.value.UserPhone,
-          RoleId: this.myGroup.value.RoleId,
-          CreatedBy: localStorage.getItem('UserName'),
-          result: null
+          console.log(list);
+          this.service.UpsertUser(list).subscribe(data => {
+            if (data != null) {
+              if (data['Success'] == true) {
+                if (this.alertService) this.alertService.createAlert('User Added Successfully', 1);
+                this.dialogRef.close("SAVE")
+              }
+              else {
+                if (this.alertService) this.alertService.createAlert(data['Message'], 0);
+              }
+            }
+          });
         }
-        this.service.UpsertUser(list).subscribe(data => {
-          if (data != null) {
-            if (data['Success'] == true) {
-              this.alertService.createAlert('User Updated Successfully', 1);
-              this.dialogRef.close("SAVE")
-            }
-            else {
-              this.alertService.createAlert(data['Message'], 0);
-            }
+        else {
+          var list = {
+            UserId: this.data.UserId,
+            UserName: this.myGroup.value.UserName,
+            UserEmail: this.myGroup.value.UserEmail,
+            UserPhone: this.myGroup.value.UserPhone,
+            RoleId: this.myGroup.value.RoleId,
+            CreatedBy: localStorage.getItem('UserName'),
+            result: null
           }
+          this.service.UpsertUser(list).subscribe(data => {
+            if (data != null) {
+              if (data['Success'] == true) {
+                if (this.alertService) this.alertService.createAlert('User Updated Successfully', 1);
+                this.dialogRef.close("SAVE")
+              }
+              else {
+                if (this.alertService) this.alertService.createAlert(data['Message'], 0);
+              }
+            }
+          });
+        }
+      } else {
+        this.dialogRef.close({
+          action: 'SAVE',
+          values: this.myGroup.value
         });
       }
       this.myGroup.reset();

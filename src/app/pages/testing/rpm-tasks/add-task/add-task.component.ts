@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-task',
@@ -10,13 +10,42 @@ export class AddTaskComponent implements OnInit {
   selectedFiles: File[] = [];
   isDragOver = false;
 
-  constructor(public dialogRef: MatDialogRef<AddTaskComponent>) { }
+  isEdit = false;
+  stage = 'Feasibility';
+  module = 'Module1';
+  taskSubject = '';
+  description = '';
+
+  constructor(
+    public dialogRef: MatDialogRef<AddTaskComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
 
   ngOnInit(): void {
+    if (this.data) {
+      this.isEdit = true;
+      this.taskSubject = this.data.task || this.data.TaskName || '';
+      this.description = this.data.description || this.data.Description || '';
+      this.stage = this.data.stage || this.data.Stage || 'Feasibility';
+      this.module = this.data.module || this.data.Module || 'Module1';
+    }
   }
 
   close(): void {
     this.dialogRef.close();
+  }
+
+  save(): void {
+    this.dialogRef.close({
+      task: this.taskSubject,
+      TaskName: this.taskSubject,
+      description: this.description,
+      Description: this.description,
+      stage: this.stage,
+      Stage: this.stage,
+      module: this.module,
+      Module: this.module
+    });
   }
 
   onFileSelected(event: Event): void {

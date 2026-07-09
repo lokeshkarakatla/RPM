@@ -2,10 +2,11 @@
 <div fxLayout="row wrap" class="mb-3" style="width: 100%;">
   <div class="col-12 d-flex justify-content-end" style="margin-left: -6px;    margin-bottom: -32px;">
     <h3 style="margin-right: 19px;margin-top: 6px;">Role: Admin
-</h3>
+    </h3>
 
-    <button mat-raised-button color="primary" class="margin-right-10" (click)="saveUserPermissions()">
-      <mat-icon>select_all</mat-icon> Toggle All
+    <button mat-raised-button class="margin-right-10 toggle-btn" [class.active]="isToggleActive" (click)="toggleAll()">
+      <mat-icon>select_all</mat-icon>
+      Toggle All
     </button>
 
     <button mat-raised-button color="primary" class="margin-right-10" (click)="saveUserPermissions()">
@@ -57,6 +58,8 @@
               <th class="style">Read</th>
               <th class="style">Update</th>
               <th class="style">Delete</th>
+              <th class="text-center">Upload</th>
+              <th class="text-center">Download</th>
             </tr>
           </thead>
           <tbody>
@@ -101,6 +104,21 @@
                   <mat-checkbox [(ngModel)]="item.delete" color="primary"></mat-checkbox>
                 </ng-container>
                 <ng-template #noDelete>-</ng-template>
+              </td>
+
+
+              <!-- Upload -->
+              <td class="text-center">
+                <button mat-icon-button matTooltip="Upload Image">
+                  <mat-icon>upload</mat-icon>
+                </button>
+              </td>
+
+              <!-- Download -->
+              <td class="text-center">
+                <button mat-icon-button matTooltip="Download Document">
+                  <mat-icon>download</mat-icon>
+                </button>
               </td>
 
 

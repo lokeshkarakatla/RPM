@@ -34,6 +34,13 @@
         </a>
       </li>
 
+      <li routerLinkActive="active">
+        <a [routerLink]="['stages']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Stages">layers</mat-icon>
+          <span *ngIf="isNavOpen">Stages</span>
+        </a>
+      </li>
+
       <!-- <li routerLinkActive="active">
         <a [routerLink]="['wbs']">
           <mat-icon *ngIf="!isNavOpen" matTooltip="WBS">account_tree</mat-icon>

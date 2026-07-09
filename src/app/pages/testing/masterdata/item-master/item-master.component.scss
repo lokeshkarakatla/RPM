@@ -11,20 +11,70 @@
 //   width: 95%;
 // }
 
+.page-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#grid-table-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+#grid-table-container table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+#grid-table-container th,
+#grid-table-container td {
+  white-space: nowrap;
+}
+
+.add-item-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #1f2937;
+  color: #ffffff;
+}
+
 .description-cell {
   max-width: 320px;   // adjust to fit your layout
   line-height: 1.4;
   word-break: break-word;
 }
 
-#grid-table-container table {
-  table-layout: fixed;
-  width: 100%;
+#grid-table-container {
+  overflow-x: auto;
+}
 
-  th, td {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+#grid-table-container table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+#grid-table-container th,
+#grid-table-container td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#grid-table-container .table-responsive {
+  overflow-x: auto;
 }
 // //   button {
 // //     display: flex;

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-project-team',
@@ -7,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./project-team.component.scss']
 })
 export class ProjectTeamComponent implements OnInit {
+
+  isDialog = false;
 
   // Available members for the left box
   availableMembers: string[] = [
@@ -38,8 +41,12 @@ export class ProjectTeamComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.isDialog = !window.location.href.includes('/team');
+  }
 
   ngOnInit(): void {
   }
@@ -92,18 +99,18 @@ export class ProjectTeamComponent implements OnInit {
 
   // Saves the selection and closes the dialog
   save() {
-    // Closes the popup and returns the updated assigned array to the parent component
+    this.dialog.closeAll();
   }
 
-
-
-
-
-
-
-
+  closeDialog() {
+    this.dialog.closeAll();
+  }
 
   goBack(): void {
-    this.router.navigateByUrl('/app/testing/projects');
+    if (this.isDialog) {
+      this.dialog.closeAll();
+    } else {
+      this.router.navigateByUrl('/app/testing/projects');
+    }
   }
 }

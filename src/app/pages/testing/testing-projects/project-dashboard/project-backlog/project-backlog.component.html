@@ -22,6 +22,10 @@
       </button>
     </div>
     
+    <button mat-raised-button color="primary" class="assignment-btn" style="margin-right: 15px;" (click)="openAssignmentPopup()">
+      <mat-icon>group_add</mat-icon> Assignment
+    </button>
+    
     <button mat-raised-button class="back-btn" (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
     <mat-icon>arrow_back</mat-icon>
     Back
@@ -91,8 +95,8 @@
           <tr *ngFor="let t of filteredTasks; trackBy: trackById">
             <td class="text-center">
               <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
-                <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;" (click)="editAsset(t)"></i>
-                <i class="fa fa-trash text-danger action-icon" style="cursor:pointer;" (click)="deleteAsset(t)"></i>
+                <mat-icon style="color:#2563eb; cursor:pointer; font-size: 18px; width: 18px; height: 18px;" (click)="editAsset(t)">edit</mat-icon>
+                <mat-icon style="color:#dc2626; cursor:pointer; font-size: 18px; width: 18px; height: 18px;" (click)="deleteAsset(t)">delete</mat-icon>
               </div>
             </td>
 
@@ -161,8 +165,8 @@
               <div class="kanban-card-header">
                 <span class="kanban-card-title">{{ t.task }}</span>
                 <div class="kanban-card-actions">
-                  <i class="fa fa-pencil text-primary action-icon" (click)="editAsset(t)"></i>
-                  <i class="fa fa-trash text-danger action-icon" (click)="deleteAsset(t)"></i>
+                  <mat-icon style="color:#2563eb; cursor:pointer; font-size: 16px; width: 16px; height: 16px;" (click)="editAsset(t)">edit</mat-icon>
+                  <mat-icon style="color:#dc2626; cursor:pointer; font-size: 16px; width: 16px; height: 16px;" (click)="deleteAsset(t)">delete</mat-icon>
                 </div>
               </div>
               <div class="kanban-card-codes">

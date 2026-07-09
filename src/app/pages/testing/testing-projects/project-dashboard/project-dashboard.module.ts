@@ -52,6 +52,7 @@ import { AddFacilityPopComponent } from './project-facilities/add-facility-pop/a
 import { EditBacklogTaskComponent } from './project-backlog/edit-backlog-task/edit-backlog-task.component';
 import { AddExpensePopComponent } from './project-expenses/add-expense-pop/add-expense-pop.component';
 import { AddHoursPopComponent } from './project-hours/add-hours-pop/add-hours-pop.component';
+import { ProjectStagesComponent } from "./project-stages/project-stages.component";
 
 const routes: Routes = [
   {
@@ -99,6 +100,12 @@ const routes: Routes = [
          data: {
                     breadcrumb: 'Assign Team Members (NextGen Assembly Line-2026/MFG/011 )',
                     description: 'Select and move members to build your project team.'
+                }
+       },
+      { path: "stages", component: ProjectStagesComponent,
+         data: {
+                    breadcrumb: 'Stages (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track progress across stages, effort planning, and gate scheduling.'
                 }
        },
       { path: "wbs", component: PlaceholderImageComponent },
@@ -202,6 +209,7 @@ const routes: Routes = [
     EditBacklogTaskComponent,
     AddExpensePopComponent,
     AddHoursPopComponent,
+    ProjectStagesComponent,
   ],
   imports: [
     CommonModule,

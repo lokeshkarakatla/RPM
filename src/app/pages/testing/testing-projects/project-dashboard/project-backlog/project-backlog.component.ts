@@ -5,7 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditBacklogTaskComponent } from './edit-backlog-task/edit-backlog-task.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { ProjectTeamComponent } from '../project-team/project-team.component';
+// import { ProjectTeamComponent } from '../project-team/project-team.component';
+import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 
 export type Stage = 'Design' | 'Development' | 'Testing' | 'Deployment';
 export type SprintKind = 'backlog' | 'completed' | 'active';
@@ -369,17 +370,12 @@ export class ProjectBacklogComponent {
   }
 
   openAssignmentPopup(): void {
-    let dialogRef = this.dialog.open(ProjectTeamComponent, {
-      width: '800px',
+    let dialogRef = this.dialog.open(AddAssignmentComponent, {
+      width: '600px',
       height: 'auto',
       data: { team: this.team }
     });
-    dialogRef.afterClosed().subscribe(() => {
-      const assigned = dialogRef.componentInstance?.assignedMembers;
-      if (assigned) {
-        this.team = assigned;
-      }
-    });
+    
   }
 
   goBack(): void {

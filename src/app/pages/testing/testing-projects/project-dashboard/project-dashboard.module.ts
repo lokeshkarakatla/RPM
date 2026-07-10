@@ -54,6 +54,7 @@ import { EditBacklogTaskComponent } from './project-backlog/edit-backlog-task/ed
 import { AddExpensePopComponent } from './project-expenses/add-expense-pop/add-expense-pop.component';
 import { AddHoursPopComponent } from './project-hours/add-hours-pop/add-hours-pop.component';
 import { ProjectStagesComponent } from "./project-stages/project-stages.component";
+import { AddAssignmentComponent } from './project-backlog/add-assignment/add-assignment.component';
 
 const routes: Routes = [
   {
@@ -211,6 +212,7 @@ const routes: Routes = [
     AddExpensePopComponent,
     AddHoursPopComponent,
     ProjectStagesComponent,
+    AddAssignmentComponent,
   ],
   imports: [
     CommonModule,

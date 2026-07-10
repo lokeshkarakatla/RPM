@@ -1,0 +1,93 @@
+<div class="NewHeader">
+    <h3 style="padding-top:10px;">Add Assignmant</h3>
+</div>
+
+<div class="assignment-container">
+ 
+
+  <mat-dialog-content>
+    <div class="panels-wrapper">
+      <!-- Available Members Panel -->
+      <div class="panel available-panel">
+        <div class="panel-header">
+          <span class="panel-title">Available Members</span>
+          <span class="count-badge">{{ availableMembers.length }}</span>
+        </div>
+
+        <div class="members-list">
+          <div
+            *ngFor="let member of availableMembers"
+            class="member-item"
+            (click)="toggleAvailableSelection(member)"
+          >
+            <input
+              type="checkbox"
+              [checked]="member.selected"
+              class="member-checkbox"
+              (change)="toggleAvailableSelection(member)"
+            />
+            <div class="member-avatar">{{ member.initials }}</div>
+            <span class="member-name">{{ member.name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Panel -->
+      <div class="action-panel">
+        <button
+          mat-mini-fab
+          class="action-btn add-btn"
+          (click)="addToTeam()"
+          [disabled]="!canAdd()"
+          matTooltip="Add selected members"
+        >
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+
+        <button
+          mat-mini-fab
+          class="action-btn remove-btn"
+          (click)="removeFromTeam()"
+          [disabled]="!canRemove()"
+          matTooltip="Remove selected members"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </div>
+
+      <!-- Assigned Team Panel -->
+      <div class="panel assigned-panel">
+        <div class="panel-header">
+          <span class="panel-title">Assigned Team</span>
+          <span class="count-badge">{{ assignedMembers.length }}</span>
+        </div>
+
+        <div class="members-list">
+          <div
+            *ngFor="let member of assignedMembers"
+            class="member-item"
+            (click)="toggleAssignedSelection(member)"
+          >
+            <input
+              type="checkbox"
+              [checked]="member.selected"
+              class="member-checkbox"
+              (change)="toggleAssignedSelection(member)"
+            />
+            <div class="member-avatar">{{ member.initials }}</div>
+            <span class="member-name">{{ member.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+   <mat-dialog-actions align="end" style="margin-top: 15px;">
+                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
+                    <mat-icon>cancel</mat-icon> Close
+                </button>
+                <button mat-raised-button type="button" class="save" color="primary">
+                    <mat-icon>save</mat-icon> Save
+                </button>
+            </mat-dialog-actions>
+</div>

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
 
 export interface Task {
   task: string;
@@ -53,7 +55,7 @@ export interface StageItem {
   templateUrl: './project-stages.component.html',
   styleUrls: ['./project-stages.component.scss']
 })
-export class ProjectStagesComponent implements OnInit {
+export class ProjectStagesComponent implements OnInit, OnDestroy {
 
   stages: StageItem[] = [
     {
@@ -136,13 +138,71 @@ export class ProjectStagesComponent implements OnInit {
   showStimulationModal = false;
   newModuleName = '';
 
-  constructor(private dialog: MatDialog) { }
+  private subs = new Subscription();
+
+  constructor(
+    private dialog: MatDialog,
+    private dragulaService: DragulaService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    if (this.dragulaService.find('PROJECTSTAGES')) {
+      this.dragulaService.destroy('PROJECTSTAGES');
+    }
+
+    this.dragulaService.createGroup('PROJECTSTAGES', {
+      revertOnSpill: true,
+      moves: (el, container, handle) => {
+        return !el?.classList.contains('no-drag');
+      }
+    });
+
+    this.subs.add(
+      this.dragulaService.dropModel('PROJECTSTAGES').subscribe(({ targetModel }) => {
+        this.onPagedStagesChange(targetModel);
+      })
+    );
+  }
 
   ngOnInit(): void {
+    this.subs.add(
+      this.route.queryParams.subscribe(params => {
+        if (params['view'] === 'setup' && params['stageCode']) {
+          const stage = this.stages.find(s => s.stageCode === params['stageCode']);
+          if (stage) {
+            this.activeStage = stage;
+            this.activeModuleIndex = 0;
+            this.showSetupView = true;
+          } else {
+            this.showSetupView = false;
+            this.activeStage = null;
+          }
+        } else {
+          this.showSetupView = false;
+          this.activeStage = null;
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
+    this.dragulaService.destroy('PROJECTSTAGES');
+    this.subs.unsubscribe();
     this.setBodyScrollLock(false);
+  }
+
+  goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
+  }
+
+  onPageChange(event: any): void {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+  }
+
+  onPagedStagesChange(newPagedStages: StageItem[]): void {
+    const start = this.currentPage * this.pageSize;
+    this.stages.splice(start, newPagedStages.length, ...newPagedStages);
   }
 
   get pagedStages(): StageItem[] {
@@ -178,14 +238,6 @@ export class ProjectStagesComponent implements OnInit {
     document.body.style.overflow = lock ? 'hidden' : 'auto';
   }
 
-  dropStageRow(event: CdkDragDrop<StageItem[]>) {
-    const fromIndex = this.currentPage * this.pageSize + event.previousIndex;
-    const toIndex = this.currentPage * this.pageSize + event.currentIndex;
-    if (fromIndex === toIndex) {
-      return;
-    }
-    moveItemInArray(this.stages, fromIndex, toIndex);
-  }
 
   // --- Stage CRUD & Actions ---
   Confirmation(item: StageItem): void {
@@ -272,14 +324,19 @@ export class ProjectStagesComponent implements OnInit {
 
   // --- Setup View navigation ---
   openSetup(item: StageItem) {
-    this.activeStage = item;
-    this.activeModuleIndex = 0;
-    this.showSetupView = true;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { view: 'setup', stageCode: item.stageCode },
+      queryParamsHandling: 'merge'
+    });
   }
 
   closeSetup() {
-    this.showSetupView = false;
-    this.activeStage = null;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { view: null, stageCode: null },
+      queryParamsHandling: 'merge'
+    });
   }
 
   // --- Modules (Stimulation) CRUD ---
@@ -346,6 +403,7 @@ export class ProjectStagesComponent implements OnInit {
     this.isEditTaskMode = true;
     this.taskModalIndex = index;
     this.showTaskModal = true;
+    this.setBodyScrollLock(true);
   }
 
   closeTaskModal() {

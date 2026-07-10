@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import { DragulaModule } from "ng2-dragula";
 
 // --- Highcharts ---
 import { HighchartsChartModule } from "highcharts-angular";
@@ -230,6 +231,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatDialogModule,
     MatMenuModule,
+    DragulaModule,
   ],
 })
 export class ProjectDashboardModule {}

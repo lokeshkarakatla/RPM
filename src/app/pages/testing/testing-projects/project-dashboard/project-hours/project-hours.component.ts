@@ -78,8 +78,8 @@ export class ProjectHoursComponent implements OnInit {
   ngOnInit(): void {
     this.buildCalendar();
 
-    const today = new Date();
-    const defaultDay = this.calendarDays.find(d => d.inCurrentMonth && this.isSameDay(d.date, today))
+    const targetDefault = new Date(2025, 5, 2); // June 2nd, 2025
+    const defaultDay = this.calendarDays.find(d => d.inCurrentMonth && this.isSameDay(d.date, targetDefault))
       ?? this.calendarDays.find(d => d.inCurrentMonth)!;
 
     this.filterByDate(defaultDay);

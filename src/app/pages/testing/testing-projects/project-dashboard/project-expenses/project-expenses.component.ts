@@ -80,10 +80,8 @@ export class ProjectExpensesComponent implements OnInit {
   ngOnInit(): void {
     this.buildCalendar();
 
-    // Always land on a date: prefer today if it's in the current month view,
-    // otherwise fall back to the first in-month day
-    const today = new Date();
-    const defaultDay = this.calendarDays.find(d => d.inCurrentMonth && this.isSameDay(d.date, today))
+    const targetDefault = new Date(2025, 5, 2); // June 2nd, 2025
+    const defaultDay = this.calendarDays.find(d => d.inCurrentMonth && this.isSameDay(d.date, targetDefault))
       ?? this.calendarDays.find(d => d.inCurrentMonth)!;
 
     this.filterByDate(defaultDay);

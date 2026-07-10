@@ -192,7 +192,7 @@ export const horizontalMenuItems = [
     "Availability",
     "/app/admin/availability",
     null,
-    "group_add",
+    "person",
     null,
     false,
     4,

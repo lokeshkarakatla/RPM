@@ -1,371 +1,286 @@
-.working-schedule-container {
+// ==========================================================================
+// Timings component
+// ==========================================================================
+
+$border-color: #eceef1;
+$text-primary: #1a1d23;
+$text-muted: #9aa0ac;
+$text-secondary: #5a6170;
+
+$working-color: #10b981;
+$working-bg: #10b981;
+
+$off-border: #d5d9df;
+
+$weekend-label-color: #d97b1c;
+$weekend-col-bg: #f4f5f7;
+
+.timings-card {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 32px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  max-width: 1350px;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  padding: 24px;
   margin: 20px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
 
-  /* --- Header Section --- */
-  .schedule-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
+// -- Header ----------------------------------------------------------------
 
-    .schedule-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #9ca3af;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin: 0;
-    }
+.timings-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
 
-    .month-year-container {
-      display: flex;
-      align-items: center;
-      gap: 20px;
+.title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 
-      .month-year {
-        min-width: 140px;
-        text-align: center;
-
-        h2 {
-          font-size: 22px;
-          font-weight: 700;
-          color: #1f2937;
-          margin: 0;
-        }
-      }
-
-      .nav-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 20px;
-        color: #6b7280;
-        padding: 8px 12px;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-
-        &:hover {
-          background-color: #f3f4f6;
-          color: #1f2937;
-        }
-
-        span {
-          display: inline-block;
-          font-weight: bold;
-        }
-      }
-    }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $text-muted;
   }
 
-  /* --- Legend Section --- */
-  .legend {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 28px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #e5e7eb;
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background-color: #f3f4f6;
-      }
-
-      /* Inactive state when toggled off */
-      &.inactive {
-        opacity: 0.5;
-
-        .legend-dot {
-          opacity: 0.6;
-          border-color: #bfdbfe !important;
-        }
-
-        .legend-text {
-          color: #9ca3af;
-          text-decoration: line-through;
-        }
-      }
-
-      .legend-dot {
-        width: 20px;
-        height: 20px;
-        border-radius: 2px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-
-        &.working {
-          background-color: #10b981;
-          border: 2px solid #059669;
-
-          &::after {
-            content: '✓';
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-          }
-        }
-
-        &.off {
-          background-color: #f3f4f6;
-          border: 1px solid #d1d5db;
-        }
-
-        &.weekend {
-          background-color: #f3f4f6;
-          border: 1px solid #d1d5db;
-        }
-      }
-
-      .legend-text {
-        font-size: 13px;
-        color: #4b5563;
-        font-weight: 500;
-        transition: all 0.2s ease;
-      }
-    }
-  }
-
-  /* --- Schedule Grid --- */
-  .schedule-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    overflow: hidden;
-
-    .grid-row {
-      display: grid;
-      grid-template-columns: 100px repeat(7, 1fr);
-      border-bottom: 1px solid #e5e7eb;
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      &.header-row {
-        background-color: #f9fafb;
-        border-bottom: 2px solid #d1d5db;
-        font-weight: 600;
-        color: #374151;
-        font-size: 12px;
-
-        .grid-cell {
-          padding: 12px 8px;
-          text-align: center;
-          vertical-align: middle;
-        }
-
-        .day-header {
-          &.sat,
-          &.sun {
-            color: #f97316;
-          }
-        }
-      }
-
-      .grid-cell {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 16px 8px;
-        min-height: 60px;
-        background-color: #ffffff;
-
-        &.week-label {
-          background-color: #f9fafb;
-          font-weight: 600;
-          font-size: 13px;
-          color: #374151;
-          border-right: 1px solid #e5e7eb;
-          text-align: center;
-          padding: 12px;
-        }
-
-        &.day-cell {
-          transition: all 0.2s ease;
-
-          &.other-month {
-            opacity: 0.4;
-            cursor: default;
-          }
-
-          /* Clickable day styles (working days of current month) */
-          &.clickable {
-            cursor: pointer;
-
-            &:hover {
-              background-color: #f3f4f6;
-              transform: scale(1.02);
-              box-shadow: inset 0 0 0 1px #d1d5db;
-            }
-
-            &:active {
-              transform: scale(0.98);
-            }
-          }
-
-          /* Non-clickable day styles (weekends, other months) */
-          &.not-clickable {
-            cursor: default;
-
-            &:hover {
-              background-color: inherit;
-            }
-          }
-
-          /* Styling for hidden type cells showing "AB" */
-          &.hidden-type {
-            background-color: #fef3c7;
-            
-            .day-content {
-              .absent-text {
-                font-size: 14px;
-                font-weight: 600;
-                color: #d97706;
-                letter-spacing: 1px;
-              }
-            }
-          }
-
-          .day-content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-
-          .status-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-
-            &.working-icon {
-              mat-icon {
-                color: #10b981;
-                font-size: 28px;
-                width: 28px;
-                height: 28px;
-              }
-            }
-
-            &.off-icon,
-            &.weekend-icon {
-              .empty-box {
-                width: 20px;
-                height: 20px;
-                border: 2px solid #d1d5db;
-                border-radius: 2px;
-                background-color: transparent;
-              }
-            }
-          }
-
-          /* Day-specific styling for weekends (SAT=7, SUN=8 in grid due to week label) */
-          &:nth-child(7),
-          &:nth-child(8) {
-            background-color: #fafafa;
-          }
-
-          /* Weekend type styling */
-          &.weekend {
-            background-color: #fafafa;
-            
-            &.clickable:hover {
-              background-color: #fafafa;
-              transform: none;
-              box-shadow: none;
-            }
-          }
-        }
-      }
-    }
+  .title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: $text-primary;
   }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .working-schedule-container {
-    padding: 16px;
+.month-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 
-    .schedule-header {
-      flex-direction: column;
-      gap: 16px;
+.nav-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  color: $text-secondary;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
 
-      .month-year-container {
-        width: 100%;
-        justify-content: center;
-      }
+  &:hover {
+    background: #f4f5f7;
+    color: $text-primary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $working-color;
+    outline-offset: 2px;
+  }
+}
+
+// -- Legend (toggle) ---------------------------------------------------------
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: $text-primary;
+  transition: opacity 0.15s ease;
+
+  &.inactive {
+    opacity: 0.45;
+
+    .legend-dot {
+      background: transparent !important;
     }
+  }
 
-    .legend {
-      flex-direction: column;
-      gap: 12px;
+  &:focus-visible {
+    outline: 2px solid $working-color;
+    outline-offset: 2px;
+  }
+}
 
-      .legend-item {
-        padding: 6px 8px;
-      }
-    }
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid;
+  transition: background-color 0.15s ease;
+}
 
-    .schedule-grid {
-      .grid-row {
-        grid-template-columns: 70px repeat(7, 1fr);
-        font-size: 11px;
+.dot-working {
+  border-color: $working-color;
+  background: $working-color;
+}
 
-        .grid-cell {
-          padding: 12px 4px;
-          min-height: 50px;
+.dot-off {
+  border-color: $off-border;
+  background: transparent;
+}
 
-          &.week-label {
-            font-size: 11px;
-            padding: 8px;
-          }
+.dot-weekend {
+  border-color: $off-border;
+  background: transparent;
+}
 
-          &.day-cell {
-            &.hidden-type {
-              .day-content {
-                .absent-text {
-                  font-size: 12px;
-                }
-              }
-            }
-          }
+// -- Table -------------------------------------------------------------------
 
-          .status-icon {
-            width: 24px;
-            height: 24px;
+.schedule-table {
+  display: flex;
+  flex-direction: column;
+}
 
-            mat-icon {
-              font-size: 20px;
-              width: 20px;
-              height: 20px;
-            }
+.table-header-row,
+.table-row {
+  display: grid;
+  grid-template-columns: 110px repeat(7, 1fr);
+  align-items: center;
+}
 
-            .empty-box {
-              width: 16px;
-              height: 16px;
-            }
-          }
-        }
-      }
-    }
+.table-header-row {
+  padding: 0 0 12px;
+
+  .col-week,
+  .col-day {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: $text-muted;
+  }
+
+  .weekend-label {
+    color: $weekend-label-color;
+  }
+}
+
+.table-row {
+  padding: 14px 0;
+  border-top: 1px solid $border-color;
+
+  .col-week {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+.col-day {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.weekend-col {
+  position: relative;
+}
+
+// give the two weekend columns a shared shaded band, like the mockup
+.table-row .weekend-col::before,
+.table-header-row .weekend-label {
+  pointer-events: none;
+}
+
+.table-row {
+  position: relative;
+}
+
+.table-row::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: calc(2 * (100% - 110px) / 7);
+  background: $weekend-col-bg;
+  z-index: 0;
+}
+
+.table-row .col-week,
+.table-row .col-day {
+  position: relative;
+  z-index: 1;
+}
+
+// -- Day cell --------------------------------------------------------------
+
+.day-cell {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1.5px solid transparent;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &.working {
+    background: $working-bg;
+    color: #ffffff;
+  }
+
+  &.off {
+    background: #ffffff;
+    border-color: $off-border;
+  }
+
+  &.weekend {
+    background: transparent;
+    border-color: $off-border;
+  }
+
+  &.hidden-type {
+    opacity: 0.2;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $working-color;
+    outline-offset: 2px;
+  }
+}
+
+// -- Responsive --------------------------------------------------------------
+
+@media (max-width: 700px) {
+  .schedule-table {
+    overflow-x: auto;
+  }
+
+  .table-header-row,
+  .table-row {
+    grid-template-columns: 90px repeat(7, 44px);
+    min-width: 620px;
   }
 }

@@ -33,10 +33,10 @@ export class AuditModelComponent implements OnInit {
     { name: 'Mahindra XUV700', code: 'p', status: true },
   ];
 
-  constructor(private router: Router, private dialog: MatDialog) {}
+  constructor(private router: Router, private dialog: MatDialog) { }
 
   // ✅ Fix: Add OnInit interface + call formInit in ngOnInit
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.myGroup = new FormGroup({
       Keyword: new FormControl(''),
       ModelName: new FormControl(''),
@@ -60,6 +60,6 @@ export class AuditModelComponent implements OnInit {
       height: 'auto',
       width: '800px',
     });
-    dialogRef.afterClosed().subscribe((data: any) => {});
+    dialogRef.afterClosed().subscribe((data: any) => { });
   }
 }

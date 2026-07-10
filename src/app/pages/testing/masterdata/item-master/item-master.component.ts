@@ -113,4 +113,18 @@ export class ItemMasterComponent implements OnInit {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
   }
+
+  scrollRight() {
+    const container = document.getElementById('grid-table-container');
+    if (container) {
+      container.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  }
+
+  scrollLeft() {
+    const container = document.getElementById('grid-table-container');
+    if (container) {
+      container.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  }
 }

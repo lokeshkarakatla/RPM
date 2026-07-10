@@ -36,9 +36,9 @@
 
     .header-actions {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 10px; 
-      align-items: flex-end;
+      align-items: center;
       
       .back-btn, .add-btn {
         display: flex;

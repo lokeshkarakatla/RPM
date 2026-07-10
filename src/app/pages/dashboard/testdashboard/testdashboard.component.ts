@@ -277,8 +277,8 @@ export class TestdashboardComponent implements OnInit, AfterViewInit {
       tooltip: { pointFormat: '<b>{point.name}</b>: {point.y} Projects' },
       plotOptions: { column: { grouping: false, dataLabels: { enabled: true, style: { fontWeight: 'bold', fontSize: '14px' } } } },
       series: [
-        { type: 'column', name: 'On Time (5)', data: [{ x: 0, y: 5, color: '#00a859' }] },
-        { type: 'column', name: 'Delayed (2)', data: [{ x: 1, y: 2, color: '#ed1c24' }] },
+        { type: 'column', name: 'On Time (5)',    color: '#00a859', data: [{ x: 0, y: 5, color: '#00a859' }] },
+        { type: 'column', name: 'Delayed (2)',    color: '#ed1c24',  data: [{ x: 1, y: 2, color: '#ed1c24' }] },
       ],
     } as any);
   }

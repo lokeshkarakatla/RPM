@@ -10,6 +10,21 @@ import { AddProjectSectionComponent } from '../add-project-section/add-project-s
 export class AddProjectsComponent implements OnInit {
   addStep = 1;
   updateStep = 1;
+  isDirector = false;
+  isManager = false;
+
+  onProjectTypeChange(type: string) {
+    if (type === 'director') {
+      if (this.isDirector) {
+        this.isManager = false;
+      }
+    } else if (type === 'manager') {
+      if (this.isManager) {
+        this.isDirector = false;
+      }
+    }
+  }
+
   constructor(
       @Inject(MAT_DIALOG_DATA) public data: any,private dialog: MatDialog,
       public dialogRef: MatDialogRef<AddProjectsComponent>

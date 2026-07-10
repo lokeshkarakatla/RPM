@@ -485,3 +485,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-transform: none !important;
   letter-spacing: normal !important;
 }
+
+// --- Fix Gates overlap with absolute page header bar ---
+.criteria-wrapper {
+  margin-top: 85px;
+}

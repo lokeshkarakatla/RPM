@@ -113,14 +113,15 @@
 
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-                                <label class="control-label mt-1">Project Manager:</label>
+                                <label class="control-label mt-1">Project Types:</label>
                             </div>
-                            <div class="col-sm-8">
-                                <mat-select placeholder="Select Project Manager" class="form-control ">
-                                    <mat-option value="Shailaja">Shailaja</mat-option>
-                                    <mat-option value="Sai">Sai</mat-option>
-                                    <mat-option value="Satya">Satya</mat-option>
-                                </mat-select>
+                            <div class="col-sm-8" style="display: flex; gap: 20px; align-items: center; padding-top: 5px;">
+                                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: normal; margin-bottom: 0;">
+                                    <input type="checkbox" [(ngModel)]="isDirector" (change)="onProjectTypeChange('director')"> Director
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: normal; margin-bottom: 0;">
+                                    <input type="checkbox" [(ngModel)]="isManager" (change)="onProjectTypeChange('manager')"> Manager
+                                </label>
                             </div>
                         </div>
                     </div>

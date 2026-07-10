@@ -28,9 +28,9 @@
     // New wrapper for the buttons on the right
     .header-actions {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 10px; // Spacing between Back and Add buttons
-      align-items: flex-end;
+      align-items: center;
       
       .back-btn, .add-btn {
         display: flex;

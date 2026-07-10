@@ -4,7 +4,7 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <nav class="nav-links">
+  <nav class="nav-links" (wheel)="$event.stopPropagation()">
     <ul>
       <li routerLinkActive="active">
         <a [routerLink]="['analytics']">

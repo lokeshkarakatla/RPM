@@ -58,6 +58,7 @@
     flex: 1; /* CRITICAL: Tells the links area to take up all remaining height */
     overflow-y: auto; /* CRITICAL: Applies scrollbar ONLY to the links */
     overflow-x: hidden;
+    overscroll-behavior: contain;
 }
 
 /* Customizing the scrollbar to make it look clean (Optional) */
@@ -129,4 +130,8 @@
 
 .col-sm-10 {
     transition: width 0.3s ease;
+}
+
+.project-dashboard-content-wrapper {
+    overscroll-behavior: contain;
 }

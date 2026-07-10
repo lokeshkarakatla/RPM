@@ -1,35 +1,40 @@
-<div style="background:#ffffff;border:1px solid #e3e6ea;border-radius:10px;padding:18px 20px;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;margin-top:100px;">
-
-  <!-- Top bar -->
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-    <div style="display:flex;background:#f1f3f5;border-radius:8px;padding:3px;">
-      <button
-        type="button"
-        [ngStyle]="viewMode === 'grid'
-          ? {border:'none',background:'#14213d',color:'#ffffff',fontSize:'14px',fontWeight:'500',padding:'7px 16px',borderRadius:'6px',cursor:'pointer',display:'flex',alignItems:'center',gap:'6px',boxShadow:'0 1px 3px rgba(0,0,0,0.15)',transition:'all 0.15s ease'}
-          : {border:'none',background:'transparent',color:'#5f6b7a',fontSize:'14px',fontWeight:'500',padding:'7px 16px',borderRadius:'6px',cursor:'pointer',display:'flex',alignItems:'center',gap:'6px',transition:'all 0.15s ease'}"
-        (click)="setView('grid')">
-        <i class="fa fa-th-large" style="font-size:13px;" aria-hidden="true"></i>
-        Grid
-      </button>
-      <button
-        type="button"
-        [ngStyle]="viewMode === 'calendar'
-          ? {border:'none',background:'#14213d',color:'#ffffff',fontSize:'14px',fontWeight:'500',padding:'7px 16px',borderRadius:'6px',cursor:'pointer',display:'flex',alignItems:'center',gap:'6px',boxShadow:'0 1px 3px rgba(0,0,0,0.15)',transition:'all 0.15s ease'}
-          : {border:'none',background:'transparent',color:'#5f6b7a',fontSize:'14px',fontWeight:'500',padding:'7px 16px',borderRadius:'6px',cursor:'pointer',display:'flex',alignItems:'center',gap:'6px',transition:'all 0.15s ease'}"
-        (click)="setView('calendar')">
-        <i class="fa fa-calendar" style="font-size:13px;" aria-hidden="true"></i>
-        Calendar
-      </button>
-    </div>
-
+<div style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; padding-top: 10px;">
+  <!-- Header row above the table/calendar card -->
+  <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
     <button mat-raised-button
-      style="background-color: rgb(130, 130, 130); color: white; display: inline-flex; align-items: center; gap: 6px;"
+      style="background-color: rgb(130, 130, 130); color: white; display: inline-flex; align-items: center; gap: 6px; height: 40px; border-radius: 6px; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);"
       (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
       Back
     </button>
   </div>
+
+  <!-- Main table/calendar card -->
+  <div style="background:#ffffff;border:1px solid #e3e6ea;border-radius:10px;padding:18px 20px;">
+
+    <!-- Top bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div style="display:flex;background:#f1f3f5;border-radius:8px;padding:3px;">
+        <button
+          type="button"
+          [ngStyle]="viewMode === 'grid'
+            ? {border:'none',background:'#14213d',color:'#ffffff',fontSize:'14px',fontWeight:'500',padding:'7px 16px',borderRadius:'6px',cursor:'pointer',display:'flex',alignItems:'center',gap:'6px',boxShadow:'0 1px 3px rgba(0,0,0,0.15)',transition:'all 0.15s ease'}
+            : {border:'none',background:'transparent',color:'#5f6b7a',fontSize:'14px',fontWeight:'500',padding:'7px 16px',borderRadius:'6px',cursor:'pointer',display:'flex',alignItems:'center',gap:'6px',transition:'all 0.15s ease'}"
+          (click)="setView('grid')">
+          <i class="fa fa-th-large" style="font-size:13px;" aria-hidden="true"></i>
+          Grid
+        </button>
+        <button
+          type="button"
+          [ngStyle]="viewMode === 'calendar'
+            ? {border:'none',background:'#14213d',color:'#ffffff',fontSize:'14px',fontWeight:'500',padding:'7px 16px',borderRadius:'6px',cursor:'pointer',display:'flex',alignItems:'center',gap:'6px',boxShadow:'0 1px 3px rgba(0,0,0,0.15)',transition:'all 0.15s ease'}
+            : {border:'none',background:'transparent',color:'#5f6b7a',fontSize:'14px',fontWeight:'500',padding:'7px 16px',borderRadius:'6px',cursor:'pointer',display:'flex',alignItems:'center',gap:'6px',transition:'all 0.15s ease'}"
+          (click)="setView('calendar')">
+          <i class="fa fa-calendar" style="font-size:13px;" aria-hidden="true"></i>
+          Calendar
+        </button>
+      </div>
+    </div>
 
   <!-- ============ GRID VIEW ============ -->
   <div *ngIf="viewMode === 'grid'" style="overflow-x:auto;">
@@ -268,9 +273,8 @@
           </div>
         </div>
 
-      </div>
-
     </div>
   </div>
 
+</div>
 </div>

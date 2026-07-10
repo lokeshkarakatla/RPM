@@ -1,49 +1,54 @@
 <div style="padding-top: 15px; padding-left: 20px; padding-right: 70px; box-sizing: border-box; width: 100%; max-width: 100%; overflow: hidden;">
   
-  <!-- Header Row with Title and Buttons -->
-  <div class="row align-items-center" style="margin-bottom: 20px; margin-left: 0; margin-right: 0; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-    <div style="padding-left: 0;">
-      <h1 style="font-weight: 600; color: #337ab7; margin: 0; font-size: 24px; font-family: 'Inter', sans-serif;">Item Inventory</h1>
-    </div>
+  <!-- Header Row with Buttons (Filter first, then Add) -->
+  <div class="row align-items-center" style="margin-bottom: 20px; margin-left: 0; margin-right: 0; display: flex !important; justify-content: flex-end !important; align-items: center !important; width: 100%;">
     <div style="padding-right: 0; display: flex; gap: 10px;">
-      <button mat-raised-button color="primary" class="add-item-btn" matTooltip="Add Item" (click)="openEditDialog(null)">
-        <mat-icon>add</mat-icon> Add Item
-      </button>
       <button mat-raised-button class="filter-toggle-btn" matTooltip="Filter" (click)="filterToggle = !filterToggle" style="background-color: black; color: white;">
         <mat-icon>filter_list</mat-icon> Filter
+      </button>
+      <button mat-raised-button color="primary" class="add-item-btn" matTooltip="Add Item" (click)="openEditDialog(null)">
+        <mat-icon>add</mat-icon> Add Item
       </button>
     </div>
   </div>
 
   <!-- Filter section -->
-  <div fxLayout="row wrap" *ngIf="filterToggle" style="margin-bottom: 15px; margin-left: 0; margin-right: 0; width: 100%;">
-    <div fxFlex="100" style="padding: 0; width: 100%;">
+  <div *ngIf="filterToggle" style="width: 100%; margin-bottom: 15px; margin-left: 0; margin-right: 0;">
+    <div fxFlex="100" class="flex-p w-100" style="padding: 0; width: 100%;">
       <form [formGroup]="filterForm">
         <mat-card class="filter" style="margin-bottom: 10px;">
           <mat-card-content style="padding: 15px 20px;">
-            <div class="row" style="display: flex; align-items: center; flex-wrap: wrap; gap: 15px;">
-              <div style="display: flex; align-items: center; gap: 10px; min-width: 250px;">
-                <span style="font-weight: 600; white-space: nowrap;">Keyword:</span>
-                <input type="text" formControlName="Keyword" class="form-control" placeholder="Search Item" style="height: 36px;">
+            <div class="row col-lg-12 col-sm-12" style="display: flex; align-items: center; flex-wrap: wrap;">
+              
+              <div class="col-sm-4 row me-2 mt-3" style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div class="col-sm-4"><b>Keyword:</b></div>
+                <div class="col-sm-8">
+                  <input type="text" formControlName="Keyword" class="form-control" placeholder="Search Item" style="height: 36px;">
+                </div>
               </div>
-              <div style="display: flex; align-items: center; gap: 10px; min-width: 250px;">
-                <span style="font-weight: 600; white-space: nowrap;">Status:</span>
-                <mat-select placeholder="Select Status" class="form-control" formControlName="Status" style="height: 36px; line-height: 24px; padding-top: 5px;">
-                  <mat-option [value]="true">Active</mat-option>
-                  <mat-option [value]="false">InActive</mat-option>
-                </mat-select>
+
+              <div class="col-sm-4 row me-2 mt-3" style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div class="col-sm-4"><b>Status:</b></div>
+                <div class="col-sm-8">
+                  <mat-select placeholder="Select Status" class="form-control" formControlName="Status" style="height: 36px; line-height: 24px; padding-top: 5px;">
+                    <mat-option [value]="true">Active</mat-option>
+                    <mat-option [value]="false">InActive</mat-option>
+                  </mat-select>
+                </div>
               </div>
-              <div style="margin-left: auto; display: flex; gap: 10px;">
-                <button mat-raised-button color="primary" (click)="getCategory()">
-                  <mat-icon>search</mat-icon>Search
+
+              <div class="col-sm-4 row me-2 mt-3" style="display: flex; align-items: center; justify-content: flex-end; margin-left: auto; margin-bottom: 10px;">
+                <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="getCategory()">
+                  <mat-icon style="vertical-align: middle; margin-right: 4px;">search</mat-icon> Search
                 </button>
-                <button mat-raised-button class="btn-default" (click)="filterForm.reset();formInit();getCategory();">
-                  <mat-icon>settings_backup_restore</mat-icon> Clear
+                <button mat-raised-button class="btn-default" style="margin-right: 10px;" (click)="filterForm.reset();formInit();getCategory();">
+                  <mat-icon style="vertical-align: middle; margin-right: 4px;">settings_backup_restore</mat-icon> Clear
                 </button>
-                <a (click)="filterToggle = !filterToggle" style="font-size: 25px; cursor: pointer; display: flex; align-items: center; padding-left: 5px;">
+                <a (click)="filterToggle = !filterToggle" style="font-size: 25px; cursor: pointer; display: flex; align-items: center; color: #333;" matTooltip="Close Filter">
                   <i class="fa fa-angle-double-up" aria-hidden="true"></i>
                 </a>
               </div>
+
             </div>
           </mat-card-content>
         </mat-card>
@@ -53,7 +58,7 @@
 
   <!-- Table Container with horizontal scrolling -->
   <div class="row" style="margin-left: 0; margin-right: 0; width: 100%;">
-    <div class="col-sm-12" style="padding: 0; width: 100%;">
+    <div class="col-sm-12" style="padding: 0; width: 100%; position: relative;">
       <div id="grid-table-container" class="table-responsive" style="display: block; width: 100%; overflow-x: auto; border: 1px solid #cbd5e1; border-radius: 8px;">
         <table matSort id="example2" class="table table-bordered table-hover" style="width: 100%; min-width: 980px; border-collapse: collapse; margin-bottom: 0;">
           <colgroup>
@@ -70,15 +75,15 @@
 
           <thead class="tbl-head">
             <tr>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Actions</th>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Status</th>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Item Name</th>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Item Code</th>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Item Category</th>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Item Sub Category</th>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Available Quantity</th>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Unit Rate</th>
-              <th class="text-center" style="background-color: #337ab7; color: white;">Description</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Actions</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Status</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Item Name</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Item Code</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Item Category</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Item Sub Category</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Available Quantity</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Unit Rate</th>
+              <th class="text-center" style="background-color: #333c48; color: white;">Description</th>
             </tr>
           </thead>
           <tbody>
@@ -112,6 +117,14 @@
           </tr>
         </table>
       </div>
+
+      <!-- Table Horizontal Scroll Movers -->
+      <button class="mine" mat-fab (click)="scrollRight()" style="position: absolute; right: 20px; bottom: 80px;">
+        <mat-icon style="color: #37474f">fast_forward</mat-icon>
+      </button>
+      <button class="mine" mat-fab (click)="scrollLeft()" style="position: absolute; right: 75px; bottom: 80px;">
+        <mat-icon style="color: #37474f">fast_rewind</mat-icon>
+      </button>
       <div class="table-footer" style="display: flex; justify-content: flex-end; align-items: center; padding: 10px 15px; border: 1px solid #cbd5e1; border-top: none; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; background: #f8fafc; width: 100%; box-sizing: border-box;">
         <mat-paginator style="width: 100% !important; display: block;" [length]="totalSize" [pageIndex]="currentPage" [pageSize]="pageSize"
           [pageSizeOptions]="[5, 10, 20, 50, 100]" (page)="fnHandlePage($event)" showFirstLastButtons>

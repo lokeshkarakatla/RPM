@@ -10,14 +10,14 @@
         </p>
       </div>
 
-      <div class="header-actions" >
+      <div class="header-actions">
+        <button mat-raised-button color="primary" class="add-btn" matTooltip="Add Asset" (click)="addAsset()">
+          <mat-icon>add</mat-icon> Add Asset
+        </button>
+
         <button mat-raised-button (click)="goBack()" class="back-btn" style="background-color: rgb(130, 130, 130); color: white">
           <mat-icon>arrow_back</mat-icon>
           Back
-        </button>
-
-        <button mat-raised-button color="primary" class="add-btn" matTooltip="Add Asset" (click)="addAsset()">
-          <mat-icon>add</mat-icon> Add Asset
         </button>
       </div>
     </div>

@@ -85,7 +85,7 @@ const routes: Routes = [
     path: 'item-master',
     component: ItemMasterComponent,
     data: {
-      breadcrumb: 'Item Master',
+      breadcrumb: 'Item Inventry',
       description: 'The list of items are managed here.'
     }
   },

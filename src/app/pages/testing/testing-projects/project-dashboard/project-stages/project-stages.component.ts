@@ -124,12 +124,14 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
 
   // Add / Edit Stage Modal states
   showStageModal = false;
+  stageModalStep = 1; // Track active step/tab in popup
   isEditStageMode = false;
   stageModalData: Partial<StageItem> = {};
   stageModalIndex = -1;
 
   // Add / Edit Task Modal states
   showTaskModal = false;
+  taskModalStep = 1; // Track active step/tab in task popup
   isEditTaskMode = false;
   taskModalData: Partial<Task> = {};
   taskModalIndex = -1;
@@ -274,6 +276,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
   }
 
   openAddStage() {
+    this.stageModalStep = 1;
     this.stageModalData = {
       stageCode: 'STG00' + (this.stages.length + 1),
       name: '',
@@ -299,6 +302,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
 
   openEditStage(item: StageItem, index: number) {
     const actualIndex = this.stages.findIndex(s => s === item);
+    this.stageModalStep = 1;
     this.stageModalData = { ...item };
     this.isEditStageMode = true;
     this.stageModalIndex = actualIndex >= 0 ? actualIndex : index;
@@ -374,6 +378,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
 
   // --- Task CRUD ---
   openAddTask() {
+    this.taskModalStep = 1;
     this.taskModalData = {
       task: '',
       taskCode: 'TC-' + (Math.floor(Math.random() * 900) + 100),
@@ -399,6 +404,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
   }
 
   openEditTask(task: Task, index: number) {
+    this.taskModalStep = 1;
     this.taskModalData = { ...task };
     this.isEditTaskMode = true;
     this.taskModalIndex = index;

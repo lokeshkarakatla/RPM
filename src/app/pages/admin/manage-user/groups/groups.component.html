@@ -1,142 +1,199 @@
-<div class="groups-container mt-5">
-  
-  <div class="groups-header">
-    <div class="header-titles">
-      <h1>Groups</h1>
-      <p>Manage groups and staff allocation</p>
+<div fxLayout="row wrap" style="padding: 15px 20px;">
+  <div class="flex-p w-100" style="padding: 0;">
+
+    <!-- Toolbar: Filter and Add Group Buttons -->
+    <div class="row" style="margin-bottom: 14px;">
+      <div class="col-sm-12 text-end" style="display: flex; justify-content: flex-end; gap: 10px; padding-right: 0;">
+        <button mat-raised-button style="background-color: black; color: white;" (click)="toggleFilter()">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">filter_list</mat-icon> Filter
+        </button>
+        <button mat-raised-button color="primary" (click)="openAddModal()">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">add</mat-icon> Add Group
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- Search & Toolbar -->
-  <div class="groups-toolbar">
-    <div class="search-input-wrapper">
-      <mat-icon class="search-icon">search</mat-icon>
-      <input type="text" class="search-input" [(ngModel)]="searchQuery" placeholder="Search groups..." />
-    </div>
+    <!-- Keyword Search Expandable Panel -->
+    <div fxLayout="row wrap" *ngIf="filterToggle" style="margin-bottom: 15px; width: 100%;">
+      <div fxFlex="100" class="flex-p w-100" style="padding: 0; width: 100%;">
+        <mat-card class="filter" style="margin-bottom: 10px;">
+          <mat-card-content style="padding: 15px 20px;">
+            <div class="row col-lg-12 col-sm-12" style="display: flex; align-items: center; flex-wrap: wrap;">
+              
+              <div class="col-sm-4 row me-2 mt-3" style="display: flex; align-items: center; margin-bottom: 10px;">
+                <div class="col-sm-4"><b>Keyword:</b></div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" [(ngModel)]="filterKeyword" placeholder="Search by Keyword" style="height: 36px;">
+                </div>
+              </div>
 
-    <button type="button" class="toolbar-btn toolbar-btn--filter" (click)="toggleFilter()">
-      <mat-icon>filter_list</mat-icon> Filter
-    </button>
+              <div class="col-sm-4 row me-2 mt-3" style="display: flex; align-items: center; justify-content: flex-end; margin-left: auto; margin-bottom: 10px;">
+                <button mat-raised-button class="btn-default" style="margin-right: 10px;" (click)="clearFilter()">
+                  <mat-icon style="vertical-align: middle; margin-right: 4px;">settings_backup_restore</mat-icon> Clear
+                </button>
+                <a (click)="toggleFilter()" style="font-size: 25px; cursor: pointer; display: flex; align-items: center; color: #333;" matTooltip="Close Filter">
+                  <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+                </a>
+              </div>
 
-    <button type="button" class="toolbar-btn toolbar-btn--add" (click)="openAddModal()">
-      <mat-icon>add</mat-icon> Add Group
-    </button>
-  </div>
-
-  <!-- Keyword Search Expandable Panel -->
-  <div class="filter-expanded-panel" *ngIf="filterToggle">
-    <span class="keyword-label">Keyword:</span>
-    <div class="keyword-input-wrapper">
-      <input type="text" class="keyword-input" [(ngModel)]="filterKeyword" placeholder="Search by Keyword" />
-    </div>
-    <button type="button" class="refresh-btn" (click)="clearFilter()" matTooltip="Clear Keyword">
-      <mat-icon>refresh</mat-icon>
-    </button>
-  </div>
-
-  <!-- Groups Table Panel -->
-  <div class="table-panel">
-    <table class="groups-table">
-      <thead>
-        <tr>
-          <th>Group Name</th>
-          <th class="text-center">Team</th>
-          <th>Status</th>
-          <th class="text-center">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let g of filteredGroupsList; let i = index">
-          <td class="group-name-cell">{{ g.name }}</td>
-          <td class="team-cell text-center">
-            <a class="team-link">{{ g.team }}</a>
-          </td>
-          <td class="status-cell">
-            <span class="status-active">{{ g.status }}</span>
-          </td>
-          <td class="actions-cell text-center">
-            <div class="action-buttons">
-              <i class="fa fa-pencil text-primary action-icon" (click)="openEditModal(g, i)" matTooltip="Edit Group"></i>
-              <i class="fa fa-trash text-danger action-icon" (click)="deleteGroup(i)" matTooltip="Delete Group"></i>
             </div>
-          </td>
-        </tr>
-        <tr *ngIf="filteredGroupsList.length === 0">
-          <td colspan="4" class="empty-row">No records found.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Pagination -->
-    <div class="groups-pagination">
-      <div class="items-per-page">
-        <span>Items per page:</span>
-        <select class="page-size-select">
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-        </select>
-      </div>
-      <div class="pagination-summary">
-        Showing 1 - {{ filteredGroupsList.length }} of {{ filteredGroupsList.length }}
-      </div>
-      <div class="pagination-controls">
-        <button type="button" class="pagination-btn" disabled>
-          <mat-icon>chevron_left</mat-icon>
-        </button>
-        <button type="button" class="pagination-btn" disabled>
-          <mat-icon>chevron_right</mat-icon>
-        </button>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
-  </div>
 
+    <!-- Groups Table -->
+    <div class="row" style="margin-left: 0; margin-right: 0; width: 100%;">
+      <div class="col-sm-12" style="padding: 0; width: 100%;">
+        <div id="grid-table-container" class="table-responsive" style="display: block; width: 100%; border: 1px solid #cbd5e1; border-radius: 8px;">
+          <table id="example2" class="table table-bordered table-hover" style="width: 100%; border-collapse: collapse; margin-bottom: 0;">
+            <thead class="tbl-head">
+              <tr>
+                <th style="background-color: #333c48; color: white;">Group Name</th>
+                <th class="text-center" style="background-color: #333c48; color: white; width: 150px;">Team</th>
+                <th style="background-color: #333c48; color: white; width: 150px;">Status</th>
+                <th class="text-center" style="background-color: #333c48; color: white; width: 120px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let g of filteredGroupsList; let i = index">
+                <td style="vertical-align: middle;">{{ g.name }}</td>
+                <td class="text-center" style="vertical-align: middle;">
+                  <a class="team-link" style="color: #1976d2; font-weight: bold; cursor: pointer;">{{ g.team }}</a>
+                </td>
+                <td style="vertical-align: middle;">
+                  <span style="color: green; font-weight: 500;">{{ g.status }}</span>
+                </td>
+                <td class="text-center" style="vertical-align: middle;">
+                  <div style="display: flex; gap: 15px; justify-content: center; align-items: center;">
+                    <a style="cursor: pointer;" matTooltip="Edit Group" (click)="openEditModal(g, i)">
+                      <i class="fa fa-edit" style="color: cornflowerblue; font-size: 16px;"></i>
+                    </a>
+                    <a style="cursor: pointer;" matTooltip="Delete Group" (click)="deleteGroup(i)">
+                      <i class="fa fa-trash text-danger" style="font-size: 16px;"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="filteredGroupsList.length === 0">
+                <td colspan="4" class="text-center" style="padding: 20px; color: #64748b; font-style: italic;">No records found.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Table Footer / Pagination -->
+        <div class="table-footer" style="display: flex; justify-content: flex-end; align-items: center; padding: 10px 15px; border: 1px solid #cbd5e1; border-top: none; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; background: #f8fafc; width: 100%; box-sizing: border-box;">
+          <div style="display: flex; gap: 15px; align-items: center; font-size: 13px; color: #64748b;">
+            <span>Items per page: 10</span>
+            <span>Showing 1 - {{ filteredGroupsList.length }} of {{ filteredGroupsList.length }}</span>
+            <div style="display: flex; gap: 5px;">
+              <button mat-icon-button disabled><mat-icon>chevron_left</mat-icon></button>
+              <button mat-icon-button disabled><mat-icon>chevron_right</mat-icon></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <!-- ============ ADD GROUP MODAL OVERLAY ============ -->
 <div class="bl-modal-overlay" *ngIf="showAddModal" (click)="closeAddModal()">
-  <div class="bl-modal" (click)="$event.stopPropagation()">
-    <h3>Add Group</h3>
+  <div class="bl-modal modal-wide" (click)="$event.stopPropagation()" style="max-width: 500px; display: flex; flex-direction: column;">
+    <!-- Header -->
+    <div class="NewHeader" style="flex-shrink: 0;">
+      <h3 style="padding-top:10px; margin: 0; color: white;">Add Group</h3>
+    </div>
     
-    <label class="modal-label">Group Name</label>
-    <input type="text" class="bl-modal__input" [(ngModel)]="newGroupName" placeholder="Enter group name" />
-    
-    <label class="modal-label">Team Members count</label>
-    <input type="number" class="bl-modal__input" [(ngModel)]="newGroupTeam" placeholder="0" />
-    
-    <label class="modal-label">Status</label>
-    <select class="bl-modal__select" [(ngModel)]="newGroupStatus">
-      <option value="Active">Active</option>
-      <option value="Inactive">Inactive</option>
-    </select>
+    <!-- Body -->
+    <div class="modal-body-scrollable" style="flex: 1; overflow-y: auto; padding: 20px;">
+      <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+        <div class="col-sm-4 text-end">
+          <label class="control-label" style="font-weight: 500; margin: 0;">Group Name * :</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="newGroupName" placeholder="Enter group name" style="height: 35px;" />
+        </div>
+      </div>
+      
+      <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+        <div class="col-sm-4 text-end">
+          <label class="control-label" style="font-weight: 500; margin: 0;">Team Members * :</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" [(ngModel)]="newGroupTeam" placeholder="0" style="height: 35px;" />
+        </div>
+      </div>
 
-    <div class="bl-modal__actions">
-      <button class="bl-btn bl-btn--cancel" (click)="closeAddModal()">Cancel</button>
-      <button class="bl-btn bl-btn--create" (click)="saveNewGroup()">Create</button>
+      <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+        <div class="col-sm-4 text-end">
+          <label class="control-label" style="font-weight: 500; margin: 0;">Status * :</label>
+        </div>
+        <div class="col-sm-8">
+          <mat-select placeholder="Select Status" class="form-control" [(ngModel)]="newGroupStatus" style="height: 35px; line-height: 24px; padding-top: 5px;">
+            <mat-option value="Active">Active</mat-option>
+            <mat-option value="Inactive">Inactive</mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="bl-modal__actions" style="flex-shrink: 0; padding: 15px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 10px;">
+      <button mat-raised-button class="btn-default" (click)="closeAddModal()" style="background-color: lightgray; color: red;">Cancel</button>
+      <button mat-raised-button color="primary" (click)="saveNewGroup()">Create</button>
     </div>
   </div>
 </div>
 
 <!-- ============ EDIT GROUP MODAL OVERLAY ============ -->
 <div class="bl-modal-overlay" *ngIf="showEditModal" (click)="closeEditModal()">
-  <div class="bl-modal" (click)="$event.stopPropagation()" *ngIf="editingGroup">
-    <h3>Edit Group</h3>
+  <div class="bl-modal modal-wide" (click)="$event.stopPropagation()" *ngIf="editingGroup" style="max-width: 500px; display: flex; flex-direction: column;">
+    <!-- Header -->
+    <div class="NewHeader" style="flex-shrink: 0;">
+      <h3 style="padding-top:10px; margin: 0; color: white;">Edit Group</h3>
+    </div>
     
-    <label class="modal-label">Group Name</label>
-    <input type="text" class="bl-modal__input" [(ngModel)]="editingGroup.name" placeholder="Enter group name" />
-    
-    <label class="modal-label">Team Members count</label>
-    <input type="number" class="bl-modal__input" [(ngModel)]="editingGroup.team" placeholder="0" />
-    
-    <label class="modal-label">Status</label>
-    <select class="bl-modal__select" [(ngModel)]="editingGroup.status">
-      <option value="Active">Active</option>
-      <option value="Inactive">Inactive</option>
-    </select>
+    <!-- Body -->
+    <div class="modal-body-scrollable" style="flex: 1; overflow-y: auto; padding: 20px;">
+      <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+        <div class="col-sm-4 text-end">
+          <label class="control-label" style="font-weight: 500; margin: 0;">Group Name * :</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="editingGroup.name" placeholder="Enter group name" style="height: 35px;" />
+        </div>
+      </div>
+      
+      <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+        <div class="col-sm-4 text-end">
+          <label class="control-label" style="font-weight: 500; margin: 0;">Team Members * :</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" [(ngModel)]="editingGroup.team" placeholder="0" style="height: 35px;" />
+        </div>
+      </div>
 
-    <div class="bl-modal__actions">
-      <button class="bl-btn bl-btn--cancel" (click)="closeEditModal()">Cancel</button>
-      <button class="bl-btn bl-btn--create" (click)="updateGroup()">Save</button>
+      <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+        <div class="col-sm-4 text-end">
+          <label class="control-label" style="font-weight: 500; margin: 0;">Status * :</label>
+        </div>
+        <div class="col-sm-8">
+          <mat-select placeholder="Select Status" class="form-control" [(ngModel)]="editingGroup.status" style="height: 35px; line-height: 24px; padding-top: 5px;">
+            <mat-option value="Active">Active</mat-option>
+            <mat-option value="Inactive">Inactive</mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="bl-modal__actions" style="flex-shrink: 0; padding: 15px; border-top: 1px solid #e5e7eb; display: flex; justify-content: flex-end; gap: 10px;">
+      <button mat-raised-button class="btn-default" (click)="closeEditModal()" style="background-color: lightgray; color: red;">Cancel</button>
+      <button mat-raised-button color="primary" (click)="updateGroup()">Save</button>
     </div>
   </div>
 </div>

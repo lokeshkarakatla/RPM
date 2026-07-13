@@ -316,7 +316,7 @@ export class ProjectAnalyticsComponent implements OnInit {
       series: [
         {
           type: 'column',
-          name: 'Buffer Used',
+          name: 'Buffer',
           data: this.bufferSprintData.map((d, idx) => ({
             y: d.bufferUsed,
             stage: d.stage,
@@ -325,7 +325,7 @@ export class ProjectAnalyticsComponent implements OnInit {
         },
         {
           type: 'line',
-          name: 'Average Threshold (y=x)',
+          name: 'Cumulative Completion ',
           data: this.bufferSprintData.map(d => d.sprint),
           color: '#3b82f6',
           dashStyle: 'Dash',
@@ -336,6 +336,25 @@ export class ProjectAnalyticsComponent implements OnInit {
       ]
     };
 
+    this.bufferStageChartOptions = {
+      chart: { type: 'column', backgroundColor: 'transparent' },
+      xAxis: { categories: this.gateHeaders.map(g => g.label) },
+      series: [
+        {
+          type: 'column',
+          name: 'Buffer Variance',
+          data: this.gateHeaders.map(g => {
+            const variance = Math.round(Math.random() * 10 - 3);
+            return {
+              y: variance,
+              stageKey: g.key,
+              // Dynamic color: green for positive, red for negative
+              color: variance >= 0 ? '#10b981' : '#ef4444'
+            };
+          })
+        }
+      ]
+    };
     this.updateFlag = true;
   }
 

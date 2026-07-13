@@ -109,38 +109,38 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
-    xAxis: { 
-      title: { text: '% completion' }, 
-      categories: this.bufferSprintData.map(d => 'S' + d.sprint) 
+    xAxis: {
+      title: { text: '% completion' },
+      categories: this.bufferSprintData.map(d => 'S' + d.sprint)
     },
-    yAxis: { 
-      title: { text: 'Buffer Time Used' }, 
-      min: 0 
+    yAxis: {
+      title: { text: 'Buffer Time Used' },
+      min: 0
     },
     tooltip: { shared: false, useHTML: true },
-    plotOptions: { 
-      column: { 
-        dataLabels: { enabled: true } 
-      } 
+    plotOptions: {
+      column: {
+        dataLabels: { enabled: true }
+      }
     },
     series: [
-      { 
-        type: 'column', 
-        name: 'Buffer Used', 
-        data: this.bufferSprintData.map((d, idx) => ({ 
-          y: d.bufferUsed, 
+      {
+        type: 'column',
+        name: 'Buffer Used',
+        data: this.bufferSprintData.map((d, idx) => ({
+          y: d.bufferUsed,
           stage: d.stage,
           // Alternating colors: green for even indices, pink for odd
           color: idx % 2 === 0 ? '#10b981' : '#DC3545'
         }))
       },
-      { 
-        type: 'line', 
-        name: 'Average Threshold (y=x)', 
-        data: this.bufferSprintData.map(d => d.sprint), 
-        color: '#3b82f6', 
-        dashStyle: 'Dash', 
-        marker: { enabled: false } 
+      {
+        type: 'line',
+        name: 'Average Threshold (y=x)',
+        data: this.bufferSprintData.map(d => d.sprint),
+        color: '#3b82f6',
+        dashStyle: 'Dash',
+        marker: { enabled: false }
       }
     ]
   };
@@ -200,9 +200,9 @@ export class ProjectAnalyticsComponent implements OnInit {
     yAxis: { title: { text: 'Variance (%)' } },
     plotOptions: { column: { dataLabels: { enabled: true, format: '{point.y}%' } } },
     series: [
-      { 
-        type: 'column', 
-        name: 'Buffer Variance', 
+      {
+        type: 'column',
+        name: 'Buffer Variance',
         data: this.gateHeaders.map(g => {
           const variance = Math.round(Math.random() * 10 - 3);
           return {
@@ -260,18 +260,18 @@ export class ProjectAnalyticsComponent implements OnInit {
       chart: { type: 'column', backgroundColor: 'transparent' },
       xAxis: { categories: this.bufferSprintData.map(d => 'S' + d.sprint) },
       series: [
-        { 
-          type: 'column', 
-          name: 'Buffer Used', 
-          data: this.bufferSprintData.map((d, idx) => ({ 
-            y: d.bufferUsed, 
+        {
+          type: 'column',
+          name: 'Buffer',
+          data: this.bufferSprintData.map((d, idx) => ({
+            y: d.bufferUsed,
             stage: d.stage,
             color: idx % 2 === 0 ? '#10b981' : '#DC3545'
-          })) 
+          }))
         },
-        { 
-          type: 'line', 
-          name: 'Average Threshold (y=x)', 
+        {
+          type: 'line',
+          name: 'Cumulative Completion ',
           data: this.bufferSprintData.map(d => d.sprint),
           color: '#3b82f6',
           dashStyle: 'Dash',
@@ -284,9 +284,9 @@ export class ProjectAnalyticsComponent implements OnInit {
       chart: { type: 'column', backgroundColor: 'transparent' },
       xAxis: { categories: this.gateHeaders.map(g => g.label) },
       series: [
-        { 
-          type: 'column', 
-          name: 'Buffer Variance', 
+        {
+          type: 'column',
+          name: 'Buffer Variance',
           data: this.gateHeaders.map(g => {
             const variance = Math.round(Math.random() * 10 - 3);
             return {

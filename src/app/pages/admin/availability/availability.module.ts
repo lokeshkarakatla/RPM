@@ -25,18 +25,18 @@ const routes: Routes = [
     { path: 'timings', component: TimingsComponent, data: { breadcrumb: 'Timings', description: 'Manage availability timings' } },
     { path: 'holidays', component: HolidaysComponent, data: { breadcrumb: 'Holidays', description: 'Manage holidays' } },
     { path: 'paid-leaves', component: PaidLeavesComponent, data: { breadcrumb: 'Paid Leaves', description: 'Manage paid leaves' } },
-    { path: 'exemptions', component: ExemptionsComponent, data: { breadcrumb: 'Exemptions', description: 'Manage exemptions' } },
+    { path: 'exceptions', component: ExemptionsComponent, data: { breadcrumb: 'Exceptions', description: 'Manage exceptions' } },
 ]
 
 @NgModule({
     declarations: [
 
-    
-    TimingsComponent,
-           HolidaysComponent,
-           PaidLeavesComponent,
-           ExemptionsComponent
-  ],
+
+        TimingsComponent,
+        HolidaysComponent,
+        PaidLeavesComponent,
+        ExemptionsComponent
+    ],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

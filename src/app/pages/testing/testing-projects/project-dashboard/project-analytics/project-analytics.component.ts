@@ -109,38 +109,38 @@ export class ProjectAnalyticsComponent implements OnInit {
     chart: { type: 'column', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
-    xAxis: { 
-      title: { text: '% completion' }, 
-      categories: this.bufferSprintData.map(d => 'S' + d.sprint) 
+    xAxis: {
+      title: { text: '% completion' },
+      categories: this.bufferSprintData.map(d => 'S' + d.sprint)
     },
-    yAxis: { 
-      title: { text: 'Buffer Time Used' }, 
-      min: 0 
+    yAxis: {
+      title: { text: 'Buffer Time Used' },
+      min: 0
     },
     tooltip: { shared: false, useHTML: true },
-    plotOptions: { 
-      column: { 
-        dataLabels: { enabled: true } 
-      } 
+    plotOptions: {
+      column: {
+        dataLabels: { enabled: true }
+      }
     },
     series: [
-      { 
-        type: 'column', 
-        name: 'Buffer Used', 
-        data: this.bufferSprintData.map((d, idx) => ({ 
-          y: d.bufferUsed, 
+      {
+        type: 'column',
+        name: 'Buffer Used',
+        data: this.bufferSprintData.map((d, idx) => ({
+          y: d.bufferUsed,
           stage: d.stage,
           // Alternating colors: green for even indices, pink for odd
           color: idx % 2 === 0 ? '#10b981' : '#DC3545'
         }))
       },
-      { 
-        type: 'line', 
-        name: 'Average Threshold (y=x)', 
-        data: this.bufferSprintData.map(d => d.sprint), 
-        color: '#3b82f6', 
-        dashStyle: 'Dash', 
-        marker: { enabled: false } 
+      {
+        type: 'line',
+        name: 'Average Threshold (y=x)',
+        data: this.bufferSprintData.map(d => d.sprint),
+        color: '#3b82f6',
+        dashStyle: 'Dash',
+        marker: { enabled: false }
       }
     ]
   };
@@ -193,31 +193,46 @@ export class ProjectAnalyticsComponent implements OnInit {
 
   // UPDATED: Buffer Stage Chart with dynamic coloring (green for positive, red for negative)
   bufferStageChartOptions: Highcharts.Options = {
-    chart: { type: 'column', backgroundColor: 'transparent' },
-    title: { text: '' },
-    credits: { enabled: false },
-    xAxis: { categories: this.gateHeaders.map(g => g.label) },
-    yAxis: { title: { text: 'Variance (%)' } },
-    plotOptions: { column: { dataLabels: { enabled: true, format: '{point.y}%' } } },
+    chart: {
+      type: 'column',
+      backgroundColor: 'transparent'
+    },
+    title: {
+      text: ''
+    },
+    credits: {
+      enabled: false
+    },
+    xAxis: {
+      categories: this.gateHeaders.map(g => g.label)
+    },
+    yAxis: {
+      title: {
+        text: 'Variance (%)'
+      }
+    },
+    plotOptions: {
+      column: {
+        dataLabels: {
+          enabled: true,
+          format: '{point.y}%'
+        }
+      }
+    },
     series: [
-      { 
-        type: 'column', 
-        name: 'Buffer Variance', 
-        data: this.gateHeaders.map(g => {
-          const variance = Math.round(Math.random() * 10 - 3);
-          return {
-            y: variance,
-            avgActual: 2.5,
-            expected: 2,
-            stageKey: g.key,
-            // Dynamic color: green for positive, red for negative
-            color: variance >= 0 ? '#10b981' : '#ef4444'
-          };
-        })
+      {
+        type: 'column',
+        name: 'Buffer Variance',
+        data: [
+          { y: 2, color: '#10b981' },   // Gate 1
+          { y: -1, color: '#ef4444' },  // Gate 2
+          { y: 5, color: '#10b981' },   // Gate 3
+          { y: 3, color: '#10b981' },   // Gate 4
+          { y: -2, color: '#ef4444' }   // Gate 5
+        ]
       }
     ]
   };
-
   // 5. Stacked Bar Chart (Factory Expenses)
   expensesChartOptions: Highcharts.Options = {
     chart: { type: 'column', backgroundColor: 'transparent' },
@@ -256,49 +271,72 @@ export class ProjectAnalyticsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.bufferBarChartOptions = {
-      chart: { type: 'column', backgroundColor: 'transparent' },
-      xAxis: { categories: this.bufferSprintData.map(d => 'S' + d.sprint) },
+      chart: {
+        type: 'column',
+        backgroundColor: 'transparent'
+      },
+
+      title: {
+        text: ''
+      },
+
+      credits: {
+        enabled: false
+      },
+
+      xAxis: {
+        categories: this.bufferSprintData.map(d => 'S' + d.sprint),
+        title: {
+          text: '% completion'
+        }
+      },
+
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Buffer Time Used'
+        }
+      },
+
+      tooltip: {
+        shared: false,
+        useHTML: true
+      },
+
+      plotOptions: {
+        column: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+
       series: [
-        { 
-          type: 'column', 
-          name: 'Buffer Used', 
-          data: this.bufferSprintData.map((d, idx) => ({ 
-            y: d.bufferUsed, 
+        {
+          type: 'column',
+          name: 'Buffer Used',
+          data: this.bufferSprintData.map((d, idx) => ({
+            y: d.bufferUsed,
             stage: d.stage,
             color: idx % 2 === 0 ? '#10b981' : '#DC3545'
-          })) 
+          }))
         },
-        { 
-          type: 'line', 
-          name: 'Average Threshold (y=x)', 
+        {
+          type: 'line',
+          name: 'Average Threshold (y=x)',
           data: this.bufferSprintData.map(d => d.sprint),
           color: '#3b82f6',
           dashStyle: 'Dash',
-          marker: { enabled: false }
+          marker: {
+            enabled: false
+          }
         }
       ]
     };
 
-    this.bufferStageChartOptions = {
-      chart: { type: 'column', backgroundColor: 'transparent' },
-      xAxis: { categories: this.gateHeaders.map(g => g.label) },
-      series: [
-        { 
-          type: 'column', 
-          name: 'Buffer Variance', 
-          data: this.gateHeaders.map(g => {
-            const variance = Math.round(Math.random() * 10 - 3);
-            return {
-              y: variance,
-              stageKey: g.key,
-              // Dynamic color: green for positive, red for negative
-              color: variance >= 0 ? '#10b981' : '#ef4444'
-            };
-          })
-        }
-      ]
-    };
+    this.updateFlag = true;
   }
 
   setTimeframe(frame: string): void {

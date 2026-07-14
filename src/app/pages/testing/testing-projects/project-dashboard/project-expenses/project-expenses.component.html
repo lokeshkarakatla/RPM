@@ -92,9 +92,9 @@
 
               <!-- Messages clickable number -->
               <td class="text-center" style="vertical-align: middle;">
-                <span class="message-count-badge" (click)="openMessagesDialog(expense)">
+                <a class="tdLink" style="text-decoration: underline;" (click)="openMessagesDialog(expense)">
                   {{ expense.messages?.length || 0 }}
-                </span>
+                </a>
               </td>
 
               <!-- PDF: eye (view) + download icons -->

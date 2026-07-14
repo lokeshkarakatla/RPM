@@ -229,7 +229,7 @@ export class ProjectExpensesComponent implements OnInit {
 
   addExpense(): void {
     let dialogRef = this.dialog.open(AddExpensePopComponent, {
-      width: '750px',
+      width: '950px',
       height: 'auto',
       data: null
     });
@@ -270,7 +270,7 @@ export class ProjectExpensesComponent implements OnInit {
 
   editExpense(expense: Expense): void {
     let dialogRef = this.dialog.open(AddExpensePopComponent, {
-      width: '750px',
+      width: '950px',
       height: 'auto',
       data: expense
     });
@@ -298,6 +298,7 @@ export class ProjectExpensesComponent implements OnInit {
         expense.amount = result.amount;
         expense.submittedDate = result.submittedDate;
         expense.approvedDate = result.approvedDate;
+        expense.date = new Date(result.submittedDate || new Date()).getDate();
 
         expense.stageClass = this.getStageClass(result.stage);
         expense.approved = result.stage === 'Approved' || result.stage === 'Paid';

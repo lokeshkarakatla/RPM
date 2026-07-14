@@ -1,0 +1,177 @@
+.control-label {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.form-control {
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 13px;
+  box-sizing: border-box;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  width: 100%;
+  outline: none;
+  background-color: #ffffff;
+  
+  &:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+  }
+}
+
+.back {
+  background-color: #fefec4 !important; /* Light yellow background */
+}
+
+/* Badge styles matching existing design */
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-block;
+
+  &.stage-review {
+    background: #eff6ff;
+    color: #2563eb;
+  }
+
+  &.stage-approved {
+    background: #dcfce7;
+    color: #16a34a;
+  }
+
+  &.stage-paid {
+    background: #374151;
+    color: white;
+  }
+
+  &.stage-declined {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+}
+
+/* Grid headers matching main theme */
+.tbl-head {
+  background-color: #3f3f3f !important;
+
+  th {
+    background-color: #3f3f3f !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    text-transform: none !important;
+    border-color: #cbd5e1 !important;
+    padding: 10px 12px !important;
+  }
+}
+
+.table {
+  border-color: #cbd5e1 !important;
+  
+  td {
+    border-color: #cbd5e1 !important;
+    font-size: 13px;
+    padding: 10px 12px !important;
+  }
+}
+
+/* Middle button styling for allocation transfer */
+.allocation-actions-col button {
+  font-weight: 600 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+  
+  &:disabled {
+    background-color: #f1f5f9 !important;
+    color: #94a3b8 !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+  }
+}
+
+/* Panel Headers for Available and Allocated panels */
+.panel-header {
+  border-bottom: 1px solid #cbd5e1;
+}
+
+/* Scrollbar tweaks for panel body */
+.panel-body {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+/* Weekday Kanban Column calendar layout styling */
+.calendar-kanban-row {
+  margin-top: 10px;
+  
+  .day-column {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    
+    &:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  .day-header {
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .day-cards-list {
+    min-height: 200px;
+    background-color: #f8fafc;
+    
+    /* Scrollbar tweaks for card lists */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 2px;
+    }
+  }
+}
+
+/* Toggle buttons custom styling */
+.toggle-btn-group button {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  border-radius: 0 !important;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+/* Show Weekend Button styling */
+.weekend-btn {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}

@@ -44,6 +44,8 @@ import { AddStagePopComponent } from './rpm-stages/add-stage-pop/add-stage-pop.c
 import { ProcedurePopComponent } from './rpm-stages/rpm-stages-wbs/procedure-pop/procedure-pop.component';
 import { de } from 'date-fns/locale';
 import { EditTodoDialogComponent } from './rpm-todo/edit-todo-dialog/edit-todo-dialog.component';
+import { RpmResourcesComponent } from './rpm-resources/rpm-resources.component';
+import { AddResourcePopComponent } from './rpm-resources/add-resource-pop/add-resource-pop.component';
 
 const routes: Routes = [
     { path: "", redirectTo: "test-dashboard", pathMatch: "full" },
@@ -76,6 +78,8 @@ const routes: Routes = [
     { path: 'testing-kanban', component: TestingKanbanComponent, data: { breadcrumb: 'Kanban' } },
     { path: 'todo', component: RpmTodoComponent, 
         data: { breadcrumb: 'To do', description: 'The list of todo items are managed here.' } },
+    { path: 'resources', component: RpmResourcesComponent, 
+        data: { breadcrumb: 'Resources', description: 'Manage resource scheduling and allocation here.' } },
     {
         path: "gates",
         component: GatesComponent,
@@ -117,6 +121,8 @@ const routes: Routes = [
         AddStagePopComponent,
         ProcedurePopComponent,
         EditTodoDialogComponent,
+        RpmResourcesComponent,
+        AddResourcePopComponent,
     ],
     imports: [
         CommonModule,

@@ -1,1 +1,185 @@
-/* Component styles */
+.NewHeader {
+    background: #286ba5 !important;
+    /* Center-aligned blue header to match img2 */
+    color: white !important;
+    text-align: center !important;
+    padding: 13px !important;
+    border-bottom: 2px solid #1c5280;
+
+    h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 500;
+        color: white;
+    }
+}
+
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.dialog-content {
+    padding: 20px 25px;
+    overflow: hidden;
+    /* Remove scroll completely */
+    background-color: white;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.expense-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+    /* Stretch both columns to equal height */
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    /* Control gap via margin-bottom on rows */
+}
+
+.column-right {
+    height: 100%;
+}
+
+.form-row {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.label-col {
+    display: flex;
+    align-items: center;
+}
+
+.control-label {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333333;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.required {
+    color: red;
+    margin-left: 2px;
+}
+
+.form-control {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 13px;
+    box-sizing: border-box;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+    }
+
+    &::placeholder {
+        color: #9ca3af;
+    }
+}
+
+.back {
+    background-color: #fefec4 !important;
+    /* Light yellow background */
+}
+
+select.form-control {
+    padding-right: 28px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 14px;
+}
+
+/* Description field stretches to align bottom with the left side column */
+.desc-row {
+    flex-grow: 1;
+    display: flex;
+    align-items: stretch !important;
+    margin-bottom: 0 !important;
+    /* Last element on the right */
+
+    .label-col {
+        align-items: flex-start;
+        padding-top: 6px;
+    }
+
+    .input-col {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .desc-textarea {
+        flex-grow: 1;
+        height: 100% !important;
+        min-height: 50px;
+        resize: none;
+        padding: 6px 10px;
+        line-height: 1.4;
+    }
+}
+
+.footer-actions {
+    padding: 12px 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background-color: white;
+    margin: 0 !important;
+}
+
+.close-btn {
+    background: lightgray !important;
+    color: red !important;
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px !important;
+}
+
+.save-btn {
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px !important;
+}
+
+/* Chrome autofill overrides */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #fefec4 inset !important;
+    -webkit-text-fill-color: #1f2937 !important;
+}
+
+@media (max-width: 900px) {
+    .expense-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}

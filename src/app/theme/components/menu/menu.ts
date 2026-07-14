@@ -175,6 +175,9 @@ export const horizontalMenuItems = [
   // ✅ ADDED: 7. To Do as Top-Level
   new Menu(7, "To Do", "/app/testing/todo", null, "checklist", null, false, 0),
 
+  // ✅ ADDED: 8. Resources as Top-Level
+  new Menu(8, "Resources", "/app/testing/resources", null, "people", null, false, 0),
+
   // 4. Admin
   new Menu(4, "Admin", "/app/admin", null, "supervisor_account", null, true, 0),
   new Menu(

@@ -86,7 +86,7 @@ export class ProjectOverviewComponent implements OnInit {
           y: 0,
           start: Date.UTC(2026, 3, 15),
           milestone: true,
-          color: '#ef4444', // Red Gate
+          color: 'blue', // Red Gate
           marker: { symbol: 'diamond', radius: 6 }
         },
 
@@ -103,7 +103,7 @@ export class ProjectOverviewComponent implements OnInit {
           y: 1,
           start: Date.UTC(2026, 7, 15),
           milestone: true,
-          color: '#ef4444',
+          color: '#000000',
           marker: { symbol: 'diamond', radius: 6 }
         },
 
@@ -119,7 +119,7 @@ export class ProjectOverviewComponent implements OnInit {
           y: 2,
           start: Date.UTC(2026, 10, 20),
           milestone: true,
-          color: '#ef4444',
+          color: '#A9A9A9',
           marker: { symbol: 'diamond', radius: 6 }
         },
 
@@ -135,7 +135,7 @@ export class ProjectOverviewComponent implements OnInit {
           y: 3,
           start: Date.UTC(2027, 2, 25),
           milestone: true,
-          color: '#ef4444',
+          color: '#A9A9A9',
           marker: { symbol: 'diamond', radius: 6 }
         },
 
@@ -151,7 +151,7 @@ export class ProjectOverviewComponent implements OnInit {
           y: 4,
           start: Date.UTC(2027, 6, 15),
           milestone: true,
-          color: '#ef4444',
+          color: '#A9A9A9',
           marker: { symbol: 'diamond', radius: 6 }
         }
       ]

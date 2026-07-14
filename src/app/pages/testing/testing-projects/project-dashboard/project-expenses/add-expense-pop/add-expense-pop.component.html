@@ -1,106 +1,189 @@
 <div class="NewHeader">
-    <h3 style="padding-top:10px; color: white; text-align: center;">{{ isEditMode ? 'Edit Expense' : 'Add Expense' }}</h3>
+    <h1 mat-dialog-title style="color: white; margin: 0; font-size: 20px; font-weight: 500; text-align: center;">
+        {{ isEditMode ? 'Edit Expense' : 'Add Expense' }}
+    </h1>
 </div>
 
-<div>
-    <div fxLayout="row wrap" class="col-sm-12">
-        <div class="col-sm-12" style="margin-top: 20px; padding-left: 20px; padding-right: 20px;">
-            <form #expenseForm="ngForm">
-                <div>
-                    <!-- Employee Name -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Name:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="name" [(ngModel)]="name" style="height:35px;" class="form-control back" placeholder="Enter Employee Name" required>
-                        </div>
-                    </div>
-
-                    <!-- Subject -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Subject:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="subject" [(ngModel)]="subject" style="height:35px;" class="form-control back" placeholder="Enter Subject" required>
-                        </div>
-                    </div>
-
-                    <!-- Amount -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Amount:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="amount" [(ngModel)]="amount" style="height:35px;" class="form-control back" placeholder="Enter Amount" required>
-                        </div>
-                    </div>
-
-                    <!-- Approved By -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Approved By:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="approvedBy" [(ngModel)]="approvedBy" style="height:35px;" class="form-control back" placeholder="Enter Approver Name">
-                        </div>
-                    </div>
-
-                    <!-- Module -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Module:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="module" [(ngModel)]="module" style="height:35px;" class="form-control back" placeholder="Enter Module">
-                        </div>
-                    </div>
-
-                    <!-- Task -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Task:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="task" [(ngModel)]="task" style="height:35px;" class="form-control back" placeholder="Enter Task">
-                        </div>
-                    </div>
-
-                    <!-- Stage -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Stage:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <mat-select name="stage" [(ngModel)]="stage" class="form-control" placeholder="Select Stage" required>
-                                <mat-option *ngFor="let st of stages" [value]="st">{{ st }}</mat-option>
-                            </mat-select>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Description:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <textarea name="description" [(ngModel)]="description" class="form-control back" rows="3" placeholder="Enter Description" style="resize: vertical;"></textarea>
-                        </div>
-                    </div>
-
+<div mat-dialog-content style="padding: 15px 20px 5px;">
+    <div class="col-sm-12">
+        <form #expenseForm="ngForm">
+            <!-- Submitted By -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Submitted
+                        By :</label>
                 </div>
-            </form>
+                <div class="col-sm-9">
+                    <input type="text" name="submittedBy" [(ngModel)]="submittedBy" class="form-control"
+                        placeholder="Enter Submitter Name" required
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px;">
+                </div>
+            </div>
 
-            <mat-dialog-actions align="end" style="margin-top: 15px; padding-bottom: 15px;">
-                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
-                    <mat-icon>cancel</mat-icon> Close
-                </button>
-                <button mat-raised-button type="button" class="save" color="primary" (click)="save()" [disabled]="!expenseForm.valid">
-                    <mat-icon>save</mat-icon> Save
-                </button>
-            </mat-dialog-actions>
-            
-        </div>
+            <!-- Subject -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Subject
+                        :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" name="subject" [(ngModel)]="subject" class="form-control"
+                        placeholder="Enter Subject" required
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px;">
+                </div>
+            </div>
+
+            <!-- Amount -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Amount
+                        :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" name="amount" [(ngModel)]="amount" class="form-control"
+                        placeholder="Enter Amount" required
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px;">
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: flex-start;">
+                <div class="col-sm-3" style="padding-top: 8px;">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Description
+                        :</label>
+                </div>
+                <div class="col-sm-9">
+                    <textarea name="description" [(ngModel)]="description" class="form-control" rows="2"
+                        placeholder="Enter Description"
+                        style="width: 100%; border-radius: 4px; border: 1px solid #cbd5e1; padding: 8px 10px; font-size: 13px; resize: vertical;"></textarea>
+                </div>
+            </div>
+
+            <!-- Stage -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Stage
+                        :</label>
+                </div>
+                <div class="col-sm-9">
+                    <mat-select name="stage" [(ngModel)]="stage" class="form-control" placeholder="Select Stage"
+                        required
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; font-size: 13px; box-sizing: border-box;">
+                        <mat-option *ngFor="let st of stages" [value]="st">{{ st }}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+            <!-- Module -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Module
+                        :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" name="module" [(ngModel)]="module" class="form-control"
+                        placeholder="Enter Module"
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px;">
+                </div>
+            </div>
+
+            <!-- Task -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Task
+                        :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" name="task" [(ngModel)]="task" class="form-control" placeholder="Enter Task"
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px;">
+                </div>
+            </div>
+
+            <!-- Submitted Date -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Submitted
+                        Date :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="date" name="submittedDate" [(ngModel)]="submittedDate" class="form-control"
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px; cursor: pointer;">
+                </div>
+            </div>
+
+            <!-- Approved By -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Approved By
+                        :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" name="approvedBy" [(ngModel)]="approvedBy" class="form-control"
+                        placeholder="Enter Approved By Name"
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px;">
+                </div>
+            </div>
+
+            <!-- Approved Date -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">Approved
+                        Date :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="date" name="approvedDate" [(ngModel)]="approvedDate" class="form-control"
+                        style="width: 100%; height: 38px; border-radius: 4px; border: 1px solid #cbd5e1; padding: 0 10px; font-size: 13px; cursor: pointer;">
+                </div>
+            </div>
+
+            <!-- PDF Upload / Update -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="control-label" style="font-weight: 600; color: #374151; margin-bottom: 0;">PDF
+                        :</label>
+                </div>
+                <div class="col-sm-9">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <input type="file" #pdfInput accept="application/pdf" style="display: none;"
+                            (change)="onPdfSelected($event)">
+
+                        <button type="button" mat-raised-button (click)="pdfInput.click()" style="height: 38px;">
+                            <mat-icon>upload_file</mat-icon>
+                            {{ pdfFileName ? 'Replace PDF' : 'Upload PDF' }}
+                        </button>
+
+                        <span *ngIf="pdfFileName" style="font-size: 13px; color: #374151; word-break: break-all;">
+                            {{ pdfFileName }}
+                        </span>
+
+                        <a *ngIf="existingPdfUrl && !pdfFile"
+                            style="cursor: pointer; color: #1a73e8; display: flex; align-items: center;"
+                            matTooltip="View current PDF" (click)="viewExistingPdf()">
+                            <mat-icon style="font-size: 18px; height: 18px; width: 18px;">visibility</mat-icon>
+                        </a>
+
+                        <a *ngIf="pdfFileName"
+                            style="cursor: pointer; color: #d32f2f; display: flex; align-items: center;"
+                            matTooltip="Remove PDF" (click)="removePdf()">
+                            <mat-icon style="font-size: 18px; height: 18px; width: 18px;">close</mat-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Action buttons -->
+            <div style="margin-bottom: 10px; margin-top: 20px; width: 100%; display: inline-block;">
+                <div class="pull-right">
+                    <button mat-raised-button class="me-3" (click)="close()"
+                        style="background-color: lightgray; color: red; height: 38px;">
+                        <mat-icon>cancel</mat-icon> Close
+                    </button>
+                    <button mat-raised-button type="submit" class="save" (click)="save()"
+                        [disabled]="!expenseForm.valid" color="primary" style="margin-right: 5px; height: 38px;">
+                        <mat-icon>save</mat-icon> Save
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

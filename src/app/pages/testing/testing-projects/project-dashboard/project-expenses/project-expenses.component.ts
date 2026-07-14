@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddExpensePopComponent } from './add-expense-pop/add-expense-pop.component';
@@ -19,9 +19,16 @@ interface Expense {
   task: string;
   amount: string;
   pdfCount: number;
+  pdfFileName?: string;
+  pdfUrl?: string;
   approved: boolean;
   paid: boolean;
   declined: boolean;
+  submittedDate: string;
+  submittedBy: string;
+  approvedDate: string;
+  messagesCount: number;
+  messages: Array<{ sender: string, date: string, text: string }>;
 }
 
 interface CalendarDay {
@@ -40,10 +47,11 @@ interface CalendarDay {
 })
 export class ProjectExpensesComponent implements OnInit {
   @ViewChild('tableWrapper') tableWrapper!: ElementRef;
+  @ViewChild('messageDialog') messageDialog!: TemplateRef<any>;
 
   monthNames = [
-    'January','February','March','April','May','June',
-    'July','August','September','October','November','December'
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
   ];
   dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -54,21 +62,23 @@ export class ProjectExpensesComponent implements OnInit {
 
   // Pagination variables
   paginatedExpenses: Expense[] = [];
-  pageSize: number = 4;
+  pageSize: number = 10;
   currentPage: number = 1;
   pageSizeOptions: number[] = [5, 10, 15, 20];
 
   calendarDays: CalendarDay[] = [];
 
   expenses: Expense[] = [
-    { date: 2, initials: 'RS', avatarBg: '#e0f2fe', name: 'Ravi Sharma', subject: 'Travel to Client Site', description: 'Travel expenses for client meeting in Bangalore', approvedBy: 'John Doe', stage: 'Review', stageClass: 'stage-review', module: 'Project Management', task: 'Client Meeting', amount: '₹2,500', pdfCount: 1, approved: true, paid: false, declined: false },
-    { date: 2, initials: 'PS', avatarBg: '#dcfce7', name: 'Priya Singh', subject: 'Team Lunch', description: 'Team lunch after project milestone completion', approvedBy: 'Jane Smith', stage: 'Approved', stageClass: 'stage-approved', module: 'HR', task: 'Team Building', amount: '₹1,200', pdfCount: 1, approved: true, paid: false, declined: false },
-    { date: 9, initials: 'AK', avatarBg: '#f3e8ff', name: 'Amit Kumar', subject: 'Office Supplies', description: 'Purchase of stationery and office supplies', approvedBy: 'Manager A', stage: 'Approved', stageClass: 'stage-approved', module: 'Administration', task: 'Office Management', amount: '₹850', pdfCount: 0, approved: true, paid: false, declined: false },
-    { date: 13, initials: 'NS', avatarBg: '#fef08a', name: 'Neha Sharma', subject: 'Software License', description: 'Annual license renewal for design tool', approvedBy: 'Director B', stage: 'Paid', stageClass: 'stage-paid', module: 'Design', task: 'Tool & Software', amount: '₹3,600', pdfCount: 2, approved: true, paid: true, declined: false },
-    { date: 13, initials: 'VJ', avatarBg: '#cffafe', name: 'Vikram Joshi', subject: 'Internet Recharge', description: 'Monthly internet recharge for office', approvedBy: 'John Doe', stage: 'Paid', stageClass: 'stage-paid', module: 'Administration', task: 'Utilities', amount: '₹1,000', pdfCount: 0, approved: true, paid: true, declined: false },
-    { date: 25, initials: 'SK', avatarBg: '#fce7f3', name: 'Sneha Kapoor', subject: 'Client Gift', description: 'Diwali gift for important client', approvedBy: 'Pending', stage: 'Declined', stageClass: 'stage-declined', module: 'Business Development', task: 'Client Relationship', amount: '₹1,500', pdfCount: 1, approved: false, paid: false, declined: true },
-    { date: 25, initials: 'MJ', avatarBg: '#e0e7ff', name: 'Manish Jain', subject: 'Flight to Mumbai', description: 'Flight booking for offsite meeting', approvedBy: 'N/A', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Offsite Meeting', amount: '₹4,800', pdfCount: 0, approved: false, paid: false, declined: true },
-    { date: 29, initials: 'AP', avatarBg: '#ffedd5', name: 'Anjali Patel', subject: 'Hotel Booking', description: 'Hotel stay during client visit', approvedBy: 'Jane Smith', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Client Meeting', amount: '₹2,200', pdfCount: 2, approved: false, paid: false, declined: true }
+    { date: 2, initials: 'RS', avatarBg: '#e0f2fe', name: 'Ravi Sharma', subject: 'Travel to Client Site', description: 'Travel expenses for client meeting in Bangalore', approvedBy: '', stage: 'Review', stageClass: 'stage-review', module: 'Project Management', task: 'Client Meeting', amount: '₹2,500', pdfCount: 1, approved: false, paid: false, declined: false, submittedDate: '2025-06-02', submittedBy: 'Ravi Sharma', approvedDate: '', messagesCount: 2, messages: [{ sender: 'Ravi Sharma', date: '2025-06-02', text: 'Submitted travel expense report' }, { sender: 'John Doe', date: '2025-06-03', text: 'Under review' }] },
+    { date: 2, initials: 'PS', avatarBg: '#dcfce7', name: 'Priya Singh', subject: 'Team Lunch', description: 'Team lunch after project milestone completion', approvedBy: 'Jane Smith', stage: 'Approved', stageClass: 'stage-approved', module: 'HR', task: 'Team Building', amount: '₹1,200', pdfCount: 1, approved: true, paid: false, declined: false, submittedDate: '2025-06-02', submittedBy: 'Priya Singh', approvedDate: '2025-06-03', messagesCount: 1, messages: [{ sender: 'Jane Smith', date: '2025-06-03', text: 'Approved' }] },
+    { date: 9, initials: 'AK', avatarBg: '#f3e8ff', name: 'Amit Kumar', subject: 'Office Supplies', description: 'Purchase of stationery and office supplies', approvedBy: 'Manager A', stage: 'Approved', stageClass: 'stage-approved', module: 'Administration', task: 'Office Management', amount: '₹850', pdfCount: 0, approved: true, paid: false, declined: false, submittedDate: '2025-06-09', submittedBy: 'Amit Kumar', approvedDate: '2025-06-10', messagesCount: 0, messages: [] },
+    { date: 13, initials: 'NS', avatarBg: '#fef08a', name: 'Neha Sharma', subject: 'Software License', description: 'Annual license renewal for design tool', approvedBy: 'Director B', stage: 'Paid', stageClass: 'stage-paid', module: 'Design', task: 'Tool & Software', amount: '₹3,600', pdfCount: 2, approved: true, paid: true, declined: false, submittedDate: '2025-06-13', submittedBy: 'Neha Sharma', approvedDate: '2025-06-14', messagesCount: 3, messages: [{ sender: 'Neha Sharma', date: '2025-06-13', text: 'license invoice attached' }, { sender: 'Director B', date: '2025-06-14', text: 'Approved for payment' }, { sender: 'Finance', date: '2025-06-15', text: 'Payment completed' }] },
+    { date: 13, initials: 'VJ', avatarBg: '#cffafe', name: 'Vikram Joshi', subject: 'Internet Recharge', description: 'Monthly internet recharge for office', approvedBy: 'John Doe', stage: 'Paid', stageClass: 'stage-paid', module: 'Administration', task: 'Utilities', amount: '₹1,000', pdfCount: 0, approved: true, paid: true, declined: false, submittedDate: '2025-06-13', submittedBy: 'Vikram Joshi', approvedDate: '2025-06-13', messagesCount: 1, messages: [{ sender: 'John Doe', date: '2025-06-13', text: 'Autopaid' }] },
+    { date: 25, initials: 'SK', avatarBg: '#fce7f3', name: 'Sneha Kapoor', subject: 'Client Gift', description: 'Diwali gift for important client', approvedBy: '', stage: 'Declined', stageClass: 'stage-declined', module: 'Business Development', task: 'Client Relationship', amount: '₹1,500', pdfCount: 1, approved: false, paid: false, declined: true, submittedDate: '2025-06-25', submittedBy: 'Sneha Kapoor', approvedDate: '', messagesCount: 2, messages: [{ sender: 'Sneha Kapoor', date: '2025-06-25', text: 'Sent to client' }, { sender: 'Manager A', date: '2025-06-26', text: 'Budget exceeded, declined' }] },
+    { date: 25, initials: 'MJ', avatarBg: '#e0e7ff', name: 'Manish Jain', subject: 'Flight to Mumbai', description: 'Flight booking for offsite meeting', approvedBy: '', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Offsite Meeting', amount: '₹4,800', pdfCount: 0, approved: false, paid: false, declined: true, submittedDate: '2025-06-25', submittedBy: 'Manish Jain', approvedDate: '', messagesCount: 0, messages: [] },
+    { date: 29, initials: 'AP', avatarBg: '#ffedd5', name: 'Anjali Patel', subject: 'Hotel Booking', description: 'Hotel stay during client visit', approvedBy: '', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Client Meeting', amount: '₹2,200', pdfCount: 2, approved: false, paid: false, declined: true, submittedDate: '2025-06-29', submittedBy: 'Anjali Patel', approvedDate: '', messagesCount: 1, messages: [{ sender: 'Anjali Patel', date: '2025-06-29', text: 'Requesting room upgrade' }] },
+    { date: 5, initials: 'RK', avatarBg: '#e0f2fe', name: 'Rajesh Kumar', subject: 'Cab Fare', description: 'Cab fare for local client visit', approvedBy: 'John Doe', stage: 'Approved', stageClass: 'stage-approved', module: 'Sales', task: 'Client Pitch', amount: '₹450', pdfCount: 0, approved: true, paid: false, declined: false, submittedDate: '2025-06-05', submittedBy: 'Rajesh Kumar', approvedDate: '2025-06-06', messagesCount: 1, messages: [{ sender: 'John Doe', date: '2025-06-06', text: 'Approved fare.' }] },
+    { date: 22, initials: 'VV', avatarBg: '#e0e7ff', name: 'Vijay Verma', subject: 'Marketing Materials', description: 'Printing of flyers for exhibition', approvedBy: '', stage: 'Declined', stageClass: 'stage-declined', module: 'Marketing', task: 'Exhibition Prep', amount: '₹5,000', pdfCount: 1, approved: false, paid: false, declined: true, submittedDate: '2025-06-22', submittedBy: 'Vijay Verma', approvedDate: '', messagesCount: 1, messages: [{ sender: 'Vijay Verma', date: '2025-06-22', text: 'Urgent request.' }] }
   ];
 
   constructor(
@@ -79,12 +89,9 @@ export class ProjectExpensesComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildCalendar();
-
-    const targetDefault = new Date(2025, 5, 2); // June 2nd, 2025
-    const defaultDay = this.calendarDays.find(d => d.inCurrentMonth && this.isSameDay(d.date, targetDefault))
-      ?? this.calendarDays.find(d => d.inCurrentMonth)!;
-
-    this.filterByDate(defaultDay);
+    this.filteredExpenses = [...this.expenses];
+    this.currentPage = 1;
+    this.updatePagination();
   }
 
   // ─── Calendar header label ──────────────────────────────────────────────
@@ -108,12 +115,12 @@ export class ProjectExpensesComponent implements OnInit {
   // ─── Calendar build ─────────────────────────────────────────────────────
 
   buildCalendar(): void {
-    const year  = this.currentDate.getFullYear();
+    const year = this.currentDate.getFullYear();
     const month = this.currentDate.getMonth();
     const firstOfMonth = new Date(year, month, 1);
-    const startOffset  = firstOfMonth.getDay();
-    const gridStart    = new Date(year, month, 1 - startOffset);
-    const today        = new Date();
+    const startOffset = firstOfMonth.getDay();
+    const gridStart = new Date(year, month, 1 - startOffset);
+    const today = new Date();
     const days: CalendarDay[] = [];
 
     for (let i = 0; i < 42; i++) {
@@ -125,7 +132,6 @@ export class ProjectExpensesComponent implements OnInit {
         inCurrentMonth,
         isToday: this.isSameDay(cellDate, today),
         isSelected: this.selectedDate ? this.isSameDay(cellDate, this.selectedDate) : false,
-        // Count comes straight from the expenses array — always matches the grid exactly
         claims: inCurrentMonth ? this.expenses.filter(e => e.date === cellDate.getDate()).length : 0
       });
     }
@@ -134,8 +140,8 @@ export class ProjectExpensesComponent implements OnInit {
 
   isSameDay(a: Date, b: Date): boolean {
     return a.getFullYear() === b.getFullYear()
-      && a.getMonth()      === b.getMonth()
-      && a.getDate()       === b.getDate();
+      && a.getMonth() === b.getMonth()
+      && a.getDate() === b.getDate();
   }
 
   // ─── Filtering ──────────────────────────────────────────────────────────
@@ -162,24 +168,10 @@ export class ProjectExpensesComponent implements OnInit {
     this.paginatedExpenses = this.filteredExpenses.slice(startIndex, endIndex);
   }
 
-  changePageSize(event: any) {
-    this.pageSize = event.target.value;
-    this.currentPage = 1;
+  handlePageEvent(event: any) {
+    this.currentPage = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
     this.updatePagination();
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePagination();
-    }
-  }
-
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePagination();
-    }
   }
 
   get totalPages(): number {
@@ -218,12 +210,62 @@ export class ProjectExpensesComponent implements OnInit {
     }
   }
 
+  scrollLeft() {
+    this.scrollTable('left');
+  }
+
+  scrollRight() {
+    this.scrollTable('right');
+  }
+
   truncateDescription(text: string): string {
+    if (!text) return '';
     const words = text.split(' ');
     if (words.length > 4) {
       return words.slice(0, 4).join(' ') + '...';
     }
     return text;
+  }
+
+  addExpense(): void {
+    let dialogRef = this.dialog.open(AddExpensePopComponent, {
+      width: '750px',
+      height: 'auto',
+      data: null
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const newExpense: Expense = {
+          date: new Date(result.submittedDate || new Date()).getDate(),
+          initials: this.getInitials(result.submittedBy || result.name),
+          avatarBg: this.getRandomColor(),
+          name: result.submittedBy || result.name,
+          subject: result.subject,
+          description: result.description,
+          approvedBy: result.approvedBy || '',
+          stage: result.stage || 'Review',
+          stageClass: this.getStageClass(result.stage),
+          module: result.module,
+          task: result.task,
+          amount: result.amount,
+          pdfCount: result.pdfFile ? 1 : 0,
+          pdfFileName: result.pdfFile ? result.pdfFile.name : '',
+          pdfUrl: result.pdfFile ? URL.createObjectURL(result.pdfFile) : '',
+          approved: result.stage === 'Approved' || result.stage === 'Paid',
+          paid: result.stage === 'Paid',
+          declined: result.stage === 'Declined',
+          submittedDate: result.submittedDate || new Date().toISOString().split('T')[0],
+          submittedBy: result.submittedBy || result.name,
+          approvedDate: result.approvedDate || '',
+          messagesCount: 0,
+          messages: []
+        };
+        this.expenses.unshift(newExpense);
+        this.buildCalendar();
+        this.filteredExpenses = [...this.expenses];
+        this.updatePagination();
+      }
+    });
   }
 
   editExpense(expense: Expense): void {
@@ -234,22 +276,37 @@ export class ProjectExpensesComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        Object.assign(expense, result);
-        expense.stageClass = result.stage === 'Approved' ? 'stage-approved' : 
-                             (result.stage === 'Paid' ? 'stage-paid' : 
-                             (result.stage === 'Declined' ? 'stage-declined' : 'stage-review'));
+        // Handle PDF separately: new file uploaded, or keep existing one
+        if (result.pdfFile) {
+          expense.pdfFileName = result.pdfFile.name;
+          expense.pdfUrl = URL.createObjectURL(result.pdfFile);
+          expense.pdfCount = (expense.pdfCount || 0) + 1;
+        } else if (!result.pdfFileName) {
+          // user removed the PDF in the dialog
+          expense.pdfFileName = '';
+          expense.pdfUrl = '';
+        }
+
+        expense.name = result.submittedBy || result.name;
+        expense.submittedBy = result.submittedBy || result.name;
+        expense.subject = result.subject;
+        expense.description = result.description;
+        expense.approvedBy = result.approvedBy;
+        expense.stage = result.stage;
+        expense.module = result.module;
+        expense.task = result.task;
+        expense.amount = result.amount;
+        expense.submittedDate = result.submittedDate;
+        expense.approvedDate = result.approvedDate;
+
+        expense.stageClass = this.getStageClass(result.stage);
         expense.approved = result.stage === 'Approved' || result.stage === 'Paid';
         expense.paid = result.stage === 'Paid';
         expense.declined = result.stage === 'Declined';
-        
-        // update calendar claims count
+
         this.buildCalendar();
-        if (this.selectedDate) {
-          const selectedDay = this.calendarDays.find(d => this.isSameDay(d.date, this.selectedDate!));
-          if (selectedDay) {
-            this.filterByDate(selectedDay);
-          }
-        }
+        this.filteredExpenses = [...this.expenses];
+        this.updatePagination();
       }
     });
   }
@@ -266,17 +323,106 @@ export class ProjectExpensesComponent implements OnInit {
       if (result) {
         this.expenses = this.expenses.filter(e => e !== expense);
         this.buildCalendar();
-        if (this.selectedDate) {
-          const selectedDay = this.calendarDays.find(d => this.isSameDay(d.date, this.selectedDate!));
-          if (selectedDay) {
-            this.filterByDate(selectedDay);
-          }
-        }
+        this.filteredExpenses = [...this.expenses];
+        this.updatePagination();
       }
     });
   }
 
-   goBack(): void {
+  toggleApproved(expense: Expense): void {
+    expense.approved = !expense.approved;
+    if (expense.approved) {
+      expense.declined = false;
+      expense.stage = 'Approved';
+      expense.stageClass = 'stage-approved';
+      expense.approvedBy = 'Admin';
+      expense.approvedDate = new Date().toISOString().split('T')[0];
+    } else {
+      expense.stage = 'Review';
+      expense.stageClass = 'stage-review';
+      expense.approvedBy = '';
+      expense.approvedDate = '';
+    }
+    this.buildCalendar();
+  }
+
+  toggleDeclined(expense: Expense): void {
+    expense.declined = !expense.declined;
+    if (expense.declined) {
+      expense.approved = false;
+      expense.paid = false;
+      expense.stage = 'Declined';
+      expense.stageClass = 'stage-declined';
+      expense.approvedBy = '';
+      expense.approvedDate = '';
+    } else {
+      expense.stage = 'Review';
+      expense.stageClass = 'stage-review';
+    }
+    this.buildCalendar();
+  }
+
+  openMessagesDialog(expense: Expense): void {
+    this.dialog.open(this.messageDialog, {
+      width: '500px',
+      data: expense
+    });
+  }
+
+  addMessage(expense: Expense, text: string): void {
+    if (!text || !text.trim()) return;
+    if (!expense.messages) {
+      expense.messages = [];
+    }
+    expense.messages.push({
+      sender: 'Admin',
+      date: new Date().toISOString().split('T')[0],
+      text: text.trim()
+    });
+    expense.messagesCount = expense.messages.length;
+  }
+
+  // ─── PDF view/download (table icons) ───────────────────────────────────
+
+  viewPdf(expense: Expense): void {
+    if (expense.pdfUrl) {
+      window.open(expense.pdfUrl, '_blank');
+    } else {
+      alert('No PDF uploaded for this expense.');
+    }
+  }
+
+  downloadPdf(expense: Expense): void {
+    if (expense.pdfUrl) {
+      const link = document.createElement('a');
+      link.href = expense.pdfUrl;
+      link.download = expense.pdfFileName || 'expense.pdf';
+      link.click();
+    } else {
+      alert('No PDF uploaded for this expense.');
+    }
+  }
+
+  getInitials(name: string): string {
+    if (!name) return 'EX';
+    return name.split(' ').map(n => n.charAt(0)).join('').toUpperCase().slice(0, 2);
+  }
+
+  getRandomColor(): string {
+    const colors = ['#e0f2fe', '#dcfce7', '#f3e8ff', '#fef08a', '#cffafe', '#fce7f3', '#e0e7ff', '#ffedd5'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  getStageClass(stage: string): string {
+    switch (stage) {
+      case 'Approved': return 'stage-approved';
+      case 'Paid': return 'stage-paid';
+      case 'Declined': return 'stage-declined';
+      default: return 'stage-review';
+    }
+  }
+
+  goBack(): void {
     this.router.navigateByUrl('/app/testing/projects');
   }
 }

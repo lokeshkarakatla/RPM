@@ -1,164 +1,170 @@
 <div class="schedule-dashboard">
-  
-  <div class="header-section">
-    <div class="header-title mb-2" style="visibility: hidden;">
-      <div>
-        <h1>Expenses</h1>
-        <p style="color:#6e6e6e">Track and manage all expense claims</p>
-      </div>
-    </div>
-    
-   <div class="header-actions">
-    <button mat-raised-button class="back-btn" (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
-    <mat-icon>arrow_back</mat-icon>
-    Back
-  </button>
 
-  <!-- <div class="secondary-actions">
-    <div class="date-picker-btn">
-      <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Jun 1 - Jun 30, 2025
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  <div class="header-section" style="margin-bottom: 20px; justify-content: flex-end;">
+    <div class="header-actions" style="display: flex; gap: 10px; align-items: center;">
+      <button mat-raised-button color="primary" class="btn-primary" (click)="addExpense()">
+        <mat-icon>add</mat-icon> Add Expense
+      </button>
+      <button mat-raised-button class="back-btn" (click)="goBack()"
+        style="background-color: rgb(130, 130, 130); color: white;">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+      </button>
     </div>
-    
-    <div class="filter-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-      Filters
-    </div>
-  </div> -->
-</div>
   </div>
 
   <div class="dashboard-content">
-    
-   <aside class="calendar-sidebar">
-  <div class="calendar-card">
-    <div class="month-selector">
-      <button class="nav-arrow" (click)="prevMonth()" aria-label="Previous month">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-      </button>
-      <strong>{{ currentMonthLabel }}</strong>
-      <button class="nav-arrow" (click)="nextMonth()" aria-label="Next month">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </button>
-    </div>
 
-    <div class="calendar-grid">
-      <div class="weekday" *ngFor="let d of dayNames">{{ d }}</div>
+    <main class="table-container"
+      style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; background: white;">
 
-      <div class="day-cell" *ngFor="let day of calendarDays"
-           [class.faded]="!day.inCurrentMonth"
-           [class.active]="day.isSelected"
-           (click)="filterByDate(day)">
-        <span class="date-num">{{ day.dayNumber }}</span>
-        <span class="claims-num" *ngIf="day.claims > 0">{{ day.claims }}</span>
-      </div>
-    </div>
-
-   <div class="total-claims-box">
-  <div class="box-text">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7"/><path d="M21 16a2 2 0 0 0-2-2h-3a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-2z"/></svg>
-    <strong>Total Claims in Selected Range</strong>
-  </div>
-  <div class="total-number">{{ totalClaimsInRange }}</div>
-</div>
-  </div>
-</aside>
-
-   <main class="table-container">
-      
-      <div class="table-actions-bar">
-        <button class="scroll-btn" (click)="scrollTable('left')" title="Scroll Left (Rewind)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
-        </button>
-        <button class="scroll-btn" (click)="scrollTable('right')" title="Scroll Right (Fast Forward)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
-        </button>
-      </div>
-
-      <div class="table-responsive" #tableWrapper>
-        <table class="expenses-table">
-          <thead>
+      <div #tableWrapper id="grid-table-container" class="table-responsive"
+        style="overflow-x: auto; scroll-behavior: smooth;">
+        <table id="example2" class="table table-bordered table-hover text-nowrap"
+          style="width: 100%; margin-bottom: 0;">
+          <thead class="tbl-head">
             <tr>
-                <th>Actions</th>
-              <th>Name</th>
-              <th>Subject</th>
-              <th>Description</th>
-              <th>Approved By</th>
-              <th>Stage</th>
-              <th>Module</th>
-              <th>Task</th>
-              <th>Amount</th>
-              <th>PDF</th>
-              <th>Approved<br>
-                 <th>Paid</th>
-              <th>Declined</th>
+              <th class="text-center" style="vertical-align: middle;">Actions</th>
+              <th class="text-center" style="vertical-align: middle;">Subject</th>
+              <th style="vertical-align: middle;">Description</th>
+              <th style="vertical-align: middle;">Module</th>
+              <th style="vertical-align: middle;">Task</th>
+              <th style="vertical-align: middle;">Submitted By</th>
+              <th style="vertical-align: middle;">Submitted Date</th>
+              <th style="vertical-align: middle;">Stage</th>
+              <th class="text-center" style="vertical-align: middle;">Approved</th>
+              <th class="text-center" style="vertical-align: middle;">Declined</th>
+              <th style="vertical-align: middle;">Approved By</th>
+              <th style="vertical-align: middle;">Approved Date</th>
+              <th class="text-center" style="vertical-align: middle;">Messages</th>
+              <th class="text-center" style="vertical-align: middle;">PDF</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngIf="paginatedExpenses.length === 0">
-              <td colspan="12" class="text-center" style="padding: 30px;">No expenses found for this selection.</td>
+              <td colspan="14" class="text-center" style="padding: 30px;">No expenses found for this selection.</td>
             </tr>
             <tr *ngFor="let expense of paginatedExpenses">
-              <td class="text-center">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
-                  <i class="fa fa-pencil text-primary action-icon" style="cursor:pointer;" (click)="editExpense(expense)"></i>
-                  <i class="fa fa-trash text-danger action-icon" style="cursor:pointer;" (click)="deleteExpense(expense)"></i>
-                </div>
+
+              <td class="text-center editDel" style="vertical-align: middle;">
+                <a style="cursor: pointer; margin-right: 10px;" matTooltip="Edit" (click)="editExpense(expense)">
+                  <i class="fa fa-edit" style="color: cornflowerblue; font-size: 16px;"></i>
+                </a>
+                <a style="cursor: pointer;" matTooltip="Delete" (click)="deleteExpense(expense)">
+                  <i class="fa fa-trash red" style="color: red; font-size: 16px;"></i>
+                </a>
               </td>
-              <td>
-                <div class="user-info">
-                  <!-- <div class="avatar" [ngStyle]="{'background-color': expense.avatarBg}">{{ expense.initials }}</div> -->
-                  <span>{{ expense.name }}</span>
-                </div>
+
+              <!-- Subject with Approved green / red styling -->
+              <td [ngClass]="{'text-green': expense.approved, 'text-red': !expense.approved}"
+                style="font-weight: 600; vertical-align: middle;">
+                {{ expense.subject }}
               </td>
-              <td [ngClass]="{'text-green': expense.stage === 'Approved', 'text-red': expense.stage === 'Declined'}">{{ expense.subject }}</td>
-              
-              <td class="description-cell" [title]="expense.description">
+
+              <td class="description-cell" [title]="expense.description"
+                style="vertical-align: middle; max-width: 200px;">
                 {{ truncateDescription(expense.description) }}
               </td>
-              
-              <td>{{ expense.approvedBy }}</td>
-              <td><span class="badge" [ngClass]="expense.stageClass">{{ expense.stage }}</span></td>
-              <td>{{ expense.module }}</td>
-              <td>{{ expense.task }}</td>
-              <td>{{ expense.amount }}</td>
-              <td>
-                <div class="pdf-cell">
-                  <img *ngIf="expense.pdfCount > 0" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444'><path d='M19.5 0H4.5A1.5 1.5 0 0 0 3 1.5v21A1.5 1.5 0 0 0 4.5 24h15a1.5 1.5 0 0 0 1.5-1.5v-21A1.5 1.5 0 0 0 19.5 0zM12 18.75a3.75 3.75 0 1 1 0-7.5 3.75 3.75 0 0 1 0 7.5zm5.25-13.5H6.75V3h10.5v2.25z'/></svg>" alt="PDF" class="pdf-icon">
-                  <img *ngIf="expense.pdfCount > 1" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239ca3af'><path d='M19.5 0H4.5A1.5 1.5 0 0 0 3 1.5v21A1.5 1.5 0 0 0 4.5 24h15a1.5 1.5 0 0 0 1.5-1.5v-21A1.5 1.5 0 0 0 19.5 0zM12 18.75a3.75 3.75 0 1 1 0-7.5 3.75 3.75 0 0 1 0 7.5zm5.25-13.5H6.75V3h10.5v2.25z'/></svg>" alt="PDF" class="pdf-icon-secondary">
-                  <span class="pdf-count" *ngIf="expense.pdfCount > 0">+{{ expense.pdfCount }}</span>
-                </div>
+
+              <td style="vertical-align: middle;">{{ expense.module }}</td>
+              <td style="vertical-align: middle;">{{ expense.task }}</td>
+              <td style="vertical-align: middle;">{{ expense.submittedBy }}</td>
+              <td style="vertical-align: middle;">{{ expense.submittedDate | date:'yyyy-MM-dd' }}</td>
+
+              <td style="vertical-align: middle;"><span class="badge" [ngClass]="expense.stageClass">{{ expense.stage
+                  }}</span></td>
+
+              <!-- Approved Checkbox -->
+              <td class="text-center" style="vertical-align: middle;">
+                <input type="checkbox" class="custom-checkbox cb-green" [checked]="expense.approved"
+                  (change)="toggleApproved(expense)">
               </td>
-              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-green" [checked]="expense.approved" disabled></td>
-              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-dark" [checked]="expense.paid" disabled></td>
-              <td class="text-center"><input type="checkbox" class="custom-checkbox cb-red" [checked]="expense.declined" disabled></td>
+
+              <!-- Declined Checkbox -->
+              <td class="text-center" style="vertical-align: middle;">
+                <input type="checkbox" class="custom-checkbox cb-red" [checked]="expense.declined"
+                  (change)="toggleDeclined(expense)">
+              </td>
+
+              <td style="vertical-align: middle;">{{ expense.approvedBy || '-' }}</td>
+              <td style="vertical-align: middle;">{{ expense.approvedDate ? (expense.approvedDate | date:'yyyy-MM-dd') :
+                '-' }}</td>
+
+              <!-- Messages clickable number -->
+              <td class="text-center" style="vertical-align: middle;">
+                <span class="message-count-badge" (click)="openMessagesDialog(expense)">
+                  {{ expense.messages?.length || 0 }}
+                </span>
+              </td>
+
+              <!-- PDF: eye (view) + download icons -->
+              <td class="text-center" style="vertical-align: middle;">
+                <i class="fa fa-eye" style="color: #374151; font-size: 16px; cursor: pointer; margin-right: 10px;"
+                  matTooltip="View PDF" (click)="viewPdf(expense)"></i>
+                <i class="fa fa-download" style="color: #374151; font-size: 16px; cursor: pointer;"
+                  matTooltip="Download PDF" (click)="downloadPdf(expense)"></i>
+              </td>
+
             </tr>
           </tbody>
         </table>
       </div>
-      
-      <div class="pagination-footer">
-        <span class="showing-text">Showing {{ showingStart }} to {{ showingEnd }} of {{ filteredExpenses.length }} entries</span>
-        <div class="pagination-controls">
-          <span class="rows-label">Rows per page:</span>
-          
-          <select class="rows-select" (change)="changePageSize($event)">
-            <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size == pageSize">{{ size }}</option>
-          </select>
-          
-          <div class="page-nav">
-            <button class="nav-arrow" (click)="prevPage()" [disabled]="currentPage === 1">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <button class="active-page">{{ currentPage }}</button>
-            <button class="nav-arrow" (click)="nextPage()" [disabled]="currentPage >= totalPages || totalPages === 0">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-          </div>
-        </div>
-      </div>
+
+      <!-- Standard paginator to match img1 -->
+      <mat-paginator class="col-sm-12" [length]="filteredExpenses.length" [pageIndex]="currentPage - 1"
+        [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 15, 20]" (page)="handlePageEvent($event)" showFirstLastButtons>
+      </mat-paginator>
+
     </main>
 
   </div>
 </div>
+
+<!-- Messages Pop-up Dialog Template -->
+<ng-template #messageDialog let-data>
+  <div class="NewHeader">
+    <h1 mat-dialog-title style="color: white; margin: 0; font-size: 20px; text-align: center;">Messages History</h1>
+  </div>
+  <div mat-dialog-content style="padding: 15px; max-height: 350px; overflow-y: auto;">
+    <div *ngIf="data.messages && data.messages.length > 0; else noMsgs">
+      <div *ngFor="let msg of data.messages"
+        style="margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">
+        <div
+          style="display: flex; justify-content: space-between; font-size: 12px; color: #718096; font-weight: 500; margin-bottom: 4px;">
+          <span>{{ msg.sender }}</span>
+          <span>{{ msg.date }}</span>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: #2d3748; line-height: 1.4;">{{ msg.text }}</p>
+      </div>
+    </div>
+    <ng-template #noMsgs>
+      <p style="text-align: center; color: #a0aec0; margin: 20px 0;">No messages yet for this expense.</p>
+    </ng-template>
+
+    <div style="margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+      <label style="font-weight: 600; font-size: 13px; color: #4a5568; display: block; margin-bottom: 6px;">Add New
+        Message</label>
+      <div style="display: flex; gap: 8px;">
+        <input type="text" #newMsgInput class="form-control" placeholder="Type message details..."
+          style="flex-grow: 1; height: 38px; border: 1px solid #cbd5e1; border-radius: 4px; padding: 0 10px; font-size: 13px;">
+        <button mat-raised-button color="primary" style="height: 38px;"
+          (click)="addMessage(data, newMsgInput.value); newMsgInput.value=''">Send</button>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end" style="padding: 10px 15px 15px;">
+    <button mat-raised-button mat-dialog-close style="background-color: lightgray; color: red;">
+      <mat-icon>cancel</mat-icon> Close
+    </button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!-- Floating scroll buttons -->
+<button class="mine" mat-fab
+  style="background-color: white; right: 310px; position: fixed; bottom: 80px; z-index: 9999;" (click)="scrollLeft()">
+  <mat-icon style="color: #37474f">fast_rewind</mat-icon>
+</button>
+<button class="mine" mat-fab style="background-color: white; position: fixed; right: 240px; bottom: 80px; z-index: 9999;"
+  (click)="scrollRight()">
+  <mat-icon style="color: #37474f">fast_forward</mat-icon>
+</button>

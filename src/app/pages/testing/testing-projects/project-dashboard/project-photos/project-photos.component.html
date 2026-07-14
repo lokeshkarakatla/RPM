@@ -55,11 +55,11 @@
     </mat-card>
   </div>
 
-  <div class="gallery-grid">
-    <mat-card class="photo-card" *ngFor="let photo of photoList">
+  <div class="gallery-grid" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+    <mat-card class="photo-card" *ngFor="let photo of photoList; let i = index" cdkDrag>
       <div class="card-header-actions">
-        <mat-icon class="action-icon edit-icon" matTooltip="Edit">edit</mat-icon>
-        <mat-icon class="action-icon delete-icon" matTooltip="Delete">delete</mat-icon>
+        <i class="fa fa-pencil text-primary action-icon" matTooltip="Edit" (click)="Addphoto(photo); $event.stopPropagation()"></i>
+        <i class="fa fa-trash text-danger action-icon" matTooltip="Delete" (click)="deletePhoto(i); $event.stopPropagation()"></i>
       </div>
       <div class="img-container">
         <img [src]="photo.url" [alt]="photo.title">

@@ -1,122 +1,185 @@
-/* Header Styling */
-.dialog-header {
-    background-color: #2865ab; /* Exact blue from screenshot */
-    margin: -24px -24px 0 -24px; /* Pulls header flush to dialog edges */
-    padding: 0px 20px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+.NewHeader {
+    background: #286ba5 !important;
+    color: white !important;
+    text-align: center !important;
+    padding: 13px !important;
+    border-bottom: 2px solid #1c5280;
 
-    h2 {
-        font-size: 22px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
+    h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 500;
+        color: white;
     }
 }
 
-.save-btn {
-    color: white !important;
-    font-weight: 500;
-    padding: 0 24px;
-    border-radius: 4px;
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.dialog-content {
+    padding: 20px 25px;
+    overflow-y: auto;
+    max-height: 450px;
+    background-color: white;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.form-row {
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
+}
+
+.label-col {
+    display: flex;
+    align-items: center;
+}
+
+.control-label {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333333;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.form-control {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 13px;
+    box-sizing: border-box;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+    }
+
+    &::placeholder {
+        color: #9ca3af;
+    }
+}
+
+.back {
+    background-color: #fefec4 !important; /* Light yellow background matching expense input */
+}
+
+select.form-control {
+    padding-right: 28px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 14px;
+}
+
+/* Image Upload Zone */
+.image-upload-zone {
+    width: 100%;
+    min-height: 110px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 4px;
+    background: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, background 0.2s ease;
+
+    &:hover {
+        border-color: #286ba5;
+        background: #f4f8fc;
+    }
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: #64748b;
+    text-align: center;
+}
+
+.image-preview-container {
+    position: relative;
+    width: 100%;
+    max-height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-img {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-remove-img {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #dc2626;
+    }
+}
+
+/* Footer Actions */
+.footer-actions {
+    padding: 12px 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background-color: white;
+    margin: 0 !important;
 }
 
 .close-btn {
-    background-color: #e8e5e5 !important; /* Light gray */
-    color: rgb(247, 8, 8) !important;
-    font-weight: 500;
+    background: lightgray !important;
+    color: red !important;
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    height: 34px;
     display: flex;
     align-items: center;
+    gap: 4px;
+    font-size: 13px !important;
 }
 
-/* Form Styling */
-.font-weight-bold {
-    font-weight: 600;
-    color: #333;
-}
-.text-danger {
-    color: red;
-    margin-left: 2px;
-}
-.form-control {
-    border-radius: 4px;
-    border: 1px solid #a4b3ca; /* Matches screenshot input borders */
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
-}
-
-/* Table Styling */
-.custom-table {
-    border-collapse: collapse;
-    width: 100%;
- 
-
-    tbody {
-        td {
-            padding: 10px 12px;
-            vertical-align: middle;
-            border: 1px solid #dee2e6;
-            color: #333;
-        }
-    }
-}
-
-/* Icons */
-.action-icon {
-    cursor: pointer;
-    font-size: 22px;
-    height: 22px;
-    width: 22px;
-}
-
-/* Utility to ensure content doesn't overflow */
-.overflow-hidden {
-    overflow-x: hidden;
-}
-td {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 14px;
-    padding: 10px 12px;
-    border: 1px solid #dee2e6;
-    vertical-align: middle;
-  }
-
-  th {
-  background-color: #3f3f3f;
-  color: white;
-  padding: 12px;
-  font-size: 14px;
-  border: 1px solid #e1e1e1;  /* already correct */
-}
-
-.upload-container {
-  width: 100%;
-}
-
-.drag-drop-zone {
-  width: 100%;
-  min-height: 140px;
-  border: 2px dashed #c8c8c8;
-  background: #fafafa;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  gap: 20px;
-  cursor: pointer;
-}
-
-.upload-text {
-  font-size: 18px;
-  color: #4a4a4a;
-}
-
-.browse-btn {
-  background-color: #2f75b5 !important;
-  color: #fff !important;
-  min-width: 150px;
-  height: 45px;
-  font-size: 16px;
+.save-btn {
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px !important;
 }

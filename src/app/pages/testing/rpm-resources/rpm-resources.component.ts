@@ -33,7 +33,7 @@ interface Schedule {
 export class RpmResourcesComponent implements OnInit {
 
   activeTab: 'Scheduling' | 'Allocation' = 'Scheduling';
-  isCalendarView = true; // Default to Calendar View as shown in img1
+  isCalendarView = false; // Default to Calendar View as shown in img1
   showWeekend = false;
 
   availableResources: Resource[] = [];
@@ -165,7 +165,7 @@ export class RpmResourcesComponent implements OnInit {
   }
 
   get displayDays(): string[] {
-    return this.showWeekend 
+    return this.showWeekend
       ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
       : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   }

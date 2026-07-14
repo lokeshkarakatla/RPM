@@ -1,43 +1,90 @@
-<div class="dialog-header pt-2" style="height:50px">
-    <h2 mat-dialog-title class="m-0 text-center text-white pb-2 pt-2 mt-2" style="padding-top:0px; padding-left: 20px; font-weight: 400;font-size: 24px;">Add Photo</h2>
+<div class="NewHeader">
+    <h1 mat-dialog-title style="color: white; margin: 0;">
+        {{ isEditMode ? 'Edit Photo' : 'Add Photo' }}
+    </h1>
 </div>
 
- <div class="upload-container pt-4">
+<form #photoForm="ngForm" class="dialog-form" autocomplete="off" (ngSubmit)="onSave()">
 
-  <input
-    type="file"
-    #fileInput
-    hidden
-    multiple
-  >
+    <div mat-dialog-content class="dialog-content">
 
-  <div class="drag-drop-zone" (click)="fileInput.click()">
+        <!-- Title -->
+        <div class="row form-row">
+            <div class="col-4 label-col">
+                <label class="control-label">Title <span style="color: red;">*</span> :</label>
+            </div>
+            <div class="col-8 input-col">
+                <input type="text" class="form-control back" name="title" [(ngModel)]="title"
+                    placeholder="Enter Photo Title" required style="height: 35px; width: 100%;" />
+            </div>
+        </div>
 
-    <div class="upload-text">
-      Drag and drop files here
+        <!-- Description -->
+        <div class="row form-row">
+            <div class="col-4 label-col">
+                <label class="control-label">Description :</label>
+            </div>
+            <div class="col-8 input-col">
+                <textarea class="form-control back" name="description" [(ngModel)]="description"
+                    placeholder="Enter Description" style="height: 60px; resize: none; width: 100%;"></textarea>
+            </div>
+        </div>
+
+        <!-- Module -->
+        <div class="row form-row">
+            <div class="col-4 label-col">
+                <label class="control-label">Module :</label>
+            </div>
+            <div class="col-8 input-col">
+                <select class="form-control back" name="module" [(ngModel)]="module" style="height: 35px; width: 100%;">
+                    <option value="">Select Module</option>
+                    <option *ngFor="let m of modules" [value]="m">{{m}}</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Stage -->
+        <div class="row form-row">
+            <div class="col-4 label-col">
+                <label class="control-label">Stage :</label>
+            </div>
+            <div class="col-8 input-col">
+                <select class="form-control back" name="stage" [(ngModel)]="stage" style="height: 35px; width: 100%;">
+                    <option value="">Select Stage</option>
+                    <option *ngFor="let s of stages" [value]="s">{{s}}</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Upload Image -->
+        <div class="row form-row">
+            <div class="col-4 label-col">
+                <label class="control-label">Upload File <span *ngIf="!isEditMode" style="color: red;">*</span> :</label>
+            </div>
+            <div class="col-8 input-col">
+                <input type="file" class="form-control back" (change)="onFileSelected($event)" accept="image/*" style="height: auto; padding: 4px; width: 100%;" />
+                <div *ngIf="imageUrl" class="file-info-text" style="font-size: 11px; color: #555; margin-top: 5px; display: flex; align-items: center; gap: 6px;">
+                    <span *ngIf="selectedFile">Selected: {{ selectedFile.name }}</span>
+                    <span *ngIf="!selectedFile && isEditMode">Existing Image Loaded</span>
+                    <a style="cursor: pointer; color: red;" (click)="removeImage()" matTooltip="Remove File">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <button
-      mat-raised-button
-      type="button"
-      class="browse-btn"
-      (click)="$event.stopPropagation(); fileInput.click()"
-    >
-      Browse Files
-    </button>
+    <!-- ===================== FOOTER ===================== -->
+    <div mat-dialog-actions align="end" class="footer-actions">
+        <button mat-raised-button type="button" class="close-btn" (click)="onClose()">
+            <mat-icon>cancel</mat-icon>
+            Close
+        </button>
+        <button mat-raised-button color="primary" type="submit" class="save-btn" [disabled]="!photoForm.valid || (!imageUrl && !isEditMode)">
+            <mat-icon>save</mat-icon>
+            Save
+        </button>
+    </div>
 
-  </div>
-
-</div>
-
-<mat-dialog-actions align="end" class="pb-2 pe-3">
-    <button mat-raised-button class="close-btn" (click)="onClose()">
-        <mat-icon style="font-size: 20px; height: 20px; width: 20px; margin-right: 4px; margin-top: 4px;">cancel</mat-icon> 
-        Close
-    </button>
-    <button mat-raised-button color="primary" class="save-btn">
-    <mat-icon style="font-size: 20px; height: 20px; width: 20px; margin-right: 4px; margin-top: 4px;">save</mat-icon>
-    Save
-</button>
-    
-</mat-dialog-actions>
+</form>

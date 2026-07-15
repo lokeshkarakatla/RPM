@@ -1,0 +1,54 @@
+<div class="NewHeader">
+    <h1 mat-dialog-title style="color:white;">
+        {{ isEditMode ? 'Update Tag' : 'Add Tag' }}
+    </h1>
+</div>
+
+<div mat-dialog-content>
+    <div class="col-sm-12" style="margin-bottom: 10px;">
+        <form [formGroup]="myGroup">
+            <div class="row" style="margin-bottom: 12px;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="margin-top:5px;">Tag Name :</label>
+                </div>
+                <div class="col-sm-9">
+                    <div>
+                        <input class="form-control name back" maxlength="50" placeholder="Enter Tag Name"
+                            formControlName="name" type="text">
+                        <div *ngIf="isSubmitting && f['name'].errors" class="text-danger" style="font-size: 11px;">
+                            <span *ngIf="f['name'].errors['required']">Tag Name is required.</span>
+                            <span *ngIf="f['name'].errors['pattern']">Only alphanumeric characters and spaces are allowed.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 12px;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="margin-top:5px;">Description :</label>
+                </div>
+                <div class="col-sm-9">
+                    <div>
+                        <input class="form-control name back" maxlength="150"
+                            placeholder="Enter Tag Description" formControlName="description" type="text">
+                        <div *ngIf="isSubmitting && f['description'].errors" class="text-danger" style="font-size: 11px;">
+                            <span *ngIf="f['description'].errors['required']">Description is required.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <div class="pull-right">
+                    <button mat-raised-button class="me-3" (click)="close()"
+                        style="background-color: lightgray; color: red">
+                        <mat-icon>cancel</mat-icon> Close
+                    </button>
+                    <button mat-raised-button type="submit" class="save" (click)="upsertTag()"
+                        style="margin-right: 5px;" color="primary">
+                        <mat-icon>save</mat-icon> Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

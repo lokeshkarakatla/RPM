@@ -13,8 +13,6 @@ export interface NoteData {
   tags: string;
 }
 
-const ELEMENT_DATA: NoteData[] = []; // Empty array to trigger the "No data available" state
-
 @Component({
   selector: 'app-project-notes',
   templateUrl: './project-notes.component.html',
@@ -23,24 +21,72 @@ const ELEMENT_DATA: NoteData[] = []; // Empty array to trigger the "No data avai
 export class ProjectNotesComponent implements OnInit {
 
   displayedColumns: string[] = ['actions', 'date', 'postedBy', 'message', 'document', 'tags'];
-  dataSource = ELEMENT_DATA;
+  dataSource: NoteData[] = [];
   
-  // Sample tags for the dropdown
-  availableTags: string[] = ['Side View', 'Face View', 'Demerit','Process Stage'];
+  selectedTag: string = '';
+  noteText: string = '';
+  availableTags: string[] = [];
 
-  // constructor(private location :Location, private dialog:MatDialog) { }
-
-    constructor(
+  constructor(
     private router: Router,
     private route: ActivatedRoute,
-     private dialog:MatDialog
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.loadTags();
+    this.loadNotes();
   }
 
+  loadTags(): void {
+    const stored = localStorage.getItem('rpm_tags');
+    let tagsList = [];
+    if (stored) {
+      tagsList = JSON.parse(stored);
+    } else {
+      tagsList = [
+        { id: 1, name: 'Side View', isActive: true, description: 'Notes regarding side view layout' },
+        { id: 2, name: 'Face View', isActive: true, description: 'Notes regarding face view layouts' },
+        { id: 3, name: 'Demerit', isActive: true, description: 'Notes regarding demerit points' },
+        { id: 4, name: 'Process Stage', isActive: true, description: 'Notes regarding process stages' }
+      ];
+      localStorage.setItem('rpm_tags', JSON.stringify(tagsList));
+    }
+    // Filter to only active tags
+    this.availableTags = tagsList.filter((t: any) => t.isActive).map((t: any) => t.name);
+  }
 
-  
+  loadNotes(): void {
+    const stored = localStorage.getItem('rpm_notes');
+    if (stored) {
+      this.dataSource = JSON.parse(stored);
+    } else {
+      this.dataSource = [];
+    }
+  }
+
+  addNote(): void {
+    if (!this.selectedTag || !this.noteText.trim()) {
+      return;
+    }
+    const newNote: NoteData = {
+      actions: '',
+      date: new Date().toLocaleDateString(),
+      postedBy: 'Admin',
+      message: this.noteText.trim(),
+      document: '',
+      tags: this.selectedTag
+    };
+    this.dataSource = [newNote, ...this.dataSource];
+    localStorage.setItem('rpm_notes', JSON.stringify(this.dataSource));
+    this.clearForm();
+  }
+
+  clearForm(): void {
+    this.selectedTag = '';
+    this.noteText = '';
+  }
+
   goBack(): void {
     this.router.navigateByUrl('/app/testing/projects');
   }
@@ -52,6 +98,4 @@ export class ProjectNotesComponent implements OnInit {
       width: '500px',
     });
   }
-
-
 }

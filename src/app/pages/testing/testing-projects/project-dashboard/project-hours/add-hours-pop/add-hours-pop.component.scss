@@ -5,20 +5,23 @@
   margin-bottom: 10px;
 
   th, td {
-    border: 1px solid #c2c8d0;
+    border: 1px solid #e2e8f0;
     padding: 8px;
     vertical-align: middle;
   }
 
   th {
-    background-color: #206095;
+    background-color: #3f3f3f;
     color: white;
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-color: #555555 !important;
   }
 
   td {
-    background-color: #f9fafb;
+    background-color: #ffffff;
   }
 
   .table-input {
@@ -33,11 +36,11 @@
 }
 
 .back {
-  background-color: #fefec4 !important;
+  background-color: #ffffff !important;
 }
 
 .NewHeader {
-  background-color: #206095;
+  background-color: #3f3f3f;
   padding: 15px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;

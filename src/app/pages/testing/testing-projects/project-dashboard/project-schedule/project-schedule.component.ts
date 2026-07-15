@@ -1,9 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as Highcharts from 'highcharts';
-import HC_Gantt from 'highcharts/modules/gantt';
-
-HC_Gantt(Highcharts);
 
 interface ScheduleTask {
   id: string;
@@ -16,6 +12,19 @@ interface ScheduleTask {
   actualEndObj: Date | null;
   status: 'Pending' | 'Ongoing' | 'Completed' | 'Exceeded';
   completion: number;
+}
+
+interface TimelineDay {
+  date: number;
+  name: string;
+}
+
+interface GanttBar {
+  left: number;
+  width: number;
+  color: string;
+  label: string;
+  completion?: number;
 }
 
 @Component({
@@ -31,12 +40,8 @@ export class ProjectScheduleComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  Highcharts: typeof Highcharts = Highcharts;
-  chartConstructor = 'ganttChart';
-  updateFlag = false;
   viewMode: 'grid' | 'gantt' = 'gantt';
   isMaskingPending = false;
-  chartOptions: Highcharts.Options = {};
 
   stats = {
     pending: 3,
@@ -44,6 +49,12 @@ export class ProjectScheduleComponent implements OnInit {
     completed: 2,
     exceeded: 2
   };
+
+  // Custom splitter state
+  leftPaneWidth: number = 420;
+  isResizing: boolean = false;
+  timelineDays: TimelineDay[] = [];
+  dayWidth: number = 40; // width in pixels of each day column
 
   allTasks: ScheduleTask[] = [
     {
@@ -164,7 +175,18 @@ export class ProjectScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadChart();
+    this.initializeTimelineDays();
+  }
+
+  initializeTimelineDays() {
+    const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    const temp: TimelineDay[] = [];
+    for (let i = 1; i <= 30; i++) {
+      // June 1st, 2026 is a Monday (index 0)
+      const dayName = days[(i - 1) % 7];
+      temp.push({ date: i, name: dayName });
+    }
+    this.timelineDays = temp;
   }
 
   setView(mode: 'grid' | 'gantt'): void {
@@ -173,7 +195,6 @@ export class ProjectScheduleComponent implements OnInit {
 
   toggleMaskPending(): void {
     this.isMaskingPending = !this.isMaskingPending;
-    this.loadChart();
   }
 
   formatDate(d: Date | null): string {
@@ -194,164 +215,92 @@ export class ProjectScheduleComponent implements OnInit {
     }
   }
 
-  private loadChart(): void {
-    const tasks = this.isMaskingPending
-      ? this.allTasks.filter(x => x.status !== 'Pending')
-      : this.allTasks;
+  // ─── Custom Resizable Splitter Logic ────────────────────────────────────
 
-    const planData: any[] = [];
-    const actualData: any[] = [];
+  initResize(event: MouseEvent) {
+    this.isResizing = true;
+    event.preventDefault();
 
-    tasks.forEach((task, index) => {
-      // 1. Plan Bar
-      planData.push({
-        id: task.id + '_plan',
-        name: task.name,
-        start: task.planStart.getTime(),
-        end: task.planEnd.getTime(),
-        y: index,
-        color: '#cbd5e1', // Light slate grey for planned schedule
-        custom: {
-          module: task.module,
-          startDate: this.formatDate(task.planStart),
-          finishDate: this.formatDate(task.planEnd),
-          type: 'Plan'
-        }
-      });
+    const startX = event.clientX;
+    const startWidth = this.leftPaneWidth;
 
-      // 2. Actual Bar (only if started)
-      if (task.actualStartObj) {
-        let barColor = '#d1d5db';
-        if (task.status === 'Completed') barColor = '#10b981';
-        else if (task.status === 'Ongoing') barColor = '#3b82f6';
-        else if (task.status === 'Exceeded') barColor = '#ef4444';
+    // Find the client width of the container dynamically to allow sliding to full width
+    let containerWidth = 1200;
+    const container = (event.target as HTMLElement).closest('.gantt-split-container');
+    if (container) {
+      containerWidth = container.clientWidth;
+    }
 
-        actualData.push({
-          id: task.id + '_actual',
-          name: task.name,
-          start: task.actualStartObj.getTime(),
-          end: task.actualEndObj ? task.actualEndObj.getTime() : Date.UTC(2026, 5, 15), // Fallback if ongoing
-          y: index,
-          color: barColor,
-          completed: {
-            amount: task.completion / 100
-          },
-          custom: {
-            module: task.module,
-            startDate: this.formatDate(task.actualStartObj),
-            finishDate: task.actualEndObj ? this.formatDate(task.actualEndObj) : 'Ongoing',
-            type: 'Actual'
-          }
-        });
+    const doDrag = (dragEvent: MouseEvent) => {
+      if (this.isResizing) {
+        const deltaX = dragEvent.clientX - startX;
+        // Slide completely from 0px (left side) up to containerWidth (right side)
+        this.leftPaneWidth = Math.max(0, Math.min(containerWidth, startWidth + deltaX));
       }
-    });
-
-    this.chartOptions = {
-      chart: {
-        height: 550,
-        backgroundColor: '#ffffff',
-        style: {
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
-        }
-      },
-      title: {
-        text: 'Project Schedule (Plan vs Actual)',
-        style: {
-          fontSize: '16px',
-          fontWeight: '600',
-          color: '#1e293b'
-        }
-      },
-      credits: {
-        enabled: false
-      },
-      scrollbar: {
-        enabled: false // disable Highcharts native scrollbar since viewport scrolls
-      },
-      xAxis: {
-        min: Date.UTC(2026, 5, 1),
-        max: Date.UTC(2026, 5, 30),
-        currentDateIndicator: true,
-        gridLineWidth: 1
-      },
-      yAxis: {
-        type: 'category',
-        uniqueNames: true,
-        grid: {
-          enabled: true,
-          borderColor: '#e2e8f0',
-          borderWidth: 1,
-          columns: [
-            {
-              title: { text: 'Task', style: { fontWeight: '600', color: '#475569' } },
-              labels: {
-                format: '{point.name}',
-                style: { color: '#0f172a', fontWeight: '500' }
-              }
-            },
-            {
-              title: { text: 'Module', style: { fontWeight: '600', color: '#475569' } },
-              labels: {
-                formatter: function() {
-                  return this.point.options.custom?.module || '';
-                },
-                style: { color: '#475569' }
-              }
-            },
-            {
-              title: { text: 'Start date', style: { fontWeight: '600', color: '#475569' } },
-              labels: {
-                formatter: function() {
-                  return this.point.options.custom?.startDate || '';
-                },
-                style: { color: '#475569' }
-              }
-            },
-            {
-              title: { text: 'Finish Date', style: { fontWeight: '600', color: '#475569' } },
-              labels: {
-                formatter: function() {
-                  return this.point.options.custom?.finishDate || '';
-                },
-                style: { color: '#475569' }
-              }
-            }
-          ] as any
-        }
-      } as any,
-      plotOptions: {
-        gantt: {
-          grouping: true, // Group series so they render plan/actual side by side within same row
-          dataLabels: {
-            enabled: true,
-            format: '{point.custom.type}',
-            style: {
-              fontSize: '9px',
-              fontWeight: 'bold',
-              textOutline: 'none'
-            }
-          }
-        }
-      },
-      series: [
-        {
-          type: 'gantt',
-          name: 'Plan',
-          data: planData,
-          pointWidth: 10,
-          pointPadding: 0.1
-        } as any,
-        {
-          type: 'gantt',
-          name: 'Actual',
-          data: actualData,
-          pointWidth: 10,
-          pointPadding: 0.1
-        } as any
-      ]
     };
 
-    this.updateFlag = true;
+    const stopDrag = () => {
+      this.isResizing = false;
+      document.removeEventListener('mousemove', doDrag);
+      document.removeEventListener('mouseup', stopDrag);
+    };
+
+    document.addEventListener('mousemove', doDrag);
+    document.addEventListener('mouseup', stopDrag);
+  }
+
+  // ─── Gantt Bars Calculation ─────────────────────────────────────────────
+
+  getDayOffset(d: Date): number {
+    const timelineStart = new Date(2026, 5, 1);
+    const diffTime = d.getTime() - timelineStart.getTime();
+    return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  getPlanBar(task: ScheduleTask): GanttBar | null {
+    if (!task.planStart || !task.planEnd) return null;
+    const startOffset = this.getDayOffset(task.planStart);
+    const endOffset = this.getDayOffset(task.planEnd);
+    
+    // Check borders (ensure plan fits within timeline view range of June 1 to June 30)
+    const startDay = Math.max(0, Math.min(29, startOffset));
+    const endDay = Math.max(0, Math.min(29, endOffset));
+    
+    const left = startDay * this.dayWidth;
+    const width = (endDay - startDay + 1) * this.dayWidth;
+
+    return {
+      left,
+      width,
+      color: '#86efac', // Soft pastel green for Planned schedule
+      label: 'Plan'
+    };
+  }
+
+  getActualBar(task: ScheduleTask): GanttBar | null {
+    if (!task.actualStartObj) return null;
+    const startOffset = this.getDayOffset(task.actualStartObj);
+    
+    // If ongoing, actual spans to June 15th (current tracking date)
+    const endOffset = task.actualEndObj 
+      ? this.getDayOffset(task.actualEndObj) 
+      : this.getDayOffset(new Date(2026, 5, 15));
+
+    const startDay = Math.max(0, Math.min(29, startOffset));
+    const endDay = Math.max(0, Math.min(29, endOffset));
+
+    const left = startDay * this.dayWidth;
+    const width = (endDay - startDay + 1) * this.dayWidth;
+
+    const color = '#10b981'; // Rich emerald green for Actual schedule
+
+    return {
+      left,
+      width,
+      color,
+      label: 'Actual',
+      completion: task.completion
+    };
   }
 
   goBack(): void {

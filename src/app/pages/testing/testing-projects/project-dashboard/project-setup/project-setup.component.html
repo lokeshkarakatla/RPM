@@ -17,7 +17,7 @@
   </div>
 </div>
 
-  <div class="board-grid">
+  <div class="board-grid" [style.grid-template-columns]="selectedStage?.type === 'gate' ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)'">
     
     <div class="board-column">
       <h2>Stages / Gates</h2>
@@ -51,7 +51,7 @@
       </div>
     </div>
 
-    <div class="board-column">
+    <div class="board-column" *ngIf="selectedStage?.type !== 'gate'">
       <h2>Modules <span class="header-context" *ngIf="selectedStage">({{ selectedStage?.name }})</span></h2>
       <div class="column-content">
         
@@ -89,33 +89,67 @@
     </div>
 
     <div class="board-column">
-      <h2>Tasks <span class="header-context" *ngIf="selectedModule">({{ selectedModule?.name }})</span></h2>
+      <h2>
+        <span *ngIf="selectedStage?.type === 'gate'; else stageTaskHeader">
+          CheckList <span class="header-context">({{ selectedStage?.name }})</span>
+        </span>
+        <ng-template #stageTaskHeader>
+          Tasks <span class="header-context" *ngIf="selectedModule">({{ selectedModule?.name }})</span>
+        </ng-template>
+      </h2>
       <div class="column-content">
         
         <button class="dashed-add-btn">
-          <mat-icon class="add-icon" style="margin-bottom:-6px">add</mat-icon> Add Task
+          <mat-icon class="add-icon" style="margin-bottom:-6px">add</mat-icon>
+          <span *ngIf="selectedStage?.type === 'gate'; else stageAddTaskBtn">Add Criterion</span>
+          <ng-template #stageAddTaskBtn>Add Task</ng-template>
         </button>
 
-        <ng-container *ngIf="selectedModule?.tasks">
-          <div class="list-item is-task" *ngFor="let task of selectedModule?.tasks">
-            <div class="item-left">
-              <div class="custom-checkbox" [class.checked]="task.completed" (click)="toggleCompleted($event, task)"></div>
-              <span class="item-name">{{ task.name }}</span>
+        <!-- Gates display tasks directly from selectedStage -->
+        <ng-container *ngIf="selectedStage?.type === 'gate'">
+          <ng-container *ngIf="selectedStage?.tasks">
+            <div class="list-item is-task" *ngFor="let task of selectedStage?.tasks">
+              <div class="item-left">
+                <div class="custom-checkbox" [class.checked]="task.completed" (click)="toggleCompleted($event, task)"></div>
+                <span class="item-name">{{ task.name }}</span>
+              </div>
+              <div class="item-right">
+                <button class="action-menu-btn" 
+                        (click)="$event.stopPropagation()" 
+                        [matMenuTriggerFor]="actionMenu" 
+                        [matMenuTriggerData]="{ item: task, type: 'Criterion' }">
+                  <mat-icon class="sm-icon">more_vert</mat-icon>
+                </button>
+              </div>
             </div>
-            <div class="item-right">
-              <button class="action-menu-btn" 
-                      (click)="$event.stopPropagation()" 
-                      [matMenuTriggerFor]="actionMenu" 
-                      [matMenuTriggerData]="{ item: task, type: 'Task' }">
-                <mat-icon class="sm-icon">more_vert</mat-icon>
-              </button>
-            </div>
+          </ng-container>
+          <div class="empty-state" *ngIf="!selectedStage?.tasks || selectedStage?.tasks?.length === 0">
+            No checklist items defined for this gate.
           </div>
         </ng-container>
 
-        <div class="empty-state" *ngIf="!selectedModule || selectedModule?.tasks?.length === 0">
-          No tasks defined for this module.
-        </div>
+        <!-- Stages display tasks from selectedModule -->
+        <ng-container *ngIf="selectedStage?.type !== 'gate'">
+          <ng-container *ngIf="selectedModule?.tasks">
+            <div class="list-item is-task" *ngFor="let task of selectedModule?.tasks">
+              <div class="item-left">
+                <div class="custom-checkbox" [class.checked]="task.completed" (click)="toggleCompleted($event, task)"></div>
+                <span class="item-name">{{ task.name }}</span>
+              </div>
+              <div class="item-right">
+                <button class="action-menu-btn" 
+                        (click)="$event.stopPropagation()" 
+                        [matMenuTriggerFor]="actionMenu" 
+                        [matMenuTriggerData]="{ item: task, type: 'Task' }">
+                  <mat-icon class="sm-icon">more_vert</mat-icon>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+          <div class="empty-state" *ngIf="!selectedModule || selectedModule?.tasks?.length === 0">
+            No tasks defined for this module.
+          </div>
+        </ng-container>
 
       </div>
     </div>

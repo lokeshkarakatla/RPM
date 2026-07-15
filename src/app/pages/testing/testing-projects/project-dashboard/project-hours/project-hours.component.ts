@@ -1,9 +1,15 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddHoursPopComponent } from './add-hours-pop/add-hours-pop.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+
+interface HourMessage {
+  sender: string;
+  date: string;
+  text: string;
+}
 
 interface HourEntry {
   dateObj: Date;
@@ -19,7 +25,8 @@ interface HourEntry {
   notes: string;
   approved: boolean;
   declined: boolean;
-  hold: boolean;
+  pending: boolean;
+  messages?: HourMessage[];
 }
 
 interface CalendarDay {
@@ -38,6 +45,7 @@ interface CalendarDay {
 })
 export class ProjectHoursComponent implements OnInit {
   @ViewChild('tableWrapper') tableWrapper!: ElementRef;
+  @ViewChild('messageDialog') messageDialog!: TemplateRef<any>;
 
   monthNames = [
     'January','February','March','April','May','June',
@@ -52,21 +60,31 @@ export class ProjectHoursComponent implements OnInit {
 
   // Pagination variables
   paginatedEntries: HourEntry[] = [];
-  pageSize: number = 4;
+  pageSize: number = 5;
   currentPage: number = 1;
   pageSizeOptions: number[] = [5, 10, 15, 20];
 
   calendarDays: CalendarDay[] = [];
 
   entries: HourEntry[] = [
-    { dateObj: new Date(2025, 5, 2), jobCode: 'JB-201', subject: 'Client Meeting', name: 'Ravi Sharma', description: 'Discussed project scope with client', stage: 'Review', stageClass: 'stage-review', module: 'Project Management', task: 'Client Meeting', hours: 3.5, notes: 'Follow-up scheduled next week', approved: true, declined: false, hold: false },
-    { dateObj: new Date(2025, 5, 2), jobCode: 'JB-202', subject: 'Team Sync', name: 'Priya Singh', description: 'Weekly sprint sync with team', stage: 'Approved', stageClass: 'stage-approved', module: 'HR', task: 'Team Building', hours: 1.0, notes: '', approved: true, declined: false, hold: false },
-    { dateObj: new Date(2025, 5, 9), jobCode: 'JB-203', subject: 'Procurement', name: 'Amit Kumar', description: 'Sourced office supplies for site', stage: 'Approved', stageClass: 'stage-approved', module: 'Administration', task: 'Office Management', hours: 2.0, notes: 'Invoice attached separately', approved: true, declined: false, hold: false },
-    { dateObj: new Date(2025, 5, 13), jobCode: 'JB-204', subject: 'Design Review', name: 'Neha Sharma', description: 'Reviewed license renewal for design tool', stage: 'Paid', stageClass: 'stage-paid', module: 'Design', task: 'Tool & Software', hours: 4.0, notes: '', approved: true, declined: false, hold: false },
-    { dateObj: new Date(2025, 5, 13), jobCode: 'JB-205', subject: 'IT Support', name: 'Vikram Joshi', description: 'Resolved internet connectivity issue', stage: 'Paid', stageClass: 'stage-paid', module: 'Administration', task: 'Utilities', hours: 1.5, notes: 'Escalated to ISP', approved: true, declined: false, hold: false },
-    { dateObj: new Date(2025, 5, 25), jobCode: 'JB-206', subject: 'Client Gifting', name: 'Sneha Kapoor', description: 'Coordinated Diwali gift for client', stage: 'Declined', stageClass: 'stage-declined', module: 'Business Development', task: 'Client Relationship', hours: 0.5, notes: 'Budget not approved', approved: false, declined: true, hold: false },
-    { dateObj: new Date(2025, 5, 25), jobCode: 'JB-207', subject: 'Travel Booking', name: 'Manish Jain', description: 'Booked flight for offsite meeting', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Offsite Meeting', hours: 1.0, notes: '', approved: false, declined: true, hold: false },
-    { dateObj: new Date(2025, 5, 29), jobCode: 'JB-208', subject: 'Site Visit', name: 'Anjali Patel', description: 'Coordinated hotel stay for client visit', stage: 'Hold', stageClass: 'stage-hold', module: 'Project Management', task: 'Client Meeting', hours: 2.5, notes: 'Awaiting client confirmation', approved: false, declined: false, hold: true }
+    { dateObj: new Date(2025, 5, 2), jobCode: 'JB-201', subject: 'Client Meeting', name: 'Ravi Sharma', description: 'Discussed project scope with client', stage: 'Review', stageClass: 'stage-review', module: 'Project Management', task: 'Client Meeting', hours: 3.5, notes: 'Follow-up scheduled next week', approved: true, declined: false, pending: false, messages: [{ sender: 'Ravi Sharma', date: '2025-06-02', text: 'Submitted timesheet report.' }, { sender: 'John Doe', date: '2025-06-03', text: 'Under review' }] },
+    { dateObj: new Date(2025, 5, 2), jobCode: 'JB-202', subject: 'Team Sync', name: 'Priya Singh', description: 'Weekly sprint sync with team', stage: 'Approved', stageClass: 'stage-approved', module: 'HR', task: 'Team Building', hours: 1.0, notes: '', approved: true, declined: false, pending: false, messages: [{ sender: 'Priya Singh', date: '2025-06-02', text: 'Completed design sprint sync.' }] },
+    { dateObj: new Date(2025, 5, 9), jobCode: 'JB-203', subject: 'Procurement', name: 'Amit Kumar', description: 'Sourced office supplies for site', stage: 'Approved', stageClass: 'stage-approved', module: 'Administration', task: 'Office Management', hours: 2.0, notes: 'Invoice attached separately', approved: true, declined: false, pending: false, messages: [] },
+    { dateObj: new Date(2025, 5, 13), jobCode: 'JB-204', subject: 'Design Review', name: 'Neha Sharma', description: 'Reviewed license renewal for design tool', stage: 'Paid', stageClass: 'stage-paid', module: 'Design', task: 'Tool & Software', hours: 4.0, notes: '', approved: true, declined: false, pending: false, messages: [{ sender: 'Neha Sharma', date: '2025-06-13', text: 'license invoice attached' }, { sender: 'Director B', date: '2025-06-14', text: 'Approved for payment' }, { sender: 'Finance', date: '2025-06-15', text: 'Payment completed' }] },
+    { dateObj: new Date(2025, 5, 13), jobCode: 'JB-205', subject: 'IT Support', name: 'Vikram Joshi', description: 'Resolved internet connectivity issue', stage: 'Paid', stageClass: 'stage-paid', module: 'Administration', task: 'Utilities', hours: 1.5, notes: 'Escalated to ISP', approved: true, declined: false, pending: false, messages: [{ sender: 'John Doe', date: '2025-06-13', text: 'Autopaid' }] },
+    { dateObj: new Date(2025, 5, 25), jobCode: 'JB-206', subject: 'Client Gifting', name: 'Sneha Kapoor', description: 'Coordinated Diwali gift for client', stage: 'Declined', stageClass: 'stage-declined', module: 'Business Development', task: 'Client Relationship', hours: 0.5, notes: 'Budget not approved', approved: false, declined: true, pending: false, messages: [{ sender: 'Sneha Kapoor', date: '2025-06-25', text: 'Sent to client' }, { sender: 'Manager A', date: '2025-06-26', text: 'Budget exceeded, declined' }] },
+    { dateObj: new Date(2025, 5, 25), jobCode: 'JB-207', subject: 'Travel Booking', name: 'Manish Jain', description: 'Booked flight for offsite meeting', stage: 'Declined', stageClass: 'stage-declined', module: 'Project Management', task: 'Offsite Meeting', hours: 1.0, notes: '', approved: false, declined: true, pending: false, messages: [] },
+    { dateObj: new Date(2025, 5, 29), jobCode: 'JB-208', subject: 'Site Visit', name: 'Anjali Patel', description: 'Coordinated hotel stay for client visit', stage: 'Hold', stageClass: 'stage-hold', module: 'Project Management', task: 'Client Meeting', hours: 2.5, notes: 'Awaiting client confirmation', approved: false, declined: false, pending: true, messages: [{ sender: 'Anjali Patel', date: '2025-06-29', text: 'Requesting room upgrade' }] },
+    
+    // Additional mock records for dates
+    { dateObj: new Date(2025, 5, 2), jobCode: 'JB-209', subject: 'BOM Review', name: 'Rajesh Kumar', description: 'Detailed BOM revision session', stage: 'Review', stageClass: 'stage-review', module: 'Process & Design Engineering', task: 'BOM Review', hours: 4.5, notes: '', approved: false, declined: false, pending: true, messages: [] },
+    { dateObj: new Date(2025, 5, 2), jobCode: 'JB-210', subject: 'EHS Check', name: 'Vijay Verma', description: 'Monthly plant safety audit', stage: 'Approved', stageClass: 'stage-approved', module: 'Concept & Feasibility', task: 'Regulatory and EHS compliance check', hours: 3.0, notes: 'Safety protocols met', approved: true, declined: false, pending: false, messages: [{ sender: 'Vijay Verma', date: '2025-06-02', text: 'Audit passed successfully' }] },
+    { dateObj: new Date(2025, 5, 9), jobCode: 'JB-211', subject: 'BOM Costing', name: 'Amit Kumar', description: 'Revised BOM cost calculation', stage: 'Review', stageClass: 'stage-review', module: 'Concept & Feasibility', task: 'Initial BOM & labor cost estimation', hours: 2.5, notes: '', approved: false, declined: false, pending: true, messages: [] },
+    { dateObj: new Date(2025, 5, 9), jobCode: 'JB-212', subject: 'Safety Audit', name: 'Neha Sharma', description: 'Reviewed plant ventilation metrics', stage: 'Approved', stageClass: 'stage-approved', module: 'Concept & Feasibility', task: 'Regulatory and EHS compliance check', hours: 1.5, notes: '', approved: true, declined: false, pending: false, messages: [] },
+    { dateObj: new Date(2025, 5, 13), jobCode: 'JB-213', subject: 'CAD assembly', name: 'Vikram Joshi', description: 'Completed assembly of structural prototype', stage: 'Approved', stageClass: 'stage-approved', module: 'Process & Design Engineering', task: 'Develop preliminary 3D assembly models', hours: 6.0, notes: '', approved: true, declined: false, pending: false, messages: [] },
+    { dateObj: new Date(2025, 5, 25), jobCode: 'JB-214', subject: 'Supplier Call', name: 'Sneha Kapoor', description: 'Negotiated raw materials pricing', stage: 'Review', stageClass: 'stage-review', module: 'Concept & Feasibility', task: 'Preliminary supply chain & vendor assessment', hours: 2.0, notes: '', approved: false, declined: false, pending: true, messages: [] },
+    { dateObj: new Date(2025, 5, 25), jobCode: 'JB-215', subject: 'Project Charter Draft', name: 'Ravi Sharma', description: 'Drafted first draft of assembly line project charter', stage: 'Approved', stageClass: 'stage-approved', module: 'Concept & Feasibility', task: 'Draft initial project charter', hours: 3.5, notes: 'Charter drafted', approved: true, declined: false, pending: false, messages: [] },
+    { dateObj: new Date(2025, 5, 29), jobCode: 'JB-216', subject: 'Capacity Review', name: 'Anjali Patel', description: 'Reviewed floor space limitations with manager', stage: 'Approved', stageClass: 'stage-approved', module: 'Concept & Feasibility', task: 'Assess existing factory floor capacity', hours: 4.0, notes: 'No space constraints found', approved: true, declined: false, pending: false, messages: [] }
   ];
 
   constructor(
@@ -159,6 +177,12 @@ export class ProjectHoursComponent implements OnInit {
     this.paginatedEntries = this.filteredEntries.slice(startIndex, endIndex);
   }
 
+  handlePageEvent(event: any) {
+    this.currentPage = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.updatePagination();
+  }
+
   changePageSize(event: any) {
     this.pageSize = event.target.value;
     this.currentPage = 1;
@@ -211,6 +235,7 @@ export class ProjectHoursComponent implements OnInit {
   }
 
   truncateDescription(text: string): string {
+    if (!text) return '';
     const words = text.split(' ');
     if (words.length > 4) {
       return words.slice(0, 4).join(' ') + '...';
@@ -225,22 +250,121 @@ export class ProjectHoursComponent implements OnInit {
     return `${mm}-${dd}-${yy}`;
   }
 
+  toggleRowStatus(entry: HourEntry, field: 'approved' | 'declined' | 'pending'): void {
+    if (field === 'approved') {
+      entry.approved = !entry.approved;
+      if (entry.approved) {
+        entry.declined = false;
+        entry.pending = false;
+        entry.stage = 'Approved';
+        entry.stageClass = 'stage-approved';
+      } else {
+        entry.stage = 'Review';
+        entry.stageClass = 'stage-review';
+      }
+    } else if (field === 'declined') {
+      entry.declined = !entry.declined;
+      if (entry.declined) {
+        entry.approved = false;
+        entry.pending = false;
+        entry.stage = 'Declined';
+        entry.stageClass = 'stage-declined';
+      } else {
+        entry.stage = 'Review';
+        entry.stageClass = 'stage-review';
+      }
+    } else if (field === 'pending') {
+      entry.pending = !entry.pending;
+      if (entry.pending) {
+        entry.approved = false;
+        entry.declined = false;
+        entry.stage = 'Pending';
+        entry.stageClass = 'stage-hold';
+      } else {
+        entry.stage = 'Review';
+        entry.stageClass = 'stage-review';
+      }
+    }
+  }
+
+  openMessagesDialog(entry: HourEntry): void {
+    this.dialog.open(this.messageDialog, {
+      width: '500px',
+      data: entry
+    });
+  }
+
+  addMessage(entry: HourEntry, text: string): void {
+    if (!text || !text.trim()) return;
+    if (!entry.messages) {
+      entry.messages = [];
+    }
+    entry.messages.push({
+      sender: 'John Doe',
+      date: new Date().toISOString().split('T')[0],
+      text: text.trim()
+    });
+  }
+
+  addTimeSheet(): void {
+    let dialogRef = this.dialog.open(AddHoursPopComponent, {
+      width: '800px',
+      height: 'auto',
+      data: null
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (result.rows && result.rows.length > 0) {
+          result.rows.forEach((row: any) => {
+            const newEntry: HourEntry = {
+              dateObj: result.dateObj,
+              jobCode: 'JB-' + (200 + this.entries.length + 1),
+              subject: row.description || 'Task Log',
+              name: result.name,
+              description: row.description,
+              stage: 'Pending',
+              stageClass: 'stage-hold',
+              module: row.module,
+              task: row.task,
+              hours: row.hours,
+              notes: '',
+              approved: false,
+              declined: false,
+              pending: true,
+              messages: []
+            };
+            this.entries.push(newEntry);
+          });
+        }
+        this.buildCalendar();
+        if (this.selectedDate) {
+          const selectedDay = this.calendarDays.find(d => this.isSameDay(d.date, this.selectedDate!));
+          if (selectedDay) {
+            this.filterByDate(selectedDay);
+          }
+        }
+      }
+    });
+  }
+
   editEntry(entry: HourEntry): void {
     let dialogRef = this.dialog.open(AddHoursPopComponent, {
-      width: '750px',
+      width: '800px',
       height: 'auto',
       data: entry
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        Object.assign(entry, result);
-        entry.stageClass = result.stage === 'Approved' ? 'stage-approved' : 
-                           (result.stage === 'Paid' ? 'stage-paid' : 
-                           (result.stage === 'Declined' ? 'stage-declined' : 
-                           (result.stage === 'Hold' ? 'stage-hold' : 'stage-review')));
-        entry.approved = result.stage === 'Approved';
-        entry.declined = result.stage === 'Declined';
-        entry.hold = result.stage === 'Hold';
+        entry.dateObj = result.dateObj;
+        entry.name = result.name;
+        if (result.rows && result.rows.length > 0) {
+          const r = result.rows[0];
+          entry.module = r.module;
+          entry.task = r.task;
+          entry.hours = r.hours;
+          entry.description = r.description;
+          entry.subject = r.description || entry.subject;
+        }
         
         // update calendar entries count / rebuild
         this.buildCalendar();

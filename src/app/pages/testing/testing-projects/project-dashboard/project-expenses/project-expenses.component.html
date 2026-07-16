@@ -2,6 +2,14 @@
 
   <div class="header-section" style="margin-bottom: 20px; justify-content: flex-end;">
     <div class="header-actions" style="display: flex; gap: 10px; align-items: center;">
+      <button mat-raised-button 
+              [color]="isMaskingApproved ? null : 'primary'"
+              [style.background-color]="isMaskingApproved ? '#000000' : null" 
+              [style.color]="isMaskingApproved ? '#ffffff' : null"
+              (click)="toggleMaskApproved()">
+        <mat-icon>{{ isMaskingApproved ? 'visibility' : 'visibility_off' }}</mat-icon>
+        Mask Approved
+      </button>
       <button mat-raised-button color="primary" class="btn-primary" (click)="addExpense()">
         <mat-icon>add</mat-icon> Add Expense
       </button>
@@ -32,11 +40,11 @@
               <th style="vertical-align: middle;">Submitted By</th>
               <th style="vertical-align: middle;">Submitted Date</th>
               <th style="vertical-align: middle;">Stage</th>
-              <th class="text-center" style="vertical-align: middle;">Approved</th>
-              <th class="text-center" style="vertical-align: middle;">Declined</th>
               <th style="vertical-align: middle;">Approved By</th>
               <th style="vertical-align: middle;">Approved Date</th>
               <th class="text-center" style="vertical-align: middle;">Messages</th>
+              <th class="text-center" style="vertical-align: middle;">Approved</th>
+              <th class="text-center" style="vertical-align: middle;">Declined</th>
               <th class="text-center" style="vertical-align: middle;">PDF</th>
             </tr>
           </thead>
@@ -74,6 +82,17 @@
               <td style="vertical-align: middle;"><span class="badge" [ngClass]="expense.stageClass">{{ expense.stage
                   }}</span></td>
 
+              <td style="vertical-align: middle;">{{ expense.approvedBy || '-' }}</td>
+              <td style="vertical-align: middle;">{{ expense.approvedDate ? (expense.approvedDate | date:'yyyy-MM-dd') :
+                '-' }}</td>
+
+              <!-- Messages clickable number -->
+              <td class="text-center" style="vertical-align: middle;">
+                <a class="tdLink" style="text-decoration: underline;" (click)="openMessagesDialog(expense)">
+                  {{ expense.messages?.length || 0 }}
+                </a>
+              </td>
+
               <!-- Approved Checkbox -->
               <td class="text-center" style="vertical-align: middle;">
                 <input type="checkbox" class="custom-checkbox cb-green" [checked]="expense.approved"
@@ -84,17 +103,6 @@
               <td class="text-center" style="vertical-align: middle;">
                 <input type="checkbox" class="custom-checkbox cb-red" [checked]="expense.declined"
                   (change)="toggleDeclined(expense)">
-              </td>
-
-              <td style="vertical-align: middle;">{{ expense.approvedBy || '-' }}</td>
-              <td style="vertical-align: middle;">{{ expense.approvedDate ? (expense.approvedDate | date:'yyyy-MM-dd') :
-                '-' }}</td>
-
-              <!-- Messages clickable number -->
-              <td class="text-center" style="vertical-align: middle;">
-                <a class="tdLink" style="text-decoration: underline;" (click)="openMessagesDialog(expense)">
-                  {{ expense.messages?.length || 0 }}
-                </a>
               </td>
 
               <!-- PDF: eye (view) + download icons -->

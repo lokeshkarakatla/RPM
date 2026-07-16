@@ -87,11 +87,29 @@ export class ProjectExpensesComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
+  isMaskingApproved = false;
+
   ngOnInit(): void {
     this.buildCalendar();
-    this.filteredExpenses = [...this.expenses];
+    this.applyFiltering();
+  }
+
+  applyFiltering(): void {
+    let list = [...this.expenses];
+    if (this.selectedDate) {
+      list = list.filter(e => e.date === this.selectedDate!.getDate());
+    }
+    if (this.isMaskingApproved) {
+      list = list.filter(e => !e.approved);
+    }
+    this.filteredExpenses = list;
     this.currentPage = 1;
     this.updatePagination();
+  }
+
+  toggleMaskApproved(): void {
+    this.isMaskingApproved = !this.isMaskingApproved;
+    this.applyFiltering();
   }
 
   // ─── Calendar header label ──────────────────────────────────────────────
@@ -150,14 +168,11 @@ export class ProjectExpensesComponent implements OnInit {
     if (!day.inCurrentMonth) return;
 
     this.selectedDate = day.date;
-    this.filteredExpenses = this.expenses.filter(e => e.date === day.dayNumber);
+    this.applyFiltering();
 
     for (const d of this.calendarDays) {
       d.isSelected = this.isSameDay(d.date, day.date);
     }
-
-    this.currentPage = 1;
-    this.updatePagination();
   }
 
   // ─── Pagination ─────────────────────────────────────────────────────────
@@ -262,8 +277,7 @@ export class ProjectExpensesComponent implements OnInit {
         };
         this.expenses.unshift(newExpense);
         this.buildCalendar();
-        this.filteredExpenses = [...this.expenses];
-        this.updatePagination();
+        this.applyFiltering();
       }
     });
   }
@@ -306,8 +320,7 @@ export class ProjectExpensesComponent implements OnInit {
         expense.declined = result.stage === 'Declined';
 
         this.buildCalendar();
-        this.filteredExpenses = [...this.expenses];
-        this.updatePagination();
+        this.applyFiltering();
       }
     });
   }
@@ -324,8 +337,7 @@ export class ProjectExpensesComponent implements OnInit {
       if (result) {
         this.expenses = this.expenses.filter(e => e !== expense);
         this.buildCalendar();
-        this.filteredExpenses = [...this.expenses];
-        this.updatePagination();
+        this.applyFiltering();
       }
     });
   }
@@ -345,6 +357,7 @@ export class ProjectExpensesComponent implements OnInit {
       expense.approvedDate = '';
     }
     this.buildCalendar();
+    this.applyFiltering();
   }
 
   toggleDeclined(expense: Expense): void {
@@ -361,6 +374,7 @@ export class ProjectExpensesComponent implements OnInit {
       expense.stageClass = 'stage-review';
     }
     this.buildCalendar();
+    this.applyFiltering();
   }
 
   openMessagesDialog(expense: Expense): void {

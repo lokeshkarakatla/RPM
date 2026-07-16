@@ -1,78 +1,75 @@
-<div class="page-container" style=" margin-left : -15px">
+<div class="page-container" style="margin-left: -15px;">
 
-
-
-  <div class="header-section">
-    <div class="header-title mb-2" style="visibility: hidden;">
-      <div>
-        <h1>Documents</h1>
-        <p style="color:#6e6e6e">Track and manage all documents</p>
-      </div>
-    </div>
-
-    <div >
-      <button mat-raised-button class="back-btn" (click)="goBack()"
-        style="background-color: rgb(130, 130, 130); color: white;cursor:pointer;">
-        <mat-icon>arrow_back</mat-icon>
-        Back
+  <!-- Header Section with Buttons -->
+  <div class="header-section" style="display: flex; align-items: center; justify-content: flex-end; margin-bottom: 20px; width: 100%;">
+    <div style="display: flex; gap: 10px;">
+      <button mat-raised-button (click)="uploaddoc()" style="background-color: #286ba5; color: white;">
+        <mat-icon>add</mat-icon> Add Document
       </button>
-
-      <!-- <div class="secondary-actions">
-    <div class="date-picker-btn">
-      <svg class="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      Jun 1 - Jun 30, 2025
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </div>
-    
-    <div class="filter-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-      Filters
-    </div>
-  </div> -->
+      <button mat-raised-button (click)="filterToggle = !filterToggle" style="background-color: black; color: white;">
+        <mat-icon>filter_list</mat-icon> Filter
+      </button>
+      <button mat-raised-button (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
     </div>
   </div>
-  <div class="toolbar">
 
-    <div class="filter-item">
-      <label>Keyword:</label>
-      <input type="text" placeholder="Enter Keyword" class="simple-input">
-      <button mat-icon-button color="primary" class="icon-action-btn" matTooltip="Search">
-        <mat-icon>search</mat-icon>
-      </button>
-      <button mat-icon-button class="icon-action-btn" matTooltip="Clear">
-        <mat-icon>refresh</mat-icon>
-      </button>
-    </div>
-    <label>Select Category:</label>
-    <mat-select _ngcontent-ng-c1498838364="" role="combobox" aria-autocomplete="none" aria-haspopup="listbox"
-      ngskiphydration="" formcontrolname="DocumentTypeId" placeholder="Select Category"
-      class="mat-mdc-select form-control ng-tns-c2400438669-784 mat-mdc-select-empty ng-untouched ng-pristine ng-valid ng-star-inserted"
-      style="width: 180px;" aria-labelledby="mat-select-value-1037" id="mat-select-1036" tabindex="0"
-      aria-expanded="false" aria-required="false" aria-disabled="false" aria-invalid="false">
-      <div cdk-overlay-origin="" class="mat-mdc-select-trigger ng-tns-c2400438669-784">
-        <div class="mat-mdc-select-value ng-tns-c2400438669-784" id="mat-select-value-1037"><span
-            class="mat-mdc-select-placeholder mat-mdc-select-min-line ng-tns-c2400438669-784 ng-star-inserted">Select
-            Category</span><!----><!----></div>
-        <div class="mat-mdc-select-arrow-wrapper ng-tns-c2400438669-784">
-          <div class="mat-mdc-select-arrow ng-tns-c2400438669-784"><svg viewBox="0 0 24 24" width="24px" height="24px"
-              focusable="false" aria-hidden="true" class="ng-tns-c2400438669-784">
-              <path d="M7 10l5 5 5-5z" class="ng-tns-c2400438669-784"></path>
-            </svg></div>
+  <!-- Toggleable Filter Card -->
+  <div *ngIf="filterToggle" style="margin-bottom: 15px; width: 100%;">
+    <mat-card class="filter" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; background: white;">
+      <mat-card-content style="padding: 15px;">
+        <div class="row col-sm-12" style="display: flex; align-items: center; width: 100%;">
+          <!-- Keyword Field -->
+          <div class="col-sm-4 row me-2" style="display: flex; align-items: center; gap: 8px;">
+            <div class="col-sm-3">
+              <b>Keyword:</b>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="filterKeyword" (input)="applyDocFilter()" class="form-control" placeholder="Search Keyword" style="height: 36px;" />
+            </div>
+          </div>
+
+          <!-- Category Field -->
+          <div class="col-sm-4 row me-2" style="display: flex; align-items: center; gap: 8px;">
+            <div class="col-sm-4">
+              <b>Select Category:</b>
+            </div>
+            <div class="col-sm-7">
+              <mat-select [(value)]="selectedCategory" (selectionChange)="applyDocFilter()" placeholder="Select Category" class="form-control" style="line-height: 24px; height: 36px; padding: 0 10px;">
+                <mat-option [value]="null">All Categories</mat-option>
+                <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <!-- Actions & Close Button -->
+          <div class="col-sm-4" style="margin-left: auto; display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
+            <button mat-raised-button color="primary" (click)="applyDocFilter()" style="background-color: #286ba5; color: white;">
+              <mat-icon>search</mat-icon> Search
+            </button>
+            <button mat-raised-button class="btn-default" (click)="clearDocFilter()">
+              <mat-icon>settings_backup_restore</mat-icon> Clear
+            </button>
+            <a (click)="filterToggle = false" style="font-size: 25px; cursor: pointer; color: #333; margin-left: 5px;">
+              <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
-      </div><!---->
-    </mat-select>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-    <div class="visit-filter">
-
-    </div>
-
-    <button mat-raised-button class="view-toggle-btn" (click)="toggleView()">
+  <!-- Toolbar with View Toggle only -->
+  <div class="toolbar"
+    style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 20px; width: 100%;">
+    <button mat-raised-button class="view-toggle-btn" (click)="toggleView()" style="height: 38px;">
       <mat-icon>{{ isGridView ? 'view_list' : 'view_module' }}</mat-icon>
       {{ isGridView ? 'Grid View': 'Card View' }}
     </button>
-
   </div>
 
+  <!-- Grid View -->
   <div *ngIf="isGridView" class="grid-container">
 
     <mat-card class="add-doc-card" (click)="uploaddoc()">
@@ -80,13 +77,13 @@
       <span style="margin-top:30px">Add Document Record</span>
     </mat-card>
 
-    <mat-card class="doc-card" *ngFor="let doc of dataSource" (click)="onCardClick(doc)">
+    <mat-card class="doc-card" *ngFor="let doc of filteredDataSource" (click)="onCardClick(doc)">
       <div class="card-actions">
         <mat-icon class="action-icon view-icon" matTooltip="View"
           (click)="$event.stopPropagation()">visibility</mat-icon>
         <mat-icon class="action-icon delete-icon" matTooltip="Delete"
-          (click)="$event.stopPropagation()">delete</mat-icon>
-        <mat-icon class="action-icon edit-icon" matTooltip="Edit" (click)="$event.stopPropagation()">edit</mat-icon>
+          (click)="deleteDocument(doc, $event)">delete</mat-icon>
+        <mat-icon class="action-icon edit-icon" matTooltip="Edit" (click)="editDocument(doc, $event)">edit</mat-icon>
       </div>
 
       <div class="card-body">
@@ -98,62 +95,66 @@
 
   </div>
 
-  <div *ngIf="!isGridView" class="table-container mat-elevation-z1">
-    <table mat-table [dataSource]="dataSource">
+  <!-- Table View -->
+  <div *ngIf="!isGridView" class="table-responsive" id="grid-table-container" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; background: white; margin-top: 15px;">
+    <table mat-table [dataSource]="filteredDataSource" class="table table-bordered table-hover" style="width: 100%; margin-bottom: 0;">
 
       <ng-container matColumnDef="documentType">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Document Type </th>
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600;"> Document Type </th>
         <td mat-cell *matCellDef="let element"> {{element.documentType}} </td>
       </ng-container>
 
       <ng-container matColumnDef="documentTitle">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Document Title </th>
-        <td mat-cell *matCellDef="let element" class="text-center"> {{element.documentTitle}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600;"> Document Title </th>
+        <td mat-cell *matCellDef="let element" class="text-center" style="font-weight: 500;"> {{element.documentTitle}}
+        </td>
       </ng-container>
 
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Category </th>
-        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="context">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Context </th>
-        <td mat-cell *matCellDef="let element"> {{element.context}} </td>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600;"> Description </th>
+        <td mat-cell *matCellDef="let element" style="text-align: left; padding: 8px 15px;">
+          <div style="font-weight: 500; color: #374151;">Category: {{element.category || '-'}}</div>
+          <div style="font-size: 12px; color: #6b7280; margin-top: 2px;">Context: {{element.context || '-'}}</div>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="uploadFile">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Upload File </th>
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600; width: 100px;"> PDF </th>
         <td mat-cell *matCellDef="let element" class="text-center">
-          <a href="javascript:void(0)" class="view-link">{{element.uploadFile}}</a>
+          <i class="fa fa-eye" style="color: #374151; font-size: 16px; cursor: pointer; margin-right: 12px;"
+            matTooltip="View PDF" (click)="viewPdf(element)"></i>
+          <i class="fa fa-download" style="color: #374151; font-size: 16px; cursor: pointer;" matTooltip="Download PDF"
+            (click)="downloadPdf(element)"></i>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="uploadedDate">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Uploaded Date </th>
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600;"> Uploaded Date </th>
         <td mat-cell *matCellDef="let element" class="text-center"> {{element.uploadedDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="uploadedBy">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Uploaded By </th>
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600;"> Uploaded By </th>
         <td mat-cell *matCellDef="let element" class="text-center"> {{element.uploadedBy}} </td>
       </ng-container>
 
       <ng-container matColumnDef="remarks">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Remarks </th>
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600;"> Remarks </th>
         <td mat-cell *matCellDef="let element" class="text-center">
-          <mat-icon class="info-icon" matTooltip="Info">info</mat-icon>
+          <mat-icon class="info-icon" [matTooltip]="element.remarks || 'No remarks'"
+            style="color: #1976d2; cursor: pointer;">info</mat-icon>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600;"> Actions </th>
         <td mat-cell *matCellDef="let element" class="text-center">
-          <button mat-icon-button class="table-action-btn edit-icon">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button class="table-action-btn delete-icon">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <a style="cursor: pointer; margin-right: 15px;" matTooltip="Edit" (click)="editDocument(element, $event)">
+            <i class="fa fa-edit" style="color: cornflowerblue; font-size: 16px;"></i>
+          </a>
+          <a style="cursor: pointer;" matTooltip="Delete" (click)="deleteDocument(element, $event)">
+            <i class="fa fa-trash" style="color: red; font-size: 16px;"></i>
+          </a>
         </td>
       </ng-container>
 

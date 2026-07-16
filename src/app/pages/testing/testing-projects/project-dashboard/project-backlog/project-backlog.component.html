@@ -5,39 +5,42 @@
       <h1>Scrum (NextGen Assembly Line-2026/MFG/011)</h1>
       <p>Plan and track tasks across sprints and stages.</p>
     </div>
-    
+
     <!-- View Toggler Bar (Parallel to Back button) -->
     <div class="view-toggler-bar" style="margin-bottom: 0; margin-left: auto; margin-right: 15px;">
-      <button type="button" class="view-toggle-btn" [class.view-toggle-btn--active]="activeView === 'grid'" (click)="setView('grid')">
+      <button type="button" class="view-toggle-btn" [class.view-toggle-btn--active]="activeView === 'grid'"
+        (click)="setView('grid')">
         <mat-icon>grid_on</mat-icon> Grid View
       </button>
-      <button type="button" class="view-toggle-btn" [class.view-toggle-btn--active]="activeView === 'kanban'" (click)="setView('kanban')">
+      <button type="button" class="view-toggle-btn" [class.view-toggle-btn--active]="activeView === 'kanban'"
+        (click)="setView('kanban')">
         <mat-icon>dashboard</mat-icon> Kanban View
       </button>
-      <button type="button" class="view-toggle-btn" [class.view-toggle-btn--active]="activeView === 'calendar'" (click)="setView('calendar')">
+      <button type="button" class="view-toggle-btn" [class.view-toggle-btn--active]="activeView === 'calendar'"
+        (click)="setView('calendar')">
         <mat-icon>calendar_today</mat-icon> Calendar View
       </button>
-      <button type="button" class="view-toggle-btn" [class.view-toggle-btn--active]="activeView === 'gantt'" (click)="setView('gantt')">
+      <button type="button" class="view-toggle-btn" [class.view-toggle-btn--active]="activeView === 'gantt'"
+        (click)="setView('gantt')">
         <mat-icon>view_week</mat-icon> Gantt View
       </button>
     </div>
-    
-    <button mat-raised-button color="primary" class="assignment-btn" style="margin-right: 15px;" (click)="openAssignmentPopup()">
+
+    <button mat-raised-button color="primary" class="assignment-btn" style="margin-right: 15px;"
+      (click)="openAssignmentPopup()">
       <mat-icon>add</mat-icon> Assignment
     </button>
-    
-    <button mat-raised-button class="back-btn" (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
-    <mat-icon>arrow_back</mat-icon>
-    Back
-  </button>
+
+    <button mat-raised-button class="back-btn" (click)="goBack()"
+      style="background-color: rgb(130, 130, 130); color: white;">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
   </div>
 
   <!-- Tab bar (Moved down to the view toggler's former position) -->
   <div class="tab-bar">
-    <button
-      *ngFor="let s of sprints; trackBy: trackById"
-      type="button"
-      [class]="getTabClasses(s)"
+    <button *ngFor="let s of sprints; trackBy: trackById" type="button" [class]="getTabClasses(s)"
       (click)="selectTab(s.id)">
       <span *ngIf="s.kind === 'completed'" class="glyphicon glyphicon-ok-circle"></span>
       <span *ngIf="s.kind === 'active'" class="glyphicon glyphicon-play-circle"></span>
@@ -51,21 +54,7 @@
 
     <div class="tab-bar__spacer"></div>
 
-    <div class="stage-legends" style="display: flex; gap: 15px; font-size: 12px; align-items: center; margin-right: 20px;">
-      <span style="display: inline-flex; align-items: center; gap: 6px;">
-        <span style="width: 12px; height: 12px; border-radius: 3px; background-color: #fce7f3; display: inline-block; border: 1px solid #cbd5e1;"></span> Design
-      </span>
-      <span style="display: inline-flex; align-items: center; gap: 6px;">
-        <span style="width: 12px; height: 12px; border-radius: 3px; background-color: #dbeafe; display: inline-block; border: 1px solid #cbd5e1;"></span> Development
-      </span>
-      <span style="display: inline-flex; align-items: center; gap: 6px;">
-        <span style="width: 12px; height: 12px; border-radius: 3px; background-color: #fef3c7; display: inline-block; border: 1px solid #cbd5e1;"></span> Testing
-      </span>
-      <span style="display: inline-flex; align-items: center; gap: 6px;">
-        <span style="width: 12px; height: 12px; border-radius: 3px; background-color: #dcfce7; display: inline-block; border: 1px solid #cbd5e1;"></span> Deployment
-      </span>
-    </div>
-
+    <span style="font-weight: 600; font-size: 13px; color: #333; margin-right: 8px; align-self: center;">Stages:</span>
     <select class="stage-select" [(ngModel)]="stageFilter">
       <option value="all">All Stages</option>
       <option *ngFor="let st of stages" [value]="st">{{ st }}</option>
@@ -102,8 +91,10 @@
           <tr *ngFor="let t of filteredTasks; trackBy: trackById">
             <td class="text-center">
               <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
-                <i class="fa fa-pencil text-primary" style="cursor: pointer; font-size: 16px;" (click)="editAsset(t)"></i>
-                <i class="fa fa-trash text-danger" style="cursor: pointer; font-size: 16px;" (click)="deleteAsset(t)"></i>
+                <i class="fa fa-pencil text-primary" style="cursor: pointer; font-size: 16px;"
+                  (click)="editAsset(t)"></i>
+                <i class="fa fa-trash text-danger" style="cursor: pointer; font-size: 16px;"
+                  (click)="deleteAsset(t)"></i>
               </div>
             </td>
 
@@ -160,20 +151,17 @@
             <span class="kanban-column-count">{{ kanbanCards[stage]?.length || 0 }}</span>
           </div>
           <!-- Card List Drop Zone -->
-          <div
-            cdkDropList
-            [id]="stage"
-            [cdkDropListData]="kanbanCards[stage]"
-            (cdkDropListDropped)="drop($event, stage)"
-            class="kanban-cards-container"
-            style="min-height: 150px;">
-            
+          <div cdkDropList [id]="stage" [cdkDropListData]="kanbanCards[stage]"
+            (cdkDropListDropped)="drop($event, stage)" class="kanban-cards-container" style="min-height: 150px;">
+
             <div *ngFor="let t of kanbanCards[stage]; trackBy: trackById" cdkDrag class="kanban-card">
               <div class="kanban-card-header">
                 <span class="kanban-card-title">{{ t.task }}</span>
                 <div class="kanban-card-actions">
-                  <i class="fa fa-pencil text-primary" style="cursor: pointer; font-size: 14px; margin-right: 8px;" (click)="editAsset(t)"></i>
-                  <i class="fa fa-trash text-danger" style="cursor: pointer; font-size: 14px;" (click)="deleteAsset(t)"></i>
+                  <i class="fa fa-pencil text-primary" style="cursor: pointer; font-size: 14px; margin-right: 8px;"
+                    (click)="editAsset(t)"></i>
+                  <i class="fa fa-trash text-danger" style="cursor: pointer; font-size: 14px;"
+                    (click)="deleteAsset(t)"></i>
                 </div>
               </div>
               <div class="kanban-card-codes">
@@ -216,21 +204,14 @@
 
         <!-- Cells -->
         <div class="calendar-grid-body">
-          <div
-            *ngFor="let cell of calendarCells; trackBy: trackById"
-            class="calendar-cell"
-            [class.calendar-cell--other-month]="!cell.inCurrentMonth"
-            [class.calendar-cell--today]="cell.isToday">
-            
+          <div *ngFor="let cell of calendarCells; trackBy: trackById" class="calendar-cell"
+            [class.calendar-cell--other-month]="!cell.inCurrentMonth" [class.calendar-cell--today]="cell.isToday">
+
             <div class="calendar-day-number">{{ cell.dayNumber }}</div>
-            
+
             <div class="calendar-cell-tasks">
-              <div
-                *ngFor="let task of cell.tasks"
-                [class]="getStageClasses(task.stage)"
-                class="calendar-task-chip"
-                (click)="editAsset(task)"
-                [matTooltip]="task.task + ' (' + task.taskCode + ') - Click to Edit'">
+              <div *ngFor="let task of cell.tasks" [class]="getStageClasses(task.stage)" class="calendar-task-chip"
+                (click)="editAsset(task)" [matTooltip]="task.task + ' (' + task.taskCode + ') - Click to Edit'">
                 {{ task.task }}
               </div>
             </div>
@@ -270,11 +251,8 @@
               </div>
 
               <!-- Bar -->
-              <div
-                [ngClass]="getStageClasses(t.stage)"
-                [ngStyle]="getGanttBarStyle(t, ganttDays)"
-                class="gantt-task-bar"
-                (click)="editAsset(t)"
+              <div [ngClass]="getStageClasses(t.stage)" [ngStyle]="getGanttBarStyle(t, ganttDays)"
+                class="gantt-task-bar" (click)="editAsset(t)"
                 [matTooltip]="t.task + ' - Effort: ' + t.effort + 'h. Click to Edit'">
                 <span class="gantt-bar-label">{{ t.stage }} &middot; {{ t.effort }}h</span>
               </div>
@@ -294,10 +272,10 @@
 <div class="bl-modal-overlay" *ngIf="showAddSprint" (click)="closeAddSprint()">
   <div class="bl-modal" (click)="$event.stopPropagation()">
     <!-- Header -->
-    <div class="NewHeader">
-      <h3 style="padding-top:10px; margin: 0; color: white; text-align: center;">Add Sprint</h3>
+    <div class="header" style="padding: 100px; padding-top: 55px;">
+      <h3 style="padding-top:20px; margin: 0; color: white; text-align: center;">Add Sprint</h3>
     </div>
-    
+
     <!-- Body -->
     <div class="modal-body-scrollable" style="padding: 20px 25px;">
       <div class="col-sm-12" style="margin-bottom: 10px;">
@@ -306,15 +284,17 @@
             <label class="control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Sprint Name :</label>
           </div>
           <div class="col-sm-9">
-            <input type="text" class="form-control back" [(ngModel)]="newSprintName" placeholder="Enter sprint name" style="height: 35px;" />
+            <input type="text" class="form-control back" [(ngModel)]="newSprintName" placeholder="Enter sprint name"
+              style="height: 35px;" />
           </div>
         </div>
       </div>
     </div>
-    
+
     <!-- Actions -->
     <div class="bl-modal__actions">
-      <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="closeAddSprint()" style="background-color: lightgray; color: red; margin-right: 5px;">
+      <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="closeAddSprint()"
+        style="background-color: lightgray; color: red; margin-right: 5px;">
         <mat-icon>cancel</mat-icon> Close
       </button>
       <button mat-raised-button type="button" class="save" color="primary" (click)="confirmAddSprint()">

@@ -79,11 +79,6 @@
             <th style="min-width: 180px; text-align: left;">Tasks</th>
             <th style="min-width: 95px;">Task Code</th>
             <th style="min-width: 95px;">Job Code</th>
-            <th style="min-width: 110px;">Plan Start</th>
-            <th style="min-width: 110px;">Plan Finish</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 110px;">ETA</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 110px;">Actual Start</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 110px;">Actual Finish</th>
             <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 90px;">Expenses</th>
             <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 120px;">Assigned</th>
             <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 105px;">Status</th>
@@ -94,70 +89,107 @@
             <th style="min-width: 95px;">Duration (days)</th>
             <th style="min-width: 100px;">Stage</th>
             <th style="min-width: 250px; text-align: left;">Description</th>
+            <th style="min-width: 90px; text-align: center;">Timeline</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let t of filteredTasks; trackBy: trackById">
-            <td class="text-center">
-              <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
-                <i class="fa fa-pencil text-primary" style="cursor: pointer; font-size: 16px;"
-                  (click)="editAsset(t)"></i>
-                <i class="fa fa-trash text-danger" style="cursor: pointer; font-size: 16px;"
-                  (click)="deleteAsset(t)"></i>
-              </div>
-            </td>
+          <ng-container *ngFor="let t of filteredTasks; trackBy: trackById">
+            <tr>
+              <td class="text-center" style="vertical-align: middle;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
+                  <i class="fa fa-pencil text-primary" style="cursor: pointer; font-size: 16px;"
+                    (click)="editAsset(t)"></i>
+                  <i class="fa fa-trash text-danger" style="cursor: pointer; font-size: 16px;"
+                    (click)="deleteAsset(t)"></i>
+                </div>
+              </td>
 
-            <td style="text-align: left; vertical-align: middle;"><strong>{{ t.task }}</strong></td>
-            <td style="vertical-align: middle;"><span class="code-text">{{ t.taskCode }}</span></td>
-            <td style="vertical-align: middle;"><span class="code-text">{{ t.jobCode }}</span></td>
-            <td style="vertical-align: middle; white-space: nowrap;">{{ t.planStart }}</td>
-            <td style="vertical-align: middle; white-space: nowrap;">{{ t.planFinish }}</td>
+              <td style="text-align: left; vertical-align: middle;"><strong>{{ t.task }}</strong></td>
+              <td style="vertical-align: middle;"><span class="code-text">{{ t.taskCode }}</span></td>
+              <td style="vertical-align: middle;"><span class="code-text">{{ t.jobCode }}</span></td>
 
-            <!-- Sprint only columns (read-only in table, editable via Edit modal) -->
-            <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle; white-space: nowrap;">
-              {{ t.eta ? (t.eta | date:'yyyy-MM-dd') : '—' }}
-            </td>
-            <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle; white-space: nowrap;">
-              {{ t.actualStart ? (t.actualStart | date:'yyyy-MM-dd') : '—' }}
-            </td>
-            <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle; white-space: nowrap;">
-              {{ t.actualFinish ? (t.actualFinish | date:'yyyy-MM-dd') : '—' }}
-            </td>
-            <td *ngIf="activeSprint.kind !== 'backlog'" style="text-align: right; vertical-align: middle;">
-              {{ t.expenses ? (t.expenses | number:'1.2-2') : '—' }}
-            </td>
-            <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle;">
-              <span class="assignee-chip" *ngIf="t.assigned">
-                <span class="assignee-avatar">{{ initials(t.assigned) }}</span>
-                {{ t.assigned }}
-              </span>
-              <span *ngIf="!t.assigned" class="assignee-empty">—</span>
-            </td>
-            <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle;">
-              <span *ngIf="t.status" [class]="getStatusClasses(t.status)">{{ getStatusLabel(t.status) }}</span>
-              <span *ngIf="!t.status">—</span>
-            </td>
-            <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle;">
-              <input type="checkbox" class="custom-checkbox cb-green" [(ngModel)]="t.approved">
-            </td>
-            <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle;">
-              <a class="tdLink" style="text-decoration: underline; cursor: pointer;" (click)="openNotesDialog(t)">
-                {{ t.notes?.length || 0 }}
-              </a>
-            </td>
-            <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle; min-width: 130px;">
-              <input type="range" min="0" max="100" [(ngModel)]="t.progress" class="custom-range"
-                [style.--slider-color]="getSliderColor(t.progress || 0)"
-                [style.--slider-fill]="(t.progress || 0) + '%'" matTooltip="{{ t.progress || 0 }}%">
-            </td>
+              <!-- Sprint only columns (read-only in table, editable via Edit modal) -->
+              <td *ngIf="activeSprint.kind !== 'backlog'" style="text-align: right; vertical-align: middle;">
+                {{ t.expenses ? (t.expenses | number:'1.2-2') : '—' }}
+              </td>
+              <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle;">
+                <span class="assignee-chip" *ngIf="t.assigned">
+                  <span class="assignee-avatar">{{ initials(t.assigned) }}</span>
+                  {{ t.assigned }}
+                </span>
+                <span *ngIf="!t.assigned" class="assignee-empty">—</span>
+              </td>
+              <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle;">
+                <span *ngIf="t.status" [class]="getStatusClasses(t.status)">{{ getStatusLabel(t.status) }}</span>
+                <span *ngIf="!t.status">—</span>
+              </td>
+              <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle;">
+                <input type="checkbox" class="custom-checkbox cb-green" [(ngModel)]="t.approved">
+              </td>
+              <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle;">
+                <a class="tdLink" style="text-decoration: underline; cursor: pointer;" (click)="openNotesDialog(t)">
+                  {{ t.notes?.length || 0 }}
+                </a>
+              </td>
+              <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle; min-width: 130px;">
+                <input type="range" min="0" max="100" [(ngModel)]="t.progress" class="custom-range"
+                  [style.--slider-color]="getSliderColor(t.progress || 0)"
+                  [style.--slider-fill]="(t.progress || 0) + '%'" matTooltip="{{ t.progress || 0 }}%">
+              </td>
 
-            <td>{{ t.effort }}</td>
-            <td>{{ t.duration }}</td>
-            <td>
-              <span [class]="getStageClasses(t.stage)">{{ t.stage }}</span>
-            </td>
-            <td>{{ t.description }}</td>
-          </tr>
+              <td style="vertical-align: middle;">{{ t.effort }}</td>
+              <td style="vertical-align: middle;">{{ t.duration }}</td>
+              <td style="vertical-align: middle;">
+                <span [class]="getStageClasses(t.stage)">{{ t.stage }}</span>
+              </td>
+              <td style="text-align: left; vertical-align: middle;">{{ t.description }}</td>
+
+              <!-- Timeline Chevron Toggle -->
+              <td style="vertical-align: middle;" class="text-center">
+                <button mat-icon-button (click)="t.expanded = !t.expanded" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
+                  <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">
+                    {{ t.expanded ? 'expand_more' : 'chevron_right' }}
+                  </mat-icon>
+                </button>
+              </td>
+            </tr>
+
+            <!-- Expanded Timeline Row (Side-by-side key-values matching design in img1) -->
+            <tr *ngIf="t.expanded" style="background-color: #f8fafc;">
+              <td [attr.colspan]="colSpanForActiveSprint()" style="padding: 15px 24px; text-align: left;">
+                <div style="border-left: 3px solid #286ba5; padding-left: 15px;">
+                  <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Timeline — {{ t.task }}</div>
+                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 40px; max-width: 1000px;">
+                    <!-- Plan Start -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Start</span>
+                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planStart ? (t.planStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                    </div>
+                    <!-- Plan Finish -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Finish</span>
+                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planFinish ? (t.planFinish | date:'dd-MMM-yyyy') : '—' }}</span>
+                    </div>
+                    <!-- ETA -->
+                    <div *ngIf="activeSprint.kind !== 'backlog'" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">ETA</span>
+                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.eta ? (t.eta | date:'dd-MMM-yyyy') : '—' }}</span>
+                    </div>
+                    <!-- Actual Start -->
+                    <div *ngIf="activeSprint.kind !== 'backlog'" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Start</span>
+                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualStart ? (t.actualStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                    </div>
+                    <!-- Actual Finish -->
+                    <div *ngIf="activeSprint.kind !== 'backlog'" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Finish</span>
+                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualFinish ? (t.actualFinish | date:'dd-MMM-yyyy') : '—' }}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
 
           <tr *ngIf="filteredTasks.length === 0">
             <td [attr.colspan]="colSpanForActiveSprint()" class="empty-row">

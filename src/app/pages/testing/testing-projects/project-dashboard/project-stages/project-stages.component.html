@@ -40,73 +40,111 @@
               <th>Stage Code</th>
               <th>Stage Name</th>
               <th>Plan Effort</th>
-              <th>Plan Duration</th>
               <th>Description</th>
-              <th>Plan Start Date</th>
-              <th>Plan End Date</th>
-              <th>Actual Start Date</th>
-              <th>Actual End Date</th>
-              <th>ETA</th>
+              <th>Plan Duration</th>
               <th>Buffer</th>
               <th>Gate Name</th>
               <th>Gate Status</th>
               <th class="text-center">Setup</th>
+              <th class="text-center">Timeline</th>
             </tr>
           </thead>
           <tbody dragula="PROJECTSTAGES" [dragulaModel]="pagedStages"
             (dragulaModelChange)="onPagedStagesChange($event)">
-            <tr *ngFor="let s of pagedStages; let idx = index">
-              <!-- Move: drag handle -->
-              <td class="text-center">
-                <mat-icon style="color: #9e9e9e; cursor: grab;" class="drag-handle">drag_indicator</mat-icon>
-              </td>
+            <ng-container *ngFor="let s of pagedStages; let idx = index">
+              <tr>
+                <!-- Move: drag handle -->
+                <td class="text-center">
+                  <mat-icon style="color: #9e9e9e; cursor: grab;" class="drag-handle">drag_indicator</mat-icon>
+                </td>
 
-              <!-- Actions: Edit/Delete -->
-              <td class="text-center">
-                <a matTooltip="Edit Stage" (click)="openEditStage(s, idx)" style="cursor: pointer; margin-right: 12px; color: cornflowerblue;">
-                  <i class="fa fa-edit"></i>
-                </a>
-                <a matTooltip="Delete Stage" (click)="deleteStage(s)" style="cursor: pointer; color: red;">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
+                <!-- Actions: Edit/Delete -->
+                <td class="text-center">
+                  <a matTooltip="Edit Stage" (click)="openEditStage(s, idx)" style="cursor: pointer; margin-right: 12px; color: cornflowerblue;">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a matTooltip="Delete Stage" (click)="deleteStage(s)" style="cursor: pointer; color: red;">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
 
-              <!-- Status toggle -->
-              <td class="text-center">
-                <a [ngStyle]="{ color: s.status ? 'blue' : 'red' }" style="cursor: pointer;">
-                  <span (click)="Confirmation(s)">
-                    {{ s.status ? 'Active' : 'Inactive' }}
+                <!-- Status toggle -->
+                <td class="text-center">
+                  <a [ngStyle]="{ color: s.status ? 'blue' : 'red' }" style="cursor: pointer;">
+                    <span (click)="Confirmation(s)">
+                      {{ s.status ? 'Active' : 'Inactive' }}
+                    </span>
+                  </a>
+                </td>
+
+                <td>{{ s.stageCode }}</td>
+                <td><span class="stage-name-text">{{ s.name }}</span></td>
+                <td>{{ s.planEffort }}</td>
+                <td>{{ s.description }}</td>
+                <td>{{ s.planDuration }}</td>
+                <td>{{ s.buffer }}</td>
+                <td>{{ s.gateName }}</td>
+                <td>
+                  <span class="gate-status-badge" [class]="'gate-status-badge--' + s.gateStatus.toLowerCase()">
+                    {{ s.gateStatus }}
                   </span>
-                </a>
-              </td>
+                </td>
 
-              <td>{{ s.stageCode }}</td>
-              <td><span class="stage-name-text">{{ s.name }}</span></td>
-              <td>{{ s.planEffort }}</td>
-              <td>{{ s.planDuration }}</td>
-              <td>{{ s.description }}</td>
-              <td>{{ s.planStart }}</td>
-              <td>{{ s.planEnd }}</td>
-              <td>{{ s.actualStart || '—' }}</td>
-              <td>{{ s.actualEnd || '—' }}</td>
-              <td>{{ s.eta }}</td>
-              <td>{{ s.buffer }}</td>
-              <td>{{ s.gateName }}</td>
-              <td>
-                <span class="gate-status-badge" [class]="'gate-status-badge--' + s.gateStatus.toLowerCase()">
-                  {{ s.gateStatus }}
-                </span>
-              </td>
+                <!-- Setup Action -->
+                <td class="text-center">
+                  <a (click)="openSetup(s)" style="cursor: pointer;" class="setup-link">
+                    {{ s.setupCount }}
+                  </a>
+                </td>
 
-              <!-- Setup Action -->
-              <td class="text-center">
-                <a (click)="openSetup(s)" style="cursor: pointer;" class="setup-link">
-                  {{ s.setupCount }}
-                </a>
-              </td>
-            </tr>
+                <!-- Timeline Chevron Toggle -->
+                <td class="text-center">
+                  <button mat-icon-button (click)="s.expanded = !s.expanded" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
+                    <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">
+                      {{ s.expanded ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Expanded Timeline Row (Side-by-side key-values matching design in img1) -->
+              <tr *ngIf="s.expanded" class="no-drag" style="background-color: #f8fafc;">
+                <td colspan="13" style="padding: 15px 24px; text-align: left;">
+                  <div style="border-left: 3px solid #286ba5; padding-left: 15px;">
+                    <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Timeline — {{ s.name }}</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 40px; max-width: 1000px;">
+                      <!-- Plan Start Date -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Start Date</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.planStart ? (s.planStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                      <!-- Plan End Date -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan End Date</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.planEnd ? (s.planEnd | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                      <!-- Actual Start Date -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Start Date</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.actualStart ? (s.actualStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                      <!-- Actual End Date -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual End Date</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.actualEnd ? (s.actualEnd | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                      <!-- ETA -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">ETA</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.eta ? (s.eta | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
             <tr *ngIf="stages.length === 0" class="no-drag">
-              <td colspan="17" class="empty-table-cell">No stages registered.</td>
+              <td colspan="13" class="empty-table-cell">No stages registered.</td>
             </tr>
           </tbody>
         </table>
@@ -291,56 +329,94 @@
                 <th>Department</th>
                 <th>Responsibility</th>
                 <th>Section</th>
-                <th>Plan Start Date</th>
-                <th>Plan End Date</th>
-                <th>Actual Start Date</th>
-                <th>Actual End Date</th>
-                <th>ETA</th>
                 <th>Actual Hours</th>
                 <th>Expenses</th>
                 <th>Priority</th>
+                <th class="text-center">Timeline</th>
               </tr>
             </thead>
             <tbody>
               <ng-container *ngIf="activeStage.modules[activeModuleIndex] as currentMod">
-                <tr *ngFor="let t of getFilteredTasks(currentMod.tasks); let tidx = index">
-                  <!-- Actions -->
-                  <td class="text-center">
-                    <a matTooltip="Edit Task" (click)="openEditTask(t, tidx)" style="cursor: pointer; margin-right: 12px; color: cornflowerblue;">
-                      <i class="fa fa-edit"></i>
-                    </a>
-                    <a matTooltip="Delete Task" (click)="deleteTask(t)" style="cursor: pointer; color: red;">
-                      <i class="fa fa-trash"></i>
-                    </a>
-                  </td>
+                <ng-container *ngFor="let t of getFilteredTasks(currentMod.tasks); let tidx = index">
+                  <tr>
+                    <!-- Actions -->
+                    <td class="text-center">
+                      <a matTooltip="Edit Task" (click)="openEditTask(t, tidx)" style="cursor: pointer; margin-right: 12px; color: cornflowerblue;">
+                        <i class="fa fa-edit"></i>
+                      </a>
+                      <a matTooltip="Delete Task" (click)="deleteTask(t)" style="cursor: pointer; color: red;">
+                        <i class="fa fa-trash"></i>
+                      </a>
+                    </td>
 
-                  <td><strong>{{ t.task }}</strong></td>
-                  <td><span class="code-badge">{{ t.taskCode }}</span></td>
-                  <td><span class="code-badge">{{ t.jobCode }}</span></td>
-                  <td>{{ t.effort }}h</td>
-                  <td>{{ t.department }}</td>
-                  <td>{{ t.role }}</td>
-                  <td>{{ t.section || '—' }}</td>
-                  <td>{{ t.planStart }}</td>
-                  <td>{{ t.planEnd }}</td>
-                  <td>{{ t.actualStart || '—' }}</td>
-                  <td>{{ t.actualEnd || '—' }}</td>
-                  <td>{{ t.eta }}</td>
-                  <td>{{ t.actualHours }}h</td>
-                  <td>{{ t.expenses }}</td>
-                  <td>
-                    <span class="priority-label" [class]="'priority-label--' + t.priority.toLowerCase()">
-                      {{ t.priority }}
-                    </span>
-                  </td>
-                </tr>
+                    <td><strong>{{ t.task }}</strong></td>
+                    <td><span class="code-badge">{{ t.taskCode }}</span></td>
+                    <td><span class="code-badge">{{ t.jobCode }}</span></td>
+                    <td>{{ t.effort }}h</td>
+                    <td>{{ t.department }}</td>
+                    <td>{{ t.role }}</td>
+                    <td>{{ t.section || '—' }}</td>
+                    <td>{{ t.actualHours }}h</td>
+                    <td>{{ t.expenses }}</td>
+                    <td>
+                      <span class="priority-label" [class]="'priority-label--' + t.priority.toLowerCase()">
+                        {{ t.priority }}
+                      </span>
+                    </td>
+
+                    <!-- Timeline Chevron Toggle -->
+                    <td class="text-center">
+                      <button mat-icon-button (click)="t.expanded = !t.expanded" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
+                        <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">
+                          {{ t.expanded ? 'expand_more' : 'chevron_right' }}
+                        </mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <!-- Expanded Timeline Row (Side-by-side key-values matching design in img1) -->
+                  <tr *ngIf="t.expanded" style="background-color: #f8fafc;">
+                    <td colspan="12" style="padding: 15px 24px; text-align: left;">
+                      <div style="border-left: 3px solid #286ba5; padding-left: 15px;">
+                        <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Timeline — {{ t.task }}</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 40px; max-width: 1000px;">
+                          <!-- Plan Start Date -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Start Date</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planStart ? (t.planStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                          <!-- Plan End Date -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan End Date</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planEnd ? (t.planEnd | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                          <!-- Actual Start Date -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Start Date</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualStart ? (t.actualStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                          <!-- Actual End Date -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual End Date</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualEnd ? (t.actualEnd | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                          <!-- ETA -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">ETA</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.eta ? (t.eta | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
                 <tr *ngIf="getFilteredTasks(currentMod.tasks).length === 0">
-                  <td colspan="16" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
+                  <td colspan="12" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
                   </td>
                 </tr>
               </ng-container>
               <tr *ngIf="!activeStage.modules || activeStage.modules.length === 0">
-                <td colspan="16" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
+                <td colspan="12" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
               </tr>
             </tbody>
           </table>

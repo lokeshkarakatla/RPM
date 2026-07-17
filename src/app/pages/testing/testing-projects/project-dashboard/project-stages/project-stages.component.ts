@@ -56,6 +56,7 @@ export interface StageItem {
   status: boolean;
   setupCount: number;
   modules: StageModule[];
+  expanded?: boolean;
 }
 
 @Component({

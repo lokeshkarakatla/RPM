@@ -31,6 +31,7 @@ export interface Task {
   approved?: boolean;
   notes?: { sender: string; date: string; text: string }[];
   progress?: number;
+  expanded?: boolean;
 }
 
 export interface Sprint {
@@ -353,7 +354,7 @@ export class ProjectBacklogComponent {
   }
 
   colSpanForActiveSprint(): number {
-    return this.activeSprint.kind === 'backlog' ? 10 : 19;
+    return this.activeSprint.kind === 'backlog' ? 9 : 15;
   }
 
   deleteAsset(item: Task): void {

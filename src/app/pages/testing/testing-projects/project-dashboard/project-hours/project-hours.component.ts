@@ -306,7 +306,7 @@ export class ProjectHoursComponent implements OnInit {
     });
   }
 
-  addTimeSheet(): void {
+  addTimesheet(): void {
     let dialogRef = this.dialog.open(AddHoursPopComponent, {
       width: '800px',
       height: 'auto',

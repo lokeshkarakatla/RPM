@@ -25,12 +25,12 @@ export class RpmStagesComponent implements OnInit, OnDestroy {
   pageSize = 10;
 
   tdata = [
-    { phase: "Feasibility", description: "Evaluate project viability", tasks: 45, status: "Active", stageCode: "STG001", stageName: "Feasibility", gateCode: "GT001", stageDescription: "Evaluate project viability" },
-    { phase: "Design", description: "Create functional, technical", tasks: 58, status: "Active", stageCode: "STG002", stageName: "Design", gateCode: "GT002", stageDescription: "Create functional, technical" },
-    { phase: "Prototyping", description: "Develop an initial working.", tasks: 39, status: "Inactive", stageCode: "STG003", stageName: "Prototyping", gateCode: "GT003", stageDescription: "Develop an initial working." },
-    { phase: "Testing", description: "Validate functionality, quality", tasks: 51, status: "Active", stageCode: "STG004", stageName: "Testing", gateCode: "GT004", stageDescription: "Validate functionality, quality" },
-    { phase: "Launch", description: "Prepare and release the product", tasks: 41, status: "Inactive", stageCode: "STG005", stageName: "Launch", gateCode: "GT005", stageDescription: "Prepare and release the product" },
-    { phase: "Implementation", description: "Execute full-scale adoption", tasks: 27, status: "Inactive", stageCode: "STG006", stageName: "Implementation", gateCode: "GT006", stageDescription: "Execute full-scale adoption" }
+    { phase: "Feasibility", description: "Evaluate project viability", tasks: 45, status: "Active", stageCode: "STG001", stageName: "Feasibility", gateCode: "GT001", stageDescription: "Evaluate project viability", planEffort: 120, planDuration: 15 },
+    { phase: "Design", description: "Create functional, technical", tasks: 58, status: "Active", stageCode: "STG002", stageName: "Design", gateCode: "GT002", stageDescription: "Create functional, technical", planEffort: 240, planDuration: 30 },
+    { phase: "Prototyping", description: "Develop an initial working.", tasks: 39, status: "Inactive", stageCode: "STG003", stageName: "Prototyping", gateCode: "GT003", stageDescription: "Develop an initial working.", planEffort: 320, planDuration: 40 },
+    { phase: "Testing", description: "Validate functionality, quality", tasks: 51, status: "Active", stageCode: "STG004", stageName: "Testing", gateCode: "GT004", stageDescription: "Validate functionality, quality", planEffort: 160, planDuration: 20 },
+    { phase: "Launch", description: "Prepare and release the product", tasks: 41, status: "Inactive", stageCode: "STG005", stageName: "Launch", gateCode: "GT005", stageDescription: "Prepare and release the product", planEffort: 80, planDuration: 10 },
+    { phase: "Implementation", description: "Execute full-scale adoption", tasks: 27, status: "Inactive", stageCode: "STG006", stageName: "Implementation", gateCode: "GT006", stageDescription: "Execute full-scale adoption", planEffort: 400, planDuration: 50 }
   ];
 
   pagedData: any[] = [];
@@ -115,6 +115,8 @@ export class RpmStagesComponent implements OnInit, OnDestroy {
         item.gateCode = result.gateCode;
         item.stageDescription = result.stageDescription;
         item.description = result.stageDescription;
+        item.planEffort = result.planEffort;
+        item.planDuration = result.planDuration;
         this.updatePageData();
       }
     });
@@ -156,7 +158,9 @@ export class RpmStagesComponent implements OnInit, OnDestroy {
           stageCode: `STG00${nextId}`,
           stageName: result.stageName,
           gateCode: result.gateCode,
-          stageDescription: result.stageDescription
+          stageDescription: result.stageDescription,
+          planEffort: result.planEffort || 0,
+          planDuration: result.planDuration || 0
         };
         this.tdata.push(newStage);
         this.totalSize = this.tdata.length;

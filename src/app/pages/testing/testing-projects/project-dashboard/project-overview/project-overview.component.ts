@@ -36,16 +36,43 @@ export class ProjectOverviewComponent implements OnInit {
     credits: { enabled: false },
     xAxis: {
       currentDateIndicator: false,
-      min: Date.UTC(2026, 0, 1),   // Jan 2026
-      max: Date.UTC(2027, 7, 31),  // Aug 2027
-      opposite: false,             // Moves the axis to the BOTTOM
-      tickInterval: 1000 * 60 * 60 * 24 * 30, // Approximately 1 month
-      units: [['month', [1]]],     // Forces ticks to strict calendar months
+      min: Date.UTC(2026, 0, 1),
+      max: Date.UTC(2027, 7, 31),
+      opposite: false,
+
+      tickPositions: [
+        Date.UTC(2026, 0, 1),  // Jan 2026
+        Date.UTC(2026, 1, 1),  // Feb 2026
+        Date.UTC(2026, 2, 1),  // Mar 2026
+        Date.UTC(2026, 3, 1),  // Apr 2026
+        Date.UTC(2026, 4, 1),  // May 2026
+        Date.UTC(2026, 5, 1),  // Jun 2026
+        Date.UTC(2026, 6, 1),  // Jul 2026
+        Date.UTC(2026, 7, 1),  // Aug 2026
+        Date.UTC(2026, 8, 1),  // Sep 2026
+        Date.UTC(2026, 9, 1),  // Oct 2026
+        Date.UTC(2026, 10, 1), // Nov 2026
+        Date.UTC(2026, 11, 1), // Dec 2026
+        Date.UTC(2027, 0, 1),  // Jan 2027
+        Date.UTC(2027, 1, 1),  // Feb 2027
+        Date.UTC(2027, 2, 1),  // Mar 2027
+        Date.UTC(2027, 3, 1),  // Apr 2027
+        Date.UTC(2027, 4, 1),  // May 2027
+        Date.UTC(2027, 5, 1),  // Jun 2027
+        Date.UTC(2027, 6, 1),  // Jul 2027
+        Date.UTC(2027, 7, 1)   // Aug 2027
+      ],
+
       labels: {
-        format: '{value:%b %Y}', 
-        step: 1,                   // Forces EVERY month label to show (no skipping)
-        style: { color: '#6b7280', fontSize: '11px', fontWeight: '500' }
+        format: '{value:%b %Y}',
+        step: 1,
+        style: {
+          color: '#6b7280',
+          fontSize: '11px',
+          fontWeight: '500'
+        }
       },
+
       gridLineWidth: 1,
       gridLineColor: '#f3f4f6'
     },
@@ -96,7 +123,7 @@ export class ProjectOverviewComponent implements OnInit {
           start: Date.UTC(2026, 4, 1),
           end: Date.UTC(2026, 7, 15),
           color: '#fef08a', // Light yellow remaining
-          completed: { amount: 0.35, fill: '#10b981' }, 
+          completed: { amount: 0.35, fill: '#10b981' },
           custom: { label: '60%' }
         },
         {
@@ -158,13 +185,13 @@ export class ProjectOverviewComponent implements OnInit {
     }]
   };
 
-   constructor(
-     private router: Router,
-     private route: ActivatedRoute
-   ) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
 
-    goBack(): void {
+  goBack(): void {
     this.router.navigateByUrl('/app/testing/projects');
   }
   ngOnInit(): void {

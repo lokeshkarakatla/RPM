@@ -1,7 +1,8 @@
-<div class="page-container" style="margin-left: -15px;">
+<div class="page-container" style="padding: 0 10px; box-sizing: border-box; width: 100%;">
 
   <!-- Header Section with Buttons -->
-  <div class="header-section" style="display: flex; align-items: center; justify-content: flex-end; margin-bottom: 20px; width: 100%;">
+  <div class="header-section"
+    style="display: flex; align-items: center; justify-content: flex-end; margin-bottom: 20px; width: 100%;">
     <div style="display: flex; gap: 10px;">
       <button mat-raised-button (click)="uploaddoc()" style="background-color: #286ba5; color: white;">
         <mat-icon>add</mat-icon> Add Document
@@ -19,39 +20,36 @@
   <div *ngIf="filterToggle" style="margin-bottom: 15px; width: 100%;">
     <mat-card class="filter" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; background: white;">
       <mat-card-content style="padding: 15px;">
-        <div class="row col-sm-12" style="display: flex; align-items: center; width: 100%;">
+        <div style="display: flex; align-items: center; width: 100%; gap: 20px; box-sizing: border-box;">
           <!-- Keyword Field -->
-          <div class="col-sm-4 row me-2" style="display: flex; align-items: center; gap: 8px;">
-            <div class="col-sm-3">
-              <b>Keyword:</b>
-            </div>
-            <div class="col-sm-8">
-              <input type="text" [(ngModel)]="filterKeyword" (input)="applyDocFilter()" class="form-control" placeholder="Search Keyword" style="height: 36px;" />
-            </div>
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; box-sizing: border-box;">
+            <b style="white-space: nowrap; font-size: 13px; color: #475569;">Keyword:</b>
+            <input type="text" [(ngModel)]="filterKeyword" (input)="applyDocFilter()" class="form-control"
+              placeholder="Search Keyword" style="height: 36px; flex-grow: 1; box-sizing: border-box;" />
           </div>
 
           <!-- Category Field -->
-          <div class="col-sm-4 row me-2" style="display: flex; align-items: center; gap: 8px;">
-            <div class="col-sm-4">
-              <b>Select Category:</b>
-            </div>
-            <div class="col-sm-7">
-              <mat-select [(value)]="selectedCategory" (selectionChange)="applyDocFilter()" placeholder="Select Category" class="form-control" style="line-height: 24px; height: 36px; padding: 0 10px;">
-                <mat-option [value]="null">All Categories</mat-option>
-                <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
-              </mat-select>
-            </div>
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; box-sizing: border-box;">
+            <b style="white-space: nowrap; font-size: 13px; color: #475569;">Select Category:</b>
+            <mat-select [(value)]="selectedCategory" (selectionChange)="applyDocFilter()"
+              placeholder="Select Category" class="form-control"
+              style="display: inline-flex; align-items: center; height: 36px; padding: 0 10px; flex-grow: 1; box-sizing: border-box;">
+              <mat-option [value]="null">All Categories</mat-option>
+              <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+            </mat-select>
           </div>
 
           <!-- Actions & Close Button -->
-          <div class="col-sm-4" style="margin-left: auto; display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
-            <button mat-raised-button color="primary" (click)="applyDocFilter()" style="background-color: #286ba5; color: white;">
-              <mat-icon>search</mat-icon> Search
+          <div style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+            <button mat-raised-button color="primary" (click)="applyDocFilter()"
+              style="background-color: #286ba5; color: white; height: 36px; display: inline-flex; align-items: center;">
+              <mat-icon style="font-size: 18px; width: 18px; height: 18px; line-height: 18px;">search</mat-icon> Search
             </button>
-            <button mat-raised-button class="btn-default" (click)="clearDocFilter()">
-              <mat-icon>settings_backup_restore</mat-icon> Clear
+            <button mat-raised-button class="btn-default" (click)="clearDocFilter()"
+              style="height: 36px; background-color: #cbd5e1; display: inline-flex; align-items: center;">
+              <mat-icon style="font-size: 18px; width: 18px; height: 18px; line-height: 18px;">settings_backup_restore</mat-icon> Clear
             </button>
-            <a (click)="filterToggle = false" style="font-size: 25px; cursor: pointer; color: #333; margin-left: 5px;">
+            <a (click)="filterToggle = false" style="font-size: 25px; cursor: pointer; color: #333; margin-left: 5px; display: flex; align-items: center;">
               <i class="fa fa-angle-double-up" aria-hidden="true"></i>
             </a>
           </div>
@@ -89,15 +87,17 @@
       <div class="card-body">
         <mat-icon class="file-icon">description</mat-icon>
         <div class="doc-title">{{ doc.documentTitle }}</div>
-        <div class="doc-meta">OMEGANET | {{ doc.uploadedDate }}</div>
+        <div class="doc-meta">Project Id: 1085704974 | {{ doc.uploadedDate }}</div>
       </div>
     </mat-card>
 
   </div>
 
   <!-- Table View -->
-  <div *ngIf="!isGridView" class="table-responsive" id="grid-table-container" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; background: white; margin-top: 15px;">
-    <table mat-table [dataSource]="filteredDataSource" class="table table-bordered table-hover" style="width: 100%; margin-bottom: 0;">
+  <div *ngIf="!isGridView" class="table-responsive" id="grid-table-container"
+    style="width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; background: white; margin-top: 15px;">
+    <table mat-table [dataSource]="filteredDataSource" class="table table-bordered table-hover"
+      style="width: 100%; margin-bottom: 0;">
 
       <ng-container matColumnDef="documentType">
         <th mat-header-cell *matHeaderCellDef class="text-center" style="font-weight:600;"> Document Type </th>

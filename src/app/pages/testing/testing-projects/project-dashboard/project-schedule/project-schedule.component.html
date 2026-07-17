@@ -1,16 +1,9 @@
 <div class="schedule-dashboard">
   <div class="container">
 
-    <div class="header-section">
-      <div class="header-content">
-        <div class="header-titles">
-          <h2 class="assign-title">Schedule (NextGen Assembly Line-2026/MFG/011)</h2>
-          <p class="assign-subtitle">
-            Track allocation, progress, and ETA across all tasks.
-          </p>
-        </div>
-
-        <button mat-raised-button class="back-btn" (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white; margin-top: 29px;">
+    <div class="header-section" style="margin-bottom: 20px;">
+      <div class="header-content" style="display: flex; justify-content: flex-end; width: 100%;">
+        <button mat-raised-button class="back-btn" (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white; margin-top: 0;">
           <mat-icon>arrow_back</mat-icon>
           Back
         </button>
@@ -72,8 +65,8 @@
 
       <!-- ─── GRID VIEW TABLE ─── -->
       <div class="grid-view" *ngIf="viewMode === 'grid'">
-        <table>
-          <thead>
+        <table class="table table-bordered table-hover text-center">
+          <thead class="tbl-head">
             <tr>
               <th class="pl-4">Task</th>
               <th>Module</th>

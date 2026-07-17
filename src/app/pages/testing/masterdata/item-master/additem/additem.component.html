@@ -1,95 +1,100 @@
 <div class="NewHeader">
     <h1 mat-dialog-title style="color:white;">
-        Add Item Category
+        {{ data ? 'Edit Item' : 'Add Item' }}
     </h1>
 </div>
  
-<div mat-dialog-content>
+<div mat-dialog-content style="padding: 20px 25px;">
     <div class="col-sm-12" style="margin-bottom: 10px;">
         <form [formGroup]="myGroup">
-            <div class="row" style="margin-bottom: 12px;">
-                <div class="col-sm-3 ">
-                    <label class="add-member-label control-label" style="margin-top:5px; ">Item Name :</label>
+            <!-- Item Name -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="font-weight: 600;">Item Name :</label>
                 </div>
                 <div class="col-sm-9">
-                    <div>
-                        <input class="form-control name back" maxlength="50" placeholder="Enter Item Name"
-                            formControlName="CategoryName" type="text" value="">
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 12px;">
-                <div class="col-sm-3 ">
-                    <label class="add-member-label control-label" style="margin-top:5px; ">Item Code
-                        :</label>
-                </div>
-                <div class="col-sm-9">
-                    <div>
-                        <input class="form-control name back" maxlength="50" placeholder="Enter Item Code"
-                            formControlName="CategoryName" type="text" value="">
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 12px;">
-                <div class="col-sm-3 ">
-                    <label class="add-member-label control-label" style="margin-top:5px; ">ItemCategory
-                        :</label>
-                </div>
-                <div class="col-sm-9">
-                    <div>
-                        <input class="form-control name back" maxlength="50" placeholder="Enter Category Name"
-                            formControlName="CategoryName" type="text" value="">
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 12px;">
-                <div class="col-sm-3 ">
-                    <label class="add-member-label control-label" style="margin-top:5px; ">Item Sub-Category
-                        :</label>
-                </div>
-                <div class="col-sm-9">
-                    <div>
-                        <input class="form-control name back" maxlength="50" placeholder="Enter Sub-Category Name"
-                            formControlName="CategoryName" type="text" value="">
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 12px;">
-                <div class="col-sm-3 ">
-                    <label class="add-member-label control-label" style="margin-top:5px; ">Available Quantity
-                        :</label>
-                </div>
-                <div class="col-sm-9">
-                    <div>
-                        <input class="form-control name back" maxlength="50" placeholder="Enter Available Quantity"
-                            formControlName="CategoryName" type="text" value="">
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 12px;">
-                <div class="col-sm-3 ">
-                    <label class="add-member-label control-label" style="margin-top:5px; ">Unit Rate
-                        :</label>
-                </div>
-                <div class="col-sm-9">
-                    <div>
-                        <input class="form-control name back" maxlength="50" placeholder="Enter Category Name"
-                            formControlName="CategoryName" type="text" value="">
-                    </div>
+                    <input class="form-control name back" placeholder="Enter Item Name"
+                        formControlName="ItemName" type="text" style="height: 38px;">
                 </div>
             </div>
 
-            <div style="margin-bottom: 10px;">
-                <div class="pull-right">
-                     <button mat-raised-button class="me-3" (click)="close()"
-     style="background-color: lightgray; color: red">
-      <mat-icon>cancel</mat-icon> Close
-    </button> 
+            <!-- Item Code -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="font-weight: 600;">Item Code :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control name back" placeholder="Enter Item Code"
+                        formControlName="ItemCode" type="text" style="height: 38px;">
+                </div>
+            </div>
+
+            <!-- Item Category -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="font-weight: 600;">Category :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control name back" placeholder="Enter Category Name"
+                        formControlName="ItemCategory" type="text" style="height: 38px;">
+                </div>
+            </div>
+
+            <!-- Item Sub-Category -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="font-weight: 600;">Sub-Category :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control name back" placeholder="Enter Sub-Category Name"
+                        formControlName="ItemSubCategory" type="text" style="height: 38px;">
+                </div>
+            </div>
+
+            <!-- Available Quantity -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="font-weight: 600;">Quantity :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control name back" placeholder="Enter Available Quantity"
+                        formControlName="AvailableQuantity" type="number" style="height: 38px;">
+                </div>
+            </div>
+
+            <!-- Unit Rate -->
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="font-weight: 600;">Unit Rate :</label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control name back" placeholder="Enter Unit Rate"
+                        formControlName="UnitRate" type="number" style="height: 38px;">
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-sm-3">
+                    <label class="add-member-label control-label" style="font-weight: 600; margin-top: 5px;">Description :</label>
+                </div>
+                <div class="col-sm-9">
+                    <textarea class="form-control name back" placeholder="Enter Description"
+                        formControlName="Description" rows="3" style="resize: vertical;"></textarea>
+                </div>
+            </div>
+
+            <!-- Actions Row -->
+            <div style="margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button mat-raised-button class="me-3" (click)="close()"
+                        style="background-color: lightgray; color: red; height: 38px;">
+                        <mat-icon>cancel</mat-icon> Close
+                    </button> 
                     <button mat-raised-button type="submit" class="save" (click)="upsertCategory()"
-                        style="margin-right: 5px;" color="primary">
+                        color="primary" [disabled]="myGroup.invalid" style="height: 38px;">
                         <mat-icon>save</mat-icon> Save
                     </button>
-                   
                 </div>
             </div>
         </form>

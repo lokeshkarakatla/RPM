@@ -9,6 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class EditBacklogTaskComponent implements OnInit {
 
   isEditMode = false;
+  isSprint = false;
   task = '';
   taskCode = '';
   jobCode = '';
@@ -19,6 +20,13 @@ export class EditBacklogTaskComponent implements OnInit {
   stage = 'Design';
   assigned = '';
   description = '';
+  eta = '';
+  actualStart = '';
+  actualFinish = '';
+  expenses = 0;
+  status = '';
+  approved = false;
+  progress = 0;
 
   stages = ['Design', 'Development', 'Testing', 'Deployment'];
   team = ['Aarav Shah', 'Priya Nair', 'Diego Ruiz', 'Mei Tanaka', 'Olivia Brown'];
@@ -31,16 +39,25 @@ export class EditBacklogTaskComponent implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this.isEditMode = true;
-      this.task = this.data.task || '';
-      this.taskCode = this.data.taskCode || '';
-      this.jobCode = this.data.jobCode || '';
-      this.planStart = this.data.planStart || '';
-      this.planFinish = this.data.planFinish || '';
-      this.effort = this.data.effort || 0;
-      this.duration = this.data.duration || 0;
-      this.stage = this.data.stage || 'Design';
-      this.assigned = this.data.assigned || '';
-      this.description = this.data.description || '';
+      const taskData = this.data.task ? this.data.task : this.data;
+      this.isSprint = !!this.data.isSprint;
+      this.task = taskData.task || '';
+      this.taskCode = taskData.taskCode || '';
+      this.jobCode = taskData.jobCode || '';
+      this.planStart = taskData.planStart || '';
+      this.planFinish = taskData.planFinish || '';
+      this.effort = taskData.effort || 0;
+      this.duration = taskData.duration || 0;
+      this.stage = taskData.stage || 'Design';
+      this.assigned = taskData.assigned || '';
+      this.description = taskData.description || '';
+      this.eta = taskData.eta || '';
+      this.actualStart = taskData.actualStart || '';
+      this.actualFinish = taskData.actualFinish || '';
+      this.expenses = taskData.expenses || 0;
+      this.status = taskData.status || '';
+      this.approved = !!taskData.approved;
+      this.progress = taskData.progress || 0;
     }
   }
 
@@ -59,7 +76,14 @@ export class EditBacklogTaskComponent implements OnInit {
       duration: this.duration,
       stage: this.stage,
       assigned: this.assigned,
-      description: this.description
+      description: this.description,
+      eta: this.eta,
+      actualStart: this.actualStart,
+      actualFinish: this.actualFinish,
+      expenses: this.expenses,
+      status: this.status,
+      approved: this.approved,
+      progress: this.progress
     });
   }
 }

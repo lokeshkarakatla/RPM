@@ -18,7 +18,13 @@ export class AdditemComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.myGroup = this.fb.group({
-      CategoryName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]]
+      ItemName: ['', Validators.required],
+      ItemCode: ['', Validators.required],
+      ItemCategory: ['', Validators.required],
+      ItemSubCategory: ['', Validators.required],
+      AvailableQuantity: [0, [Validators.required, Validators.min(0)]],
+      UnitRate: [0, [Validators.required, Validators.min(0)]],
+      Description: ['']
     });
   }
 
@@ -26,12 +32,21 @@ export class AdditemComponent implements OnInit {
     // If editing, pre-fill the form with existing data
     if (this.data) {
       this.myGroup.patchValue({
-        CategoryName: this.data.categoryName ?? this.data.CategoryName ?? ''
+        ItemName: this.data.ItemName ?? '',
+        ItemCode: this.data.ItemCode ?? '',
+        ItemCategory: this.data.ItemCategory ?? '',
+        ItemSubCategory: this.data.ItemSubCategory ?? '',
+        AvailableQuantity: this.data.AvailableQuantity ?? 0,
+        UnitRate: this.data.UnitRate ?? 0,
+        Description: this.data.Description ?? ''
       });
+      
+      // Make ItemCode read-only on edit
+      this.myGroup.get('ItemCode')?.disable();
     }
   }
 
-  // Getter used by the template as f.CategoryName.errors
+  // Getter used by the template
   get f() {
     return this.myGroup.controls;
   }
@@ -43,12 +58,13 @@ export class AdditemComponent implements OnInit {
       return;
     }
 
+    // Get value including disabled controls (ItemCode)
+    const formValue = this.myGroup.getRawValue();
+
     const result = {
       ...this.data,
-      categoryName: this.myGroup.value.CategoryName
+      ...formValue
     };
-
-   
 
     this.dialogRef.close(result);
   }

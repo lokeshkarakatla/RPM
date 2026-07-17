@@ -19,6 +19,34 @@ import { PageHeaderService } from '../shared/page-header.service';
 export class PagesComponent implements OnInit {
   showBreadcrumb = true;
   showBackBtn = false;
+
+  get adminMenuItems() {
+    return this.menuService.getVerticalMenuItems().filter(item => item.parentId === 4);
+  }
+  @ViewChild('adminMenuTrigger') adminMenuTrigger!: any;
+  private adminMenuTimeout: any;
+
+  openAdminMenu() {
+    if (this.adminMenuTimeout) {
+      clearTimeout(this.adminMenuTimeout);
+    }
+    if (!this.adminMenuTrigger.menuOpen) {
+      this.adminMenuTrigger.openMenu();
+    }
+  }
+
+  closeAdminMenu() {
+    this.adminMenuTimeout = setTimeout(() => {
+      this.adminMenuTrigger.closeMenu();
+    }, 150);
+  }
+
+  stopAdminCloseTimer() {
+    if (this.adminMenuTimeout) {
+      clearTimeout(this.adminMenuTimeout);
+    }
+  }
+
   @ViewChild('sidenav') sidenav: any;
   @ViewChild('backToTop') backToTop: any;
   @ViewChildren(PerfectScrollbarDirective) pss!: QueryList<PerfectScrollbarDirective>;

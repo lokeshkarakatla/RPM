@@ -11,29 +11,41 @@
       </div>
     </div>
 
-    <div class="stats-badges">
-      <div class="badge-item">
-        <span class="dot pending"></span>
-        <span class="label">Pending</span>
-        <span class="value">{{ stats.pending }}</span>
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 15px;">
+      <div class="stats-badges" style="margin: 0;">
+        <div class="badge-item">
+          <span class="dot pending"></span>
+          <span class="label">Pending</span>
+          <span class="value">{{ stats.pending }}</span>
+        </div>
+
+        <div class="badge-item">
+          <span class="dot ongoing"></span>
+          <span class="label">Ongoing</span>
+          <span class="value">{{ stats.ongoing }}</span>
+        </div>
+
+        <div class="badge-item">
+          <span class="dot completed"></span>
+          <span class="label">Completed</span>
+          <span class="value">{{ stats.completed }}</span>
+        </div>
+
+        <div class="badge-item">
+          <span class="dot exceeded"></span>
+          <span class="label">Exceeded</span>
+          <span class="value">{{ stats.exceeded }}</span>
+        </div>
       </div>
 
-      <div class="badge-item">
-        <span class="dot ongoing"></span>
-        <span class="label">Ongoing</span>
-        <span class="value">{{ stats.ongoing }}</span>
-      </div>
-
-      <div class="badge-item">
-        <span class="dot completed"></span>
-        <span class="label">Completed</span>
-        <span class="value">{{ stats.completed }}</span>
-      </div>
-
-      <div class="badge-item">
-        <span class="dot exceeded"></span>
-        <span class="label">Exceeded</span>
-        <span class="value">{{ stats.exceeded }}</span>
+      <!-- Stages filter dropdown -->
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-weight: 600; font-size: 13px; color: #333;">Stages:</span>
+        <select [(ngModel)]="stageFilter"
+          style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; background: white; outline: none; cursor: pointer; min-width: 130px; font-weight: 500;">
+          <option value="all">All Stages</option>
+          <option *ngFor="let st of stages" [value]="st">{{ st }}</option>
+        </select>
       </div>
     </div>
 

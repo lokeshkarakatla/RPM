@@ -11,6 +11,16 @@ import { AddAssignmentComponent } from './add-assignment/add-assignment.componen
 export type Stage = 'Design' | 'Development' | 'Testing' | 'Deployment';
 export type SprintKind = 'backlog' | 'completed' | 'active';
 
+export interface AssignTask {
+  id: string;
+  name: string;
+  code: string;
+  module: string;
+  duration: string;
+  effort: string;
+  selected: boolean;
+}
+
 export interface Task {
   id: string;
   task: string;
@@ -59,6 +69,55 @@ export class ProjectBacklogComponent {
   team = ['Aarav Shah', 'Priya Nair', 'Diego Ruiz', 'Mei Tanaka', 'Olivia Brown'];
   stages: Stage[] = ['Design', 'Development', 'Testing', 'Deployment'];
   stageFilter: 'all' | Stage = 'all';
+
+  showAssignmentView = false;
+
+  assignAvailableTasks: AssignTask[] = [
+    { id: 'AT1', name: 'Requirement Gathering', code: 'T-001', module: 'Planning', duration: '5d', effort: '40h', selected: false },
+    { id: 'AT2', name: 'System Design', code: 'T-002', module: 'Design', duration: '7d', effort: '56h', selected: false },
+    { id: 'AT3', name: 'Database Schema', code: 'T-003', module: 'Backend', duration: '3d', effort: '24h', selected: false },
+    { id: 'AT4', name: 'API Development', code: 'T-004', module: 'Backend', duration: '10d', effort: '80h', selected: false },
+    { id: 'AT5', name: 'UI Prototyping', code: 'T-005', module: 'Frontend', duration: '4d', effort: '32h', selected: false },
+    { id: 'AT6', name: 'Component Library', code: 'T-006', module: 'Frontend', duration: '6d', effort: '48h', selected: false },
+    { id: 'AT7', name: 'Integration Testing', code: 'T-007', module: 'QA', duration: '5d', effort: '40h', selected: false }
+  ];
+
+  assignAssignedTasks: AssignTask[] = [
+    { id: 'AT8', name: 'Unit Testing', code: 'T-008', module: 'QA', duration: '4d', effort: '32h', selected: false },
+    { id: 'AT9', name: 'Deployment Setup', code: 'T-009', module: 'DevOps', duration: '3d', effort: '24h', selected: false },
+    { id: 'AT10', name: 'User Training', code: 'T-010', module: 'Support', duration: '2d', effort: '16h', selected: false },
+    { id: 'AT11', name: 'Documentation', code: 'T-011', module: 'Support', duration: '3d', effort: '24h', selected: false }
+  ];
+
+  toggleAssignAvailable(t: AssignTask): void {
+    t.selected = !t.selected;
+  }
+
+  toggleAssignAssigned(t: AssignTask): void {
+    t.selected = !t.selected;
+  }
+
+  canAddAssignTasks(): boolean {
+    return this.assignAvailableTasks.some(t => t.selected);
+  }
+
+  canRemoveAssignTasks(): boolean {
+    return this.assignAssignedTasks.some(t => t.selected);
+  }
+
+  addSelectedAssignTasks(): void {
+    const toMove = this.assignAvailableTasks.filter(t => t.selected);
+    this.assignAvailableTasks = this.assignAvailableTasks.filter(t => !t.selected);
+    toMove.forEach(t => t.selected = false);
+    this.assignAssignedTasks.push(...toMove);
+  }
+
+  removeSelectedAssignTasks(): void {
+    const toMove = this.assignAssignedTasks.filter(t => t.selected);
+    this.assignAssignedTasks = this.assignAssignedTasks.filter(t => !t.selected);
+    toMove.forEach(t => t.selected = false);
+    this.assignAvailableTasks.push(...toMove);
+  }
 
   showAddSprint = false;
   newSprintName = '';
@@ -429,12 +488,7 @@ export class ProjectBacklogComponent {
   }
 
   openAssignmentPopup(): void {
-    let dialogRef = this.dialog.open(AddAssignmentComponent, {
-      width: '600px',
-      height: 'auto',
-      data: { team: this.team }
-    });
-
+    this.showAssignmentView = true;
   }
 
   goBack(): void {

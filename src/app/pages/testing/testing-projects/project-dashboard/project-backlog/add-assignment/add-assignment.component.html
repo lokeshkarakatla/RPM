@@ -1,5 +1,5 @@
 <div class="NewHeader">
-    <h3 style="padding-top:10px;">Add Assignmant</h3>
+    <h3 style="padding-top:10px;">Add Assignment</h3>
 </div>
 
 <div class="assignment-container">
@@ -24,6 +24,7 @@
               type="checkbox"
               [checked]="member.selected"
               class="member-checkbox"
+              (click)="$event.stopPropagation()"
               (change)="toggleAvailableSelection(member)"
             />
             <div class="member-avatar">{{ member.initials }}</div>
@@ -72,6 +73,7 @@
               type="checkbox"
               [checked]="member.selected"
               class="member-checkbox"
+              (click)="$event.stopPropagation()"
               (change)="toggleAssignedSelection(member)"
             />
             <div class="member-avatar">{{ member.initials }}</div>
@@ -83,11 +85,11 @@
   </mat-dialog-content>
 
    <mat-dialog-actions align="end" style="margin-top: 15px;">
-                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
-                    <mat-icon>cancel</mat-icon> Close
-                </button>
-                <button mat-raised-button type="button" class="save" color="primary">
-                    <mat-icon>save</mat-icon> Save
-                </button>
-            </mat-dialog-actions>
+        <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
+            <mat-icon>cancel</mat-icon> Close
+        </button>
+        <button mat-raised-button type="button" class="save" color="primary" (click)="onSave()">
+            <mat-icon>save</mat-icon> Save
+        </button>
+    </mat-dialog-actions>
 </div>

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import HighchartsGantt from 'highcharts/modules/gantt';
@@ -12,6 +12,17 @@ interface Task {
   status: 'CRITICAL' | 'HIGH' | 'MEDIUM';
   slipDays: string;
 }
+
+const sprintDescriptions: { [key: string]: string } = {
+  'Component Sourcing': 'Sourcing of critical machinery, sensor modules, pneumatic actuators, and electronic control boards',
+  'Tooling & Dies': 'Design, fabrication, and precision milling of custom molds and stamping dies for chassis assembly',
+  'Assembly Line Setup': 'Mechanical installation, floor layout alignment, pneumatic supply lines, and power grid connections',
+  'PLC Programming': 'Developing ladder logic, safety interlocks, and HMI console interface for centralized control',
+  'Dry Run Testing': 'Initial cycle runs without payload to verify automated sequencing and sensor triggering times',
+  'First Article Inspection': 'Detailed metrological and physical testing of the first batch of assembled products',
+  'Quality Certification': 'External agency verification of ISO/CE standards, electrical safety, and performance compliance',
+  'Mass Production Ramp': 'Scaling up production rate, shifting scheduling, and validating operational throughput limits'
+};
 
 @Component({
   selector: 'app-project-analytics',
@@ -30,8 +41,89 @@ export class ProjectAnalyticsComponent implements OnInit {
     { name: 'Injection mold rework', assignee: 'Vikram K.', status: 'HIGH', slipDays: '+4d' },
     { name: 'Robotic welding arm setup', assignee: 'Neha R.', status: 'HIGH', slipDays: '+3d' },
     { name: 'Safety compliance audit', assignee: 'Arjun M.', status: 'MEDIUM', slipDays: '+2d' },
-    { name: 'Packaging spec sign-off', assignee: 'Kiran P.', status: 'MEDIUM', slipDays: '+1d' }
+    { name: 'Packaging spec sign-off', assignee: 'Kiran P.', status: 'MEDIUM', slipDays: '+1d' },
+    { name: 'Coolant system flush', assignee: 'Amit S.', status: 'MEDIUM', slipDays: '+1d' },
+    { name: 'Electrical panel certification', assignee: 'Suresh N.', status: 'CRITICAL', slipDays: '+6d' },
+    { name: 'Conveyor belt alignment', assignee: 'Ravi T.', status: 'HIGH', slipDays: '+3d' },
+    { name: 'CNC program validation', assignee: 'Ananya L.', status: 'HIGH', slipDays: '+2d' },
+    { name: 'Labeling machine calibration', assignee: 'John D.', status: 'MEDIUM', slipDays: '+1d' },
+    { name: 'Final QA documentation', assignee: 'Meera K.', status: 'CRITICAL', slipDays: '+7d' }
   ];
+
+  currentPage: number = 1;
+  pageSize: number = 6;
+
+  get totalPages(): number {
+    return Math.ceil(this.overdueTasks.length / this.pageSize);
+  }
+
+  get paginatedTasks(): Task[] {
+    const sorted = [...this.overdueTasks].sort((a, b) => {
+      const aVal = parseInt(a.slipDays.replace(/[^0-9]/g, '')) || 0;
+      const bVal = parseInt(b.slipDays.replace(/[^0-9]/g, '')) || 0;
+      return bVal - aVal;
+    });
+    const start = (this.currentPage - 1) * this.pageSize;
+    return sorted.slice(start, start + this.pageSize);
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  // Tooltip tracking variables
+  tooltipVisible = false;
+  tooltipText = '';
+  tooltipStyle: any = {};
+
+  @HostListener('mouseover', ['$event'])
+  onMouseOver(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const labelEl = target.closest('.gantt-y-label');
+    if (labelEl) {
+      const text = labelEl.getAttribute('data-tooltip');
+      if (text) {
+        this.tooltipText = text;
+        this.tooltipVisible = true;
+        this.updateTooltipPosition(event);
+      }
+    } else {
+      this.tooltipVisible = false;
+    }
+  }
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (this.tooltipVisible) {
+      this.updateTooltipPosition(event);
+    }
+  }
+
+  @HostListener('mouseout', ['$event'])
+  onMouseOut(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const labelEl = target.closest('.gantt-y-label');
+    if (labelEl) {
+      this.tooltipVisible = false;
+    }
+  }
+
+  private updateTooltipPosition(event: MouseEvent) {
+    this.tooltipStyle = {
+      left: (event.clientX + 15) + 'px',
+      top: (event.clientY + 15) + 'px',
+      position: 'fixed',
+      zIndex: 9999
+    };
+  }
 
   selectedTimeframe: string = 'Month';
   timeframes: string[] = ['Today', 'Week', 'Month', 'Quarter'];
@@ -40,8 +132,8 @@ export class ProjectAnalyticsComponent implements OnInit {
 
   // 1. Gantt Chart Options
   ganttChartOptions: Highcharts.Options = {
-    // Increased marginLeft to 200 to give the labels plenty of space
-    chart: { backgroundColor: 'transparent', marginLeft: 200 },
+    // Increased marginLeft to 220 to give the labels plenty of space
+    chart: { backgroundColor: 'transparent', marginLeft: 220 },
     title: { text: '' },
     credits: { enabled: false },
     xAxis: {
@@ -57,10 +149,16 @@ export class ProjectAnalyticsComponent implements OnInit {
       title: { text: undefined },
       grid: { enabled: true, borderColor: '#f3f4f6' },
       labels: {
-        align: 'center',
-        // Increased x padding to -40 to ensure text does not touch the bars
-        x: -40,
-        style: { fontSize: '12px', color: '#1f2937', fontWeight: '500' }
+        align: 'left',
+        // Offset labels to the left to sit inside the margin
+        x: -200,
+        useHTML: true,
+        style: { fontSize: '11px', color: '#1f2937', fontWeight: '500' },
+        formatter: function(): string {
+          const categoryName = this.value as string;
+          const description = sprintDescriptions[categoryName] || categoryName;
+          return `<span class="gantt-y-label" data-tooltip="${description}">${description}</span>`;
+        }
       },
       categories: [
         'Component Sourcing', 'Tooling & Dies', 'Assembly Line Setup', 'PLC Programming',
@@ -168,12 +266,12 @@ export class ProjectAnalyticsComponent implements OnInit {
     title: { text: '' },
     credits: { enabled: false },
     legend: { itemMarginTop: 8, itemMarginBottom: 8 },
-    xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
+    xAxis: { categories: ['S1', 'S2', 'S3', 'S4', 'S5'] },
     yAxis: { title: { text: '' }, labels: { format: '{value}L' } },
     plotOptions: { column: { borderRadius: 2 } },
     series: [
-      { type: 'column', name: 'Actual Cost', data: [11, 18, 22, 18, 24, 18], color: '#a855f7' },
-      { type: 'column', name: 'Budgeted Cost', data: [10, 20, 26, 22, 28, 21], color: '#3b82f6' }
+      { type: 'column', name: 'Actual Cost', data: [11, 18, 22, 18, 24], color: '#a855f7' },
+      { type: 'column', name: 'Budgeted Cost', data: [10, 20, 26, 22, 28], color: '#3b82f6' }
     ]
   };
 
@@ -249,19 +347,42 @@ export class ProjectAnalyticsComponent implements OnInit {
     ]
   };
 
-  // 6. Stacked Bar Chart (Man-Hours Logged)
+  // 6. Stacked Bar Chart (Man-Hours Logged) -> Now a Pie Chart
   hoursChartOptions: Highcharts.Options = {
-    chart: { type: 'column', backgroundColor: 'transparent' },
+    chart: { type: 'pie', backgroundColor: 'transparent' },
     title: { text: '' },
     credits: { enabled: false },
     legend: { itemMarginTop: 10, itemMarginBottom: 10, itemDistance: 20 },
-    xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
-    yAxis: { title: { text: '' }, max: 800 },
-    plotOptions: { column: { stacking: 'normal', borderWidth: 0 } },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.y} hours ({point.percentage:.1f}%)</b>'
+    },
+    plotOptions: {
+      pie: {
+        size: '80%',
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f}%',
+          distance: 15,
+          style: {
+            fontSize: '11px',
+            fontFamily: 'inherit'
+          }
+        },
+        showInLegend: true
+      }
+    },
     series: [
-      { type: 'column', name: 'Production Staff', data: [280, 380, 420, 400, 480, 390], color: '#3b82f6' },
-      { type: 'column', name: 'Quality Assurance', data: [40, 60, 100, 70, 110, 100], color: '#10b981' },
-      { type: 'column', name: 'Maintenance & Setup', data: [10, 15, 60, 50, 50, 40], color: '#f59e0b' }
+      {
+        type: 'pie',
+        name: 'Effort Hours',
+        data: [
+          { name: 'Production Staff', y: 2350, color: '#3b82f6' },
+          { name: 'Quality Assurance', y: 480, color: '#10b981' },
+          { name: 'Maintenance & Setup', y: 225, color: '#f59e0b' }
+        ]
+      }
     ]
   };
 
@@ -377,11 +498,16 @@ export class ProjectAnalyticsComponent implements OnInit {
           { type: 'column', name: 'Tooling & Machining', data: [0.2, 0.2, 0.3, 0.2, 0.3, 0.2], color: '#ef4444' }
         ];
 
-        this.hoursChartOptions.xAxis = { categories: ['8 AM', '10 AM', '12 PM', '2 PM', '4 PM', '6 PM'] };
         this.hoursChartOptions.series = [
-          { type: 'column', name: 'Production Staff', data: [40, 50, 60, 55, 70, 65], color: '#3b82f6' },
-          { type: 'column', name: 'Quality Assurance', data: [10, 12, 15, 14, 18, 15], color: '#10b981' },
-          { type: 'column', name: 'Maintenance & Setup', data: [5, 7, 8, 7, 10, 8], color: '#f59e0b' }
+          {
+            type: 'pie',
+            name: 'Effort Hours',
+            data: [
+              { name: 'Production Staff', y: 340, color: '#3b82f6' },
+              { name: 'Quality Assurance', y: 84, color: '#10b981' },
+              { name: 'Maintenance & Setup', y: 45, color: '#f59e0b' }
+            ]
+          }
         ];
         break;
 
@@ -400,11 +526,16 @@ export class ProjectAnalyticsComponent implements OnInit {
           { type: 'column', name: 'Tooling & Machining', data: [0.2, 0.2, 0.5, 0.2, 0.2, 0.5, 0.2], color: '#ef4444' }
         ];
 
-        this.hoursChartOptions.xAxis = { categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] };
         this.hoursChartOptions.series = [
-          { type: 'column', name: 'Production Staff', data: [60, 70, 80, 75, 90, 85, 70], color: '#3b82f6' },
-          { type: 'column', name: 'Quality Assurance', data: [20, 25, 30, 28, 35, 30, 25], color: '#10b981' },
-          { type: 'column', name: 'Maintenance & Setup', data: [10, 12, 15, 14, 18, 16, 12], color: '#f59e0b' }
+          {
+            type: 'pie',
+            name: 'Effort Hours',
+            data: [
+              { name: 'Production Staff', y: 530, color: '#3b82f6' },
+              { name: 'Quality Assurance', y: 193, color: '#10b981' },
+              { name: 'Maintenance & Setup', y: 97, color: '#f59e0b' }
+            ]
+          }
         ];
         break;
 
@@ -423,19 +554,24 @@ export class ProjectAnalyticsComponent implements OnInit {
           { type: 'column', name: 'Tooling & Machining', data: [4, 5, 6, 7], color: '#ef4444' }
         ];
 
-        this.hoursChartOptions.xAxis = { categories: ['Q1', 'Q2', 'Q3', 'Q4'] };
         this.hoursChartOptions.series = [
-          { type: 'column', name: 'Production Staff', data: [900, 1100, 1000, 1200], color: '#3b82f6' },
-          { type: 'column', name: 'Quality Assurance', data: [250, 300, 280, 350], color: '#10b981' },
-          { type: 'column', name: 'Maintenance & Setup', data: [120, 150, 140, 180], color: '#f59e0b' }
+          {
+            type: 'pie',
+            name: 'Effort Hours',
+            data: [
+              { name: 'Production Staff', y: 4200, color: '#3b82f6' },
+              { name: 'Quality Assurance', y: 1180, color: '#10b981' },
+              { name: 'Maintenance & Setup', y: 590, color: '#f59e0b' }
+            ]
+          }
         ];
         break;
 
       default:
-        this.costsChartOptions.xAxis = { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] };
+        this.costsChartOptions.xAxis = { categories: ['S1', 'S2', 'S3', 'S4', 'S5'] };
         this.costsChartOptions.series = [
-          { type: 'column', name: 'Actual Cost', data: [11, 18, 22, 18, 24, 18], color: '#a855f7' },
-          { type: 'column', name: 'Budgeted Cost', data: [10, 20, 26, 22, 28, 21], color: '#3b82f6' }
+          { type: 'column', name: 'Actual Cost', data: [11, 18, 22, 18, 24], color: '#a855f7' },
+          { type: 'column', name: 'Budgeted Cost', data: [10, 20, 26, 22, 28], color: '#3b82f6' }
         ];
 
         this.expensesChartOptions.xAxis = { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] };
@@ -446,11 +582,16 @@ export class ProjectAnalyticsComponent implements OnInit {
           { type: 'column', name: 'Tooling & Machining', data: [1, 1, 2, 2, 2, 1], color: '#ef4444' }
         ];
 
-        this.hoursChartOptions.xAxis = { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] };
         this.hoursChartOptions.series = [
-          { type: 'column', name: 'Production Staff', data: [280, 380, 420, 400, 480, 390], color: '#3b82f6' },
-          { type: 'column', name: 'Quality Assurance', data: [40, 60, 100, 70, 110, 100], color: '#10b981' },
-          { type: 'column', name: 'Maintenance & Setup', data: [10, 15, 60, 50, 50, 40], color: '#f59e0b' }
+          {
+            type: 'pie',
+            name: 'Effort Hours',
+            data: [
+              { name: 'Production Staff', y: 2350, color: '#3b82f6' },
+              { name: 'Quality Assurance', y: 480, color: '#10b981' },
+              { name: 'Maintenance & Setup', y: 225, color: '#f59e0b' }
+            ]
+          }
         ];
     }
 

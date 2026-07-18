@@ -374,12 +374,9 @@ export class ProjectMaterialsComponent implements OnInit {
   }
 
   addMaterial() {
-   
        this.dialog.open(AddRequisitionPopComponent, {
-          width: '750px',
-         height: 'auto',
-          
+          width: '850px',
+          height: 'auto'
        });
-     
   }
 }

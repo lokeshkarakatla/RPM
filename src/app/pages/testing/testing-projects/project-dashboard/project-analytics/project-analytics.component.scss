@@ -465,3 +465,95 @@ h3 {
 .monitor-icon {
   padding: 0px 10px;
 }
+
+/* --- Custom Paginator Styles --- */
+.paginator-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+
+  .paginator-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: $text-main;
+    transition: background-color 0.2s, color 0.2s;
+
+    &:hover:not(:disabled) {
+      background-color: #f3f4f6;
+    }
+
+    &:disabled {
+      color: $text-muted;
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
+  }
+
+  .paginator-info {
+    font-size: 13px;
+    color: $text-muted;
+    font-weight: 500;
+  }
+}
+
+/* --- Gantt Category Label Styles --- */
+::ng-deep .highcharts-yaxis-labels, 
+::ng-deep .highcharts-axis-labels,
+::ng-deep .highcharts-yaxis-labels span {
+  pointer-events: auto !important;
+}
+
+::ng-deep .gantt-y-label {
+  pointer-events: auto !important;
+  display: block;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  font-size: 11px;
+  color: #1f2937;
+  font-weight: 500;
+  position: relative;
+  z-index: 999 !important;
+}
+
+/* --- Premium Hover Tooltip --- */
+.custom-tooltip {
+  display: none;
+  background: rgba(15, 23, 42, 0.96); /* Slate-900 transparent */
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: inherit;
+  max-width: 250px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  word-wrap: break-word;
+  white-space: normal;
+  line-height: 1.4;
+
+  &.visible {
+    display: block;
+  }
+}

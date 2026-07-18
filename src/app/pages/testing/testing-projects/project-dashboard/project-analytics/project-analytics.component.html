@@ -70,11 +70,11 @@
           <h3>Overdue tasks</h3>
           <p class="subtitle">Sorted by slip days</p>
         </div>
-        <span class="task-count">6 active</span>
+        <span class="task-count">{{ overdueTasks.length }} active</span>
       </div>
 
       <div class="task-list">
-        <div class="task-item" *ngFor="let task of overdueTasks">
+        <div class="task-item" *ngFor="let task of paginatedTasks">
           <div class="task-info">
             <p class="task-name">{{ task.name }}</p>
             <p class="task-assignee">{{ task.assignee }}</p>
@@ -84,6 +84,17 @@
             <span class="slip-days">{{ task.slipDays }}</span>
           </div>
         </div>
+      </div>
+
+      <!-- Custom paginator matching layout design -->
+      <div class="paginator-container">
+        <button (click)="prevPage()" [disabled]="currentPage === 1" class="paginator-btn" title="Previous Page">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="paginator-info">Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="paginator-btn" title="Next Page">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
       </div>
     </div>
 
@@ -200,5 +211,10 @@
         </highcharts-chart>
       </div>
     </div>
+  </div>
+
+  <!-- Global Custom Tooltip element -->
+  <div class="custom-tooltip" [ngClass]="{ 'visible': tooltipVisible }" [ngStyle]="tooltipStyle">
+    {{ tooltipText }}
   </div>
 </div>

@@ -12,6 +12,7 @@ interface ScheduleTask {
   actualEndObj: Date | null;
   status: 'Pending' | 'Ongoing' | 'Completed' | 'Exceeded';
   completion: number;
+  stage: 'Design' | 'Development' | 'Testing' | 'Deployment';
 }
 
 interface TimelineDay {
@@ -43,12 +44,20 @@ export class ProjectScheduleComponent implements OnInit {
   viewMode: 'grid' | 'gantt' = 'gantt';
   isMaskingPending = false;
 
-  stats = {
-    pending: 3,
-    ongoing: 2,
-    completed: 2,
-    exceeded: 2
-  };
+  stages = ['Design', 'Development', 'Testing', 'Deployment'];
+  stageFilter = 'all';
+
+  get stats() {
+    const tasks = this.stageFilter === 'all' 
+      ? this.allTasks 
+      : this.allTasks.filter(t => t.stage === this.stageFilter);
+    return {
+      pending: tasks.filter(t => t.status === 'Pending').length,
+      ongoing: tasks.filter(t => t.status === 'Ongoing').length,
+      completed: tasks.filter(t => t.status === 'Completed').length,
+      exceeded: tasks.filter(t => t.status === 'Exceeded').length
+    };
+  }
 
   // Custom splitter state
   leftPaneWidth: number = 420;
@@ -67,7 +76,8 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: new Date(2026, 5, 1),
       actualEndObj: new Date(2026, 5, 4),
       status: 'Completed',
-      completion: 100
+      completion: 100,
+      stage: 'Design'
     },
     {
       id: 'T2',
@@ -79,7 +89,8 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: new Date(2026, 5, 4),
       actualEndObj: new Date(2026, 5, 8),
       status: 'Exceeded',
-      completion: 100
+      completion: 100,
+      stage: 'Design'
     },
     {
       id: 'T3',
@@ -91,7 +102,8 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: new Date(2026, 5, 5),
       actualEndObj: new Date(2026, 5, 9),
       status: 'Completed',
-      completion: 100
+      completion: 100,
+      stage: 'Design'
     },
     {
       id: 'T4',
@@ -103,7 +115,8 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: new Date(2026, 5, 9),
       actualEndObj: null,
       status: 'Ongoing',
-      completion: 65
+      completion: 65,
+      stage: 'Development'
     },
     {
       id: 'T5',
@@ -115,7 +128,8 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: new Date(2026, 5, 11),
       actualEndObj: null,
       status: 'Ongoing',
-      completion: 40
+      completion: 40,
+      stage: 'Development'
     },
     {
       id: 'T6',
@@ -127,7 +141,8 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: new Date(2026, 5, 12),
       actualEndObj: null,
       status: 'Exceeded',
-      completion: 80
+      completion: 80,
+      stage: 'Development'
     },
     {
       id: 'T7',
@@ -139,7 +154,8 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: null,
       actualEndObj: null,
       status: 'Pending',
-      completion: 0
+      completion: 0,
+      stage: 'Testing'
     },
     {
       id: 'T8',
@@ -151,7 +167,8 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: null,
       actualEndObj: null,
       status: 'Pending',
-      completion: 0
+      completion: 0,
+      stage: 'Testing'
     },
     {
       id: 'T9',
@@ -163,15 +180,20 @@ export class ProjectScheduleComponent implements OnInit {
       actualStartObj: null,
       actualEndObj: null,
       status: 'Pending',
-      completion: 0
+      completion: 0,
+      stage: 'Deployment'
     }
   ];
 
   get displayedTasks(): ScheduleTask[] {
+    let tasks = this.allTasks;
     if (this.isMaskingPending) {
-      return this.allTasks.filter(x => x.status !== 'Pending');
+      tasks = tasks.filter(x => x.status !== 'Pending');
     }
-    return this.allTasks;
+    if (this.stageFilter !== 'all') {
+      tasks = tasks.filter(x => x.stage === this.stageFilter);
+    }
+    return tasks;
   }
 
   ngOnInit(): void {

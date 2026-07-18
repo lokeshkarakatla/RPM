@@ -3,21 +3,36 @@
   <!-- ==================== 1. STAGES LIST VIEW ==================== -->
   <ng-container *ngIf="!showSetupView">
     <div class="stages-header-bar"
-      style="display: flex; justify-content: flex-end; align-items: center; width: 100%; gap: 10px; margin-bottom: 24px;">
-      <button mat-raised-button color="primary" class="add-stage-btn" (click)="openAddStage()">
-        <mat-icon>add</mat-icon> Add Stage
-      </button>
-      <button mat-raised-button class="back-btn" (click)="goBack()"
-        style="background-color: rgb(130, 130, 130); color: white;">
-        <mat-icon>arrow_back</mat-icon>
-        Back
-      </button>
+      style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px; margin-bottom: 24px;">
+      <!-- Left side view toggler -->
+      <div class="view-toggle" style="margin-bottom: 0;">
+        <button mat-button class="view-btn" [class.active]="activeView === 'grid'"
+          (click)="setView('grid')">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">grid_on</mat-icon> Grid View
+        </button>
+        <button mat-button class="view-btn" [class.active]="activeView === 'gantt'"
+          (click)="setView('gantt')">
+          <mat-icon style="vertical-align: middle; margin-right: 4px;">view_week</mat-icon> Gantt View
+        </button>
+      </div>
+
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <button mat-raised-button color="primary" class="add-stage-btn" (click)="openAddStage()">
+          <mat-icon>add</mat-icon> Add Stage
+        </button>
+        <button mat-raised-button class="back-btn" (click)="goBack()"
+          style="background-color: rgb(130, 130, 130); color: white;">
+          <mat-icon>arrow_back</mat-icon>
+          Back
+        </button>
+      </div>
     </div>
 
-    <div class="table-container-card">
+    <!-- Table wrapping for activeView === 'grid' -->
+    <div class="table-container-card" *ngIf="activeView === 'grid'">
       <div class="table-responsive">
         <table class="table table-bordered table-hover stages-grid-table">
-          <thead>
+          <thead class="tbl-head">
             <tr>
               <th class="text-center">Move</th>
               <th class="text-center" style="width: 112px !important">Actions</th>
@@ -25,77 +40,111 @@
               <th>Stage Code</th>
               <th>Stage Name</th>
               <th>Plan Effort</th>
-              <th>Plan Description</th>
-              <th>Plan Start Date</th>
-              <th>Plan End Date</th>
-              <th>Actual Start Date</th>
-              <th>Actual End Date</th>
-              <th>ETA</th>
+              <th>Description</th>
+              <th>Plan Duration</th>
               <th>Buffer</th>
               <th>Gate Name</th>
               <th>Gate Status</th>
-              <th>Gate Code</th>
               <th class="text-center">Setup</th>
+              <th class="text-center">Timeline</th>
             </tr>
           </thead>
           <tbody dragula="PROJECTSTAGES" [dragulaModel]="pagedStages"
             (dragulaModelChange)="onPagedStagesChange($event)">
-            <tr *ngFor="let s of pagedStages; let idx = index">
-              <!-- Move: drag handle -->
-              <td class="text-center">
-                <mat-icon style="color: #9e9e9e; cursor: grab;">drag_indicator</mat-icon>
-              </td>
+            <ng-container *ngFor="let s of pagedStages; let idx = index">
+              <tr>
+                <!-- Move: drag handle -->
+                <td class="text-center">
+                  <mat-icon style="color: #9e9e9e; cursor: grab;" class="drag-handle">drag_indicator</mat-icon>
+                </td>
 
-              <!-- Actions: Edit/Delete -->
-              <td class="text-center editDel">
-                <div
-                  style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
-                  <a style="cursor: pointer;" matTooltip="Edit Stage" (click)="openEditStage(s, idx)">
-                    <i class="fa fa-edit" style="color: cornflowerblue"></i>
+                <!-- Actions: Edit/Delete -->
+                <td class="text-center">
+                  <a matTooltip="Edit Stage" (click)="openEditStage(s, idx)" style="cursor: pointer; margin-right: 12px; color: cornflowerblue;">
+                    <i class="fa fa-edit"></i>
                   </a>
-                  <a>
-                    <i style="cursor: pointer" matTooltip="Delete Stage" class="fa fa-trash red"
-                      (click)="deleteStage(s)"></i>
+                  <a matTooltip="Delete Stage" (click)="deleteStage(s)" style="cursor: pointer; color: red;">
+                    <i class="fa fa-trash"></i>
                   </a>
-                </div>
-              </td>
+                </td>
 
-              <!-- Status toggle -->
-              <td class="text-center">
-                <a [ngStyle]="{ color: s.status ? 'blue' : 'red' }" style="cursor: pointer;">
-                  <span (click)="Confirmation(s)">
-                    {{ s.status ? 'Active' : 'Inactive' }}
+                <!-- Status toggle -->
+                <td class="text-center">
+                  <a [ngStyle]="{ color: s.status ? 'blue' : 'red' }" style="cursor: pointer;">
+                    <span (click)="Confirmation(s)">
+                      {{ s.status ? 'Active' : 'Inactive' }}
+                    </span>
+                  </a>
+                </td>
+
+                <td>{{ s.stageCode }}</td>
+                <td><span class="stage-name-text">{{ s.name }}</span></td>
+                <td>{{ s.planEffort }}</td>
+                <td>{{ s.description }}</td>
+                <td>{{ s.planDuration }}</td>
+                <td>{{ s.buffer }}</td>
+                <td>{{ s.gateName }}</td>
+                <td>
+                  <span class="gate-status-badge" [class]="'gate-status-badge--' + s.gateStatus.toLowerCase()">
+                    {{ s.gateStatus }}
                   </span>
-                </a>
-              </td>
+                </td>
 
-              <td>{{ s.stageCode }}</td>
-              <td><span class="stage-name-text">{{ s.name }}</span></td>
-              <td>{{ s.planEffort }}</td>
-              <td>{{ s.description }}</td>
-              <td>{{ s.planStart }}</td>
-              <td>{{ s.planEnd }}</td>
-              <td>{{ s.actualStart || '—' }}</td>
-              <td>{{ s.actualEnd || '—' }}</td>
-              <td>{{ s.eta }}</td>
-              <td>{{ s.buffer }}</td>
-              <td>{{ s.gateName }}</td>
-              <td>
-                <span class="gate-status-badge" [class]="'gate-status-badge--' + s.gateStatus.toLowerCase()">
-                  {{ s.gateStatus }}
-                </span>
-              </td>
-              <td><span class="code-badge">{{ s.gateCode }}</span></td>
+                <!-- Setup Action -->
+                <td class="text-center">
+                  <a (click)="openSetup(s)" style="cursor: pointer;" class="setup-link">
+                    {{ s.setupCount }}
+                  </a>
+                </td>
 
-              <!-- Setup Action -->
-              <td class="text-center">
-                <a (click)="openSetup(s)" style="cursor: pointer;" class="setup-link">
-                  {{ s.setupCount }}
-                </a>
-              </td>
-            </tr>
+                <!-- Timeline Chevron Toggle -->
+                <td class="text-center">
+                  <button mat-icon-button (click)="s.expanded = !s.expanded" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
+                    <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">
+                      {{ s.expanded ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Expanded Timeline Row (Side-by-side key-values matching design in img1) -->
+              <tr *ngIf="s.expanded" class="no-drag" style="background-color: #f8fafc;">
+                <td colspan="13" style="padding: 15px 24px; text-align: left;">
+                  <div style="border-left: 3px solid #286ba5; padding-left: 15px;">
+                    <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Timeline — {{ s.name }}</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 40px; max-width: 1000px;">
+                      <!-- Plan Start Date -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Start Date</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.planStart ? (s.planStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                      <!-- Plan End Date -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan End Date</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.planEnd ? (s.planEnd | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                      <!-- Actual Start Date -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Start Date</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.actualStart ? (s.actualStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                      <!-- Actual End Date -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual End Date</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.actualEnd ? (s.actualEnd | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                      <!-- ETA -->
+                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">ETA</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.eta ? (s.eta | date:'dd-MMM-yyyy') : '—' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
             <tr *ngIf="stages.length === 0" class="no-drag">
-              <td colspan="17" class="empty-table-cell">No stages registered.</td>
+              <td colspan="13" class="empty-table-cell">No stages registered.</td>
             </tr>
           </tbody>
         </table>
@@ -107,13 +156,68 @@
         </mat-paginator>
       </div>
     </div>
+
+    <!-- ============ GANTT VIEW ============ -->
+    <div class="gantt-view" *ngIf="activeView === 'gantt'">
+      <div class="gantt-container" *ngIf="ganttDays.length > 0; else noGanttStages">
+        <!-- Left vertical Stage Column -->
+        <div class="gantt-tasks-column">
+          <div class="gantt-header-cell">STAGE</div>
+          <div *ngFor="let s of stages" class="gantt-task-cell">
+            <div class="gantt-task-name">{{ s.name }}</div>
+            <div class="gantt-task-code">{{ s.stageCode }}</div>
+          </div>
+        </div>
+
+        <!-- Right scrollable Timeline Area -->
+        <div class="gantt-timeline-area">
+          <div style="min-width: max-content; display: inline-block;">
+            <!-- Timeline Header Dates -->
+            <div class="gantt-header-row">
+              <div *ngFor="let day of ganttDays" class="gantt-header-date-cell">
+                <div class="gantt-header-month">{{ day | date:'MMM' }}</div>
+                <div class="gantt-header-day">{{ day | date:'d' }}</div>
+              </div>
+            </div>
+
+            <!-- Timeline Rows -->
+            <div class="gantt-rows-container">
+              <div *ngFor="let s of stages" class="gantt-row">
+                <!-- Grid background line indicators -->
+                <div class="gantt-grid-background">
+                  <div *ngFor="let day of ganttDays" class="gantt-grid-column"></div>
+                </div>
+
+                <!-- Bar -->
+                <div [ngClass]="getStageGanttClass(s.name)" [ngStyle]="getGanttBarStyle(s, ganttDays)"
+                  class="gantt-task-bar" (click)="openEditStage(s, -1)"
+                  [matTooltip]="s.name + ' - Effort: ' + s.planEffort + '. Click to Edit'">
+                  <span class="gantt-bar-label">{{ s.name }} &middot; {{ s.planEffort }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noGanttStages>
+        <div class="empty-row" style="text-align: center; color: #6b7090; font-size: 13px; padding: 32px;">
+          No stages scheduled to display in Gantt chart.
+        </div>
+      </ng-template>
+    </div>
   </ng-container>
 
   <!-- ==================== 2. WBS SETUP VIEW (IMG1 STYLE) ==================== -->
   <ng-container *ngIf="showSetupView && activeStage">
     <div class="wbs-header-bar"
-      style="display: flex; justify-content: flex-end; margin-bottom: 24px; gap: 10px; width: 100%;">
+      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 10px; width: 100%;">
+      <div style="font-size: 16px; font-weight: 600; color: #333;">
+        Stage WBS: {{ activeStage.name }} ({{ activeStage.stageCode }})
+      </div>
       <div class="header-actions" style="display: flex; gap: 10px;">
+        <button mat-raised-button style="background-color: black; color: white;" class="filter-btn" (click)="toggleSetupFilter()">
+          <mat-icon>filter_list</mat-icon> Filter
+        </button>
         <button mat-raised-button color="primary" class="wbs-btn wbs-btn--stim" (click)="openStimulationModal()">
           <mat-icon>add</mat-icon> Stimulation
         </button>
@@ -124,6 +228,73 @@
           style="background-color: rgb(130, 130, 130); color: white;">
           <mat-icon>arrow_back</mat-icon> Back
         </button>
+      </div>
+    </div>
+
+    <!-- Toggleable Filter Panel -->
+    <div class="col-lg-12" fxLayout="row wrap" *ngIf="showSetupFilter" style="margin-bottom: 20px; width: 100.7%; margin-left: -4px;">
+      <div fxFlex="100" class="flex-p w-100" style="margin-top: 10px;">
+        <mat-card class="filter">
+          <mat-card-content>
+            <div class="row col-lg-12 col-sm-12">
+              <!-- Keyword Filter -->
+              <div class="col-sm-4 row me-2 mt-3">
+                <div class="col-sm-4 newMarginClass"><b>Keyword:</b></div>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="tempKeyword" class="form-control" placeholder="Search task, code..." style="height: 35px;" />
+                </div>
+              </div>
+
+              <!-- Department Filter -->
+              <div class="col-sm-4 row me-2 mt-3">
+                <div class="col-sm-4 newMarginClass"><b>Department:</b></div>
+                <div class="col-sm-8">
+                  <mat-select class="form-control" [(ngModel)]="tempDepartment" placeholder="All Departments" style="height: 35px; line-height: 23px;">
+                    <mat-option value="">All Departments</mat-option>
+                    <mat-option *ngFor="let dept of uniqueDepartments" [value]="dept">{{ dept }}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+
+              <!-- Section Filter -->
+              <div class="col-sm-4 row me-2 mt-3">
+                <div class="col-sm-4 newMarginClass"><b>Section:</b></div>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="tempSection" class="form-control" placeholder="Section A..." style="height: 35px;" />
+                </div>
+              </div>
+
+              <!-- Start Date Filter -->
+              <div class="col-sm-4 row me-2 mt-3">
+                <div class="col-sm-4 newMarginClass"><b>Start Date:</b></div>
+                <div class="col-sm-8">
+                  <input type="date" class="form-control" [(ngModel)]="tempStartDate" style="height: 35px;" />
+                </div>
+              </div>
+
+              <!-- End Date Filter -->
+              <div class="col-sm-4 row me-2 mt-3">
+                <div class="col-sm-4 newMarginClass"><b>End Date:</b></div>
+                <div class="col-sm-8">
+                  <input type="date" class="form-control" [(ngModel)]="tempEndDate" style="height: 35px;" />
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="col-sm-4 pull-right mt-3">
+                <a (click)="showSetupFilter = false" class="pull-right" style="font-size: 25px; cursor: pointer; margin-left: 5px">
+                  <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+                </a>
+                <button mat-raised-button class="pull-right btn-default margin-right-10" (click)="resetSetupFilters()" style="height: 36px; display: inline-flex; align-items: center;">
+                  <mat-icon>settings_backup_restore</mat-icon>Clear
+                </button>
+                <button mat-raised-button style="margin-right: 10px;" color="primary" class="pull-right" (click)="applySetupFilters()" style="height: 36px; display: inline-flex; align-items: center; margin-left: 10px;">
+                  <mat-icon>search</mat-icon>Search
+                </button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
 
@@ -148,70 +319,104 @@
       <div class="wbs-table-panel">
         <div class="table-responsive" style="margin-top: 0;">
           <table class="table table-bordered table-hover wbs-grid-table">
-            <thead>
+            <thead class="tbl-head">
               <tr>
                 <th class="text-center" style="width: 112px !important">Actions</th>
                 <th>Task</th>
                 <th>Task Code</th>
-                <th>Job Codes</th>
-                <th>Efforts</th>
+                <th>Job Code</th>
+                <th>Effort</th>
                 <th>Department</th>
-                <th>Roles</th>
+                <th>Responsibility</th>
                 <th>Section</th>
-                <th>Plan Start Date</th>
-                <th>Plan End Date</th>
-                <th>Actual Start Date</th>
-                <th>Actual End Date</th>
-                <th>ETA</th>
                 <th>Actual Hours</th>
                 <th>Expenses</th>
                 <th>Priority</th>
+                <th class="text-center">Timeline</th>
               </tr>
             </thead>
             <tbody>
               <ng-container *ngIf="activeStage.modules[activeModuleIndex] as currentMod">
-                <tr *ngFor="let t of currentMod.tasks; let tidx = index">
-                  <!-- Actions -->
-                  <td class="text-center editDel">
-                    <div
-                      style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap;">
-                      <a style="cursor: pointer;" matTooltip="Edit Task" (click)="openEditTask(t, tidx)">
-                        <i class="fa fa-edit" style="color: cornflowerblue"></i>
+                <ng-container *ngFor="let t of getFilteredTasks(currentMod.tasks); let tidx = index">
+                  <tr>
+                    <!-- Actions -->
+                    <td class="text-center">
+                      <a matTooltip="Edit Task" (click)="openEditTask(t, tidx)" style="cursor: pointer; margin-right: 12px; color: cornflowerblue;">
+                        <i class="fa fa-edit"></i>
                       </a>
-                      <a>
-                        <i style="cursor: pointer" matTooltip="Delete Task" class="fa fa-trash red"
-                          (click)="deleteTask(tidx)"></i>
+                      <a matTooltip="Delete Task" (click)="deleteTask(t)" style="cursor: pointer; color: red;">
+                        <i class="fa fa-trash"></i>
                       </a>
-                    </div>
-                  </td>
+                    </td>
 
-                  <td><strong>{{ t.task }}</strong></td>
-                  <td><span class="code-badge">{{ t.taskCode }}</span></td>
-                  <td><span class="code-badge">{{ t.jobCode }}</span></td>
-                  <td>{{ t.effort }}h</td>
-                  <td>{{ t.department }}</td>
-                  <td>{{ t.role }}</td>
-                  <td>{{ t.section || '—' }}</td>
-                  <td>{{ t.planStart }}</td>
-                  <td>{{ t.planEnd }}</td>
-                  <td>{{ t.actualStart || '—' }}</td>
-                  <td>{{ t.actualEnd || '—' }}</td>
-                  <td>{{ t.eta }}</td>
-                  <td>{{ t.actualHours }}h</td>
-                  <td>{{ t.expenses }}</td>
-                  <td>
-                    <span class="priority-label" [class]="'priority-label--' + t.priority.toLowerCase()">
-                      {{ t.priority }}
-                    </span>
-                  </td>
-                </tr>
-                <tr *ngIf="!currentMod.tasks || currentMod.tasks.length === 0">
-                  <td colspan="16" class="empty-table-cell">No tasks inside this module. Click "Add Task" to create one.
+                    <td><strong>{{ t.task }}</strong></td>
+                    <td><span class="code-badge">{{ t.taskCode }}</span></td>
+                    <td><span class="code-badge">{{ t.jobCode }}</span></td>
+                    <td>{{ t.effort }}h</td>
+                    <td>{{ t.department }}</td>
+                    <td>{{ t.role }}</td>
+                    <td>{{ t.section || '—' }}</td>
+                    <td>{{ t.actualHours }}h</td>
+                    <td>{{ t.expenses }}</td>
+                    <td>
+                      <span class="priority-label" [class]="'priority-label--' + t.priority.toLowerCase()">
+                        {{ t.priority }}
+                      </span>
+                    </td>
+
+                    <!-- Timeline Chevron Toggle -->
+                    <td class="text-center">
+                      <button mat-icon-button (click)="t.expanded = !t.expanded" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
+                        <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">
+                          {{ t.expanded ? 'expand_more' : 'chevron_right' }}
+                        </mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+
+                  <!-- Expanded Timeline Row (Side-by-side key-values matching design in img1) -->
+                  <tr *ngIf="t.expanded" style="background-color: #f8fafc;">
+                    <td colspan="12" style="padding: 15px 24px; text-align: left;">
+                      <div style="border-left: 3px solid #286ba5; padding-left: 15px;">
+                        <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Timeline — {{ t.task }}</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 40px; max-width: 1000px;">
+                          <!-- Plan Start Date -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Start Date</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planStart ? (t.planStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                          <!-- Plan End Date -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan End Date</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planEnd ? (t.planEnd | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                          <!-- Actual Start Date -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Start Date</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualStart ? (t.actualStart | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                          <!-- Actual End Date -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual End Date</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualEnd ? (t.actualEnd | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                          <!-- ETA -->
+                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">ETA</span>
+                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.eta ? (t.eta | date:'dd-MMM-yyyy') : '—' }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <tr *ngIf="getFilteredTasks(currentMod.tasks).length === 0">
+                  <td colspan="12" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
                   </td>
                 </tr>
               </ng-container>
               <tr *ngIf="!activeStage.modules || activeStage.modules.length === 0">
-                <td colspan="16" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
+                <td colspan="12" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
               </tr>
             </tbody>
           </table>
@@ -283,7 +488,17 @@
               </div>
               <div class="col-sm-8">
                 <input type="text" class="form-control back" [(ngModel)]="stageModalData.planEffort"
-                  placeholder="100 hrs" style="height: 35px;" />
+                  placeholder="120 hrs" style="height: 35px;" />
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 12px;">
+              <div class="col-sm-4">
+                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Plan Duration:</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" class="form-control back" [(ngModel)]="stageModalData.planDuration"
+                  placeholder="15 days" style="height: 35px;" />
               </div>
             </div>
 
@@ -310,16 +525,6 @@
 
             <div class="row" style="margin-bottom: 12px;">
               <div class="col-sm-4">
-                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Gate Code:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control back" [(ngModel)]="stageModalData.gateCode" placeholder="GT001"
-                  style="height: 35px;" />
-              </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
                 <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Gate
                   Status:</label>
               </div>
@@ -335,8 +540,7 @@
 
             <div class="row" style="margin-bottom: 12px;">
               <div class="col-sm-4">
-                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Plan
-                  Description:</label>
+                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Description:</label>
               </div>
               <div class="col-sm-8">
                 <textarea class="form-control back" rows="2" [(ngModel)]="stageModalData.description"
@@ -422,7 +626,7 @@
 <!-- ============ ADD/EDIT TASK MODAL ============ -->
 <div class="bl-modal-overlay" *ngIf="showTaskModal" (click)="closeTaskModal()">
   <div class="bl-modal" (click)="$event.stopPropagation()"
-    style="max-width: 800px; width: 800px; max-height: calc(100vh - 48px); padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff; border-radius: 4px; overflow: hidden; box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);">
+    style="max-width: 900px; width: 900px; max-height: calc(100vh - 48px); padding: 24px; box-sizing: border-box; display: flex; flex-direction: column; background: #ffffff; border-radius: 4px; overflow: hidden; box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);">
     <!-- Header -->
     <div class="NewHeader">
       <h3 *ngIf="!isEditTaskMode" style="padding-top:10px;">Add Task</h3>
@@ -431,9 +635,9 @@
 
     <!-- Body -->
     <div style="flex-grow: 1; overflow-y: auto; width: 100%;">
-      <div fxLayout="row wrap" class="col-sm-12" style="padding: 0;">
+      <div fxLayout="row wrap" class="col-sm-12" style="padding: 0; display: flex;">
         <!-- Sidebar Navigation -->
-        <div class="col-sm-2" style="margin-bottom: 10px; padding: 0;">
+        <div class="col-sm-2" style="margin-bottom: 10px; padding: 0; width: 16.666%;">
           <div class="m-auto pills pt-2 pr-0">
             <ul class="nav col-12 flex-column pr-0" style="list-style-type: none; padding: 0;">
               <li class="nav-item" style="margin-top: 10px;"
@@ -444,199 +648,246 @@
                 [ngClass]="taskModalStep == 2 ? 'active nav-item' : 'nav-item'" (click)="taskModalStep = 2">
                 <a mat-raised-button class="nav-link text-left py-2 width">Timeline</a>
               </li>
+              <li class="nav-item" style="margin-top: 10px;"
+                [ngClass]="taskModalStep == 3 ? 'active nav-item' : 'nav-item'" (click)="taskModalStep = 3">
+                <a mat-raised-button class="nav-link text-left py-2 width">Predecessor</a>
+              </li>
             </ul>
           </div>
         </div>
 
         <!-- Form Fields -->
-        <div class="col-sm-10" style="padding-left: 50px; padding-top: 8px;">
-          <!-- Section 1: Overview -->
+        <div class="col-sm-10" style="padding-left: 30px; padding-top: 8px; width: 83.333%; box-sizing: border-box;">
+          <!-- Section 1: Overview (2 Columns, 6 rows per column, no scroll) -->
           <div *ngIf="taskModalStep == 1">
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Task Code:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" [(ngModel)]="taskModalData.taskCode" readonly
-                  style="height: 35px;" />
-              </div>
-            </div>
+            <div class="row" style="margin: 0; padding: 0; display: flex;">
+              <!-- Left Column (6 fields) -->
+              <div class="col-sm-6" style="padding-right: 15px; width: 50%; box-sizing: border-box;">
+                <!-- 1. Task Code -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Task Code:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" [(ngModel)]="taskModalData.taskCode" readonly style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Task
-                  Name:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control back" [(ngModel)]="taskModalData.task" placeholder="Task name"
-                  style="height: 35px;" />
-              </div>
-            </div>
+                <!-- 2. Task Name -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Task Name:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control back" [(ngModel)]="taskModalData.task" placeholder="Task name" style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Job
-                  Code:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control back" [(ngModel)]="taskModalData.jobCode" placeholder="INIT1"
-                  style="height: 35px;" />
-              </div>
-            </div>
+                <!-- 3. Job Code -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Job Code:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control back" [(ngModel)]="taskModalData.jobCode" placeholder="INIT1" style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="add-member-label"
-                  style="line-height: 35px; margin: 0; font-weight: 500;">Priority:</label>
-              </div>
-              <div class="col-sm-8">
-                <mat-select [(ngModel)]="taskModalData.priority" class="form-control back" placeholder="Select Priority"
-                  style="height: 35px; line-height: 23px;">
-                  <mat-option value="High">High</mat-option>
-                  <mat-option value="Medium">Medium</mat-option>
-                  <mat-option value="Low">Low</mat-option>
-                </mat-select>
-              </div>
-            </div>
+                <!-- 4. Priority -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Priority:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <mat-select [(ngModel)]="taskModalData.priority" class="form-control back" placeholder="Select Priority" style="height: 35px; line-height: 23px; border-radius: 4px;">
+                      <mat-option value="High">High</mat-option>
+                      <mat-option value="Medium">Medium</mat-option>
+                      <mat-option value="Low">Low</mat-option>
+                    </mat-select>
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Effort
-                  (Hours):</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="number" class="form-control back" [(ngModel)]="taskModalData.effort"
-                  style="height: 35px;" />
-              </div>
-            </div>
+                <!-- 5. Effort -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Effort (Hours):</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control back" [(ngModel)]="taskModalData.effort" style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Duration
-                  (Days):</label>
+                <!-- 6. Duration -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Duration (Days):</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control back" [(ngModel)]="taskModalData.duration" style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
               </div>
-              <div class="col-sm-8">
-                <input type="number" class="form-control back" [(ngModel)]="taskModalData.duration"
-                  style="height: 35px;" />
-              </div>
-            </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Department:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control back" [(ngModel)]="taskModalData.department" placeholder="R & D"
-                  style="height: 35px;" />
-              </div>
-            </div>
+              <!-- Right Column (6 fields) -->
+              <div class="col-sm-6" style="padding-left: 15px; width: 50%; box-sizing: border-box;">
+                <!-- 7. Department -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Department:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control back" [(ngModel)]="taskModalData.department" placeholder="R & D" style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Role:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control back" [(ngModel)]="taskModalData.role" placeholder="Developer"
-                  style="height: 35px;" />
-              </div>
-            </div>
+                <!-- 8. Responsibility -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Responsibility:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <mat-select [(ngModel)]="taskModalData.role" class="form-control back" placeholder="Select Responsibility" style="height: 35px; line-height: 23px; border-radius: 4px;">
+                      <mat-option *ngFor="let name of ['Aarav Shah', 'Priya Nair', 'Diego Ruiz', 'Mei Tanaka', 'Olivia Brown']" [value]="name">{{ name }}</mat-option>
+                    </mat-select>
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Section:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control back" [(ngModel)]="taskModalData.section" placeholder="Section A"
-                  style="height: 35px;" />
-              </div>
-            </div>
+                <!-- 9. Section -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Section:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control back" [(ngModel)]="taskModalData.section" placeholder="Section A" style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Actual
-                  Hours:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="number" class="form-control back" [(ngModel)]="taskModalData.actualHours"
-                  style="height: 35px;" />
-              </div>
-            </div>
+                <!-- 10. Actual Hours -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Actual Hours:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="number" class="form-control back" [(ngModel)]="taskModalData.actualHours" style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500;">Expenses:</label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control back" [(ngModel)]="taskModalData.expenses" placeholder="₹0"
-                  style="height: 35px;" />
-              </div>
-            </div>
+                <!-- 11. Expenses -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Expenses:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control back" [(ngModel)]="taskModalData.expenses" placeholder="₹0" style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
 
-            <div class="row" style="margin-bottom: 12px;">
-              <div class="col-sm-4">
-                <label class="control-label"
-                  style="line-height: 35px; margin: 0; font-weight: 500;">Description:</label>
-              </div>
-              <div class="col-sm-8">
-                <textarea class="form-control back" rows="2" [(ngModel)]="taskModalData.description"
-                  placeholder="Task description..." style="resize: vertical;"></textarea>
+                <!-- 12. Description -->
+                <div class="row align-items-center" style="margin-bottom: 12px; display: flex;">
+                  <div class="col-sm-4">
+                    <label class="control-label" style="line-height: 35px; margin: 0; font-weight: 500; white-space: nowrap;">Description:</label>
+                  </div>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control back" [(ngModel)]="taskModalData.description" placeholder="Task description..." style="height: 35px; border-radius: 4px;" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Section 2: Timeline -->
           <div *ngIf="taskModalStep == 2">
-            <div class="row" style="margin-bottom: 12px;">
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
               <div class="col-sm-4">
-                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Plan Start
-                  Date:</label>
+                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Plan Start Date:</label>
               </div>
               <div class="col-sm-8">
-                <input type="date" class="form-control back" [(ngModel)]="taskModalData.planStart"
-                  style="height: 35px;" />
+                <input type="date" class="form-control back" [(ngModel)]="taskModalData.planStart" style="height: 35px; border-radius: 4px;" />
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 12px;">
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
               <div class="col-sm-4">
-                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Plan End
-                  Date:</label>
+                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Plan End Date:</label>
               </div>
               <div class="col-sm-8">
-                <input type="date" class="form-control back" [(ngModel)]="taskModalData.planEnd"
-                  style="height: 35px;" />
+                <input type="date" class="form-control back" [(ngModel)]="taskModalData.planEnd" style="height: 35px; border-radius: 4px;" />
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 12px;">
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
               <div class="col-sm-4">
-                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Actual Start
-                  Date:</label>
+                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Actual Start Date:</label>
               </div>
               <div class="col-sm-8">
-                <input type="date" class="form-control back" [(ngModel)]="taskModalData.actualStart"
-                  style="height: 35px;" />
+                <input type="date" class="form-control back" [(ngModel)]="taskModalData.actualStart" style="height: 35px; border-radius: 4px;" />
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 12px;">
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
               <div class="col-sm-4">
-                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Actual End
-                  Date:</label>
+                <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">Actual End Date:</label>
               </div>
               <div class="col-sm-8">
-                <input type="date" class="form-control back" [(ngModel)]="taskModalData.actualEnd"
-                  style="height: 35px;" />
+                <input type="date" class="form-control back" [(ngModel)]="taskModalData.actualEnd" style="height: 35px; border-radius: 4px;" />
               </div>
             </div>
 
-            <div class="row" style="margin-bottom: 12px;">
+            <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
               <div class="col-sm-4">
                 <label class="add-member-label" style="line-height: 35px; margin: 0; font-weight: 500;">ETA:</label>
               </div>
               <div class="col-sm-8">
-                <input type="date" class="form-control back" [(ngModel)]="taskModalData.eta" style="height: 35px;" />
+                <input type="date" class="form-control back" [(ngModel)]="taskModalData.eta" style="height: 35px; border-radius: 4px;" />
               </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Predecessor -->
+          <div *ngIf="taskModalStep == 3">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; width: 100%;">
+              <h4 style="margin: 0; font-weight: 600; color: #333;">Predecessors</h4>
+              <button mat-raised-button color="primary" type="button" (click)="addPredecessorRow()" style="height: 32px; line-height: 32px; padding: 0 12px; display: inline-flex; align-items: center;">
+                <mat-icon style="margin-right: 4px; font-size: 18px; width: 18px; height: 18px;">add</mat-icon> Add
+              </button>
+            </div>
+
+            <div class="table-responsive" style="max-height: 250px; overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 4px; width: 100%;">
+              <table class="table table-bordered table-hover" style="margin: 0; width: 100%;">
+                <thead style="background-color: #f8fafc;">
+                  <tr>
+                    <th>Module</th>
+                    <th>Task</th>
+                    <th class="text-center" style="width: 80px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let pred of taskModalData.predecessors; let pidx = index">
+                    <td style="padding: 6px 10px;">
+                      <mat-select [(ngModel)]="pred.moduleName" class="form-control back" (selectionChange)="onPredecessorModuleChange(pred)" placeholder="Select Module" style="height: 35px; line-height: 23px;">
+                        <mat-option *ngFor="let m of activeStage?.modules" [value]="m.name">{{ m.name }}</mat-option>
+                      </mat-select>
+                    </td>
+                    <td style="padding: 6px 10px;">
+                      <mat-select [(ngModel)]="pred.taskCode" class="form-control back" placeholder="Select Task" style="height: 35px; line-height: 23px;">
+                        <mat-option *ngFor="let t of getPredecessorTasksForModule(pred.moduleName)" [value]="t.taskCode">
+                          {{ t.task }} ({{ t.taskCode }})
+                        </mat-option>
+                      </mat-select>
+                    </td>
+                    <td class="text-center" style="vertical-align: middle; padding: 6px 10px;">
+                      <a (click)="deletePredecessorRow(pidx)" style="cursor: pointer;">
+                        <i class="fa fa-trash red" style="font-size: 16px; color: #ef4444;"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="!taskModalData.predecessors || taskModalData.predecessors.length === 0">
+                    <td colspan="3" class="text-center" style="padding: 20px; color: #64748b; font-style: italic;">
+                      No predecessors added. Click "Add" to add a predecessor task.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

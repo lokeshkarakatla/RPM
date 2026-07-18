@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-addphoto-pop',
@@ -7,39 +7,64 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./addphoto-pop.component.scss']
 })
 export class AddphotoPopComponent implements OnInit {
-
-closeDialog() {
-throw new Error('Method not implemented.');
-}
-// Reference to the hidden file input in the template
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   
+  isEditMode: boolean = false;
+  title: string = '';
+  description: string = '';
+  module: string = '';
+  stage: string = '';
   selectedFile: File | null = null;
+  imageUrl: string = '';
 
-  constructor(public dialogRef: MatDialogRef<AddphotoPopComponent>) {}
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  modules: string[] = ['Module 1', 'Module 2'];
+  stages: string[] = ['Stage 1', 'Stage 2'];
+
+  constructor(
+    public dialogRef: MatDialogRef<AddphotoPopComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    if (data) {
+      this.isEditMode = true;
+      this.title = data.title || '';
+      this.description = data.description || '';
+      this.module = data.module || '';
+      this.stage = data.stage || '';
+      this.imageUrl = data.url || '';
+    }
   }
 
-  // Triggers the native file selector
-  onBrowseClick(): void {
-    this.fileInput.nativeElement.click();
-  }
+  ngOnInit(): void {}
 
-  // Handles the file once the user selects it
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+      this.imageUrl = URL.createObjectURL(this.selectedFile);
     }
+  }
+
+  removeImage(): void {
+    this.selectedFile = null;
+    this.imageUrl = '';
   }
 
   onClose(): void {
     this.dialogRef.close();
   }
 
-  onUpdate(): void {
-    // Closes the dialog and passes the selected file back to the parent component
-    this.dialogRef.close(this.selectedFile);
+  onSave(): void {
+    if (!this.title.trim()) {
+      return;
+    }
+    
+    this.dialogRef.close({
+      title: this.title,
+      description: this.description,
+      module: this.module,
+      stage: this.stage,
+      file: this.selectedFile,
+      url: this.imageUrl
+    });
   }
 }
+

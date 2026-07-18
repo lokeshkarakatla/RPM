@@ -23,6 +23,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 // --- Components ---
 import { ProjectDashboardComponent } from "./project-dashboard.component";
@@ -233,6 +234,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatDialogModule,
     MatMenuModule,
+    MatCheckboxModule,
     DragulaModule,
   ],
 })

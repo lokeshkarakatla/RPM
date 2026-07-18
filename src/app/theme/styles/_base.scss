@@ -94,6 +94,22 @@ a{
         padding: 0 !important;
     }
 }
+.admin-dropdown-menu {
+    background: #000000 !important;
+    min-width: 190px !important;
+    .mat-menu-item {
+        color: #ffffff !important;
+        background: #000000 !important;
+        font-family: inherit;
+        .mat-icon {
+            color: #ffffff !important;
+            margin-right: 8px;
+        }
+        &:hover {
+            background: #50636d !important;
+        }
+    }
+}
 .icon-sm, .mat-icon.icon-sm{
     font-size: 18px;
     line-height: 18px;

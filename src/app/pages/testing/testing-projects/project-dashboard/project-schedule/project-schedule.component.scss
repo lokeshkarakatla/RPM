@@ -16,13 +16,10 @@ $c-pending: #a1a1aa;
 }
 
 .schedule-dashboard {
- min-width: 1250px;
   width: 100%;
   padding: 24px;
-  // background-color: $bg-color;
-  // font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
-  margin-top:-30px;
+  margin-top: 0px;
   margin-left: -6px;
 }
 
@@ -111,6 +108,7 @@ $c-pending: #a1a1aa;
   border: 1px solid $border;
   border-radius: 12px;
   overflow: hidden;
+  margin-top: 20px;
 }
 
 .toolbar {
@@ -247,69 +245,296 @@ $c-pending: #a1a1aa;
     justify-content: flex-start; 
 }
 
-// Gantt View
+// Custom Split Gantt Chart View
+// Custom Split Gantt Chart View
 .gantt-view {
-  overflow-x: auto;
-  .gantt-scroll { width: 1272px; }
-  
-  .gantt-row { display: flex; border-bottom: 1px solid rgba($border, 0.6); }
-  .gantt-col-left { width: 320px; flex-shrink: 0; padding: 12px 16px; }
-  .gantt-col-right { width: 952px; position: relative; padding: 12px 0; }
-
-  .header-row {
-    background: rgba(#f1f5f9, 0.3);
-    .gantt-col-left { font-size: 12px; font-weight: 500; text-transform: uppercase; color: $text-muted; padding: 8px 16px; }
-    .gantt-col-right { display: flex; padding: 0; }
-    .day-col { width: 34px; border-left: 1px solid rgba($border, 0.5); padding: 8px 0; text-align: center; font-size: 10px; color: $text-muted; }
-  }
-
-  .task-row {
-    &:hover { background: rgba(#f1f5f9, 0.4); }
-    .task-name-truncate { font-size: 14px; font-weight: 500; color: $text-main; }
-    .task-meta { margin-top: 2px; font-size: 11px; color: $text-muted; .sep { margin: 0 4px; color: #cbd5e1; } }
-
-    .grid-lines-bg { position: absolute; inset: 0; display: flex; pointer-events: none; .grid-line { width: 34px; border-left: 1px solid rgba($border, 0.4); } }
-    .today-line { position: absolute; top: 0; bottom: 0; left: 374px; width: 1px; background: rgba($text-main, 0.4); }
-
-    .gantt-bar {
-      position: absolute;
-      top: 50%; transform: translateY(-50%);
-      height: 24px; border-radius: 6px;
-      display: flex; align-items: center;
-      overflow: hidden;
-      
-      .bar-progress { position: absolute; top: 0; bottom: 0; left: 0; background: rgba(255, 255, 255, 0.25); }
-      .bar-label { position: relative; margin-left: 8px; font-size: 10px; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.95); mix-blend-mode: luminosity; }
-    }
-  }
-
-  .footer-row {
-    background: rgba(#f1f5f9, 0.2);
-    border-top: 1px solid $border; border-bottom: none;
-    .gantt-col-left { padding: 8px 16px; font-size: 12px; color: $text-muted; }
-    .gantt-col-right { padding: 0; .today-tick { position: absolute; top: 0; left: 374px; height: 8px; width: 1px; background: rgba($text-main, 0.6); } }
-  }
-}
-
-.header-content {
+  background: #ffffff;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
   width: 100%;
 }
 
-.header-titles {
-  flex: 1;
+.gantt-split-container {
+  display: flex;
+  width: 100%;
+  border-top: none;
+  overflow: hidden;
+  background: #ffffff;
+  user-select: none; /* prevent text highlights while dragging */
+  align-items: stretch;
 }
 
-.back-btn {
-  margin-left: auto;
-  align-self: flex-start;
+// Left Pane Grid styles
+.gantt-left-pane {
+  flex-shrink: 0;
+  display: block;
+  background: #ffffff;
+  overflow-x: auto;
+  border-right: 1px solid $border;
+}
+
+.gantt-left-table {
+  min-width: 560px;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  th, td {
+    padding: 8px 12px;
+    font-size: 13px;
+    border: 1px solid #cbd5e1;
+    height: 65px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  th {
+    height: 70px;
+    background-color: #3f3f3f !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    border-color: #555555 !important;
+  }
+
+  tbody tr {
+    height: 65px;
+    
+    &:hover {
+      background-color: #f8fafc;
+    }
+  }
+
+  .col-id { width: 50px; }
+  .col-name { width: 180px; }
+  .col-module { width: 150px; }
+  .col-date { width: 90px; }
+}
+
+// Splitter Divider Bar
+.gantt-splitter-bar {
+  width: 8px; /* Slightly wider click target area */
+  background-color: #cbd5e1;
+  cursor: col-resize;
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  position: relative;
+  transition: background-color 0.2s ease;
+  z-index: 3; /* Kept low so it scrolls under sticky header */
+  flex-shrink: 0;
+  align-self: stretch;
 
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 4px;
+  &:hover, &:active {
+    background-color: #1a73e8;
+    .splitter-knob {
+      background-color: #1a73e8;
+      border-color: #1a73e8;
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.4);
+      svg {
+        color: #ffffff !important;
+      }
+    }
+  }
+
+  .splitter-knob {
+    width: 18px;
+    height: 36px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    cursor: col-resize;
+    z-index: 4; /* Kept low so it scrolls under sticky header */
+  }
 }
+
+// Right Pane Timeline styles
+.gantt-right-pane {
+  flex-grow: 1;
+  overflow-x: auto;
+  background: #ffffff;
+  scroll-behavior: smooth;
+}
+
+.gantt-timeline-container {
+  background: #ffffff;
+  position: relative;
+}
+
+// Weeks Header
+.gantt-weeks-header {
+  height: 35px;
+  display: flex;
+  background: #f8fafc;
+  border-bottom: 1px solid $border;
+  align-items: center;
+  box-sizing: border-box;
+
+  .week-hdr-cell {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    text-align: center;
+    border-right: 1px solid #e2e8f0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+}
+
+// Days Header
+.gantt-days-header {
+  height: 35px;
+  display: flex;
+  background: #f8fafc;
+  border-bottom: 2px solid $border;
+  align-items: center;
+  box-sizing: border-box;
+
+  .day-hdr-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #e2e8f0;
+    height: 100%;
+    box-sizing: border-box;
+
+    .day-letter {
+      font-size: 9px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+    .day-number {
+      font-size: 10px;
+      font-weight: 700;
+      color: #475569;
+    }
+  }
+}
+
+// Timeline Rows
+.gantt-timeline-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.gantt-timeline-row {
+  height: 65px;
+  position: relative;
+  border-bottom: 1px solid #f1f5f9;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #f8fafc;
+  }
+}
+
+// Vertical background grid lines
+.timeline-grid-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+  z-index: 1;
+
+  .grid-line {
+    height: 100%;
+    border-right: 1px solid #f1f5f9;
+    box-sizing: border-box;
+  }
+}
+
+// Base gantt bar container styles
+.gantt-bar {
+  position: absolute;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  .bar-label {
+    font-size: 8px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .bar-percentage {
+    font-size: 8px;
+    font-weight: 800;
+  }
+}
+
+// Plan bar details
+.plan-bar {
+  top: 12px;
+  height: 14px;
+  background-color: #bbf7d0; /* bright light green */
+  border: 1px solid #86efac;
+  z-index: 1; /* Kept low so it scrolls under sticky header */
+
+  .bar-label {
+    color: #166534;
+  }
+}
+
+// Actual bar details
+.actual-bar {
+  top: 32px;
+  height: 20px;
+  z-index: 2; /* Kept low so it scrolls under sticky header */
+  color: #ffffff;
+  justify-content: space-between;
+
+  .bar-label {
+    color: #ffffff;
+  }
+}
+
+.table-actions-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 16px;
+  background: #f9fafb;
+  border-bottom: 1px solid $border;
+  gap: 8px;
+
+  .scroll-btn {
+    background: white;
+    border: 1px solid $border;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-muted;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #f1f5f9;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+

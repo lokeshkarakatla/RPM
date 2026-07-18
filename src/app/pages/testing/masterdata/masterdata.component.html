@@ -110,6 +110,13 @@
         </a>
       </li>
 
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['./tag-master']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Tag Master">local_offer</mat-icon>
+          <span *ngIf="isNavOpen">Tag Master</span>
+        </a>
+      </li>
+
 
 
 

@@ -13,7 +13,7 @@
 .pills>.nav>li.active>a {
   background: #50636d !important;
   color: #ffffff;
-} 
+}
 
 .pills>.nav>li>a:hover {
   color: #ffffff;
@@ -30,9 +30,16 @@
 }
 
 .tbl-head,
-.tbl-head th {
-  background-color:#3f3f3f;
-  color: white;
+.tbl-head th,
+.table thead.tbl-head th,
+.table thead.tbl-head td,
+table thead.tbl-head th {
+  background-color: #3f3f3f !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  font-size: 14px !important;
 }
 
 .filterLabelMarginTop {
@@ -886,10 +893,12 @@ a {
   filter: alpha(opacity=80);
   pointer-events: none;
 }
+
 /* high-performance display:none; helper */
 .gu-hide {
   left: -9999px !important;
 }
+
 /* added to mirrorContainer (default = body) while dragging */
 .gu-unselectable {
   -webkit-user-select: none !important;
@@ -897,6 +906,7 @@ a {
   -ms-user-select: none !important;
   user-select: none !important;
 }
+
 /* added to the source element while its mirror is dragged */
 .gu-transit {
   opacity: 0.2;
@@ -909,7 +919,7 @@ a {
    ========================================================================== */
 
 /* 1. Standardized popup/dialog header (Blue, centered, white text) */
-.NewHeader, 
+.NewHeader,
 .custom-header {
   background: #286ba5 !important;
   color: white !important;
@@ -925,8 +935,13 @@ a {
   justify-content: center !important;
   border-top-left-radius: 4px !important;
   border-top-right-radius: 4px !important;
-  
-  h1, h2, h3, h4, span, [mat-dialog-title] {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  span,
+  [mat-dialog-title] {
     color: white !important;
     margin: 0 !important;
     font-size: 20px !important;
@@ -1024,7 +1039,8 @@ select option {
   width: 16px !important;
   margin-left: auto !important;
   margin-right: 0 !important;
-  order: 2 !important; /* Force to the right */
+  order: 2 !important;
+  /* Force to the right */
 }
 
 .mat-select-arrow,
@@ -1040,4 +1056,3 @@ select option {
   visibility: visible !important;
   opacity: 1 !important;
 }
-

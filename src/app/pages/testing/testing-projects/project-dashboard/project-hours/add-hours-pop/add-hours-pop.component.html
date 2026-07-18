@@ -1,126 +1,92 @@
 <div class="NewHeader">
-    <h3 style="padding-top:10px; color: white; text-align: center;">{{ isEditMode ? 'Edit Hours Entry' : 'Add Hours Entry' }}</h3>
+    <h1 mat-dialog-title style="color:white; margin: 0; text-align: center;">
+        {{ isEditMode ? 'Edit Timesheet' : 'Add Timesheet' }}
+    </h1>
 </div>
 
-<div>
-    <div fxLayout="row wrap" class="col-sm-12">
-        <div class="col-sm-12" style="margin-top: 20px; padding-left: 20px; padding-right: 20px;">
-            <form #hoursForm="ngForm">
-                <div>
-                    <!-- Date -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Date:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="date" name="dateStr" [(ngModel)]="dateStr" style="height:35px;" class="form-control back" required>
-                        </div>
-                    </div>
-
-                    <!-- Job Code -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Job Code:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="jobCode" [(ngModel)]="jobCode" style="height:35px;" class="form-control back" placeholder="Enter Job Code" required>
-                        </div>
-                    </div>
-
-                    <!-- Subject -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Subject:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="subject" [(ngModel)]="subject" style="height:35px;" class="form-control back" placeholder="Enter Subject" required>
-                        </div>
-                    </div>
-
-                    <!-- Employee Name -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Name:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="name" [(ngModel)]="name" style="height:35px;" class="form-control back" placeholder="Enter Employee Name" required>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Description:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="description" [(ngModel)]="description" style="height:35px;" class="form-control back" placeholder="Enter Description" required>
-                        </div>
-                    </div>
-
-                    <!-- Module -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Module:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="module" [(ngModel)]="module" style="height:35px;" class="form-control back" placeholder="Enter Module">
-                        </div>
-                    </div>
-
-                    <!-- Task -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Task:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="task" [(ngModel)]="task" style="height:35px;" class="form-control back" placeholder="Enter Task">
-                        </div>
-                    </div>
-
-                    <!-- Hours -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Hours:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="number" name="hours" [(ngModel)]="hours" style="height:35px;" class="form-control back" required>
-                        </div>
-                    </div>
-
-                    <!-- Stage -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Stage:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <mat-select name="stage" [(ngModel)]="stage" class="form-control" placeholder="Select Stage" required>
-                                <mat-option *ngFor="let st of stages" [value]="st">{{ st }}</mat-option>
-                            </mat-select>
-                        </div>
-                    </div>
-
-                    <!-- Notes -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Notes:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <textarea name="notes" [(ngModel)]="notes" class="form-control back" rows="3" placeholder="Enter Notes" style="resize: vertical;"></textarea>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
-
-            <mat-dialog-actions align="end" style="margin-top: 15px; padding-bottom: 15px;">
-                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
-                    <mat-icon>cancel</mat-icon> Close
-                </button>
-                <button mat-raised-button type="button" class="save" color="primary" (click)="save()" [disabled]="!hoursForm.valid">
-                    <mat-icon>save</mat-icon> Save
-                </button>
-            </mat-dialog-actions>
-            
+<div mat-dialog-content style="padding: 20px 25px;">
+    <form #hoursForm="ngForm">
+        <!-- Date -->
+        <div class="row" style="margin-bottom: 12px; display: flex; align-items: center;">
+            <div class="col-sm-3">
+                <label class="control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Date:</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="date" name="dateStr" [(ngModel)]="dateStr" style="height:35px;" class="form-control back" required>
+            </div>
         </div>
-    </div>
+
+        <!-- Employee Name -->
+        <div class="row" style="margin-bottom: 20px; display: flex; align-items: center;">
+            <div class="col-sm-3">
+                <label class="control-label" style="font-weight: 500; margin: 0; white-space: nowrap;">Name:</label>
+            </div>
+            <div class="col-sm-9">
+                <input type="text" name="name" [(ngModel)]="name" style="height:35px;" class="form-control back" placeholder="Enter Employee Name" required>
+            </div>
+        </div>
+
+        <!-- Timesheet Entries Section -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; margin-bottom: 10px;">
+            <h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #3f3f3f;">Timesheet Details</h3>
+            <button mat-raised-button type="button" (click)="addRow()" style="background-color: #3f3f3f; color: white;">
+                Add
+            </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="timesheet-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Module</th>
+                        <th style="width: 30%;">Task</th>
+                        <th style="width: 15%;">Hours</th>
+                        <th style="width: 25%;">Description</th>
+                        <th style="width: 10%; text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of rows; let idx = index">
+                        <td>
+                            <input type="text" [name]="'module_' + idx" [(ngModel)]="row.module" class="form-control back table-input" placeholder="Module">
+                        </td>
+                        <td>
+                            <mat-select [name]="'task_' + idx" [(ngModel)]="row.task" class="form-control back table-input" placeholder="Select Task" required style="height: 35px; line-height: 23px;">
+                                <div style="padding: 8px; position: sticky; top: 0; background: white; z-index: 1;">
+                                    <input type="text" [name]="'search_' + idx" class="form-control" placeholder="Search..." 
+                                           [(ngModel)]="row.searchText" 
+                                           [ngModelOptions]="{standalone: true}"
+                                           (keydown)="$event.stopPropagation()"
+                                           style="height: 30px; font-size: 12px;">
+                                </div>
+                                <mat-option *ngFor="let t of getFilteredTasks(row.searchText)" [value]="t">
+                                    {{ t }}
+                                </mat-option>
+                            </mat-select>
+                        </td>
+                        <td>
+                            <input type="number" [name]="'hours_' + idx" [(ngModel)]="row.hours" class="form-control back table-input" placeholder="Hours" required min="0.1">
+                        </td>
+                        <td>
+                            <input type="text" [name]="'desc_' + idx" [(ngModel)]="row.description" class="form-control back table-input" placeholder="Description" required>
+                        </td>
+                        <td style="text-align: center;">
+                            <i class="fa fa-trash text-danger" style="cursor: pointer; font-size: 16px; margin-top: 8px;" (click)="deleteRow(idx)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Dialog Actions -->
+        <div style="margin-top: 25px; display: flex; justify-content: flex-end; gap: 10px;">
+            <button mat-raised-button type="button" (click)="close()" style="background-color: lightgray; color: red">
+                <mat-icon>cancel</mat-icon> Close
+            </button>
+            <button mat-raised-button type="button" color="primary" (click)="save()" [disabled]="!hoursForm.valid">
+                <mat-icon>save</mat-icon> Save
+            </button>
+        </div>
+    </form>
 </div>

@@ -1,6 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+interface TimesheetRow {
+  module: string;
+  task: string;
+  hours: number;
+  description: string;
+  searchText?: string;
+}
+
 @Component({
   selector: 'app-add-hours-pop',
   templateUrl: './add-hours-pop.component.html',
@@ -10,17 +18,32 @@ export class AddHoursPopComponent implements OnInit {
 
   isEditMode = false;
   dateStr = '';
-  jobCode = '';
-  subject = '';
   name = '';
-  description = '';
-  stage = 'Review';
-  module = '';
-  task = '';
-  hours = 0;
-  notes = '';
 
-  stages = ['Review', 'Approved', 'Declined', 'Paid', 'Hold'];
+  rows: TimesheetRow[] = [];
+
+  availableTasks = [
+    'Define product & technical specifications',
+    'Identify raw material requirements',
+    'Estimate target production volume',
+    'Initial BOM & labor cost estimation',
+    'Assess existing factory floor capacity',
+    'Regulatory and EHS compliance check',
+    'Identify required new machinery (CAPEX)',
+    'Preliminary supply chain & vendor assessment',
+    'Draft initial project charter',
+    'Schedule Gate 1 Review',
+    'Analyze manufacturing process constraints',
+    'Review machine cycle time vs. target output',
+    'Assess facility tooling capabilities',
+    'Determine automation feasibility index',
+    'Model NPV and IRR for 5-year production run',
+    'Calculate payback period options',
+    'Forecast operational expenditures (OPEX)',
+    'Review project charter document',
+    'Verify initial business case & ROI feasibility',
+    'Sign-off from executive sponsors'
+  ];
 
   constructor(
     public dialogRef: MatDialogRef<AddHoursPopComponent>,
@@ -30,15 +53,7 @@ export class AddHoursPopComponent implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this.isEditMode = true;
-      this.jobCode = this.data.jobCode || '';
-      this.subject = this.data.subject || '';
       this.name = this.data.name || '';
-      this.description = this.data.description || '';
-      this.stage = this.data.stage || 'Review';
-      this.module = this.data.module || '';
-      this.task = this.data.task || '';
-      this.hours = this.data.hours || 0;
-      this.notes = this.data.notes || '';
       if (this.data.dateObj) {
         const d = this.data.dateObj;
         const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -46,7 +61,44 @@ export class AddHoursPopComponent implements OnInit {
         const yyyy = d.getFullYear();
         this.dateStr = `${yyyy}-${mm}-${dd}`;
       }
+      this.rows = [
+        {
+          module: this.data.module || '',
+          task: this.data.task || '',
+          hours: this.data.hours || 0,
+          description: this.data.description || ''
+        }
+      ];
+    } else {
+      this.isEditMode = false;
+      const today = new Date();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      this.dateStr = `${today.getFullYear()}-${mm}-${dd}`;
+      this.rows = [
+        { module: '', task: '', hours: 0, description: '' }
+      ];
     }
+  }
+
+  addRow(): void {
+    this.rows.push({ module: '', task: '', hours: 0, description: '' });
+  }
+
+  deleteRow(index: number): void {
+    if (this.rows.length > 1) {
+      this.rows.splice(index, 1);
+    } else {
+      this.rows[0] = { module: '', task: '', hours: 0, description: '' };
+    }
+  }
+
+  getFilteredTasks(searchText?: string): string[] {
+    if (!searchText) {
+      return this.availableTasks;
+    }
+    const term = searchText.toLowerCase();
+    return this.availableTasks.filter(t => t.toLowerCase().includes(term));
   }
 
   close(): void {
@@ -56,15 +108,8 @@ export class AddHoursPopComponent implements OnInit {
   save(): void {
     this.dialogRef.close({
       dateObj: this.dateStr ? new Date(this.dateStr) : new Date(),
-      jobCode: this.jobCode,
-      subject: this.subject,
       name: this.name,
-      description: this.description,
-      stage: this.stage,
-      module: this.module,
-      task: this.task,
-      hours: this.hours,
-      notes: this.notes
+      rows: this.rows
     });
   }
 }

@@ -1,19 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as Highcharts from 'highcharts';
-import HC_Gantt from 'highcharts/modules/gantt';
-
-HC_Gantt(Highcharts);
 
 interface ScheduleTask {
   id: string;
   name: string;
+  module: string;
   assignee: string;
-  actualStart: string | null;
-  actualFinish: string |null;
-  eta: string;
+  planStart: Date;
+  planEnd: Date;
+  actualStartObj: Date | null;
+  actualEndObj: Date | null;
   status: 'Pending' | 'Ongoing' | 'Completed' | 'Exceeded';
   completion: number;
+}
+
+interface TimelineDay {
+  date: number;
+  name: string;
+}
+
+interface GanttBar {
+  left: number;
+  width: number;
+  color: string;
+  label: string;
+  completion?: number;
 }
 
 @Component({
@@ -22,23 +33,15 @@ interface ScheduleTask {
   styleUrls: ['./project-schedule.component.scss']
 })
 export class ProjectScheduleComponent implements OnInit {
+  @ViewChild('ganttViewport') ganttViewport!: ElementRef;
 
-    constructor(
+  constructor(
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
-  Highcharts: typeof Highcharts = Highcharts;
-
-  chartConstructor = 'ganttChart';
-
-  updateFlag = false;
-
- viewMode: 'grid' | 'gantt' = 'gantt';
-
+  viewMode: 'grid' | 'gantt' = 'gantt';
   isMaskingPending = false;
-
-  chartOptions: Highcharts.Options = {};
 
   stats = {
     pending: 3,
@@ -47,298 +50,260 @@ export class ProjectScheduleComponent implements OnInit {
     exceeded: 2
   };
 
-  allTasks: ScheduleTask[] = [
+  // Custom splitter state
+  leftPaneWidth: number = 420;
+  isResizing: boolean = false;
+  timelineDays: TimelineDay[] = [];
+  dayWidth: number = 40; // width in pixels of each day column
 
+  allTasks: ScheduleTask[] = [
     {
       id: 'T1',
       name: 'Requirements gathering',
+      module: 'Concept & Feasibility',
       assignee: 'Ana Vega',
-      actualStart: '1 Jun',
-      actualFinish: '4 Jun',
-      eta: '4 Jun',
+      planStart: new Date(2026, 5, 1),
+      planEnd: new Date(2026, 5, 5),
+      actualStartObj: new Date(2026, 5, 1),
+      actualEndObj: new Date(2026, 5, 4),
       status: 'Completed',
       completion: 100
     },
-
     {
       id: 'T2',
       name: 'System architecture',
+      module: 'Concept & Feasibility',
       assignee: 'Ravi Shah',
-      actualStart: '4 Jun',
-      actualFinish: '8 Jun',
-      eta: '7 Jun',
+      planStart: new Date(2026, 5, 4),
+      planEnd: new Date(2026, 5, 7),
+      actualStartObj: new Date(2026, 5, 4),
+      actualEndObj: new Date(2026, 5, 8),
       status: 'Exceeded',
       completion: 100
     },
-
     {
       id: 'T3',
       name: 'UI Mockups',
+      module: 'Process & Design Engineering',
       assignee: 'Mia Chen',
-      actualStart: '5 Jun',
-      actualFinish: '9 Jun',
-      eta: '10 Jun',
+      planStart: new Date(2026, 5, 5),
+      planEnd: new Date(2026, 5, 10),
+      actualStartObj: new Date(2026, 5, 5),
+      actualEndObj: new Date(2026, 5, 9),
       status: 'Completed',
       completion: 100
     },
-
     {
       id: 'T4',
       name: 'Database Schema',
+      module: 'Process & Design Engineering',
       assignee: 'Ravi Shah',
-      actualStart: '9 Jun',
-      actualFinish: null,
-      eta: '13 Jun',
+      planStart: new Date(2026, 5, 9),
+      planEnd: new Date(2026, 5, 14),
+      actualStartObj: new Date(2026, 5, 9),
+      actualEndObj: null,
       status: 'Ongoing',
       completion: 65
     },
-
     {
       id: 'T5',
       name: 'API Implementation',
+      module: 'Process & Design Engineering',
       assignee: 'Leo Park',
-      actualStart: '11 Jun',
-      actualFinish: null,
-      eta: '15 Jun',
+      planStart: new Date(2026, 5, 11),
+      planEnd: new Date(2026, 5, 16),
+      actualStartObj: new Date(2026, 5, 11),
+      actualEndObj: null,
       status: 'Ongoing',
       completion: 40
     },
-
     {
       id: 'T6',
       name: 'Frontend Integration',
+      module: 'Process & Design Engineering',
       assignee: 'Leo Park',
-      actualStart: '12 Jun',
-      actualFinish: null,
-      eta: '18 Jun',
+      planStart: new Date(2026, 5, 12),
+      planEnd: new Date(2026, 5, 19),
+      actualStartObj: new Date(2026, 5, 12),
+      actualEndObj: null,
       status: 'Exceeded',
       completion: 80
     },
-
     {
       id: 'T7',
       name: 'QA & Testing',
+      module: 'Tooling & Prototyping',
       assignee: 'Sara Iqbal',
-      actualStart: null,
-      actualFinish: null,
-      eta: '22 Jun',
+      planStart: new Date(2026, 5, 18),
+      planEnd: new Date(2026, 5, 22),
+      actualStartObj: null,
+      actualEndObj: null,
       status: 'Pending',
       completion: 0
     },
-
     {
       id: 'T8',
       name: 'Security Review',
+      module: 'Tooling & Prototyping',
       assignee: 'Unassigned',
-      actualStart: null,
-      actualFinish: null,
-      eta: '24 Jun',
+      planStart: new Date(2026, 5, 21),
+      planEnd: new Date(2026, 5, 25),
+      actualStartObj: null,
+      actualEndObj: null,
       status: 'Pending',
       completion: 0
     },
-
     {
       id: 'T9',
       name: 'Deployment',
+      module: 'Pilot Production Run',
       assignee: 'Leo Park',
-      actualStart: null,
-      actualFinish: null,
-      eta: '27 Jun',
+      planStart: new Date(2026, 5, 24),
+      planEnd: new Date(2026, 5, 28),
+      actualStartObj: null,
+      actualEndObj: null,
       status: 'Pending',
       completion: 0
     }
-
   ];
 
- 
   get displayedTasks(): ScheduleTask[] {
-
     if (this.isMaskingPending) {
-      return this.allTasks.filter(
-        x => x.status !== 'Pending'
-      );
+      return this.allTasks.filter(x => x.status !== 'Pending');
     }
-
     return this.allTasks;
   }
-   ngOnInit(): void {
-  this.loadChart();
-}
 
- setView(mode: 'grid' | 'gantt'): void {
+  ngOnInit(): void {
+    this.initializeTimelineDays();
+  }
+
+  initializeTimelineDays() {
+    const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    const temp: TimelineDay[] = [];
+    for (let i = 1; i <= 30; i++) {
+      // June 1st, 2026 is a Monday (index 0)
+      const dayName = days[(i - 1) % 7];
+      temp.push({ date: i, name: dayName });
+    }
+    this.timelineDays = temp;
+  }
+
+  setView(mode: 'grid' | 'gantt'): void {
     this.viewMode = mode;
   }
 
-toggleMaskPending(): void {
-
-  this.isMaskingPending = !this.isMaskingPending;
-
-  this.loadChart();
-
-}
-
-
-
-
-
-
-
-
-private loadChart(): void {
-
-  const tasks = this.isMaskingPending
-    ? this.allTasks.filter(x => x.status !== 'Pending')
-    : this.allTasks;
-
-  const ganttData: any[] = [
-
-    {
-      id: 'T1',
-      name: 'Requirements gathering',
-      start: Date.UTC(2026,5,1),
-      end: Date.UTC(2026,5,4),
-      completed:{amount:1},
-      color:'#10b981',
-      custom:{status:'Completed'}
-    },
-
-    {
-      id: 'T2',
-      name: 'System architecture',
-      start: Date.UTC(2026,5,4),
-      end: Date.UTC(2026,5,8),
-      completed:{amount:1},
-      color:'#ef4444',
-      custom:{status:'Exceeded'}
-    },
-
-    {
-      id: 'T3',
-      name: 'UI Mockups',
-      start: Date.UTC(2026,5,5),
-      end: Date.UTC(2026,5,9),
-      completed:{amount:1},
-      color:'#10b981',
-      custom:{status:'Completed'}
-    },
-
-    {
-      id: 'T4',
-      name: 'Database Schema',
-      start: Date.UTC(2026,5,9),
-      end: Date.UTC(2026,5,13),
-      completed:{amount:0.65},
-      color:'#3b82f6',
-      custom:{status:'Ongoing'}
-    },
-
-    {
-      id: 'T5',
-      name: 'API Implementation',
-      start: Date.UTC(2026,5,11),
-      end: Date.UTC(2026,5,15),
-      completed:{amount:0.40},
-      color:'#3b82f6',
-      custom:{status:'Ongoing'}
-    },
-
-    {
-      id: 'T6',
-      name: 'Frontend Integration',
-      start: Date.UTC(2026,5,12),
-      end: Date.UTC(2026,5,18),
-      completed:{amount:0.80},
-      color:'#ef4444',
-      custom:{status:'Exceeded'}
-    },
-
-    {
-      id: 'T7',
-      name: 'QA & Testing',
-      start: Date.UTC(2026,5,18),
-      end: Date.UTC(2026,5,22),
-      completed:{amount:0},
-      color:'#d1d5db',
-      custom:{status:'Pending'}
-    },
-
-    {
-      id: 'T8',
-      name: 'Security Review',
-      start: Date.UTC(2026,5,21),
-      end: Date.UTC(2026,5,24),
-      completed:{amount:0},
-      color:'#d1d5db',
-      custom:{status:'Pending'}
-    },
-
-    {
-      id: 'T9',
-      name: 'Deployment',
-      start: Date.UTC(2026,5,24),
-      end: Date.UTC(2026,5,27),
-      completed:{amount:0},
-      color:'#d1d5db',
-      custom:{status:'Pending'}
-    }
-
-  ].filter(task => {
-
-      if (!this.isMaskingPending) {
-        return true;
-      }
-
-      return task.custom.status !== 'Pending';
-
-  });
-
-  this.chartOptions = {
-
-    chart:{
-      height:650
-    },
-
-    title:{
-      text:'Project Schedule'
-    },
-
-    credits:{
-      enabled:false
-    },
-
-    navigator:{
-      enabled:false
-    },
-
-    scrollbar:{
-      enabled:true
-    },
-
-    xAxis:{
-      min:Date.UTC(2026,5,1),
-      max:Date.UTC(2026,5,30),
-      currentDateIndicator:true
-    },
-
-    yAxis:{
-      uniqueNames:true
-    },
-
-    series:[{
-      type:'gantt',
-      name:'Schedule',
-      data:ganttData
-    } as any]
-
-  };
-
-  this.updateFlag = true;
-
-}
-
-
- goBack(): void {
-    this.router.navigateByUrl('/app/testing/projects');
+  toggleMaskPending(): void {
+    this.isMaskingPending = !this.isMaskingPending;
   }
 
+  formatDate(d: Date | null): string {
+    if (!d) return '—';
+    const monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${d.getDate()} ${monthList[d.getMonth()]}`;
+  }
+
+  scrollGantt(direction: 'left' | 'right') {
+    if (this.ganttViewport) {
+      const scrollAmount = 300;
+      const element = this.ganttViewport.nativeElement;
+      const targetScroll = direction === 'right' ? element.scrollLeft + scrollAmount : element.scrollLeft - scrollAmount;
+      element.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  // ─── Custom Resizable Splitter Logic ────────────────────────────────────
+
+  initResize(event: MouseEvent) {
+    this.isResizing = true;
+    event.preventDefault();
+
+    const startX = event.clientX;
+    const startWidth = this.leftPaneWidth;
+
+    // Find the client width of the container dynamically to allow sliding to full width
+    let containerWidth = 1200;
+    const container = (event.target as HTMLElement).closest('.gantt-split-container');
+    if (container) {
+      containerWidth = container.clientWidth;
+    }
+
+    const doDrag = (dragEvent: MouseEvent) => {
+      if (this.isResizing) {
+        const deltaX = dragEvent.clientX - startX;
+        // Slide completely from 0px (left side) up to containerWidth (right side)
+        this.leftPaneWidth = Math.max(0, Math.min(containerWidth, startWidth + deltaX));
+      }
+    };
+
+    const stopDrag = () => {
+      this.isResizing = false;
+      document.removeEventListener('mousemove', doDrag);
+      document.removeEventListener('mouseup', stopDrag);
+    };
+
+    document.addEventListener('mousemove', doDrag);
+    document.addEventListener('mouseup', stopDrag);
+  }
+
+  // ─── Gantt Bars Calculation ─────────────────────────────────────────────
+
+  getDayOffset(d: Date): number {
+    const timelineStart = new Date(2026, 5, 1);
+    const diffTime = d.getTime() - timelineStart.getTime();
+    return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  getPlanBar(task: ScheduleTask): GanttBar | null {
+    if (!task.planStart || !task.planEnd) return null;
+    const startOffset = this.getDayOffset(task.planStart);
+    const endOffset = this.getDayOffset(task.planEnd);
+    
+    // Check borders (ensure plan fits within timeline view range of June 1 to June 30)
+    const startDay = Math.max(0, Math.min(29, startOffset));
+    const endDay = Math.max(0, Math.min(29, endOffset));
+    
+    const left = startDay * this.dayWidth;
+    const width = (endDay - startDay + 1) * this.dayWidth;
+
+    return {
+      left,
+      width,
+      color: '#86efac', // Soft pastel green for Planned schedule
+      label: 'Plan'
+    };
+  }
+
+  getActualBar(task: ScheduleTask): GanttBar | null {
+    if (!task.actualStartObj) return null;
+    const startOffset = this.getDayOffset(task.actualStartObj);
+    
+    // If ongoing, actual spans to June 15th (current tracking date)
+    const endOffset = task.actualEndObj 
+      ? this.getDayOffset(task.actualEndObj) 
+      : this.getDayOffset(new Date(2026, 5, 15));
+
+    const startDay = Math.max(0, Math.min(29, startOffset));
+    const endDay = Math.max(0, Math.min(29, endOffset));
+
+    const left = startDay * this.dayWidth;
+    const width = (endDay - startDay + 1) * this.dayWidth;
+
+    const color = '#10b981'; // Rich emerald green for Actual schedule
+
+    return {
+      left,
+      width,
+      color,
+      label: 'Actual',
+      completion: task.completion
+    };
+  }
+
+  goBack(): void {
+    this.router.navigateByUrl('/app/testing/projects');
+  }
 }

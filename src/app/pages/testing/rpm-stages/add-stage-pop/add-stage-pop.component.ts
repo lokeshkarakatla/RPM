@@ -12,6 +12,8 @@ export class AddStagePopComponent implements OnInit {
   stageName = '';
   gateCode = '';
   stageDescription = '';
+  planEffort = 0;
+  planDuration = 0;
 
   constructor(
     public dialogRef: MatDialogRef<AddStagePopComponent>,
@@ -24,6 +26,8 @@ export class AddStagePopComponent implements OnInit {
       this.stageName = this.data.stageName || '';
       this.gateCode = this.data.gateCode || '';
       this.stageDescription = this.data.stageDescription || '';
+      this.planEffort = this.data.planEffort || 0;
+      this.planDuration = this.data.planDuration || 0;
     }
   }
 
@@ -35,7 +39,9 @@ export class AddStagePopComponent implements OnInit {
     this.dialogRef.close({
       stageName: this.stageName,
       gateCode: this.gateCode,
-      stageDescription: this.stageDescription
+      stageDescription: this.stageDescription,
+      planEffort: Number(this.planEffort) || 0,
+      planDuration: Number(this.planDuration) || 0
     });
   }
 

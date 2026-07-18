@@ -1,5 +1,5 @@
 .page-container {
- min-width: 1250px;
+ max-width: 100%;
   width: 100%;
   padding: 24px;
   // background-color: $bg-color;
@@ -59,27 +59,9 @@
 
   .form-container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 16px;
     width: 100%;
-
-    .tag-select { width: 200px; }
-    .text-input { flex: 1; }
-
-    .action-buttons {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding-top: 8px;
-
-      .custom-fab {
-        width: 40px;
-        height: 40px;
-        background-color: #f1f3f4;
-        color: #5f6368;
-        box-shadow: none;
-      }
-    }
   }
 }
 
@@ -95,25 +77,30 @@
 }
 
 /* Table Styling */
-.table-container {
+#grid-table-container {
   background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
   overflow: hidden;
 
   table {
     width: 100%;
+    margin-bottom: 0;
 
-    th.mat-header-cell {
-      background-color: #546e7a;
-      color: white;
+    th.mat-header-cell,
+    tr.mat-mdc-header-row th {
+      background-color: #3f3f3f !important;
+      color: white !important;
+      text-align: center;
+      padding: 12px;
       font-weight: 600;
-      padding: 16px;
+      border-bottom: 2px solid #3f3f3f;
     }
 
     td.mat-cell {
-      padding: 16px;
-      border-bottom: 1px solid #eee;
+      padding: 12px;
+      text-align: center;
+      vertical-align: middle;
     }
   }
 }

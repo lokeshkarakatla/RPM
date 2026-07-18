@@ -42,6 +42,8 @@ import { MasterSectionComponent } from './master-section/master-section.componen
 import { DepartmentComponent } from './department/department.component';
 import { AddDeptComponent } from './department/add-dept/add-dept.component';
 import { AddMasterComponent } from './master-section/add-master/add-master.component';
+import { TagMasterComponent } from './tag-master/tag-master.component';
+import { AddTagComponent } from './tag-master/add-tag/add-tag.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'asset-master', pathMatch: 'full' },
@@ -154,6 +156,14 @@ const routes: Routes = [
       breadcrumb: 'Department',
       description: 'The list of departments can be managed here.'
     }
+  },
+  {
+    path: 'tag-master',
+    component: TagMasterComponent,
+     data: {
+      breadcrumb: 'Tag Master',
+      description: 'The tag master can be managed here.'
+    }
   }
 
 ]
@@ -167,7 +177,7 @@ const routes: Routes = [
     AddresparasComponent,
     AddeditscorematrixComponent,
     AddeditsubgroupComponent,
-    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent, AdditemSubCategoryComponent, AssetMasterComponent, AddAssetmasterComponent, FacilityMasterComponent, AddFacilityMasterComponent, ProjectTypesComponent, ProjectStatusComponent, AddProjectStatusComponent, AddProjectTypesComponent, MasterSectionComponent, DepartmentComponent, AddDeptComponent, AddMasterComponent],
+    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent, AdditemSubCategoryComponent, AssetMasterComponent, AddAssetmasterComponent, FacilityMasterComponent, AddFacilityMasterComponent, ProjectTypesComponent, ProjectStatusComponent, AddProjectStatusComponent, AddProjectTypesComponent, MasterSectionComponent, DepartmentComponent, AddDeptComponent, AddMasterComponent, TagMasterComponent, AddTagComponent],
   imports: [
 
     CommonModule,

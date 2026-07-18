@@ -1,0 +1,79 @@
+.NewHeader {
+    background: #286ba5 !important;
+    color: white !important;
+    text-align: center !important;
+    padding: 13px !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.dialog-content {
+    padding: 24px 28px;
+    overflow: hidden;
+    background-color: white;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.font-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333333;
+}
+
+.control-label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.form-control {
+    height: 35px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+
+    &:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+    }
+}
+
+.back {
+    background-color: #fefec4 !important; /* Yellow background */
+}
+
+.footer-actions {
+    padding: 12px 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background-color: white;
+    margin: 0 !important;
+}
+
+.close-btn {
+    background: lightgray !important;
+    color: red !important;
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px !important;
+}
+
+.save-btn {
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px !important;
+}

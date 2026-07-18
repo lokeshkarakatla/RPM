@@ -18,6 +18,8 @@
                 <th class="text-left">Stage Name</th>
                 <th class="text-left">Gate Code</th>
                 <th class="text-left">Description</th>
+                <th class="text-center">Plan Effort (hrs)</th>
+                <th class="text-center">Plan Duration (days)</th>
               
 
                 <th class="text-center">WBS</th>
@@ -49,6 +51,8 @@
                 <td>{{ item.stageName }}</td>
                 <td>{{ item.gateCode }}</td>
                 <td>{{ item.stageDescription }}</td>
+                <td class="text-center">{{ item.planEffort }}</td>
+                <td class="text-center">{{ item.planDuration }}</td>
 
                 <td class="text-center">
                     <a routerLinkActive="active" [routerLink]="['/app/testing/stages/wbs']">
@@ -59,7 +63,7 @@
             </tr>
 
             <tr *ngIf="!pagedData || pagedData.length === 0" class="no-drag">
-                <td colspan="6" class="text-center">No records found</td>
+                <td colspan="10" class="text-center">No records found</td>
             </tr>
         </tbody>
     </table>

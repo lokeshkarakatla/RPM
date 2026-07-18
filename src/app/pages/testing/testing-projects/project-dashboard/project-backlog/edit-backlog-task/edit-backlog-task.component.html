@@ -6,120 +6,155 @@
     <div fxLayout="row wrap" class="col-sm-12">
         <div class="col-sm-12" style="margin-top: 20px; padding-left: 20px; padding-right: 20px;">
             <form #taskForm="ngForm">
-                <div>
-                    <!-- Task Name -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Task Name:</label>
-                        </div>
-                        <div class="col-sm-8">
+                <!-- General Fields (3 Columns) -->
+                <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-sm-4">
+                        <!-- Task Name -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Task Name:</label>
                             <input type="text" name="task" [(ngModel)]="task" style="height:35px;" class="form-control back" placeholder="Enter Task Name" required>
                         </div>
-                    </div>
 
-                    <!-- Task Code -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Task Code:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="text" name="taskCode" [(ngModel)]="taskCode" style="height:35px;" class="form-control back" placeholder="Enter Task Code" required>
-                        </div>
-                    </div>
-
-                    <!-- Job Code -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Job Code:</label>
-                        </div>
-                        <div class="col-sm-8">
+                        <!-- Job Code -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Job Code:</label>
                             <input type="text" name="jobCode" [(ngModel)]="jobCode" style="height:35px;" class="form-control back" placeholder="Enter Job Code" required>
                         </div>
-                    </div>
 
-                    <!-- Plan Start -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Plan Start:</label>
-                        </div>
-                        <div class="col-sm-8">
+                        <!-- Plan Start -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Plan Start:</label>
                             <input type="date" name="planStart" [(ngModel)]="planStart" style="height:35px;" class="form-control back" required>
                         </div>
                     </div>
 
-                    <!-- Plan Finish -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Plan Finish:</label>
+                    <!-- Column 2 -->
+                    <div class="col-sm-4">
+                        <!-- Task Code -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Task Code:</label>
+                            <input type="text" name="taskCode" [(ngModel)]="taskCode" style="height:35px;" class="form-control back" placeholder="Enter Task Code" required>
                         </div>
-                        <div class="col-sm-8">
+
+                        <!-- Stage -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Stage:</label>
+                            <mat-select name="stage" [(ngModel)]="stage" class="form-control" placeholder="Select Stage" required style="height:35px;">
+                                <mat-option *ngFor="let st of stages" [value]="st">{{ st }}</mat-option>
+                            </mat-select>
+                        </div>
+
+                        <!-- Plan Finish -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Plan Finish:</label>
                             <input type="date" name="planFinish" [(ngModel)]="planFinish" style="height:35px;" class="form-control back" required>
                         </div>
                     </div>
 
-                    <!-- Effort -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Effort (hrs):</label>
-                        </div>
-                        <div class="col-sm-8">
+                    <!-- Column 3 -->
+                    <div class="col-sm-4">
+                        <!-- Effort -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Effort (hrs):</label>
                             <input type="number" name="effort" [(ngModel)]="effort" style="height:35px;" class="form-control back" required>
                         </div>
-                    </div>
 
-                    <!-- Duration -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Duration (days):</label>
-                        </div>
-                        <div class="col-sm-8">
+                        <!-- Duration -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Duration (days):</label>
                             <input type="number" name="duration" [(ngModel)]="duration" style="height:35px;" class="form-control back" required>
                         </div>
-                    </div>
 
-                    <!-- Stage -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Stage:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <mat-select name="stage" [(ngModel)]="stage" class="form-control" placeholder="Select Stage" required>
-                                <mat-option *ngFor="let st of stages" [value]="st">{{ st }}</mat-option>
-                            </mat-select>
-                        </div>
-                    </div>
-
-                    <!-- Assigned -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Assigned:</label>
-                        </div>
-                        <div class="col-sm-8">
-                            <mat-select name="assigned" [(ngModel)]="assigned" class="form-control" placeholder="Select Member">
+                        <!-- Assigned -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Assigned:</label>
+                            <mat-select name="assigned" [(ngModel)]="assigned" class="form-control" placeholder="Select Member" style="height:35px;">
                                 <mat-option value="">Unassigned</mat-option>
                                 <mat-option *ngFor="let m of team" [value]="m">{{ m }}</mat-option>
                             </mat-select>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Description -->
-                    <div class="row" style="margin-bottom: 12px;">
-                        <div class="col-sm-4">
-                            <label class="control-label" style="margin-top:5px;">Description:</label>
+                <!-- Sprint Specific Fields (3 Columns) -->
+                <div *ngIf="isSprint" class="row" style="border-top: 1px dashed #e2e8f0; margin-top: 15px; padding-top: 15px;">
+                    <!-- Column 1 -->
+                    <div class="col-sm-4">
+                        <!-- ETA -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">ETA:</label>
+                            <input type="date" name="eta" [(ngModel)]="eta" style="height:35px;" class="form-control back">
                         </div>
-                        <div class="col-sm-8">
-                            <textarea name="description" [(ngModel)]="description" class="form-control back" rows="3" placeholder="Enter Description" style="resize: vertical;"></textarea>
+
+                        <!-- Actual Start -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Actual Start:</label>
+                            <input type="date" name="actualStart" [(ngModel)]="actualStart" style="height:35px;" class="form-control back">
                         </div>
                     </div>
 
+                    <!-- Column 2 -->
+                    <div class="col-sm-4">
+                        <!-- Status -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Status:</label>
+                            <mat-select name="status" [(ngModel)]="status" class="form-control" placeholder="Select Status" style="height:35px;">
+                                <mat-option value="allocated">Allocated</mat-option>
+                                <mat-option value="inprocess">In Process</mat-option>
+                                <mat-option value="completed">Completed</mat-option>
+                                <mat-option value="onhold">On Hold</mat-option>
+                            </mat-select>
+                        </div>
+
+                        <!-- Actual Finish -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Actual Finish:</label>
+                            <input type="date" name="actualFinish" [(ngModel)]="actualFinish" style="height:35px;" class="form-control back">
+                        </div>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="col-sm-4">
+                        <!-- Expenses -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Expenses:</label>
+                            <input type="number" name="expenses" [(ngModel)]="expenses" style="height:35px;" class="form-control back">
+                        </div>
+
+                        <!-- Progress -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Progress (%):</label>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="range" min="0" max="100" name="progress" [(ngModel)]="progress" style="flex-grow: 1;">
+                                <span style="font-weight: 600; width: 35px; text-align: right; font-size: 13px;">{{ progress || 0 }}%</span>
+                            </div>
+                        </div>
+
+                        <!-- Approved Checkbox -->
+                        <div style="margin-bottom: 12px;">
+                            <label class="control-label" style="font-weight: 500; margin-bottom: 4px; display: block;">Approved:</label>
+                            <div style="padding-top: 5px;">
+                                <input type="checkbox" class="custom-checkbox cb-green" name="approved" [(ngModel)]="approved">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description (Full Width) -->
+                <div class="row" style="border-top: 1px dashed #e2e8f0; margin-top: 15px; padding-top: 15px; margin-bottom: 12px;">
+                    <div class="col-sm-12">
+                        <label class="control-label" style="font-weight: 500; margin-bottom: 4px;">Description:</label>
+                        <textarea name="description" [(ngModel)]="description" class="form-control back" rows="3" placeholder="Enter Description" style="resize: vertical;"></textarea>
+                    </div>
                 </div>
             </form>
 
-            <mat-dialog-actions align="end" style="margin-top: 15px; padding-bottom: 15px;">
-                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; margin-right: 5px;">
+            <mat-dialog-actions align="end" style="margin-top: 15px; padding-bottom: 15px; display: flex; justify-content: flex-end; gap: 10px;">
+                <button mat-raised-button class="ms-2 add-dark-hover btn-default" (click)="close()" style="background-color: lightgray; color: red; height: 38px;">
                     <mat-icon>cancel</mat-icon> Close
                 </button>
-                <button mat-raised-button type="button" class="save" color="primary" (click)="save()" [disabled]="!taskForm.valid">
+                <button mat-raised-button type="button" class="save" color="primary" (click)="save()" [disabled]="!taskForm.valid" style="height: 38px;">
                     <mat-icon>save</mat-icon> Save
                 </button>
             </mat-dialog-actions>

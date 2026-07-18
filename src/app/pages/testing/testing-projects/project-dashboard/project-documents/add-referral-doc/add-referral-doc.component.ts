@@ -8,8 +8,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class AddReferralDocComponent implements OnInit {
 
-  addStep = 1;
   isEditMode: boolean = false;
+
+  documentType: string = '';
+  documentTitle: string = '';
+  category: string = '';
+  context: string = '';
+  remarks: string = '';
+
+  documentTypes: string[] = ['Intake', 'Invoice', 'AOB', 'Medical Records', 'LOP', 'Payments', 'Imaging', 'Clinic Notes'];
 
   constructor(
     public dialogRef: MatDialogRef<AddReferralDocComponent>,
@@ -20,6 +27,11 @@ export class AddReferralDocComponent implements OnInit {
     // If data was passed in, we are in Edit Mode. 
     if (this.data) {
       this.isEditMode = true;
+      this.documentType = this.data.documentType || '';
+      this.documentTitle = this.data.documentTitle || '';
+      this.category = this.data.category || '';
+      this.context = this.data.context || '';
+      this.remarks = this.data.remarks || '';
     } else {
       this.isEditMode = false;
     }
@@ -29,13 +41,13 @@ export class AddReferralDocComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  changeAddStep(value: number) {
-    this.addStep = value;
-  }
-
   save() {
-    this.dialogRef.close();
+    this.dialogRef.close({
+      documentType: this.documentType,
+      documentTitle: this.documentTitle,
+      category: this.category,
+      context: this.context,
+      remarks: this.remarks
+    });
   }
-  documentTypes: string[] = ['Intake', 'Invoice'];
-  selectedType: string = '';
 }

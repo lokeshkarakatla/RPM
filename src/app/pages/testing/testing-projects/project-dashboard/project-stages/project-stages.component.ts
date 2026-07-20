@@ -69,19 +69,127 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
   stages: StageItem[] = [
     {
       stageCode: 'STG001',
-      name: 'Feasibility',
-      planEffort: '120 hrs',
-      planDuration: '15 days',
-      description: 'Evaluate technical and commercial viability.',
-      planStart: '2026-07-01',
-      planEnd: '2026-07-15',
-      actualStart: '2026-07-02',
-      actualEnd: '2026-07-14',
-      eta: '2026-07-15',
-      buffer: '2 days',
+      name: 'Requirements & Concept',
+      planEffort: '160 hrs',
+      planDuration: '40 days',
+      description: 'Define product requirements and initial concept validation.',
+      planStart: '2026-01-05',
+      planEnd: '2026-02-15',
+      actualStart: '2026-01-05',
+      actualEnd: '2026-02-14',
+      eta: '2026-02-15',
+      buffer: '3 days',
+      gateName: 'Gate 0',
+      gateStatus: 'Approved',
+      gateCode: 'GT000',
+      status: true,
+      setupCount: 5,
+      modules: [
+        {
+          name: 'Stakeholder Alignment',
+          count: 3,
+          tasks: [
+            { task: 'Initial Briefing', taskCode: 'TC-01', jobCode: 'INIT0', effort: 10, duration: 2, description: 'Client Briefing', department: 'Management', role: 'Olivia Brown', planStart: '2026-01-05', planEnd: '2026-01-07', actualStart: '2026-01-05', actualEnd: '2026-01-07', eta: '2026-01-07', actualHours: 10, expenses: '₹0', priority: 'High' }
+          ]
+        }
+      ]
+    },
+    {
+      stageCode: 'STG002',
+      name: 'Feasibility & Viability',
+      planEffort: '180 hrs',
+      planDuration: '45 days',
+      description: 'Evaluate technical feasibility and financial model.',
+      planStart: '2026-02-16',
+      planEnd: '2026-03-31',
+      actualStart: '2026-02-16',
+      actualEnd: '2026-03-30',
+      eta: '2026-03-31',
+      buffer: '4 days',
       gateName: 'Gate 1',
       gateStatus: 'Approved',
       gateCode: 'GT001',
+      status: true,
+      setupCount: 6,
+      modules: [
+        {
+          name: 'Feasibility Study',
+          count: 4,
+          tasks: [
+            { task: 'Technical Audit', taskCode: 'TC-02', jobCode: 'FEAS1', effort: 40, duration: 10, description: 'Audit tech stack', department: 'R & D', role: 'Diego Ruiz', planStart: '2026-02-16', planEnd: '2026-02-28', actualStart: '2026-02-16', actualEnd: '2026-02-28', eta: '2026-02-28', actualHours: 40, expenses: '₹1,000', priority: 'High' }
+          ]
+        }
+      ]
+    },
+    {
+      stageCode: 'STG003',
+      name: 'System Architecture',
+      planEffort: '220 hrs',
+      planDuration: '45 days',
+      description: 'Design high-level architecture and system components.',
+      planStart: '2026-04-01',
+      planEnd: '2026-05-15',
+      actualStart: '2026-04-01',
+      actualEnd: '2026-05-14',
+      eta: '2026-05-15',
+      buffer: '5 days',
+      gateName: 'Gate 2',
+      gateStatus: 'Approved',
+      gateCode: 'GT002',
+      status: true,
+      setupCount: 7,
+      modules: [
+        {
+          name: 'Blueprint Design',
+          count: 3,
+          tasks: [
+            { task: 'High-Level Diagramming', taskCode: 'TC-03', jobCode: 'ARCH1', effort: 50, duration: 12, description: 'Prepare architecture diagrams', department: 'R & D', role: 'Aarav Shah', planStart: '2026-04-01', planEnd: '2026-04-15', actualStart: '2026-04-01', actualEnd: '2026-04-15', eta: '2026-04-15', actualHours: 50, expenses: '₹0', priority: 'High' }
+          ]
+        }
+      ]
+    },
+    {
+      stageCode: 'STG004',
+      name: 'Detail Specification & UX',
+      planEffort: '200 hrs',
+      planDuration: '45 days',
+      description: 'Produce UX wireframes and detailed component specs.',
+      planStart: '2026-05-16',
+      planEnd: '2026-06-30',
+      actualStart: '2026-05-16',
+      actualEnd: '',
+      eta: '2026-06-30',
+      buffer: '3 days',
+      gateName: 'Gate 3',
+      gateStatus: 'Approved',
+      gateCode: 'GT003',
+      status: true,
+      setupCount: 8,
+      modules: [
+        {
+          name: 'UX Mockups',
+          count: 4,
+          tasks: [
+            { task: 'Figma Prototyping', taskCode: 'TC-04', jobCode: 'DSGN1', effort: 30, duration: 8, description: 'Create Figma design system', department: 'Management', role: 'Olivia Brown', planStart: '2026-05-16', planEnd: '2026-05-25', actualStart: '2026-05-16', actualEnd: '', eta: '2026-05-25', actualHours: 30, expenses: '₹0', priority: 'Medium' }
+          ]
+        }
+      ]
+    },
+    {
+      stageCode: 'STG005',
+      name: 'Prototype & Tooling',
+      planEffort: '150 hrs',
+      planDuration: '30 days',
+      description: 'Build initial hardware & software mock prototype.',
+      planStart: '2026-07-01',
+      planEnd: '2026-07-31',
+      actualStart: '2026-07-01',
+      actualEnd: '',
+      eta: '2026-07-31',
+      buffer: '2 days',
+      gateName: 'Gate 4',
+      gateStatus: 'Approved',
+      gateCode: 'GT004',
       status: true,
       setupCount: 8,
       modules: [
@@ -89,173 +197,116 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
           name: 'Project Initiation & Planning',
           count: 5,
           tasks: [
-            { task: 'Client Kickoff Meeting', taskCode: 'TC-100', jobCode: 'INIT0', effort: 4, duration: 1, description: 'Kickoff meeting with client', department: 'Management', role: 'Olivia Brown', section: 'Section A', planStart: '2026-07-01', planEnd: '2026-07-01', actualStart: '2026-07-01', actualEnd: '2026-07-01', eta: '2026-07-01', actualHours: 4, expenses: '₹1,500', priority: 'High', predecessors: [{ moduleName: 'Execution, Monitoring & Control', taskCode: 'TC-203' }] },
-            { task: 'Define Project Scope', taskCode: 'TC-101', jobCode: 'INIT1', effort: 10, duration: 2, description: 'Define initial parameters', department: 'R & D', role: 'Diego Ruiz', section: 'Section A', planStart: '2026-07-01', planEnd: '2026-07-03', actualStart: '2026-07-01', actualEnd: '2026-07-03', eta: '2026-07-03', actualHours: 10, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Project Initiation & Planning', taskCode: 'TC-100' }] },
-            { task: 'Feasibility Study', taskCode: 'TC-102', jobCode: 'INIT2', effort: 15, duration: 3, description: 'Analyze constraints', department: 'Testing', role: 'Priya Nair', section: 'Section B', planStart: '2026-07-03', planEnd: '2026-07-06', actualStart: '2026-07-03', actualEnd: '2026-07-06', eta: '2026-07-06', actualHours: 15, expenses: '₹500', priority: 'Medium', predecessors: [{ moduleName: 'Project Initiation & Planning', taskCode: 'TC-101' }] },
-            { task: 'Identify Stakeholders', taskCode: 'TC-103', jobCode: 'INIT3', effort: 12, duration: 2, description: 'List key project participants', department: 'R & D', role: 'Aarav Shah', section: 'Section A', planStart: '2026-07-04', planEnd: '2026-07-06', actualStart: '2026-07-04', actualEnd: '2026-07-06', eta: '2026-07-06', actualHours: 12, expenses: '₹0', priority: 'Low', predecessors: [{ moduleName: 'Project Initiation & Planning', taskCode: 'TC-101' }] },
-            { task: 'Budget Approximation', taskCode: 'TC-104', jobCode: 'INIT4', effort: 18, duration: 3, description: 'Prepare draft budget estimation', department: 'Management', role: 'Olivia Brown', section: 'Section B', planStart: '2026-07-06', planEnd: '2026-07-09', actualStart: '', actualEnd: '', eta: '2026-07-09', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'Project Initiation & Planning', taskCode: 'TC-101' }, { moduleName: 'Project Initiation & Planning', taskCode: 'TC-102' }] }
-          ]
-        },
-        {
-          name: 'Execution, Monitoring & Control',
-          count: 3,
-          tasks: [
-            { task: 'Develop Prototype', taskCode: 'TC-201', jobCode: 'EXEC1', effort: 40, duration: 8, description: 'Build mock models', department: 'Developer', role: 'Aarav Shah', section: 'Section C', planStart: '2026-07-06', planEnd: '2026-07-14', actualStart: '2026-07-07', actualEnd: '2026-07-15', eta: '2026-07-14', actualHours: 42, expenses: '₹2,000', priority: 'High', predecessors: [{ moduleName: 'Project Initiation & Planning', taskCode: 'TC-101' }] },
-            { task: 'Design Validation', taskCode: 'TC-202', jobCode: 'EXEC2', effort: 24, duration: 3, description: 'Verify mock constraints', department: 'Testing', role: 'Priya Nair', section: 'Section D', planStart: '2026-07-08', planEnd: '2026-07-11', actualStart: '', actualEnd: '', eta: '2026-07-11', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'Execution, Monitoring & Control', taskCode: 'TC-201' }] },
-            { task: 'Risk Assessment', taskCode: 'TC-203', jobCode: 'EXEC3', effort: 16, duration: 2, description: 'Identify project blockers & constraints', department: 'Management', role: 'Diego Ruiz', section: 'Section A', planStart: '2026-07-11', planEnd: '2026-07-13', actualStart: '', actualEnd: '', eta: '2026-07-13', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Execution, Monitoring & Control', taskCode: 'TC-202' }] }
+            { task: 'Client Kickoff Meeting', taskCode: 'TC-100', jobCode: 'INIT0', effort: 4, duration: 1, description: 'Kickoff meeting with client', department: 'Management', role: 'Olivia Brown', section: 'Section A', planStart: '2026-07-01', planEnd: '2026-07-01', actualStart: '2026-07-01', actualEnd: '2026-07-01', eta: '2026-07-01', actualHours: 4, expenses: '₹1,500', priority: 'High' },
+            { task: 'Define Project Scope', taskCode: 'TC-101', jobCode: 'INIT1', effort: 10, duration: 2, description: 'Define initial parameters', department: 'R & D', role: 'Diego Ruiz', section: 'Section A', planStart: '2026-07-01', planEnd: '2026-07-03', actualStart: '2026-07-01', actualEnd: '2026-07-03', eta: '2026-07-03', actualHours: 10, expenses: '₹0', priority: 'High' }
           ]
         }
       ]
     },
     {
-      stageCode: 'STG002',
-      name: 'Design',
-      planEffort: '200 hrs',
-      planDuration: '25 days',
-      description: 'Develop detailed product specifications.',
-      planStart: '2026-07-16',
-      planEnd: '2026-08-10',
-      actualStart: '2026-07-16',
-      actualEnd: '',
-      eta: '2026-08-10',
-      buffer: '5 days',
-      gateName: 'Gate 2',
-      gateStatus: 'Pending',
-      gateCode: 'GT002',
-      status: true,
-      setupCount: 7,
-      modules: [
-        {
-          name: 'System Architecture Design',
-          count: 4,
-          tasks: [
-            { task: 'Design Kickoff & Briefing', taskCode: 'TC-300', jobCode: 'DSGN0', effort: 6, duration: 1, description: 'Review feasibility notes & scope parameters', department: 'Management', role: 'Olivia Brown', section: 'Section A', planStart: '2026-07-16', planEnd: '2026-07-16', actualStart: '', actualEnd: '', eta: '2026-07-16', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Detail Design Specification', taskCode: 'TC-403' }] },
-            { task: 'High-Level Design Document', taskCode: 'TC-301', jobCode: 'DSGN1', effort: 30, duration: 4, description: 'Prepare architectural design blueprint', department: 'R & D', role: 'Aarav Shah', section: 'Section A', planStart: '2026-07-16', planEnd: '2026-07-20', actualStart: '', actualEnd: '', eta: '2026-07-20', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'System Architecture Design', taskCode: 'TC-300' }] },
-            { task: 'Database Schema Definition', taskCode: 'TC-302', jobCode: 'DSGN2', effort: 20, duration: 4, description: 'Define tables, keys, and indexes', department: 'Developer', role: 'Mei Tanaka', section: 'Section B', planStart: '2026-07-20', planEnd: '2026-07-24', actualStart: '', actualEnd: '', eta: '2026-07-24', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'System Architecture Design', taskCode: 'TC-301' }] },
-            { task: 'UI/UX Wireframes', taskCode: 'TC-303', jobCode: 'DSGN3', effort: 25, duration: 4, description: 'Create Figma dashboard designs', department: 'Management', role: 'Olivia Brown', section: 'Section C', planStart: '2026-07-24', planEnd: '2026-07-28', actualStart: '', actualEnd: '', eta: '2026-08-10', actualHours: 0, expenses: '₹0', priority: 'Low', predecessors: [{ moduleName: 'System Architecture Design', taskCode: 'TC-301' }] }
-          ]
-        },
-        {
-          name: 'Detail Design Specification',
-          count: 3,
-          tasks: [
-            { task: 'API Endpoint Documentation', taskCode: 'TC-401', jobCode: 'DSGN4', effort: 24, duration: 5, description: 'Document API endpoints & payloads', department: 'Developer', role: 'Priya Nair', section: 'Section D', planStart: '2026-07-28', planEnd: '2026-08-02', actualStart: '', actualEnd: '', eta: '2026-08-02', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'System Architecture Design', taskCode: 'TC-301' }, { moduleName: 'System Architecture Design', taskCode: 'TC-302' }] },
-            { task: 'Security Protocols Design', taskCode: 'TC-402', jobCode: 'DSGN5', effort: 16, duration: 4, description: 'Design JWT authentication system', department: 'R & D', role: 'Diego Ruiz', section: 'Section E', planStart: '2026-08-02', planEnd: '2026-08-06', actualStart: '', actualEnd: '', eta: '2026-08-06', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'System Architecture Design', taskCode: 'TC-301' }] },
-            { task: 'Design Review & Approval', taskCode: 'TC-403', jobCode: 'DSGN6', effort: 10, duration: 4, description: 'Present specifications to team leads', department: 'Management', role: 'Aarav Shah', section: 'Section F', planStart: '2026-08-06', planEnd: '2026-08-10', actualStart: '', actualEnd: '', eta: '2026-08-10', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'Detail Design Specification', taskCode: 'TC-401' }, { moduleName: 'Detail Design Specification', taskCode: 'TC-402' }] }
-          ]
-        }
-      ]
-    },
-    {
-      stageCode: 'STG003',
-      name: 'Development',
+      stageCode: 'STG006',
+      name: 'Core Development',
       planEffort: '450 hrs',
-      planDuration: '25 days',
-      description: 'Core product implementation and unit testing.',
-      planStart: '2026-08-11',
-      planEnd: '2026-09-05',
+      planDuration: '45 days',
+      description: 'Execute main frontend & backend software development.',
+      planStart: '2026-08-01',
+      planEnd: '2026-09-15',
       actualStart: '',
       actualEnd: '',
-      eta: '2026-09-05',
+      eta: '2026-09-15',
       buffer: '6 days',
-      gateName: 'Gate 3',
+      gateName: 'Gate 5',
       gateStatus: 'Pending',
-      gateCode: 'GT003',
+      gateCode: 'GT005',
       status: true,
-      setupCount: 8,
+      setupCount: 10,
       modules: [
         {
           name: 'Frontend Development',
           count: 4,
           tasks: [
-            { task: 'Dev Env Setup & Kickoff', taskCode: 'TC-500', jobCode: 'DEVL0', effort: 8, duration: 1, description: 'Review Figma wireframes & configure linters', department: 'Developer', role: 'Mei Tanaka', section: 'Section A', planStart: '2026-08-11', planEnd: '2026-08-11', actualStart: '', actualEnd: '', eta: '2026-08-11', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Backend API Implementation', taskCode: 'TC-604' }] },
-            { task: 'Set Up Project Workspace', taskCode: 'TC-501', jobCode: 'DEVL1', effort: 16, duration: 3, description: 'Initialize structure & styling themes', department: 'Developer', role: 'Mei Tanaka', section: 'Section A', planStart: '2026-08-11', planEnd: '2026-08-14', actualStart: '', actualEnd: '', eta: '2026-08-14', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Frontend Development', taskCode: 'TC-500' }] },
-            { task: 'Develop Core Dashboard Widgets', taskCode: 'TC-502', jobCode: 'DEVL2', effort: 45, duration: 6, description: 'Implement chart widget grids', department: 'Developer', role: 'Aarav Shah', section: 'Section B', planStart: '2026-08-14', planEnd: '2026-08-20', actualStart: '', actualEnd: '', eta: '2026-08-20', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Frontend Development', taskCode: 'TC-501' }] },
-            { task: 'Integrate Charts and Graphs', taskCode: 'TC-503', jobCode: 'DEVL3', effort: 30, duration: 4, description: 'Render responsive charts', department: 'Developer', role: 'Olivia Brown', section: 'Section C', planStart: '2026-08-20', planEnd: '2026-08-24', actualStart: '', actualEnd: '', eta: '2026-08-24', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'Frontend Development', taskCode: 'TC-502' }] }
-          ]
-        },
-        {
-          name: 'Backend API Implementation',
-          count: 4,
-          tasks: [
-            { task: 'Database Setup & Schema Migration', taskCode: 'TC-601', jobCode: 'DEVL4', effort: 20, duration: 4, description: 'Build models & create migrations', department: 'Developer', role: 'Diego Ruiz', section: 'Section A', planStart: '2026-08-11', planEnd: '2026-08-15', actualStart: '', actualEnd: '', eta: '2026-08-15', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Frontend Development', taskCode: 'TC-501' }] },
-            { task: 'Auth Controllers & JWT middleware', taskCode: 'TC-602', jobCode: 'DEVL5', effort: 35, duration: 7, description: 'Implement token verification middleware', department: 'R & D', role: 'Priya Nair', section: 'Section B', planStart: '2026-08-15', planEnd: '2026-08-22', actualStart: '', actualEnd: '', eta: '2026-08-22', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Backend API Implementation', taskCode: 'TC-601' }] },
-            { task: 'Stages CRUD API handlers', taskCode: 'TC-603', jobCode: 'DEVL6', effort: 50, duration: 11, description: 'Implement stage editing services', department: 'Developer', role: 'Mei Tanaka', section: 'Section C', planStart: '2026-08-22', planEnd: '2026-09-02', actualStart: '', actualEnd: '', eta: '2026-09-02', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'Backend API Implementation', taskCode: 'TC-601' }] },
-            { task: 'Mail Alerts Service configuration', taskCode: 'TC-604', jobCode: 'DEVL7', effort: 15, duration: 3, description: 'Set up SMTP service', department: 'Management', role: 'Aarav Shah', section: 'Section D', planStart: '2026-09-02', planEnd: '2026-09-05', actualStart: '', actualEnd: '', eta: '2026-09-05', actualHours: 0, expenses: '₹0', priority: 'Low', predecessors: [{ moduleName: 'Backend API Implementation', taskCode: 'TC-602' }] }
+            { task: 'Core UI Implementation', taskCode: 'TC-500', jobCode: 'DEVL0', effort: 80, duration: 15, description: 'Build Angular modules', department: 'Developer', role: 'Mei Tanaka', section: 'Section A', planStart: '2026-08-01', planEnd: '2026-08-20', actualStart: '', actualEnd: '', eta: '2026-08-20', actualHours: 0, expenses: '₹0', priority: 'High' }
           ]
         }
       ]
     },
     {
-      stageCode: 'STG004',
-      name: 'Testing',
-      planEffort: '150 hrs',
-      planDuration: '15 days',
-      description: 'System validation, regression testing and security audit.',
-      planStart: '2026-09-06',
-      planEnd: '2026-09-20',
+      stageCode: 'STG007',
+      name: 'Integration & QA',
+      planEffort: '200 hrs',
+      planDuration: '45 days',
+      description: 'Perform system integration, automated testing and security audit.',
+      planStart: '2026-09-16',
+      planEnd: '2026-10-31',
       actualStart: '',
       actualEnd: '',
-      eta: '2026-09-20',
-      buffer: '3 days',
-      gateName: 'Gate 4',
+      eta: '2026-10-31',
+      buffer: '4 days',
+      gateName: 'Gate 6',
       gateStatus: 'Pending',
-      gateCode: 'GT004',
+      gateCode: 'GT006',
       status: true,
-      setupCount: 5,
+      setupCount: 6,
       modules: [
         {
           name: 'Unit & Integration Testing',
           count: 3,
           tasks: [
-            { task: 'Test Strategy Planning', taskCode: 'TC-700', jobCode: 'TEST0', effort: 8, duration: 1, description: 'Draft overall test approach plan document', department: 'Testing', role: 'Priya Nair', section: 'Section A', planStart: '2026-09-06', planEnd: '2026-09-06', actualStart: '', actualEnd: '', eta: '2026-09-06', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'System & Performance Testing', taskCode: 'TC-802' }] },
-            { task: 'Write Component Specs', taskCode: 'TC-701', jobCode: 'TEST1', effort: 25, duration: 4, description: 'Write frontend Jasmine tests', department: 'Testing', role: 'Priya Nair', section: 'Section A', planStart: '2026-09-06', planEnd: '2026-09-10', actualStart: '', actualEnd: '', eta: '2026-09-10', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Unit & Integration Testing', taskCode: 'TC-700' }] },
-            { task: 'API Endpoint Specs', taskCode: 'TC-702', jobCode: 'TEST2', effort: 30, duration: 4, description: 'Write mocha backend specs', department: 'Testing', role: 'Diego Ruiz', section: 'Section B', planStart: '2026-09-10', planEnd: '2026-09-14', actualStart: '', actualEnd: '', eta: '2026-09-14', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Unit & Integration Testing', taskCode: 'TC-701' }] }
-          ]
-        },
-        {
-          name: 'System & Performance Testing',
-          count: 2,
-          tasks: [
-            { task: 'Load & Stress Testing', taskCode: 'TC-801', jobCode: 'TEST3', effort: 20, duration: 3, description: 'Use JMeter for load metrics testing', department: 'Testing', role: 'Aarav Shah', section: 'Section C', planStart: '2026-09-14', planEnd: '2026-09-17', actualStart: '', actualEnd: '', eta: '2026-09-17', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'Unit & Integration Testing', taskCode: 'TC-702' }] },
-            { task: 'Security Vulnerability Audits', taskCode: 'TC-802', jobCode: 'TEST4', effort: 24, duration: 3, description: 'Perform static code scanning tests', department: 'Management', role: 'Olivia Brown', section: 'Section D', planStart: '2026-09-17', planEnd: '2026-09-20', actualStart: '', actualEnd: '', eta: '2026-09-20', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Unit & Integration Testing', taskCode: 'TC-702' }] }
+            { task: 'System Testing Specs', taskCode: 'TC-700', jobCode: 'TEST0', effort: 40, duration: 10, description: 'Automated test suite execution', department: 'Testing', role: 'Priya Nair', section: 'Section A', planStart: '2026-09-16', planEnd: '2026-09-30', actualStart: '', actualEnd: '', eta: '2026-09-30', actualHours: 0, expenses: '₹0', priority: 'High' }
           ]
         }
       ]
     },
     {
-      stageCode: 'STG005',
-      name: 'Deployment',
-      planEffort: '60 hrs',
-      planDuration: '10 days',
-      description: 'Production environment setup and final release.',
-      planStart: '2026-09-21',
-      planEnd: '2026-09-30',
+      stageCode: 'STG008',
+      name: 'UAT & Compliance Audit',
+      planEffort: '140 hrs',
+      planDuration: '30 days',
+      description: 'User acceptance testing, security compliance and sign-off.',
+      planStart: '2026-11-01',
+      planEnd: '2026-11-30',
       actualStart: '',
       actualEnd: '',
-      eta: '2026-09-30',
-      buffer: '2 days',
-      gateName: 'Gate 5',
+      eta: '2026-11-30',
+      buffer: '3 days',
+      gateName: 'Gate 7',
       gateStatus: 'Pending',
-      gateCode: 'GT005',
+      gateCode: 'GT007',
       status: true,
       setupCount: 5,
       modules: [
         {
-          name: 'Production Environment Setup',
-          count: 3,
-          tasks: [
-            { task: 'Deployment Strategy Review', taskCode: 'TC-900', jobCode: 'DEPL0', effort: 4, duration: 1, description: 'Approve rollback procedures and config specs', department: 'Developer', role: 'Diego Ruiz', section: 'Section A', planStart: '2026-09-21', planEnd: '2026-09-21', actualStart: '', actualEnd: '', eta: '2026-09-21', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Release & Go-Live', taskCode: 'TC-911' }] },
-            { task: 'AWS Resource Provisioning', taskCode: 'TC-901', jobCode: 'DEPL1', effort: 12, duration: 3, description: 'Configure EC2, RDS, and load balancers', department: 'Developer', role: 'Diego Ruiz', section: 'Section A', planStart: '2026-09-21', planEnd: '2026-09-24', actualStart: '', actualEnd: '', eta: '2026-09-24', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Production Environment Setup', taskCode: 'TC-900' }] },
-            { task: 'DNS & SSL configuration', taskCode: 'TC-902', jobCode: 'DEPL2', effort: 8, duration: 2, description: 'Purchase SSL & direct DNS to load balancer', department: 'R & D', role: 'Aarav Shah', section: 'Section B', planStart: '2026-09-24', planEnd: '2026-09-26', actualStart: '', actualEnd: '', eta: '2026-09-26', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'Production Environment Setup', taskCode: 'TC-901' }] }
-          ]
-        },
-        {
-          name: 'Release & Go-Live',
+          name: 'UAT Testing',
           count: 2,
           tasks: [
-            { task: 'Database Seeding & Migration', taskCode: 'TC-910', jobCode: 'DEPL3', effort: 6, duration: 2, description: 'Seed production database', department: 'Developer', role: 'Mei Tanaka', section: 'Section C', planStart: '2026-09-26', planEnd: '2026-09-28', actualStart: '', actualEnd: '', eta: '2026-09-28', actualHours: 0, expenses: '₹0', priority: 'Medium', predecessors: [{ moduleName: 'Production Environment Setup', taskCode: 'TC-901' }] },
-            { task: 'Verification Test Checks', taskCode: 'TC-911', jobCode: 'DEPL4', effort: 10, duration: 2, description: 'Perform live environment checks', department: 'Testing', role: 'Priya Nair', section: 'Section D', planStart: '2026-09-28', planEnd: '2026-09-30', actualStart: '', actualEnd: '', eta: '2026-09-30', actualHours: 0, expenses: '₹0', priority: 'High', predecessors: [{ moduleName: 'Release & Go-Live', taskCode: 'TC-910' }, { moduleName: 'Production Environment Setup', taskCode: 'TC-902' }] }
+            { task: 'Client User Acceptance', taskCode: 'TC-800', jobCode: 'UAT0', effort: 30, duration: 7, description: 'Client verification session', department: 'Testing', role: 'Priya Nair', planStart: '2026-11-01', planEnd: '2026-11-10', actualStart: '', actualEnd: '', eta: '2026-11-10', actualHours: 0, expenses: '₹0', priority: 'High' }
+          ]
+        }
+      ]
+    },
+    {
+      stageCode: 'STG009',
+      name: 'Final Release & Deployment',
+      planEffort: '100 hrs',
+      planDuration: '25 days',
+      description: 'Production infrastructure provisioning, migration, and go-live.',
+      planStart: '2026-12-01',
+      planEnd: '2026-12-25',
+      actualStart: '',
+      actualEnd: '',
+      eta: '2026-12-25',
+      buffer: '2 days',
+      gateName: 'Gate 8',
+      gateStatus: 'Pending',
+      gateCode: 'GT008',
+      status: true,
+      setupCount: 4,
+      modules: [
+        {
+          name: 'Go-Live Release',
+          count: 2,
+          tasks: [
+            { task: 'Production Deployment', taskCode: 'TC-900', jobCode: 'DEPL0', effort: 20, duration: 3, description: 'Deploy to Cloud Server', department: 'Developer', role: 'Diego Ruiz', planStart: '2026-12-01', planEnd: '2026-12-05', actualStart: '', actualEnd: '', eta: '2026-12-05', actualHours: 0, expenses: '₹0', priority: 'High' }
           ]
         }
       ]
@@ -267,6 +318,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
   activeStage: StageItem | null = null;
   activeModuleIndex = 0;
   activeView: 'grid' | 'gantt' = 'grid';
+  ganttScale: 'monthly' | 'weekly' | 'daily' = 'monthly';
 
   // Setup/WBS view search & filters state
   showSetupFilter = false;
@@ -284,6 +336,44 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
 
   setView(view: 'grid' | 'gantt') {
     this.activeView = view;
+  }
+
+  setGanttScale(scale: 'monthly' | 'weekly' | 'daily') {
+    this.ganttScale = scale;
+  }
+
+  // --- Multi-scale Gantt view getters ---
+  get ganttMonths(): { name: string; fullYear: number; monthIndex: number }[] {
+    return [
+      { name: 'Jan', fullYear: 2026, monthIndex: 0 },
+      { name: 'Feb', fullYear: 2026, monthIndex: 1 },
+      { name: 'Mar', fullYear: 2026, monthIndex: 2 },
+      { name: 'Apr', fullYear: 2026, monthIndex: 3 },
+      { name: 'May', fullYear: 2026, monthIndex: 4 },
+      { name: 'Jun', fullYear: 2026, monthIndex: 5 },
+      { name: 'Jul', fullYear: 2026, monthIndex: 6 },
+      { name: 'Aug', fullYear: 2026, monthIndex: 7 },
+      { name: 'Sep', fullYear: 2026, monthIndex: 8 },
+      { name: 'Oct', fullYear: 2026, monthIndex: 9 },
+      { name: 'Nov', fullYear: 2026, monthIndex: 10 },
+      { name: 'Dec', fullYear: 2026, monthIndex: 11 }
+    ];
+  }
+
+  get ganttWeeks(): { label: string; monthName: string; monthIndex: number; weekInMonth: number }[] {
+    const weeks: { label: string; monthName: string; monthIndex: number; weekInMonth: number }[] = [];
+    const months = this.ganttMonths;
+    months.forEach(m => {
+      ['W1', 'W2', 'W3', 'W4'].forEach((wLabel, wIdx) => {
+        weeks.push({
+          label: wLabel,
+          monthName: m.name,
+          monthIndex: m.monthIndex,
+          weekInMonth: wIdx + 1
+        });
+      });
+    });
+    return weeks;
   }
 
   get ganttDays(): Date[] {
@@ -307,7 +397,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
     const days: Date[] = [];
     let current = new Date(minDate);
     let count = 0;
-    while (current <= maxDate && count < 100) {
+    while (current <= maxDate && count < 120) {
       days.push(new Date(current));
       current.setDate(current.getDate() + 1);
       count++;
@@ -315,56 +405,103 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
     return days;
   }
 
-  getGanttBarStyle(s: StageItem, days: Date[]): any {
-    const totalDays = days.length;
-    if (totalDays === 0 || !s.planStart || !s.planEnd) return { display: 'none' };
+  private getDaysInMonth(year: number, monthIndex: number): number {
+    return new Date(year, monthIndex + 1, 0).getDate();
+  }
+
+  getGanttBarStyle(s: StageItem): any {
+    if (!s.planStart || !s.planEnd) return { display: 'none' };
 
     const start = new Date(s.planStart);
     const finish = new Date(s.planEnd);
     if (isNaN(start.getTime()) || isNaN(finish.getTime())) return { display: 'none' };
 
-    const startStripped = this.stripTime(start);
-    const finishStripped = this.stripTime(finish);
+    if (this.ganttScale === 'monthly') {
+      const totalMonths = 12;
+      const startM = start.getMonth();
+      const startD = start.getDate();
+      const startDaysTotal = this.getDaysInMonth(start.getFullYear(), startM);
+      const startVal = startM + (startD - 1) / startDaysTotal;
 
-    let startIndex = -1;
-    for (let i = 0; i < days.length; i++) {
-      if (this.stripTime(days[i]).getTime() === startStripped.getTime()) {
-        startIndex = i;
-        break;
+      const finishM = finish.getMonth();
+      const finishD = finish.getDate();
+      const finishDaysTotal = this.getDaysInMonth(finish.getFullYear(), finishM);
+      const finishVal = finishM + finishD / finishDaysTotal;
+
+      const leftPercent = (startVal / totalMonths) * 100;
+      const widthPercent = Math.max(0.5, ((finishVal - startVal) / totalMonths) * 100);
+
+      return {
+        left: `${leftPercent.toFixed(2)}%`,
+        width: `${widthPercent.toFixed(2)}%`
+      };
+    } else if (this.ganttScale === 'weekly') {
+      const totalWeeks = 48; // 12 months * 4 weeks
+      const startM = start.getMonth();
+      const startD = start.getDate();
+      const startDaysTotal = this.getDaysInMonth(start.getFullYear(), startM);
+      const startWeekVal = startM * 4 + ((startD - 1) / startDaysTotal) * 4;
+
+      const finishM = finish.getMonth();
+      const finishD = finish.getDate();
+      const finishDaysTotal = this.getDaysInMonth(finish.getFullYear(), finishM);
+      const finishWeekVal = finishM * 4 + (finishD / finishDaysTotal) * 4;
+
+      const leftPercent = (startWeekVal / totalWeeks) * 100;
+      const widthPercent = Math.max(0.5, ((finishWeekVal - startWeekVal) / totalWeeks) * 100);
+
+      return {
+        left: `${leftPercent.toFixed(2)}%`,
+        width: `${widthPercent.toFixed(2)}%`
+      };
+    } else { // daily
+      const days = this.ganttDays;
+      const totalDays = days.length;
+      if (totalDays === 0) return { display: 'none' };
+
+      const startStripped = this.stripTime(start);
+      const finishStripped = this.stripTime(finish);
+
+      let startIndex = -1;
+      for (let i = 0; i < days.length; i++) {
+        if (this.stripTime(days[i]).getTime() === startStripped.getTime()) {
+          startIndex = i;
+          break;
+        }
       }
-    }
 
-    if (startIndex === -1) {
-      if (startStripped < this.stripTime(days[0])) {
-        startIndex = 0;
-      } else {
-        return { display: 'none' };
+      if (startIndex === -1) {
+        if (startStripped < this.stripTime(days[0])) {
+          startIndex = 0;
+        } else {
+          return { display: 'none' };
+        }
       }
+
+      let spanDays = Math.round((finishStripped.getTime() - startStripped.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+      if (spanDays <= 0) spanDays = 1;
+
+      if (startIndex + spanDays > totalDays) {
+        spanDays = totalDays - startIndex;
+      }
+
+      const leftPercent = (startIndex / totalDays) * 100;
+      const widthPercent = (spanDays / totalDays) * 100;
+
+      return {
+        left: `${leftPercent.toFixed(2)}%`,
+        width: `${widthPercent.toFixed(2)}%`
+      };
     }
-
-    let spanDays = Math.round((finishStripped.getTime() - startStripped.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-    if (spanDays <= 0) spanDays = 1;
-
-    if (startIndex + spanDays > totalDays) {
-      spanDays = totalDays - startIndex;
-    }
-
-    const leftPercent = (startIndex / totalDays) * 100;
-    const widthPercent = (spanDays / totalDays) * 100;
-
-    return {
-      left: `${leftPercent}%`,
-      width: `${widthPercent}%`
-    };
   }
 
   getStageGanttClass(stageName: string): string {
     const name = stageName.toLowerCase();
-    if (name.includes('feasibility')) return 'gantt-bar-feasibility';
-    if (name.includes('design')) return 'gantt-bar-design';
-    if (name.includes('development')) return 'gantt-bar-development';
-    if (name.includes('testing')) return 'gantt-bar-testing';
-    if (name.includes('deployment')) return 'gantt-bar-deployment';
+    if (name.includes('feasibility') || name.includes('concept') || name.includes('requirement')) return 'gantt-bar-feasibility';
+    if (name.includes('design') || name.includes('architecture') || name.includes('specification')) return 'gantt-bar-design';
+    if (name.includes('development') || name.includes('implementation') || name.includes('core')) return 'gantt-bar-development';
+    if (name.includes('testing') || name.includes('qa') || name.includes('uat')) return 'gantt-bar-testing';
+    if (name.includes('deployment') || name.includes('release') || name.includes('prototype')) return 'gantt-bar-deployment';
     return 'gantt-bar-default';
   }
 

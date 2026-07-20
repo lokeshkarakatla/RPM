@@ -158,11 +158,28 @@
     </div>
 
     <!-- ============ GANTT VIEW ============ -->
-    <div class="gantt-view" *ngIf="activeView === 'gantt'">
-      <div class="gantt-container" *ngIf="ganttDays.length > 0; else noGanttStages">
+    <div class="gantt-view" *ngIf="activeView === 'gantt'" style="padding: 0;">
+      <!-- Scale Toggler Bar (Right-aligned below Add Stage button) -->
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+        <div class="view-toggle" style="margin-bottom: 0;">
+          <button mat-button class="view-btn" [class.active]="ganttScale === 'monthly'"
+            (click)="setGanttScale('monthly')">
+            Monthly
+          </button>
+          <button mat-button class="view-btn" [class.active]="ganttScale === 'weekly'"
+            (click)="setGanttScale('weekly')">
+            Weekly
+          </button>
+          <button mat-button class="view-btn" [class.active]="ganttScale === 'daily'"
+            (click)="setGanttScale('daily')">
+            Daily
+          </button>
+        </div>
+      </div>
+      <div class="gantt-container" *ngIf="stages.length > 0; else noGanttStages">
         <!-- Left vertical Stage Column -->
         <div class="gantt-tasks-column">
-          <div class="gantt-header-cell">STAGE</div>
+          <div class="gantt-header-cell" [class.gantt-header-cell--two-rows]="ganttScale === 'weekly' || ganttScale === 'daily'">STAGE</div>
           <div *ngFor="let s of stages" class="gantt-task-cell">
             <div class="gantt-task-name">{{ s.name }}</div>
             <div class="gantt-task-code">{{ s.stageCode }}</div>
@@ -171,10 +188,25 @@
 
         <!-- Right scrollable Timeline Area -->
         <div class="gantt-timeline-area">
-          <div style="min-width: max-content; display: inline-block;">
-            <!-- Timeline Header Dates -->
-            <div class="gantt-header-row">
-              <div *ngFor="let day of ganttDays" class="gantt-header-date-cell">
+          <div [style.min-width]="ganttScale === 'daily' ? 'max-content' : '100%'" style="display: inline-block; width: 100%;">
+            <!-- Timeline Header: MONTHLY -->
+            <div class="gantt-header-row" *ngIf="ganttScale === 'monthly'">
+              <div *ngFor="let m of ganttMonths" class="gantt-header-date-cell gantt-header-month-cell">
+                <div class="gantt-header-month-title">{{ m.name }}</div>
+              </div>
+            </div>
+
+            <!-- Timeline Header: WEEKLY -->
+            <div class="gantt-header-row gantt-header-row--two-rows" *ngIf="ganttScale === 'weekly'">
+              <div *ngFor="let w of ganttWeeks" class="gantt-header-date-cell gantt-header-week-cell">
+                <div class="gantt-header-month">{{ w.monthName }}</div>
+                <div class="gantt-header-day">{{ w.label }}</div>
+              </div>
+            </div>
+
+            <!-- Timeline Header: DAILY -->
+            <div class="gantt-header-row gantt-header-row--two-rows" *ngIf="ganttScale === 'daily'">
+              <div *ngFor="let day of ganttDays" class="gantt-header-date-cell gantt-header-day-cell">
                 <div class="gantt-header-month">{{ day | date:'MMM' }}</div>
                 <div class="gantt-header-day">{{ day | date:'d' }}</div>
               </div>
@@ -185,13 +217,21 @@
               <div *ngFor="let s of stages" class="gantt-row">
                 <!-- Grid background line indicators -->
                 <div class="gantt-grid-background">
-                  <div *ngFor="let day of ganttDays" class="gantt-grid-column"></div>
+                  <ng-container *ngIf="ganttScale === 'monthly'">
+                    <div *ngFor="let m of ganttMonths" class="gantt-grid-column"></div>
+                  </ng-container>
+                  <ng-container *ngIf="ganttScale === 'weekly'">
+                    <div *ngFor="let w of ganttWeeks" class="gantt-grid-column gantt-grid-column--week"></div>
+                  </ng-container>
+                  <ng-container *ngIf="ganttScale === 'daily'">
+                    <div *ngFor="let day of ganttDays" class="gantt-grid-column gantt-grid-column--day"></div>
+                  </ng-container>
                 </div>
 
                 <!-- Bar -->
-                <div [ngClass]="getStageGanttClass(s.name)" [ngStyle]="getGanttBarStyle(s, ganttDays)"
+                <div [ngClass]="getStageGanttClass(s.name)" [ngStyle]="getGanttBarStyle(s)"
                   class="gantt-task-bar" (click)="openEditStage(s, -1)"
-                  [matTooltip]="s.name + ' - Effort: ' + s.planEffort + '. Click to Edit'">
+                  [matTooltip]="s.name + ' (' + (s.planStart | date:'dd MMM yyyy') + ' to ' + (s.planEnd | date:'dd MMM yyyy') + ') - Effort: ' + s.planEffort + '. Click to Edit'">
                   <span class="gantt-bar-label">{{ s.name }} &middot; {{ s.planEffort }}</span>
                 </div>
               </div>

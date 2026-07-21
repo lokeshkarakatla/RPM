@@ -1,15 +1,11 @@
 <div class="schedule-dashboard">
 
   <div class="header-section" style="margin-bottom: 20px; justify-content: flex-end;">
-    <div class="header-actions" style="display: flex; gap: 10px; align-items: center;">
-      <button mat-raised-button 
-              [color]="isMaskingApproved ? null : 'primary'"
-              [style.background-color]="isMaskingApproved ? '#000000' : null" 
-              [style.color]="isMaskingApproved ? '#ffffff' : null"
-              (click)="toggleMaskApproved()">
-        <mat-icon>{{ isMaskingApproved ? 'visibility' : 'visibility_off' }}</mat-icon>
-        Mask Approved
-      </button>
+    <div class="header-actions" style="display: flex; gap: 12px; align-items: center;">
+      <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; font-weight: 500; font-size: 14px; color: #1e293b; user-select: none;">
+        <input type="checkbox" class="custom-checkbox cb-black" [checked]="isMaskingApproved" (change)="toggleMaskApproved()" style="width: 18px; height: 18px; cursor: pointer;">
+        <span>Mask Approved</span>
+      </label>
       <button mat-raised-button color="primary" class="btn-primary" (click)="addExpense()">
         <mat-icon>add</mat-icon> Add Expense
       </button>
@@ -166,12 +162,9 @@
   </div>
 </ng-template>
 
-<!-- Floating scroll buttons -->
-<button class="mine" mat-fab
-  style="background-color: white; right: 310px; position: fixed; bottom: 80px; z-index: 9999;" (click)="scrollLeft()">
-  <mat-icon style="color: #37474f">fast_rewind</mat-icon>
-</button>
-<button class="mine" mat-fab style="background-color: white; position: fixed; right: 240px; bottom: 80px; z-index: 9999;"
-  (click)="scrollRight()">
+<button class="mine" mat-fab (click)="scrollRight()">
   <mat-icon style="color: #37474f">fast_forward</mat-icon>
+</button>
+<button class="mine" mat-fab style="margin-right: 78px !important" (click)="scrollLeft()">
+  <mat-icon style="color: #37474f">fast_rewind</mat-icon>
 </button>

@@ -34,7 +34,7 @@ const ELEMENT_DATA: DocumentItem[] = [
 export class ProjectDocumentsComponent implements OnInit {
 
   isGridView: boolean = false; // Render table layout by default as requested
-  displayedColumns: string[] = ['documentType', 'documentTitle', 'description', 'uploadFile', 'uploadedDate', 'uploadedBy', 'remarks', 'actions'];
+  displayedColumns: string[] = ['actions', 'documentType', 'documentTitle', 'description', 'uploadFile', 'uploadedDate', 'uploadedBy', 'remarks'];
   dataSource = ELEMENT_DATA;
   filteredDataSource = ELEMENT_DATA;
 

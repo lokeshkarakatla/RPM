@@ -61,21 +61,6 @@
 
     <main class="table-container">
 
-      <div class="table-actions-bar">
-        <button class="scroll-btn" (click)="scrollTable('left')" title="Scroll Left (Rewind)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="11 17 6 12 11 7"></polyline>
-            <polyline points="18 17 13 12 18 7"></polyline>
-          </svg>
-        </button>
-        <button class="scroll-btn" (click)="scrollTable('right')" title="Scroll Right (Fast Forward)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="13 17 18 12 13 7"></polyline>
-            <polyline points="6 17 11 12 6 7"></polyline>
-          </svg>
-        </button>
-      </div>
-
       <div class="table-responsive" #tableWrapper>
         <table class="expenses-table">
           <thead class="tbl-head">

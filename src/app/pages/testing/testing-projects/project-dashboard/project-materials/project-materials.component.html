@@ -34,25 +34,11 @@
   </div>
 
   <div class="table-wrapper">
-    <div class="table-actions-bar">
-      <button class="scroll-btn" (click)="scrollTable('left')" title="Scroll Left (Rewind)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="11 17 6 12 11 7"></polyline>
-          <polyline points="18 17 13 12 18 7"></polyline>
-        </svg>
-      </button>
-      <button class="scroll-btn" (click)="scrollTable('right')" title="Scroll Right (Fast Forward)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="13 17 18 12 13 7"></polyline>
-          <polyline points="6 17 11 12 6 7"></polyline>
-        </svg>
-      </button>
-    </div>
-
     <div class="table-container" #tableContainer>
       <table class="table table-bordered table-hover">
         <thead class="tbl-head">
           <tr>
+            <th class="text-center" style="width: 90px;">Actions</th>
             <th class="text-left">Stages</th>
             <th class="text-left">Modules</th>
             <th class="text-left">Tasks</th>
@@ -74,6 +60,14 @@
         </thead>
         <tbody>
           <tr *ngFor="let row of displayedRows">
+            <td class="text-center" style="vertical-align: middle;">
+              <a style="cursor: pointer; margin-right: 10px;" matTooltip="Edit Material" (click)="editMaterial(row)">
+                <i class="fa fa-edit" style="color: cornflowerblue; font-size: 16px;"></i>
+              </a>
+              <a style="cursor: pointer;" matTooltip="Delete Material" (click)="deleteMaterial(row)">
+                <i class="fa fa-trash" style="color: red; font-size: 16px;"></i>
+              </a>
+            </td>
             <td class="text-left">{{ row.stage }}</td>
             <td class="text-left">{{ row.module }}</td>
             <td class="text-left">{{ row.task }}</td>
@@ -103,10 +97,17 @@
             <td class="text-center">{{ row.issueDate }}</td>
           </tr>
           <tr *ngIf="displayedRows.length === 0">
-            <td colspan="17" class="text-center">No records found</td>
+            <td colspan="18" class="text-center">No records found</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<button class="mine" mat-fab (click)="scrollRight()">
+  <mat-icon style="color: #37474f">fast_forward</mat-icon>
+</button>
+<button class="mine" mat-fab style="margin-right: 78px !important" (click)="scrollLeft()">
+  <mat-icon style="color: #37474f">fast_rewind</mat-icon>
+</button>

@@ -37,9 +37,16 @@ table thead.tbl-head th {
   background-color: #3f3f3f !important;
   color: #ffffff !important;
   font-weight: 600 !important;
-  text-align: center !important;
   vertical-align: middle !important;
   font-size: 14px !important;
+}
+
+th.text-left, td.text-left, .table-text-left {
+  text-align: left !important;
+}
+
+th.text-center, td.text-center, .table-text-center {
+  text-align: center !important;
 }
 
 .filterLabelMarginTop {

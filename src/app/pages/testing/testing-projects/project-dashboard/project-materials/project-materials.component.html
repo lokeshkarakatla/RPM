@@ -50,41 +50,41 @@
     </div>
 
     <div class="table-container" #tableContainer>
-      <table class="table table-bordered table-hover text-center">
+      <table class="table table-bordered table-hover">
         <thead class="tbl-head">
           <tr>
-            <th>Stages</th>
-            <th>Modules</th>
-            <th>Tasks</th>
-            <th>Item Name</th>
-            <th class="text-right">Quantity</th>
-            <th class="text-right">Unit Rate</th>
-            <th class="text-right">Material Cost</th>
-            <th>Remarks</th>
-            <th>Target Date</th>
-            <th>Requested By</th>
-            <th>Request Date</th>
+            <th class="text-left">Stages</th>
+            <th class="text-left">Modules</th>
+            <th class="text-left">Tasks</th>
+            <th class="text-left">Item Name</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Unit Rate</th>
+            <th class="text-center">Material Cost</th>
+            <th class="text-left">Remarks</th>
+            <th class="text-center">Target Date</th>
+            <th class="text-left">Requested By</th>
+            <th class="text-center">Request Date</th>
             <th class="text-center">Available</th>
             <th class="text-center">Reserved</th>
-            <th class="text-right">Requested Quantity</th>
-            <th class="text-right">Issued Quantity</th>
+            <th class="text-center">Requested Quantity</th>
+            <th class="text-center">Issued Quantity</th>
             <th class="text-center">Issued</th>
-            <th>Issue Date</th>
+            <th class="text-center">Issue Date</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let row of displayedRows">
-            <td>{{ row.stage }}</td>
-            <td>{{ row.module }}</td>
-            <td>{{ row.task }}</td>
-            <td>{{ row.itemName }}</td>
-            <td class="text-right">{{ row.quantity }}</td>
-            <td class="text-right">{{ row.unitRate | currency:'INR' }}</td>
-            <td class="text-right">{{ row.materialCost | currency:'INR' }}</td>
-            <td>{{ row.remarks }}</td>
-            <td>{{ row.targetDate }}</td>
-            <td>{{ row.requestedBy }}</td>
-            <td>{{ row.requestDate }}</td>
+            <td class="text-left">{{ row.stage }}</td>
+            <td class="text-left">{{ row.module }}</td>
+            <td class="text-left">{{ row.task }}</td>
+            <td class="text-left">{{ row.itemName }}</td>
+            <td class="text-center">{{ row.quantity }}</td>
+            <td class="text-center">{{ row.unitRate | currency:'INR' }}</td>
+            <td class="text-center">{{ row.materialCost | currency:'INR' }}</td>
+            <td class="text-left">{{ row.remarks }}</td>
+            <td class="text-center">{{ row.targetDate }}</td>
+            <td class="text-left">{{ row.requestedBy }}</td>
+            <td class="text-center">{{ row.requestDate }}</td>
             
             <td class="text-center">
               <input type="checkbox" [checked]="row.available" (change)="row.available = !row.available">
@@ -93,14 +93,14 @@
               <input type="checkbox" [checked]="row.reserved" (change)="row.reserved = !row.reserved">
             </td>
             
-            <td class="text-right">{{ row.requestedQuantity }}</td>
-            <td class="text-right">{{ row.issuedQuantity }}</td>
+            <td class="text-center">{{ row.requestedQuantity }}</td>
+            <td class="text-center">{{ row.issuedQuantity }}</td>
             
             <td class="text-center">
               <input type="checkbox" [checked]="row.issued" (change)="row.issued = !row.issued">
             </td>
             
-            <td>{{ row.issueDate }}</td>
+            <td class="text-center">{{ row.issueDate }}</td>
           </tr>
           <tr *ngIf="displayedRows.length === 0">
             <td colspan="17" class="text-center">No records found</td>

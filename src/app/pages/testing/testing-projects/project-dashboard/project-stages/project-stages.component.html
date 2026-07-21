@@ -37,14 +37,14 @@
               <th class="text-center">Move</th>
               <th class="text-center" style="width: 112px !important">Actions</th>
               <th class="text-center">Status</th>
-              <th>Stage Code</th>
-              <th>Stage Name</th>
-              <th>Plan Effort</th>
-              <th>Plan Duration</th>
-              <th>Description</th>
-              <th>Buffer</th>
-              <th>Gate Name</th>
-              <th>Gate Status</th>
+              <th class="text-center">Stage Code</th>
+              <th class="text-left">Stage Name</th>
+              <th class="text-center">Plan Effort</th>
+              <th class="text-center">Plan Duration</th>
+              <th class="text-left">Description</th>
+              <th class="text-center">Buffer</th>
+              <th class="text-left">Gate Name</th>
+              <th class="text-center">Gate Status</th>
               <th class="text-center">Setup</th>
               <th class="text-center">Timeline</th>
             </tr>
@@ -77,14 +77,14 @@
                   </a>
                 </td>
 
-                <td>{{ s.stageCode }}</td>
-                <td><span class="stage-name-text">{{ s.name }}</span></td>
-                <td>{{ s.planEffort }}</td>
-                <td>{{ s.planDuration }}</td>
-                <td>{{ s.description }}</td>
-                <td>{{ s.buffer }}</td>
-                <td>{{ s.gateName }}</td>
-                <td>
+                <td class="text-center">{{ s.stageCode }}</td>
+                <td class="text-left"><span class="stage-name-text">{{ s.name }}</span></td>
+                <td class="text-center">{{ s.planEffort }}</td>
+                <td class="text-center">{{ s.planDuration }}</td>
+                <td class="text-left">{{ s.description }}</td>
+                <td class="text-center">{{ s.buffer }}</td>
+                <td class="text-left">{{ s.gateName }}</td>
+                <td class="text-center">
                   <span class="gate-status-badge" [class]="'gate-status-badge--' + s.gateStatus.toLowerCase()">
                     {{ s.gateStatus }}
                   </span>
@@ -326,16 +326,16 @@
             <thead class="tbl-head">
               <tr>
                 <th class="text-center" style="width: 112px !important">Actions</th>
-                <th>Task</th>
-                <th>Task Code</th>
-                <th>Job Code</th>
-                <th>Effort</th>
-                <th>Department</th>
-                <th>Responsibility</th>
-                <th>Section</th>
-                <th>Actual Hours</th>
-                <th>Expenses</th>
-                <th>Priority</th>
+                <th class="text-left">Task</th>
+                <th class="text-center">Task Code</th>
+                <th class="text-center">Job Code</th>
+                <th class="text-center">Effort</th>
+                <th class="text-left">Department</th>
+                <th class="text-left">Responsibility</th>
+                <th class="text-left">Section</th>
+                <th class="text-center">Actual Hours</th>
+                <th class="text-center">Expenses</th>
+                <th class="text-center">Priority</th>
                 <th class="text-center">Timeline</th>
               </tr>
             </thead>
@@ -353,16 +353,16 @@
                       </a>
                     </td>
 
-                    <td><strong>{{ t.task }}</strong></td>
-                    <td><span class="code-badge">{{ t.taskCode }}</span></td>
-                    <td><span class="code-badge">{{ t.jobCode }}</span></td>
-                    <td>{{ t.effort }}h</td>
-                    <td>{{ t.department }}</td>
-                    <td>{{ t.role }}</td>
-                    <td>{{ t.section || '—' }}</td>
-                    <td>{{ t.actualHours }}h</td>
-                    <td>{{ t.expenses }}</td>
-                    <td>
+                    <td class="text-left"><strong>{{ t.task }}</strong></td>
+                    <td class="text-center"><span class="code-badge">{{ t.taskCode }}</span></td>
+                    <td class="text-center"><span class="code-badge">{{ t.jobCode }}</span></td>
+                    <td class="text-center">{{ t.effort }}h</td>
+                    <td class="text-left">{{ t.department }}</td>
+                    <td class="text-left">{{ t.role }}</td>
+                    <td class="text-left">{{ t.section || '—' }}</td>
+                    <td class="text-center">{{ t.actualHours }}h</td>
+                    <td class="text-center">{{ t.expenses }}</td>
+                    <td class="text-center">
                       <span class="priority-label" [class]="'priority-label--' + t.priority.toLowerCase()">
                         {{ t.priority }}
                       </span>

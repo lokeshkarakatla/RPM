@@ -80,14 +80,14 @@
         <table class="expenses-table">
           <thead class="tbl-head">
             <tr>
-              <th>Action</th>
-              <th>Date</th>
-              <th>Name</th>
-              <th>Tasks</th>
-              <th>Hours</th>
-              <th>Approved</th>
-              <th>Declined</th>
-              <th>Pending</th>
+              <th class="text-center">Action</th>
+              <th class="text-center">Date</th>
+              <th class="text-left">Name</th>
+              <th class="text-left">Tasks</th>
+              <th class="text-center">Hours</th>
+              <th class="text-center">Approved</th>
+              <th class="text-center">Declined</th>
+              <th class="text-center">Pending</th>
               <th class="text-center">Messages</th>
             </tr>
           </thead>
@@ -105,10 +105,10 @@
                     (click)="deleteEntry(entry)"></i>
                 </div>
               </td>
-              <td>{{ formatDate(entry.dateObj) }}</td>
-              <td>{{ entry.name }}</td>
-              <td>{{ entry.task }}</td>
-              <td>{{ entry.hours }}</td>
+              <td class="text-center">{{ formatDate(entry.dateObj) }}</td>
+              <td class="text-left">{{ entry.name }}</td>
+              <td class="text-left">{{ entry.task }}</td>
+              <td class="text-center">{{ entry.hours }}</td>
               <td class="text-center">
                 <input type="checkbox" class="custom-checkbox cb-green" [checked]="entry.approved"
                   (change)="toggleRowStatus(entry, 'approved')">

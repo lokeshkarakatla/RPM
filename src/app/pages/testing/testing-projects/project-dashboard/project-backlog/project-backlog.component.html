@@ -72,24 +72,24 @@
 
     <!-- ============ GRID VIEW ============ -->
     <div class="table-wrap" *ngIf="activeView === 'grid'">
-      <table class="table table-bordered table-hover text-center backlog-table">
+      <table class="table table-bordered table-hover backlog-table">
         <thead class="tbl-head">
           <tr>
-            <th class="col-actions" style="min-width: 80px;">Actions</th>
-            <th style="min-width: 180px; text-align: left;">Tasks</th>
-            <th style="min-width: 95px;">Task Code</th>
-            <th style="min-width: 95px;">Job Code</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 90px;">Expenses</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 120px;">Assigned</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 105px;">Status</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 85px;">Approved</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 85px;">Messages</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 130px;">Progress</th>
-            <th style="min-width: 90px;">Effort (hrs)</th>
-            <th style="min-width: 95px;">Duration (days)</th>
-            <th style="min-width: 100px;">Stage</th>
-            <th style="min-width: 250px; text-align: left;">Description</th>
-            <th style="min-width: 90px; text-align: center;">Timeline</th>
+            <th class="col-actions text-center" style="min-width: 80px;">Actions</th>
+            <th class="text-left" style="min-width: 180px;">Tasks</th>
+            <th class="text-center" style="min-width: 95px;">Task Code</th>
+            <th class="text-center" style="min-width: 95px;">Job Code</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 90px;">Expenses</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-left" style="min-width: 120px;">Assigned</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 105px;">Status</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 85px;">Approved</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 85px;">Messages</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 130px;">Progress</th>
+            <th class="text-center" style="min-width: 90px;">Effort (hrs)</th>
+            <th class="text-center" style="min-width: 95px;">Duration (days)</th>
+            <th class="text-left" style="min-width: 100px;">Stage</th>
+            <th class="text-left" style="min-width: 250px;">Description</th>
+            <th class="text-center" style="min-width: 90px;">Timeline</th>
           </tr>
         </thead>
         <tbody>
@@ -104,22 +104,22 @@
                 </div>
               </td>
 
-              <td style="text-align: left; vertical-align: middle;"><strong>{{ t.task }}</strong></td>
-              <td style="vertical-align: middle;"><span class="code-text">{{ t.taskCode }}</span></td>
-              <td style="vertical-align: middle;"><span class="code-text">{{ t.jobCode }}</span></td>
+              <td class="text-left" style="vertical-align: middle;"><strong>{{ t.task }}</strong></td>
+              <td class="text-center" style="vertical-align: middle;"><span class="code-text">{{ t.taskCode }}</span></td>
+              <td class="text-center" style="vertical-align: middle;"><span class="code-text">{{ t.jobCode }}</span></td>
 
               <!-- Sprint only columns (read-only in table, editable via Edit modal) -->
-              <td *ngIf="activeSprint.kind !== 'backlog'" style="text-align: right; vertical-align: middle;">
+              <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle;">
                 {{ t.expenses ? (t.expenses | number:'1.2-2') : '—' }}
               </td>
-              <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle;">
+              <td *ngIf="activeSprint.kind !== 'backlog'" class="text-left" style="vertical-align: middle;">
                 <span class="assignee-chip" *ngIf="t.assigned">
                   <span class="assignee-avatar">{{ initials(t.assigned) }}</span>
                   {{ t.assigned }}
                 </span>
                 <span *ngIf="!t.assigned" class="assignee-empty">—</span>
               </td>
-              <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle;">
+              <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle;">
                 <span *ngIf="t.status" [class]="getStatusClasses(t.status)">{{ getStatusLabel(t.status) }}</span>
                 <span *ngIf="!t.status">—</span>
               </td>
@@ -137,12 +137,12 @@
                   [style.--slider-fill]="(t.progress || 0) + '%'" matTooltip="{{ t.progress || 0 }}%">
               </td>
 
-              <td style="vertical-align: middle;">{{ t.effort }}</td>
-              <td style="vertical-align: middle;">{{ t.duration }}</td>
-              <td style="vertical-align: middle;">
+              <td class="text-center" style="vertical-align: middle;">{{ t.effort }}</td>
+              <td class="text-center" style="vertical-align: middle;">{{ t.duration }}</td>
+              <td class="text-left" style="vertical-align: middle;">
                 <span [class]="getStageClasses(t.stage)">{{ t.stage }}</span>
               </td>
-              <td style="text-align: left; vertical-align: middle;">{{ t.description }}</td>
+              <td class="text-left" style="vertical-align: middle;">{{ t.description }}</td>
 
               <!-- Timeline Action -->
               <td style="vertical-align: middle;" class="text-center">

@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { DragulaModule } from "ng2-dragula";
 
@@ -60,6 +60,8 @@ import { ProjectTodoComponent } from './project-todo/project-todo.component';
 import { AddTodoPopComponent } from './project-todo/add-todo-pop/add-todo-pop.component';
 import { ProjectResourcesComponent } from './project-resources/project-resources.component';
 import { AddResourcePopComponent } from './project-resources/add-resource-pop/add-resource-pop.component';
+import { ProjectIssuesComponent } from './project-issues/project-issues.component';
+import { AddProjectIssuesPopComponent } from './project-issues/add-project-issues-pop/add-project-issues-pop.component';
 
 const routes: Routes = [
   {
@@ -194,6 +196,12 @@ const routes: Routes = [
                     description: 'Track project resource scheduling, calendar allocations, and team assignments.'
                 }
        },
+      { path: "issues", component: ProjectIssuesComponent,
+         data: {
+                    breadcrumb: 'Issues (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track and manage project issues, risk mitigations, and status.'
+                }
+       },
     ],
   },
 ];
@@ -234,11 +242,14 @@ const routes: Routes = [
     AddTodoPopComponent,
     ProjectResourcesComponent,
     AddResourcePopComponent,
+    ProjectIssuesComponent,
+    AddProjectIssuesPopComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule, // <-- ADDED TO IMPORTS ARRAY
     FormsModule,
     HighchartsChartModule,

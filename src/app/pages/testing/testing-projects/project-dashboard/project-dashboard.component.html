@@ -94,6 +94,14 @@
         </a>
       </li>
 
+      <!-- Issues -->
+      <li routerLinkActive="active">
+        <a [routerLink]="['issues']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Issues">report_problem</mat-icon>
+          <span *ngIf="isNavOpen">Issues</span>
+        </a>
+      </li>
+
       <!-- 9. Expenses -->
       <li routerLinkActive="active">
         <a [routerLink]="['expenses']">

@@ -56,6 +56,8 @@ import { AddExpensePopComponent } from './project-expenses/add-expense-pop/add-e
 import { AddHoursPopComponent } from './project-hours/add-hours-pop/add-hours-pop.component';
 import { ProjectStagesComponent } from "./project-stages/project-stages.component";
 import { AddAssignmentComponent } from './project-backlog/add-assignment/add-assignment.component';
+import { ProjectTodoComponent } from './project-todo/project-todo.component';
+import { AddTodoPopComponent } from './project-todo/add-todo-pop/add-todo-pop.component';
 
 const routes: Routes = [
   {
@@ -172,6 +174,12 @@ const routes: Routes = [
       { path: "timesheet1", component: PlaceholderImageComponent },
       { path: "timesheet2", component: PlaceholderImageComponent },
       { path: "sample", component: AssetsSchedulingComponent },
+      { path: "todo", component: ProjectTodoComponent,
+         data: {
+                    breadcrumb: 'Todo (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track and manage project to-do items and assigned deliverables.'
+                }
+       },
       { path: "materials", component: ProjectMaterialsComponent,
          data: {
                     breadcrumb: 'Materials (NextGen Assembly Line-2026/MFG/011 )',
@@ -214,6 +222,8 @@ const routes: Routes = [
     AddHoursPopComponent,
     ProjectStagesComponent,
     AddAssignmentComponent,
+    ProjectTodoComponent,
+    AddTodoPopComponent,
   ],
   imports: [
     CommonModule,

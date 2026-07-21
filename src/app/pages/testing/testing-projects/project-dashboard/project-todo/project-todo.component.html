@@ -1,18 +1,28 @@
-<div class="page-container" style="padding: 0 10px; box-sizing: border-box; width: 100%; margin-top: 15px;">
+<div class="main-wrapper" style="width: 100%; box-sizing: border-box;">
 
   <!-- Header Section with Buttons -->
-  <div class="header-section"
-    style="display: flex; align-items: center; justify-content: flex-end; margin-bottom: 20px; width: 100%;">
-    <div style="display: flex; gap: 10px;">
-      <button mat-raised-button color="primary" class="btn-primary" (click)="addTodo()">
-        <mat-icon>add</mat-icon> Add Todo
-      </button>
-      <button mat-raised-button (click)="filterToggle = !filterToggle" style="background-color: black; color: white;">
-        <mat-icon>filter_list</mat-icon> Filter
-      </button>
-      <button mat-raised-button (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
-        <mat-icon>arrow_back</mat-icon> Back
-      </button>
+  <div class="header-section" style="margin-bottom: 20px;">
+    <div class="title-row" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+      <div class="header-titles" style="visibility: hidden;">
+        <h1 style="font-weight: 700; font-size: 24px; margin: 0;">
+          Todo (NextGen Assembly Line-2026/MFG/011)
+        </h1>
+        <p class="subtitle" style="margin: 4px 0 0 0; color: #6b7280; font-size: 14px;">
+          Track and manage project to-do items and assigned deliverables.
+        </p>
+      </div>
+
+      <div class="header-actions" style="display: flex; gap: 10px;">
+        <button mat-raised-button color="primary" class="btn-primary" (click)="addTodo()">
+          <mat-icon>add</mat-icon> Add Todo
+        </button>
+        <button mat-raised-button (click)="filterToggle = !filterToggle" style="background-color: black; color: white;">
+          <mat-icon>filter_list</mat-icon> Filter
+        </button>
+        <button mat-raised-button (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
+          <mat-icon>arrow_back</mat-icon> Back
+        </button>
+      </div>
     </div>
   </div>
 

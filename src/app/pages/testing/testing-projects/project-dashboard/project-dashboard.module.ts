@@ -58,6 +58,8 @@ import { ProjectStagesComponent } from "./project-stages/project-stages.componen
 import { AddAssignmentComponent } from './project-backlog/add-assignment/add-assignment.component';
 import { ProjectTodoComponent } from './project-todo/project-todo.component';
 import { AddTodoPopComponent } from './project-todo/add-todo-pop/add-todo-pop.component';
+import { ProjectResourcesComponent } from './project-resources/project-resources.component';
+import { AddResourcePopComponent } from './project-resources/add-resource-pop/add-resource-pop.component';
 
 const routes: Routes = [
   {
@@ -186,6 +188,12 @@ const routes: Routes = [
                     description: 'Track project material availability, allocations, and issue status.'
                 }
        },
+      { path: "resources", component: ProjectResourcesComponent,
+         data: {
+                    breadcrumb: 'Resources (NextGen Assembly Line-2026/MFG/011 )',
+                    description: 'Track project resource scheduling, calendar allocations, and team assignments.'
+                }
+       },
     ],
   },
 ];
@@ -224,6 +232,8 @@ const routes: Routes = [
     AddAssignmentComponent,
     ProjectTodoComponent,
     AddTodoPopComponent,
+    ProjectResourcesComponent,
+    AddResourcePopComponent,
   ],
   imports: [
     CommonModule,

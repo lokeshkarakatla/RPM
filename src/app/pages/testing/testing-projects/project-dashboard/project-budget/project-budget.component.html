@@ -70,29 +70,29 @@
 </div>
 
   <div class="table-container">
-    <table class="table table-bordered table-hover text-center">
+    <table class="table table-bordered table-hover">
       <thead class="tbl-head">
         <tr>
-          <th>Stage</th>
-          <th>Module</th>
-          <th>Task</th>
-          <th>Allocation</th>
-          <th class="text-right">Standard Hours</th>
-          <th class="text-right">Budget</th>
-          <th class="text-right">Actual Hours</th>
-          <th class="text-right">Completion (%)</th>
-          <th class="text-right">Expenses</th>
-          <th class="text-right">Actual</th>
+          <th class="text-left">Stage</th>
+          <th class="text-left">Module</th>
+          <th class="text-left">Task</th>
+          <th class="text-left">Allocation</th>
+          <th class="text-center">Standard Hours</th>
+          <th class="text-center">Budget</th>
+          <th class="text-center">Actual Hours</th>
+          <th class="text-center">Completion (%)</th>
+          <th class="text-center">Expenses</th>
+          <th class="text-center">Actual</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let row of displayedRows">
-          <td>{{ row.stage }}</td>
-          <td>{{ row.module }}</td>
-          <td>{{ row.task }}</td>
-          <td>{{ row.allocation }}</td>
+          <td class="text-left">{{ row.stage }}</td>
+          <td class="text-left">{{ row.module }}</td>
+          <td class="text-left">{{ row.task }}</td>
+          <td class="text-left">{{ row.allocation }}</td>
           <td class="text-center">{{ row.standardHours }}</td>
-          <td class="text-right">{{ fmt(row.budget) }}</td>
+          <td class="text-center">{{ fmt(row.budget) }}</td>
           <td class="text-center">{{ row.actualHours }}</td>
           <td
             class="text-center font-bold"
@@ -101,7 +101,7 @@
             {{ row.completion }}%
           </td>
           <td class="text-center">{{ fmt(row.expenses) }}</td>
-          <td class="text-right">{{ fmt(row.actual) }}</td>
+          <td class="text-center">{{ fmt(row.actual) }}</td>
         </tr>
       </tbody>
     </table>

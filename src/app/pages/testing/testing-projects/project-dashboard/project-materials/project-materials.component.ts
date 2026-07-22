@@ -369,6 +369,14 @@ export class ProjectMaterialsComponent implements OnInit {
     }
   }
 
+  scrollLeft() {
+    this.scrollTable('left');
+  }
+
+  scrollRight() {
+    this.scrollTable('right');
+  }
+
     goBack(): void {
     this.router.navigateByUrl('/app/testing/projects');
   }
@@ -378,5 +386,17 @@ export class ProjectMaterialsComponent implements OnInit {
           width: '850px',
           height: 'auto'
        });
+  }
+
+  editMaterial(row: ProjectMaterial) {
+    this.dialog.open(AddRequisitionPopComponent, {
+      width: '850px',
+      height: 'auto',
+      data: row
+    });
+  }
+
+  deleteMaterial(row: ProjectMaterial) {
+    this.displayedRows = this.displayedRows.filter(r => r !== row);
   }
 }

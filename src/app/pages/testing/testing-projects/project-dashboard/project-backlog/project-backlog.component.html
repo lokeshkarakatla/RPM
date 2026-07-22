@@ -72,24 +72,23 @@
 
     <!-- ============ GRID VIEW ============ -->
     <div class="table-wrap" *ngIf="activeView === 'grid'">
-      <table class="table table-bordered table-hover text-center backlog-table">
+      <table class="table table-bordered table-hover backlog-table">
         <thead class="tbl-head">
           <tr>
-            <th class="col-actions" style="min-width: 80px;">Actions</th>
-            <th style="min-width: 180px; text-align: left;">Tasks</th>
-            <th style="min-width: 95px;">Task Code</th>
-            <th style="min-width: 95px;">Job Code</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 90px;">Expenses</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 120px;">Assigned</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 105px;">Status</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 85px;">Approved</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 85px;">Messages</th>
-            <th *ngIf="activeSprint.kind !== 'backlog'" style="min-width: 130px;">Progress</th>
-            <th style="min-width: 90px;">Effort (hrs)</th>
-            <th style="min-width: 95px;">Duration (days)</th>
-            <th style="min-width: 100px;">Stage</th>
-            <th style="min-width: 250px; text-align: left;">Description</th>
-            <th style="min-width: 90px; text-align: center;">Timeline</th>
+            <th class="col-actions text-center" style="min-width: 80px;">Actions</th>
+            <th class="text-left" style="min-width: 180px;">Tasks</th>
+            <th class="text-center" style="min-width: 95px;">Task Code</th>
+            <th class="text-center" style="min-width: 95px;">Job Code</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-left" style="min-width: 120px;">Assigned</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 105px;">Status</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 85px;">Approved</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 85px;">Messages</th>
+            <th *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="min-width: 130px;">Progress</th>
+            <th *ngIf="activeSprint.kind === 'backlog'" class="text-center" style="min-width: 90px;">Effort (hrs)</th>
+            <th *ngIf="activeSprint.kind === 'backlog'" class="text-center" style="min-width: 95px;">Duration (days)</th>
+            <th class="text-left" style="min-width: 100px;">Stage</th>
+            <th *ngIf="activeSprint.kind === 'backlog'" class="text-left" style="min-width: 250px;">Description</th>
+            <th class="text-center" style="min-width: 90px;">Timeline</th>
           </tr>
         </thead>
         <tbody>
@@ -104,22 +103,18 @@
                 </div>
               </td>
 
-              <td style="text-align: left; vertical-align: middle;"><strong>{{ t.task }}</strong></td>
-              <td style="vertical-align: middle;"><span class="code-text">{{ t.taskCode }}</span></td>
-              <td style="vertical-align: middle;"><span class="code-text">{{ t.jobCode }}</span></td>
+              <td class="text-left" style="vertical-align: middle;"><strong>{{ t.task }}</strong></td>
+              <td class="text-center" style="vertical-align: middle;"><span class="code-text">{{ t.taskCode }}</span></td>
+              <td class="text-center" style="vertical-align: middle;"><span class="code-text">{{ t.jobCode }}</span></td>
 
-              <!-- Sprint only columns (read-only in table, editable via Edit modal) -->
-              <td *ngIf="activeSprint.kind !== 'backlog'" style="text-align: right; vertical-align: middle;">
-                {{ t.expenses ? (t.expenses | number:'1.2-2') : '—' }}
-              </td>
-              <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle;">
+              <td *ngIf="activeSprint.kind !== 'backlog'" class="text-left" style="vertical-align: middle;">
                 <span class="assignee-chip" *ngIf="t.assigned">
                   <span class="assignee-avatar">{{ initials(t.assigned) }}</span>
                   {{ t.assigned }}
                 </span>
                 <span *ngIf="!t.assigned" class="assignee-empty">—</span>
               </td>
-              <td *ngIf="activeSprint.kind !== 'backlog'" style="vertical-align: middle;">
+              <td *ngIf="activeSprint.kind !== 'backlog'" class="text-center" style="vertical-align: middle;">
                 <span *ngIf="t.status" [class]="getStatusClasses(t.status)">{{ getStatusLabel(t.status) }}</span>
                 <span *ngIf="!t.status">—</span>
               </td>
@@ -137,56 +132,20 @@
                   [style.--slider-fill]="(t.progress || 0) + '%'" matTooltip="{{ t.progress || 0 }}%">
               </td>
 
-              <td style="vertical-align: middle;">{{ t.effort }}</td>
-              <td style="vertical-align: middle;">{{ t.duration }}</td>
-              <td style="vertical-align: middle;">
+              <td *ngIf="activeSprint.kind === 'backlog'" class="text-center" style="vertical-align: middle;">{{ t.effort }}</td>
+              <td *ngIf="activeSprint.kind === 'backlog'" class="text-center" style="vertical-align: middle;">{{ t.duration }}</td>
+              <td class="text-left" style="vertical-align: middle;">
                 <span [class]="getStageClasses(t.stage)">{{ t.stage }}</span>
               </td>
-              <td style="text-align: left; vertical-align: middle;">{{ t.description }}</td>
+              <td *ngIf="activeSprint.kind === 'backlog'" class="text-left" style="vertical-align: middle;">{{ t.description }}</td>
 
-              <!-- Timeline Chevron Toggle -->
+              <!-- Timeline Action -->
               <td style="vertical-align: middle;" class="text-center">
-                <button mat-icon-button (click)="t.expanded = !t.expanded" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
-                  <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">
-                    {{ t.expanded ? 'expand_more' : 'chevron_right' }}
+                <button mat-icon-button (click)="openTimelineModal(t)" matTooltip="View Timeline" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
+                  <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #2563eb;">
+                    calendar_today
                   </mat-icon>
                 </button>
-              </td>
-            </tr>
-
-            <!-- Expanded Timeline Row (Side-by-side key-values matching design in img1) -->
-            <tr *ngIf="t.expanded" style="background-color: #f8fafc;">
-              <td [attr.colspan]="colSpanForActiveSprint()" style="padding: 15px 24px; text-align: left;">
-                <div style="border-left: 3px solid #286ba5; padding-left: 15px;">
-                  <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Timeline — {{ t.task }}</div>
-                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 40px; max-width: 1000px;">
-                    <!-- Plan Start -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Start</span>
-                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planStart ? (t.planStart | date:'dd-MMM-yyyy') : '—' }}</span>
-                    </div>
-                    <!-- Plan Finish -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Finish</span>
-                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planFinish ? (t.planFinish | date:'dd-MMM-yyyy') : '—' }}</span>
-                    </div>
-                    <!-- ETA -->
-                    <div *ngIf="activeSprint.kind !== 'backlog'" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">ETA</span>
-                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.eta ? (t.eta | date:'dd-MMM-yyyy') : '—' }}</span>
-                    </div>
-                    <!-- Actual Start -->
-                    <div *ngIf="activeSprint.kind !== 'backlog'" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Start</span>
-                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualStart ? (t.actualStart | date:'dd-MMM-yyyy') : '—' }}</span>
-                    </div>
-                    <!-- Actual Finish -->
-                    <div *ngIf="activeSprint.kind !== 'backlog'" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                      <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Finish</span>
-                      <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualFinish ? (t.actualFinish | date:'dd-MMM-yyyy') : '—' }}</span>
-                    </div>
-                  </div>
-                </div>
               </td>
             </tr>
           </ng-container>
@@ -492,3 +451,109 @@
     </button>
   </div>
 </ng-template>
+
+<!-- ============ TIMELINE POP-UP MODAL (IMG1 DESIGN) ============ -->
+<div class="bl-modal-overlay" *ngIf="showTimelineModal" (click)="closeTimelineModal()" (wheel)="$event.stopPropagation()">
+  <div class="timeline-popup-card" (click)="$event.stopPropagation()" (wheel)="$event.stopPropagation()">
+    <!-- Header Row -->
+    <div class="timeline-popup-header">
+      <div class="timeline-popup-title-wrap">
+        <div class="timeline-icon-box">
+          <mat-icon style="color: #2563eb; font-size: 22px; width: 22px; height: 22px;">calendar_today</mat-icon>
+        </div>
+        <h3 class="timeline-popup-title">
+          Timeline &mdash; {{ selectedTimelineTask?.task }}
+        </h3>
+      </div>
+      <button class="timeline-close-btn" (click)="closeTimelineModal()" type="button">
+        <mat-icon style="font-size: 18px; width: 18px; height: 18px; line-height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">close</mat-icon>
+      </button>
+    </div>
+
+    <!-- Dates Grid -->
+    <div class="timeline-dates-container">
+      <div class="timeline-accent-bar"></div>
+
+      <div class="timeline-grid-content">
+        <!-- Row 1: Plan Start Date, Plan End Date, Actual Start Date -->
+        <div class="timeline-grid-row">
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Plan Start Date</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineTask?.planStart ? (selectedTimelineTask.planStart | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Plan End Date</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineTask?.planFinish ? (selectedTimelineTask.planFinish | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col timeline-date-col--last">
+            <div class="timeline-date-label">Actual Start Date</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineTask?.actualStart ? (selectedTimelineTask.actualStart | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-row-divider"></div>
+
+        <!-- Row 2: Actual End Date, ETA -->
+        <div class="timeline-grid-row">
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Actual End Date</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineTask?.actualFinish ? (selectedTimelineTask.actualFinish | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">ETA</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineTask?.eta ? (selectedTimelineTask.eta | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col timeline-date-col--last">
+            <!-- empty for grid alignment -->
+          </div>
+        </div>
+
+        <div class="timeline-row-divider"></div>
+
+        <!-- Row 3: Expenses, Effort, Duration -->
+        <div class="timeline-grid-row">
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Expenses</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineTask?.expenses ? (selectedTimelineTask.expenses | number:'1.2-2') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Effort (hrs)</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineTask?.effort !== undefined && selectedTimelineTask?.effort !== null ? selectedTimelineTask.effort : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col timeline-date-col--last">
+            <div class="timeline-date-label">Duration (days)</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineTask?.duration !== undefined && selectedTimelineTask?.duration !== null ? selectedTimelineTask.duration : '—' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description Box (Positioned at bottom, only for Sprints) -->
+    <div class="timeline-desc-box" *ngIf="activeSprint.kind !== 'backlog'" style="margin-top: 15px; padding: 12px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px;">
+      <div class="timeline-desc-header" style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; color: #1e293b; margin-bottom: 6px;">
+        <mat-icon style="font-size: 18px; width: 18px; height: 18px; color: #2563eb;">description</mat-icon>
+        <span>Description</span>
+      </div>
+      <p class="timeline-desc-text" style="margin: 0; font-size: 13px; color: #475569; line-height: 1.5; white-space: normal;">
+        {{ selectedTimelineTask?.description || 'No description available for this task.' }}
+      </p>
+    </div>
+
+  </div>
+</div>

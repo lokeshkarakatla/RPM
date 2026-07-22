@@ -44,6 +44,14 @@ import { AddDeptComponent } from './department/add-dept/add-dept.component';
 import { AddMasterComponent } from './master-section/add-master/add-master.component';
 import { TagMasterComponent } from './tag-master/tag-master.component';
 import { AddTagComponent } from './tag-master/add-tag/add-tag.component';
+import { GroupMasterComponent } from './group-master/group-master.component';
+import { AddGroupMasterComponent } from './group-master/add-group-master/add-group-master.component';
+import { SiteMasterComponent } from './site-master/site-master.component';
+import { AddSiteMasterComponent } from './site-master/add-site-master/add-site-master.component';
+import { StateMasterComponent } from './state-master/state-master.component';
+import { AddStateMasterComponent } from './state-master/add-state-master/add-state-master.component';
+import { CityMasterComponent } from './city-master/city-master.component';
+import { AddCityMasterComponent } from './city-master/add-city-master/add-city-master.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'asset-master', pathMatch: 'full' },
@@ -164,6 +172,38 @@ const routes: Routes = [
       breadcrumb: 'Tag Master',
       description: 'The tag master can be managed here.'
     }
+  },
+  {
+    path: 'group-master',
+    component: GroupMasterComponent,
+    data: {
+      breadcrumb: 'Group Master',
+      description: 'The list of groups can be managed here.'
+    }
+  },
+  {
+    path: 'site-master',
+    component: SiteMasterComponent,
+    data: {
+      breadcrumb: 'Site Master',
+      description: 'The list of sites can be managed here.'
+    }
+  },
+  {
+    path: 'state-master',
+    component: StateMasterComponent,
+    data: {
+      breadcrumb: 'State Master',
+      description: 'The list of states can be managed here.'
+    }
+  },
+  {
+    path: 'city-master',
+    component: CityMasterComponent,
+    data: {
+      breadcrumb: 'City Master',
+      description: 'The list of cities can be managed here.'
+    }
   }
 
 ]
@@ -177,7 +217,12 @@ const routes: Routes = [
     AddresparasComponent,
     AddeditscorematrixComponent,
     AddeditsubgroupComponent,
-    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent, AdditemSubCategoryComponent, AssetMasterComponent, AddAssetmasterComponent, FacilityMasterComponent, AddFacilityMasterComponent, ProjectTypesComponent, ProjectStatusComponent, AddProjectStatusComponent, AddProjectTypesComponent, MasterSectionComponent, DepartmentComponent, AddDeptComponent, AddMasterComponent, TagMasterComponent, AddTagComponent],
+    ScoreMatrixComponent, DeparmentsComponent, DetectionComponent, CategoryComponent, SubGroupsComponent, RespareasComponent, JobCodeComponent, AddJobcodePopComponent, ItemMasterComponent, ItemCategoryComponent, ItemSubcategoryComponent, AdditemComponent, AddItemCategoryComponent, AdditemSubCategoryComponent, AssetMasterComponent, AddAssetmasterComponent, FacilityMasterComponent, AddFacilityMasterComponent, ProjectTypesComponent, ProjectStatusComponent, AddProjectStatusComponent, AddProjectTypesComponent, MasterSectionComponent, DepartmentComponent, AddDeptComponent, AddMasterComponent, TagMasterComponent, AddTagComponent,
+    GroupMasterComponent, AddGroupMasterComponent,
+    SiteMasterComponent, AddSiteMasterComponent,
+    StateMasterComponent, AddStateMasterComponent,
+    CityMasterComponent, AddCityMasterComponent
+  ],
   imports: [
 
     CommonModule,

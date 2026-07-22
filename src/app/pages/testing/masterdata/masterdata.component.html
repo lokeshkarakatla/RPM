@@ -117,6 +117,39 @@
         </a>
       </li>
 
+      <!-- Group Master -->
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['./group-master']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Group Master">group_work</mat-icon>
+          <span *ngIf="isNavOpen">Group Master</span>
+        </a>
+      </li>
+
+      <!-- Site Master -->
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['./site-master']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Site Master">place</mat-icon>
+          <span *ngIf="isNavOpen">Site Master</span>
+        </a>
+      </li>
+
+      <!-- State Master -->
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['./state-master']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="State Master">map</mat-icon>
+          <span *ngIf="isNavOpen">State Master</span>
+        </a>
+      </li>
+
+      <!-- City Master -->
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['./city-master']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="City Master">location_city</mat-icon>
+          <span *ngIf="isNavOpen">City Master</span>
+        </a>
+      </li>
+
+
 
 
 

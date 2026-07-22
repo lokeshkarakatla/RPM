@@ -61,14 +61,23 @@ export class AddHoursPopComponent implements OnInit {
         const yyyy = d.getFullYear();
         this.dateStr = `${yyyy}-${mm}-${dd}`;
       }
-      this.rows = [
-        {
-          module: this.data.module || '',
-          task: this.data.task || '',
-          hours: this.data.hours || 0,
-          description: this.data.description || ''
-        }
-      ];
+      if (this.data.tasksList && this.data.tasksList.length > 0) {
+        this.rows = this.data.tasksList.map((t: any) => ({
+          module: t.module || '',
+          task: t.task || '',
+          hours: t.hours || 0,
+          description: t.description || ''
+        }));
+      } else {
+        this.rows = [
+          {
+            module: this.data.module || '',
+            task: this.data.task || '',
+            hours: this.data.hours || 0,
+            description: this.data.description || ''
+          }
+        ];
+      }
     } else {
       this.isEditMode = false;
       const today = new Date();

@@ -1,0 +1,166 @@
+<div class="main-wrapper" style="width: 100%; box-sizing: border-box;">
+
+  <!-- Header Section with Buttons -->
+  <div class="header-section" style="margin-bottom: 20px;">
+    <div class="title-row" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+      <div class="header-titles" style="visibility: hidden;">
+        <h1 style="font-weight: 700; font-size: 24px; margin: 0;">
+          Todo (NextGen Assembly Line-2026/MFG/011)
+        </h1>
+        <p class="subtitle" style="margin: 4px 0 0 0; color: #6b7280; font-size: 14px;">
+          Track and manage project to-do items and assigned deliverables.
+        </p>
+      </div>
+
+      <div class="header-actions" style="display: flex; gap: 10px;">
+        <button mat-raised-button color="primary" class="btn-primary" (click)="addTodo()">
+          <mat-icon>add</mat-icon> Add Todo
+        </button>
+        <button mat-raised-button (click)="filterToggle = !filterToggle" style="background-color: black; color: white;">
+          <mat-icon>filter_list</mat-icon> Filter
+        </button>
+        <button mat-raised-button (click)="goBack()" style="background-color: rgb(130, 130, 130); color: white;">
+          <mat-icon>arrow_back</mat-icon> Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toggleable Filter Card Matching Application Design -->
+  <div *ngIf="filterToggle" style="margin-bottom: 15px; width: 100%;">
+    <mat-card class="filter" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; background: white;">
+      <mat-card-content style="padding: 15px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; width: 100%; gap: 15px; box-sizing: border-box;">
+          
+          <!-- Keyword Field -->
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 180px; box-sizing: border-box;">
+            <b style="white-space: nowrap; font-size: 13px; color: #475569;">Keyword:</b>
+            <input type="text" [(ngModel)]="searchKeyword" (input)="applyFilters()" class="form-control"
+              placeholder="Search Keyword" style="height: 36px; flex-grow: 1; box-sizing: border-box;" />
+          </div>
+
+          <!-- Role Field -->
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 180px; box-sizing: border-box;">
+            <b style="white-space: nowrap; font-size: 13px; color: #475569;">Role:</b>
+            <mat-select [(value)]="selectedRole" (selectionChange)="applyFilters()"
+              placeholder="Select Role" class="form-control"
+              style="display: inline-flex; align-items: center; height: 36px; padding: 0 10px; flex-grow: 1; box-sizing: border-box;">
+              <mat-option [value]="null">All Roles</mat-option>
+              <mat-option *ngFor="let opt of roleOptions" [value]="opt">{{ opt }}</mat-option>
+            </mat-select>
+          </div>
+
+          <!-- Group Field -->
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 180px; box-sizing: border-box;">
+            <b style="white-space: nowrap; font-size: 13px; color: #475569;">Group:</b>
+            <mat-select [(value)]="selectedGroup" (selectionChange)="applyFilters()"
+              placeholder="Select Group" class="form-control"
+              style="display: inline-flex; align-items: center; height: 36px; padding: 0 10px; flex-grow: 1; box-sizing: border-box;">
+              <mat-option [value]="null">All Groups</mat-option>
+              <mat-option *ngFor="let opt of groupOptions" [value]="opt">{{ opt }}</mat-option>
+            </mat-select>
+          </div>
+
+          <!-- Site Field -->
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 180px; box-sizing: border-box;">
+            <b style="white-space: nowrap; font-size: 13px; color: #475569;">Site:</b>
+            <mat-select [(value)]="selectedSite" (selectionChange)="applyFilters()"
+              placeholder="Select Site" class="form-control"
+              style="display: inline-flex; align-items: center; height: 36px; padding: 0 10px; flex-grow: 1; box-sizing: border-box;">
+              <mat-option [value]="null">All Sites</mat-option>
+              <mat-option *ngFor="let opt of siteOptions" [value]="opt">{{ opt }}</mat-option>
+            </mat-select>
+          </div>
+
+          <!-- Department Field -->
+          <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 180px; box-sizing: border-box;">
+            <b style="white-space: nowrap; font-size: 13px; color: #475569;">Department:</b>
+            <mat-select [(value)]="selectedDepartment" (selectionChange)="applyFilters()"
+              placeholder="Select Department" class="form-control"
+              style="display: inline-flex; align-items: center; height: 36px; padding: 0 10px; flex-grow: 1; box-sizing: border-box;">
+              <mat-option [value]="null">All Departments</mat-option>
+              <mat-option *ngFor="let opt of departmentOptions" [value]="opt">{{ opt }}</mat-option>
+            </mat-select>
+          </div>
+
+          <!-- Actions & Close Button -->
+          <div style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+            <button mat-raised-button color="primary" (click)="applyFilters()"
+              style="background-color: #286ba5; color: white; height: 36px; display: inline-flex; align-items: center;">
+              <mat-icon style="font-size: 18px; width: 18px; height: 18px; line-height: 18px;">search</mat-icon> Search
+            </button>
+            <button mat-raised-button class="btn-default" (click)="resetFilters()"
+              style="height: 36px; background-color: #cbd5e1; display: inline-flex; align-items: center;">
+              <mat-icon style="font-size: 18px; width: 18px; height: 18px; line-height: 18px;">settings_backup_restore</mat-icon> Clear
+            </button>
+            <a (click)="filterToggle = false" style="font-size: 25px; cursor: pointer; color: #333; margin-left: 5px; display: flex; align-items: center;">
+              <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+            </a>
+          </div>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Table Section -->
+  <div class="table-wrapper">
+    <div class="table-container" #tableContainer>
+      <table class="table table-bordered table-hover">
+        <thead class="tbl-head">
+          <tr>
+            <th class="text-center" style="width: 90px;">Actions</th>
+            <th class="text-left">Subject</th>
+            <th class="text-left">Description</th>
+            <th class="text-center">Due Date</th>
+            <th class="text-left">Role</th>
+            <th class="text-left">Group</th>
+            <th class="text-left">Site</th>
+            <th class="text-left">Department</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of paginatedTodos">
+            <td class="text-center" style="vertical-align: middle;">
+              <a style="cursor: pointer; margin-right: 12px;" matTooltip="Edit Todo" (click)="editTodo(row)">
+                <i class="fa fa-edit" style="color: cornflowerblue; font-size: 16px;"></i>
+              </a>
+              <a style="cursor: pointer;" matTooltip="Delete Todo" (click)="deleteTodo(row)">
+                <i class="fa fa-trash" style="color: red; font-size: 16px;"></i>
+              </a>
+            </td>
+
+            <td class="text-left" style="font-weight: 600;">{{ row.subject }}</td>
+            <td class="text-left">{{ row.description }}</td>
+            <td class="text-center">{{ row.dueDate }}</td>
+            <td class="text-left">{{ row.role }}</td>
+            <td class="text-left">{{ row.group }}</td>
+            <td class="text-left">{{ row.site }}</td>
+            <td class="text-left">{{ row.department }}</td>
+          </tr>
+
+          <tr *ngIf="paginatedTodos.length === 0">
+            <td colspan="8" class="text-center" style="padding: 25px;">No todo items match the selected filters.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginator -->
+    <mat-paginator
+      [length]="filteredTodos.length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      (page)="handlePageEvent($event)"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</div>
+
+<!-- Floating fixed scroll buttons matching Issues design -->
+<button class="mine" mat-fab (click)="scrollRight()">
+  <mat-icon style="color: #37474f">fast_forward</mat-icon>
+</button>
+<button class="mine" mat-fab style="margin-right: 78px !important" (click)="scrollLeft()">
+  <mat-icon style="color: #37474f">fast_rewind</mat-icon>
+</button>

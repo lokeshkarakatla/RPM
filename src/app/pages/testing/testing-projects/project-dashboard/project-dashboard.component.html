@@ -70,11 +70,35 @@
         </a>
       </li>
 
+      <!-- Todo -->
+      <li routerLinkActive="active">
+        <a [routerLink]="['todo']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Todo">check_box</mat-icon>
+          <span *ngIf="isNavOpen">Todo</span>
+        </a>
+      </li>
+
       <!-- 8. Materials -->
       <li routerLinkActive="active">
         <a [routerLink]="['materials']">
           <mat-icon *ngIf="!isNavOpen" matTooltip="Materials">receipt_long</mat-icon>
           <span *ngIf="isNavOpen">Materials</span>
+        </a>
+      </li>
+
+      <!-- Resources -->
+      <li routerLinkActive="active">
+        <a [routerLink]="['resources']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Resources">people</mat-icon>
+          <span *ngIf="isNavOpen">Resources</span>
+        </a>
+      </li>
+
+      <!-- Issues -->
+      <li routerLinkActive="active">
+        <a [routerLink]="['issues']">
+          <mat-icon *ngIf="!isNavOpen" matTooltip="Issues">report_problem</mat-icon>
+          <span *ngIf="isNavOpen">Issues</span>
         </a>
       </li>
 

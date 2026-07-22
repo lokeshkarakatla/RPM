@@ -1,15 +1,11 @@
 <div class="schedule-dashboard">
 
   <div class="header-section" style="margin-bottom: 20px; justify-content: flex-end;">
-    <div class="header-actions" style="display: flex; gap: 10px; align-items: center;">
-      <button mat-raised-button 
-              [color]="isMaskingApproved ? null : 'primary'"
-              [style.background-color]="isMaskingApproved ? '#000000' : null" 
-              [style.color]="isMaskingApproved ? '#ffffff' : null"
-              (click)="toggleMaskApproved()">
-        <mat-icon>{{ isMaskingApproved ? 'visibility' : 'visibility_off' }}</mat-icon>
-        Mask Approved
-      </button>
+    <div class="header-actions" style="display: flex; gap: 12px; align-items: center;">
+      <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; font-weight: 500; font-size: 14px; color: #1e293b; user-select: none;">
+        <input type="checkbox" class="custom-checkbox cb-black" [checked]="isMaskingApproved" (change)="toggleMaskApproved()" style="width: 18px; height: 18px; cursor: pointer;">
+        <span>Mask Approved</span>
+      </label>
       <button mat-raised-button color="primary" class="btn-primary" (click)="addExpense()">
         <mat-icon>add</mat-icon> Add Expense
       </button>
@@ -33,15 +29,15 @@
           <thead class="tbl-head">
             <tr>
               <th class="text-center" style="vertical-align: middle;">Actions</th>
-              <th class="text-center" style="vertical-align: middle;">Subject</th>
-              <th style="vertical-align: middle;">Description</th>
-              <th style="vertical-align: middle;">Module</th>
-              <th style="vertical-align: middle;">Task</th>
-              <th style="vertical-align: middle;">Submitted By</th>
-              <th style="vertical-align: middle;">Submitted Date</th>
-              <th style="vertical-align: middle;">Stage</th>
-              <th style="vertical-align: middle;">Approved By</th>
-              <th style="vertical-align: middle;">Approved Date</th>
+              <th class="text-left" style="vertical-align: middle;">Subject</th>
+              <th class="text-left" style="vertical-align: middle;">Description</th>
+              <th class="text-left" style="vertical-align: middle;">Module</th>
+              <th class="text-left" style="vertical-align: middle;">Task</th>
+              <th class="text-left" style="vertical-align: middle;">Submitted By</th>
+              <th class="text-center" style="vertical-align: middle;">Submitted Date</th>
+              <th class="text-left" style="vertical-align: middle;">Stage</th>
+              <th class="text-left" style="vertical-align: middle;">Approved By</th>
+              <th class="text-center" style="vertical-align: middle;">Approved Date</th>
               <th class="text-center" style="vertical-align: middle;">Messages</th>
               <th class="text-center" style="vertical-align: middle;">Approved</th>
               <th class="text-center" style="vertical-align: middle;">Declined</th>
@@ -64,26 +60,26 @@
               </td>
 
               <!-- Subject with Approved green / red styling -->
-              <td [ngClass]="{'text-green': expense.approved, 'text-red': !expense.approved}"
+              <td class="text-left" [ngClass]="{'text-green': expense.approved, 'text-red': !expense.approved}"
                 style="font-weight: 600; vertical-align: middle;">
                 {{ expense.subject }}
               </td>
 
-              <td class="description-cell" [title]="expense.description"
+              <td class="text-left description-cell" [title]="expense.description"
                 style="vertical-align: middle; max-width: 200px;">
                 {{ truncateDescription(expense.description) }}
               </td>
 
-              <td style="vertical-align: middle;">{{ expense.module }}</td>
-              <td style="vertical-align: middle;">{{ expense.task }}</td>
-              <td style="vertical-align: middle;">{{ expense.submittedBy }}</td>
-              <td style="vertical-align: middle;">{{ expense.submittedDate | date:'yyyy-MM-dd' }}</td>
+              <td class="text-left" style="vertical-align: middle;">{{ expense.module }}</td>
+              <td class="text-left" style="vertical-align: middle;">{{ expense.task }}</td>
+              <td class="text-left" style="vertical-align: middle;">{{ expense.submittedBy }}</td>
+              <td class="text-center" style="vertical-align: middle;">{{ expense.submittedDate | date:'yyyy-MM-dd' }}</td>
 
-              <td style="vertical-align: middle;"><span class="badge" [ngClass]="expense.stageClass">{{ expense.stage
+              <td class="text-left" style="vertical-align: middle;"><span class="badge" [ngClass]="expense.stageClass">{{ expense.stage
                   }}</span></td>
 
-              <td style="vertical-align: middle;">{{ expense.approvedBy || '-' }}</td>
-              <td style="vertical-align: middle;">{{ expense.approvedDate ? (expense.approvedDate | date:'yyyy-MM-dd') :
+              <td class="text-left" style="vertical-align: middle;">{{ expense.approvedBy || '-' }}</td>
+              <td class="text-center" style="vertical-align: middle;">{{ expense.approvedDate ? (expense.approvedDate | date:'yyyy-MM-dd') :
                 '-' }}</td>
 
               <!-- Messages clickable number -->
@@ -107,7 +103,7 @@
 
               <!-- PDF: eye (view) + download icons -->
               <td class="text-center" style="vertical-align: middle;">
-                <i class="fa fa-eye" style="color: #374151; font-size: 16px; cursor: pointer; margin-right: 10px;"
+                <i class="fa fa-eye" style="color: #1b85ca; font-size: 16px; cursor: pointer; margin-right: 10px;"
                   matTooltip="View PDF" (click)="viewPdf(expense)"></i>
                 <i class="fa fa-download" style="color: #374151; font-size: 16px; cursor: pointer;"
                   matTooltip="Download PDF" (click)="downloadPdf(expense)"></i>
@@ -166,12 +162,9 @@
   </div>
 </ng-template>
 
-<!-- Floating scroll buttons -->
-<button class="mine" mat-fab
-  style="background-color: white; right: 310px; position: fixed; bottom: 80px; z-index: 9999;" (click)="scrollLeft()">
-  <mat-icon style="color: #37474f">fast_rewind</mat-icon>
-</button>
-<button class="mine" mat-fab style="background-color: white; position: fixed; right: 240px; bottom: 80px; z-index: 9999;"
-  (click)="scrollRight()">
+<button class="mine" mat-fab (click)="scrollRight()">
   <mat-icon style="color: #37474f">fast_forward</mat-icon>
+</button>
+<button class="mine" mat-fab style="margin-right: 78px !important" (click)="scrollLeft()">
+  <mat-icon style="color: #37474f">fast_rewind</mat-icon>
 </button>

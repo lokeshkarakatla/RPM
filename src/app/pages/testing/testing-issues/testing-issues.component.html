@@ -143,6 +143,8 @@
           <thead class="tbl-head" style="background-color: #f5f5f5;">
             <tr>
               <th class="text-center" style="min-width: 100px;">Actions</th>
+              <th class="text-center" style="min-width: 180px;">Project Name</th>
+              <th class="text-center" style="min-width: 150px;">Project Code</th>
               <th class="text-center" style="min-width: 250px;">Issue Description</th>
               <th class="text-center" style="min-width: 180px;">Subject</th>
               <th class="text-center" style="min-width: 150px;">Responsibility</th>
@@ -164,6 +166,16 @@
                   <i class="fa fa-trash"></i>
                 </a>
               </td>
+              <td class="text-center">
+                <a style="color: blue; cursor: pointer; text-decoration: none;" (click)="openProject(applicant)">
+                  {{ applicant.projectName }}
+                </a>
+              </td>
+              <td class="text-center">
+                <a style="color: blue; cursor: pointer; text-decoration: none;" (click)="openProject(applicant)">
+                  {{ applicant.projectCode }}
+                </a>
+              </td>
               <td class="text-left" style="white-space: normal;">{{ applicant.issueDescription }}</td>
               <td class="text-center">{{ applicant.subject }}</td>
               <td class="text-center">{{ applicant.responsibility }}</td>
@@ -177,10 +189,10 @@
               <td class="text-center">
                 <ng-container *ngIf="applicant.image; else noImg">
                   <a [href]="applicant.image" target="_blank" matTooltip="View Image" style="margin-right: 8px; color: black; cursor: pointer;">
-                    <mat-icon style="vertical-align: middle;">visibility</mat-icon>
+                    <i class="fa fa-eye" style="color: black; font-size: 15px;"></i>
                   </a>
                   <a [href]="applicant.image" download matTooltip="Download Image" style="color: black; cursor: pointer;">
-                    <mat-icon style="vertical-align: middle;">download</mat-icon>
+                    <i class="fa fa-download" style="font-size: 15px;"></i>
                   </a>
                 </ng-container>
                 <ng-template #noImg>NA</ng-template>
@@ -188,17 +200,17 @@
               <td class="text-center">
                 <ng-container *ngIf="applicant.document; else noDoc">
                   <a [href]="applicant.document" target="_blank" matTooltip="View Document" style="margin-right: 8px; color: black; cursor: pointer;">
-                    <mat-icon style="vertical-align: middle;">visibility</mat-icon>
+                    <i class="fa fa-eye" style="color: black; font-size: 15px;"></i>
                   </a>
                   <a [href]="applicant.document" download matTooltip="Download Document" style="color: black; cursor: pointer;">
-                    <mat-icon style="vertical-align: middle;">download</mat-icon>
+                    <i class="fa fa-download" style="font-size: 15px;"></i>
                   </a>
                 </ng-container>
                 <ng-template #noDoc>NA</ng-template>
               </td>
             </tr>
             <tr *ngIf="!tableList || tableList.length === 0">
-              <td colspan="8" class="text-center">No records found</td>
+              <td colspan="11" class="text-center">No records found</td>
             </tr>
           </tbody>
         </table>

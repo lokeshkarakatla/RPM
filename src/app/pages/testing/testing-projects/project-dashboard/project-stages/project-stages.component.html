@@ -37,14 +37,13 @@
               <th class="text-center">Move</th>
               <th class="text-center" style="width: 112px !important">Actions</th>
               <th class="text-center">Status</th>
-              <th>Stage Code</th>
-              <th>Stage Name</th>
-              <th>Plan Effort</th>
-              <th>Plan Duration</th>
-              <th>Description</th>
-              <th>Buffer</th>
-              <th>Gate Name</th>
-              <th>Gate Status</th>
+              <th class="text-center">Stage Code</th>
+              <th class="text-left">Stage Name</th>
+              <th class="text-center">Plan Effort</th>
+              <th class="text-center">Plan Duration</th>
+              <th class="text-center">Buffer</th>
+              <th class="text-left">Gate Name</th>
+              <th class="text-center">Gate Status</th>
               <th class="text-center">Setup</th>
               <th class="text-center">Timeline</th>
             </tr>
@@ -77,14 +76,13 @@
                   </a>
                 </td>
 
-                <td>{{ s.stageCode }}</td>
-                <td><span class="stage-name-text">{{ s.name }}</span></td>
-                <td>{{ s.planEffort }}</td>
-                <td>{{ s.planDuration }}</td>
-                <td>{{ s.description }}</td>
-                <td>{{ s.buffer }}</td>
-                <td>{{ s.gateName }}</td>
-                <td>
+                <td class="text-center">{{ s.stageCode }}</td>
+                <td class="text-left"><span class="stage-name-text">{{ s.name }}</span></td>
+                <td class="text-center">{{ s.planEffort }}</td>
+                <td class="text-center">{{ s.planDuration }}</td>
+                <td class="text-center">{{ s.buffer }}</td>
+                <td class="text-left">{{ s.gateName }}</td>
+                <td class="text-center">
                   <span class="gate-status-badge" [class]="'gate-status-badge--' + s.gateStatus.toLowerCase()">
                     {{ s.gateStatus }}
                   </span>
@@ -97,54 +95,18 @@
                   </a>
                 </td>
 
-                <!-- Timeline Chevron Toggle -->
+                <!-- Timeline Action -->
                 <td class="text-center">
-                  <button mat-icon-button (click)="s.expanded = !s.expanded" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
-                    <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">
-                      {{ s.expanded ? 'expand_more' : 'chevron_right' }}
+                  <button mat-icon-button (click)="openTimelineModal(s)" matTooltip="View Timeline" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
+                    <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #2563eb;">
+                      calendar_today
                     </mat-icon>
                   </button>
                 </td>
               </tr>
-
-              <!-- Expanded Timeline Row (Side-by-side key-values matching design in img1) -->
-              <tr *ngIf="s.expanded" class="no-drag" style="background-color: #f8fafc;">
-                <td colspan="13" style="padding: 15px 24px; text-align: left;">
-                  <div style="border-left: 3px solid #286ba5; padding-left: 15px;">
-                    <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Timeline — {{ s.name }}</div>
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 40px; max-width: 1000px;">
-                      <!-- Plan Start Date -->
-                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Start Date</span>
-                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.planStart ? (s.planStart | date:'dd-MMM-yyyy') : '—' }}</span>
-                      </div>
-                      <!-- Plan End Date -->
-                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan End Date</span>
-                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.planEnd ? (s.planEnd | date:'dd-MMM-yyyy') : '—' }}</span>
-                      </div>
-                      <!-- Actual Start Date -->
-                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Start Date</span>
-                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.actualStart ? (s.actualStart | date:'dd-MMM-yyyy') : '—' }}</span>
-                      </div>
-                      <!-- Actual End Date -->
-                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual End Date</span>
-                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.actualEnd ? (s.actualEnd | date:'dd-MMM-yyyy') : '—' }}</span>
-                      </div>
-                      <!-- ETA -->
-                      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">ETA</span>
-                        <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ s.eta ? (s.eta | date:'dd-MMM-yyyy') : '—' }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
             </ng-container>
             <tr *ngIf="stages.length === 0" class="no-drag">
-              <td colspan="13" class="empty-table-cell">No stages registered.</td>
+              <td colspan="12" class="empty-table-cell">No stages registered.</td>
             </tr>
           </tbody>
         </table>
@@ -258,8 +220,8 @@
         <button mat-raised-button style="background-color: black; color: white;" class="filter-btn" (click)="toggleSetupFilter()">
           <mat-icon>filter_list</mat-icon> Filter
         </button>
-        <button mat-raised-button color="primary" class="wbs-btn wbs-btn--stim" (click)="openStimulationModal()">
-          <mat-icon>add</mat-icon> Stimulation
+        <button mat-raised-button class="wbs-btn wbs-btn--stim" (click)="openStimulationModal()">
+          <mat-icon style="font-size: 19px; width: 19px; height: 19px; display: inline-flex; align-items: center; justify-content: center; margin-right: 4px; margin-bottom: 2px;">grid_view</mat-icon> Stimulation
         </button>
         <button mat-raised-button color="primary" class="wbs-btn wbs-btn--add-task" (click)="openAddTask()">
           <mat-icon>add</mat-icon> Add Task
@@ -362,16 +324,15 @@
             <thead class="tbl-head">
               <tr>
                 <th class="text-center" style="width: 112px !important">Actions</th>
-                <th>Task</th>
-                <th>Task Code</th>
-                <th>Job Code</th>
-                <th>Effort</th>
-                <th>Department</th>
-                <th>Responsibility</th>
-                <th>Section</th>
-                <th>Actual Hours</th>
-                <th>Expenses</th>
-                <th>Priority</th>
+                <th class="text-left">Task</th>
+                <th class="text-center">Task Code</th>
+                <th class="text-center">Job Code</th>
+                <th class="text-center">Effort</th>
+                <th class="text-left">Department</th>
+                <th class="text-left">Responsibility</th>
+                <th class="text-left">Section</th>
+                <th class="text-center">Expenses</th>
+                <th class="text-center">Priority</th>
                 <th class="text-center">Timeline</th>
               </tr>
             </thead>
@@ -389,74 +350,37 @@
                       </a>
                     </td>
 
-                    <td><strong>{{ t.task }}</strong></td>
-                    <td><span class="code-badge">{{ t.taskCode }}</span></td>
-                    <td><span class="code-badge">{{ t.jobCode }}</span></td>
-                    <td>{{ t.effort }}h</td>
-                    <td>{{ t.department }}</td>
-                    <td>{{ t.role }}</td>
-                    <td>{{ t.section || '—' }}</td>
-                    <td>{{ t.actualHours }}h</td>
-                    <td>{{ t.expenses }}</td>
-                    <td>
+                    <td class="text-left"><strong>{{ t.task }}</strong></td>
+                    <td class="text-center"><span class="code-badge">{{ t.taskCode }}</span></td>
+                    <td class="text-center"><span class="code-badge">{{ t.jobCode }}</span></td>
+                    <td class="text-center">{{ t.effort }}h</td>
+                    <td class="text-left">{{ t.department }}</td>
+                    <td class="text-left">{{ t.role }}</td>
+                    <td class="text-left">{{ t.section || '—' }}</td>
+                    <td class="text-center">{{ t.expenses }}</td>
+                    <td class="text-center">
                       <span class="priority-label" [class]="'priority-label--' + t.priority.toLowerCase()">
                         {{ t.priority }}
                       </span>
                     </td>
 
-                    <!-- Timeline Chevron Toggle -->
+                    <!-- Timeline Action -->
                     <td class="text-center">
-                      <button mat-icon-button (click)="t.expanded = !t.expanded" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
-                        <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">
-                          {{ t.expanded ? 'expand_more' : 'chevron_right' }}
+                      <button mat-icon-button (click)="openTimelineModal(t)" matTooltip="View Timeline" style="min-width: 32px; width: 32px; height: 32px; line-height: 32px; border-radius: 50%; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; outline: none; padding: 0;">
+                        <mat-icon style="font-size: 18px; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: #2563eb;">
+                          calendar_today
                         </mat-icon>
                       </button>
                     </td>
                   </tr>
-
-                  <!-- Expanded Timeline Row (Side-by-side key-values matching design in img1) -->
-                  <tr *ngIf="t.expanded" style="background-color: #f8fafc;">
-                    <td colspan="12" style="padding: 15px 24px; text-align: left;">
-                      <div style="border-left: 3px solid #286ba5; padding-left: 15px;">
-                        <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">Timeline — {{ t.task }}</div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 40px; max-width: 1000px;">
-                          <!-- Plan Start Date -->
-                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan Start Date</span>
-                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planStart ? (t.planStart | date:'dd-MMM-yyyy') : '—' }}</span>
-                          </div>
-                          <!-- Plan End Date -->
-                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Plan End Date</span>
-                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.planEnd ? (t.planEnd | date:'dd-MMM-yyyy') : '—' }}</span>
-                          </div>
-                          <!-- Actual Start Date -->
-                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual Start Date</span>
-                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualStart ? (t.actualStart | date:'dd-MMM-yyyy') : '—' }}</span>
-                          </div>
-                          <!-- Actual End Date -->
-                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">Actual End Date</span>
-                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.actualEnd ? (t.actualEnd | date:'dd-MMM-yyyy') : '—' }}</span>
-                          </div>
-                          <!-- ETA -->
-                          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
-                            <span style="font-size: 13px; font-weight: 600; color: #1e293b;">ETA</span>
-                            <span style="font-size: 13px; font-weight: 500; color: #64748b; font-family: monospace;">{{ t.eta ? (t.eta | date:'dd-MMM-yyyy') : '—' }}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
                 </ng-container>
                 <tr *ngIf="getFilteredTasks(currentMod.tasks).length === 0">
-                  <td colspan="12" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
+                  <td colspan="11" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
                   </td>
                 </tr>
               </ng-container>
               <tr *ngIf="!activeStage.modules || activeStage.modules.length === 0">
-                <td colspan="12" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
+                <td colspan="11" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
               </tr>
             </tbody>
           </table>
@@ -983,5 +907,89 @@
         <mat-icon>save</mat-icon> Save
       </button>
     </mat-dialog-actions>
+  </div>
+</div>
+
+<!-- ============ TIMELINE POP-UP MODAL (IMG1 DESIGN) ============ -->
+<div class="bl-modal-overlay" *ngIf="showTimelineModal" (click)="closeTimelineModal()" (wheel)="$event.stopPropagation()">
+  <div class="timeline-popup-card" (click)="$event.stopPropagation()" (wheel)="$event.stopPropagation()">
+    <!-- Header Row -->
+    <div class="timeline-popup-header">
+      <div class="timeline-popup-title-wrap">
+        <div class="timeline-icon-box">
+          <mat-icon style="color: #2563eb; font-size: 22px; width: 22px; height: 22px;">calendar_today</mat-icon>
+        </div>
+        <h3 class="timeline-popup-title">
+          Timeline &mdash; {{ selectedTimelineItem?.name || selectedTimelineItem?.task }}
+        </h3>
+      </div>
+      <button class="timeline-close-btn" (click)="closeTimelineModal()" type="button">
+        <mat-icon style="font-size: 18px; width: 18px; height: 18px; line-height: 18px; display: flex; align-items: center; justify-content: center; color: #475569;">close</mat-icon>
+      </button>
+    </div>
+
+    <!-- Dates Grid -->
+    <div class="timeline-dates-container">
+      <div class="timeline-accent-bar"></div>
+
+      <div class="timeline-grid-content">
+        <!-- Row 1: Plan Start Date, Plan End Date, Actual Start Date -->
+        <div class="timeline-grid-row">
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Plan Start Date</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineItem?.planStart ? (selectedTimelineItem.planStart | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Plan End Date</div>
+            <div class="timeline-date-value">
+              {{ (selectedTimelineItem?.planEnd || selectedTimelineItem?.planFinish) ? ((selectedTimelineItem.planEnd || selectedTimelineItem.planFinish) | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col timeline-date-col--last">
+            <div class="timeline-date-label">Actual Start Date</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineItem?.actualStart ? (selectedTimelineItem.actualStart | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-row-divider"></div>
+
+        <!-- Row 2: Actual End Date, ETA -->
+        <div class="timeline-grid-row">
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Actual End Date</div>
+            <div class="timeline-date-value">
+              {{ (selectedTimelineItem?.actualEnd || selectedTimelineItem?.actualFinish) ? ((selectedTimelineItem.actualEnd || selectedTimelineItem.actualFinish) | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">ETA</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineItem?.eta ? (selectedTimelineItem.eta | date:'dd-MMM-yyyy') : '—' }}
+            </div>
+          </div>
+          <div class="timeline-date-col timeline-date-col--last">
+            <div class="timeline-date-label">Actual Hours</div>
+            <div class="timeline-date-value">
+              {{ (selectedTimelineItem?.actualHours !== undefined && selectedTimelineItem?.actualHours !== null) ? selectedTimelineItem.actualHours + ' hrs' : '—' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description Box (Positioned at bottom) -->
+    <div class="timeline-desc-box">
+      <div class="timeline-desc-header">
+        <mat-icon style="font-size: 18px; width: 18px; height: 18px; color: #3b82f6;">description</mat-icon>
+        <span>Description</span>
+      </div>
+      <p class="timeline-desc-text">
+        This timeline provides an overview of the key planned and actual dates for the {{ (selectedTimelineItem?.name || selectedTimelineItem?.task || 'phase') }} of the project. The dates below help track the progress and any deviations from the original plan.
+      </p>
+    </div>
   </div>
 </div>

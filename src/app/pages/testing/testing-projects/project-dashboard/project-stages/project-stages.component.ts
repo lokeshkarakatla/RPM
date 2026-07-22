@@ -609,6 +609,22 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
   pageSize = 5;
   currentPage = 0;
 
+  // Timeline Modal Popup state
+  showTimelineModal = false;
+  selectedTimelineItem: any = null;
+
+  openTimelineModal(item: any) {
+    this.selectedTimelineItem = item;
+    this.showTimelineModal = true;
+    this.setBodyScrollLock(true);
+  }
+
+  closeTimelineModal() {
+    this.showTimelineModal = false;
+    this.selectedTimelineItem = null;
+    this.setBodyScrollLock(false);
+  }
+
   // Add / Edit Stage Modal states
   showStageModal = false;
   stageModalStep = 1; // Track active step/tab in popup
@@ -736,6 +752,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
 
   private setBodyScrollLock(lock: boolean) {
     document.body.style.overflow = lock ? 'hidden' : 'auto';
+    document.documentElement.style.overflow = lock ? 'hidden' : 'auto';
   }
 
 

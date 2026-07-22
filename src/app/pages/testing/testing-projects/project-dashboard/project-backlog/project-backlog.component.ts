@@ -122,6 +122,24 @@ export class ProjectBacklogComponent {
   showAddSprint = false;
   newSprintName = '';
 
+  // Timeline Modal Popup state
+  showTimelineModal = false;
+  selectedTimelineTask: Task | null = null;
+
+  openTimelineModal(task: Task) {
+    this.selectedTimelineTask = task;
+    this.showTimelineModal = true;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  closeTimelineModal() {
+    this.showTimelineModal = false;
+    this.selectedTimelineTask = null;
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+  }
+
   activeTabId = 'backlog';
   activeView: 'grid' | 'kanban' | 'calendar' | 'gantt' = 'grid';
 
@@ -413,7 +431,7 @@ export class ProjectBacklogComponent {
   }
 
   colSpanForActiveSprint(): number {
-    return this.activeSprint.kind === 'backlog' ? 9 : 15;
+    return this.activeSprint.kind === 'backlog' ? 9 : 11;
   }
 
   deleteAsset(item: Task): void {

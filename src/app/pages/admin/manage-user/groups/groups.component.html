@@ -49,21 +49,14 @@
           <table id="example2" class="table table-bordered table-hover" style="width: 100%; border-collapse: collapse; margin-bottom: 0;">
             <thead class="tbl-head">
               <tr>
+                <th class="text-center" style="background-color: #3F3F3F; color: white; width: 120px;">Actions</th>
                 <th style="background-color: #3F3F3F; color: white;">Group Name</th>
                 <th class="text-center" style="background-color: #3F3F3F; color: white; width: 150px;">Team</th>
                 <th style="background-color: #3F3F3F; color: white; width: 150px;">Status</th>
-                <th class="text-center" style="background-color: #3F3F3F; color: white; width: 120px;">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let g of filteredGroupsList; let i = index">
-                <td style="vertical-align: middle;">{{ g.name }}</td>
-                <td class="text-center" style="vertical-align: middle;">
-                  <a class="team-link" style="color: #1976d2; font-weight: bold; cursor: pointer;">{{ g.team }}</a>
-                </td>
-                <td style="vertical-align: middle;">
-                  <span style="color: green; font-weight: 500;">{{ g.status }}</span>
-                </td>
                 <td class="text-center" style="vertical-align: middle;">
                   <div style="display: flex; gap: 15px; justify-content: center; align-items: center;">
                     <a style="cursor: pointer;" matTooltip="Edit Group" (click)="openEditModal(g, i)">
@@ -73,6 +66,13 @@
                       <i class="fa fa-trash text-danger" style="font-size: 16px;"></i>
                     </a>
                   </div>
+                </td>
+                <td style="vertical-align: middle;">{{ g.name }}</td>
+                <td class="text-center" style="vertical-align: middle;">
+                  <a class="team-link" style="color: #1976d2; font-weight: bold; cursor: pointer;">{{ g.team }}</a>
+                </td>
+                <td style="vertical-align: middle;">
+                  <span style="color: green; font-weight: 500;">{{ g.status }}</span>
                 </td>
               </tr>
               <tr *ngIf="filteredGroupsList.length === 0">

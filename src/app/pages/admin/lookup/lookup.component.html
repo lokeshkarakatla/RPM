@@ -173,16 +173,27 @@
     margin-left: 11px;">
         <thead class="tbl-head">
           <tr class="tr-grid-header">
-
+            <th class="text-center">Actions</th>
             <th>Lookup</th>
             <th class="text-center">Code</th>
             <th class="text-center">Status</th>
-            <th class="text-center">Actions</th>
             <th class="text-center">Category</th>
           </tr>
         </thead>
         <tbody>
   <tr *ngFor="let applicant of tableList">
+    <td class="text-center">
+      <a
+        style="margin-right:10px;cursor:pointer;color:cornflowerblue"
+        (click)="addlookup(applicant)">
+        <i class="fa fa-edit"></i>
+      </a>
+
+      <a>
+        <i style="cursor:pointer" class="fa fa-trash red"></i>
+      </a>
+    </td>
+
     <td>{{ applicant.CodeMasterName }}</td>
 
     <td class="text-center">
@@ -194,18 +205,6 @@
         [ngStyle]="{'color': applicant.vcStatus ? 'blue' : 'red','cursor':'pointer'}"
         (confirm)="saveStatus(); applicant.vcStatus=!applicant.vcStatus">
         {{ applicant.vcStatus ? 'Active' : 'Inactive' }}
-      </a>
-    </td>
-
-    <td class="text-center">
-      <a
-        style="margin-right:10px;cursor:pointer;color:cornflowerblue"
-        (click)="addlookup(applicant)">
-        <i class="fa fa-edit"></i>
-      </a>
-
-      <a>
-        <i style="cursor:pointer" class="fa fa-trash red"></i>
       </a>
     </td>
 

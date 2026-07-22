@@ -6,7 +6,7 @@
   position: fixed;
   right: 0;
   top: 78px;
-  height: calc(100vh - 56px);
+  bottom: 0;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #f0f0f0;
@@ -25,7 +25,6 @@
 
 .nav-closed {
   width: 60px;
-  overflow: hidden;
 }
 
 .toggle-button {

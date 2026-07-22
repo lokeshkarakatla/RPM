@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Router } from '@angular/router';
 
 import { AddIssuesssComponent } from './add-issuesss/add-issuesss.component';
 import { IssuesGridColumnsComponent } from './issues-grid-columns/issues-grid-columns.component';
@@ -42,7 +43,7 @@ export class TestingIssuesComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     // RESTORE full FormGroup mapping to prevent console binding errors
@@ -76,7 +77,9 @@ export class TestingIssuesComponent implements OnInit {
       status: 'Pending',
       image: 'assets/sample-image.jpg',
       document: 'assets/sample-1.pdf',
-      responsibility: 'Roshan'
+      responsibility: 'Roshan',
+      projectName: 'NextGen Assembly Line-2026',
+      projectCode: '202606/NGA/001'
     },
     {
       id: 2,
@@ -87,7 +90,9 @@ export class TestingIssuesComponent implements OnInit {
       status: 'Process',
       image: 'assets/sample-image.jpg',
       document: 'assets/sample-1.pdf',
-      responsibility: 'Lokesh'
+      responsibility: 'Lokesh',
+      projectName: 'Inventory Management System',
+      projectCode: '202606/IMS/003'
     },
     {
       id: 3,
@@ -98,7 +103,9 @@ export class TestingIssuesComponent implements OnInit {
       status: 'Closed',
       image: 'assets/sample-image.jpg',
       document: 'assets/sample-1.pdf',
-      responsibility: 'Tejaswi'
+      responsibility: 'Tejaswi',
+      projectName: 'HR Management Platform',
+      projectCode: '202606/HRM/004'
     },
     {
       id: 4,
@@ -109,7 +116,9 @@ export class TestingIssuesComponent implements OnInit {
       status: 'Hold',
       image: 'assets/sample-image.jpg',
       document: 'assets/sample-1.pdf',
-      responsibility: 'Santosh'
+      responsibility: 'Santosh',
+      projectName: 'Mobile Banking App',
+      projectCode: '202606/MBA/005'
     }
   ];
 
@@ -153,6 +162,10 @@ export class TestingIssuesComponent implements OnInit {
     if (kanbanStatus === 'Allocated') return 'Allocated';
     if (kanbanStatus === 'Cancelled') return 'Cancelled';
     return 'Pending';
+  }
+
+  openProject(item: any): void {
+    this.router.navigate(['/app/testing/projects/dashboard']);
   }
 
   initializeKanbanData(): void {

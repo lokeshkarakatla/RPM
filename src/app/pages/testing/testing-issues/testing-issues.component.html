@@ -177,10 +177,10 @@
               <td class="text-center">
                 <ng-container *ngIf="applicant.image; else noImg">
                   <a [href]="applicant.image" target="_blank" matTooltip="View Image" style="margin-right: 8px; color: black; cursor: pointer;">
-                    <mat-icon style="vertical-align: middle;">visibility</mat-icon>
+                    <i class="fa fa-eye" style="color: black; font-size: 15px;"></i>
                   </a>
                   <a [href]="applicant.image" download matTooltip="Download Image" style="color: black; cursor: pointer;">
-                    <mat-icon style="vertical-align: middle;">download</mat-icon>
+                    <i class="fa fa-download" style="font-size: 15px;"></i>
                   </a>
                 </ng-container>
                 <ng-template #noImg>NA</ng-template>
@@ -188,10 +188,10 @@
               <td class="text-center">
                 <ng-container *ngIf="applicant.document; else noDoc">
                   <a [href]="applicant.document" target="_blank" matTooltip="View Document" style="margin-right: 8px; color: black; cursor: pointer;">
-                    <mat-icon style="vertical-align: middle;">visibility</mat-icon>
+                    <i class="fa fa-eye" style="color: black; font-size: 15px;"></i>
                   </a>
                   <a [href]="applicant.document" download matTooltip="Download Document" style="color: black; cursor: pointer;">
-                    <mat-icon style="vertical-align: middle;">download</mat-icon>
+                    <i class="fa fa-download" style="font-size: 15px;"></i>
                   </a>
                 </ng-container>
                 <ng-template #noDoc>NA</ng-template>

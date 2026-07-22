@@ -431,7 +431,7 @@ export class ProjectBacklogComponent {
   }
 
   colSpanForActiveSprint(): number {
-    return this.activeSprint.kind === 'backlog' ? 9 : 15;
+    return this.activeSprint.kind === 'backlog' ? 9 : 11;
   }
 
   deleteAsset(item: Task): void {

@@ -41,7 +41,6 @@
               <th class="text-left">Stage Name</th>
               <th class="text-center">Plan Effort</th>
               <th class="text-center">Plan Duration</th>
-              <th class="text-left">Description</th>
               <th class="text-center">Buffer</th>
               <th class="text-left">Gate Name</th>
               <th class="text-center">Gate Status</th>
@@ -81,7 +80,6 @@
                 <td class="text-left"><span class="stage-name-text">{{ s.name }}</span></td>
                 <td class="text-center">{{ s.planEffort }}</td>
                 <td class="text-center">{{ s.planDuration }}</td>
-                <td class="text-left">{{ s.description }}</td>
                 <td class="text-center">{{ s.buffer }}</td>
                 <td class="text-left">{{ s.gateName }}</td>
                 <td class="text-center">
@@ -108,7 +106,7 @@
               </tr>
             </ng-container>
             <tr *ngIf="stages.length === 0" class="no-drag">
-              <td colspan="13" class="empty-table-cell">No stages registered.</td>
+              <td colspan="12" class="empty-table-cell">No stages registered.</td>
             </tr>
           </tbody>
         </table>
@@ -333,7 +331,6 @@
                 <th class="text-left">Department</th>
                 <th class="text-left">Responsibility</th>
                 <th class="text-left">Section</th>
-                <th class="text-center">Actual Hours</th>
                 <th class="text-center">Expenses</th>
                 <th class="text-center">Priority</th>
                 <th class="text-center">Timeline</th>
@@ -360,7 +357,6 @@
                     <td class="text-left">{{ t.department }}</td>
                     <td class="text-left">{{ t.role }}</td>
                     <td class="text-left">{{ t.section || '—' }}</td>
-                    <td class="text-center">{{ t.actualHours }}h</td>
                     <td class="text-center">{{ t.expenses }}</td>
                     <td class="text-center">
                       <span class="priority-label" [class]="'priority-label--' + t.priority.toLowerCase()">
@@ -379,12 +375,12 @@
                   </tr>
                 </ng-container>
                 <tr *ngIf="getFilteredTasks(currentMod.tasks).length === 0">
-                  <td colspan="12" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
+                  <td colspan="11" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
                   </td>
                 </tr>
               </ng-container>
               <tr *ngIf="!activeStage.modules || activeStage.modules.length === 0">
-                <td colspan="12" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
+                <td colspan="11" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
               </tr>
             </tbody>
           </table>
@@ -976,7 +972,10 @@
             </div>
           </div>
           <div class="timeline-date-col timeline-date-col--last">
-            <!-- empty for grid alignment -->
+            <div class="timeline-date-label">Actual Hours</div>
+            <div class="timeline-date-value">
+              {{ (selectedTimelineItem?.actualHours !== undefined && selectedTimelineItem?.actualHours !== null) ? selectedTimelineItem.actualHours + ' hrs' : '—' }}
+            </div>
           </div>
         </div>
       </div>

@@ -400,14 +400,19 @@
   background: white;
   border-radius: 6px;
   border: 1px solid #cbd5e1;
-  overflow: hidden;
+  overflow: auto;
+  max-height: calc(100vh - 220px);
 
   table {
     width: 100%;
     margin-bottom: 0;
 
     th.mat-header-cell,
-    tr.mat-mdc-header-row th {
+    tr.mat-mdc-header-row th,
+    tr.mat-header-row th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
       background-color: #3f3f3f !important;
       color: white !important;
       text-align: center;

@@ -36,6 +36,15 @@ export interface StageModule {
   name: string;
   count: number;
   tasks: Task[];
+  planStart?: string;
+  planEnd?: string;
+}
+
+export interface GanttBar {
+  name: string;
+  planStart: string;
+  planEnd: string;
+  planEffort: string;
 }
 
 export interface StageItem {
@@ -57,6 +66,7 @@ export interface StageItem {
   setupCount: number;
   modules: StageModule[];
   expanded?: boolean;
+  bars?: GanttBar[];
 }
 
 @Component({
@@ -84,6 +94,11 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT000',
       status: true,
       setupCount: 10,
+      bars: [
+        { name: 'Requirements & Concept', planStart: '2026-01-05', planEnd: '2026-02-15', planEffort: '160 hrs' },
+        { name: 'Mid-Year Concept Review', planStart: '2026-07-01', planEnd: '2026-07-25', planEffort: '60 hrs' },
+        { name: 'Annual Requirement Sync', planStart: '2026-11-05', planEnd: '2026-11-28', planEffort: '40 hrs' }
+      ],
       modules: [
         {
           name: 'Stakeholder Alignment',
@@ -126,6 +141,12 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT001',
       status: true,
       setupCount: 8,
+      bars: [
+        { name: 'Feasibility Pre-check', planStart: '2026-01-08', planEnd: '2026-01-14', planEffort: '40 hrs' },
+        { name: 'Feasibility & Viability', planStart: '2026-02-16', planEnd: '2026-03-31', planEffort: '180 hrs' },
+        { name: 'Tech Stack Audit', planStart: '2026-06-01', planEnd: '2026-06-25', planEffort: '50 hrs' },
+        { name: 'Financial Re-viability', planStart: '2026-11-01', planEnd: '2026-11-20', planEffort: '30 hrs' }
+      ],
       modules: [
         {
           name: 'Feasibility Study',
@@ -166,6 +187,11 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT002',
       status: true,
       setupCount: 6,
+      bars: [
+        { name: 'Early Arch Review', planStart: '2026-01-10', planEnd: '2026-01-16', planEffort: '45 hrs' },
+        { name: 'System Architecture', planStart: '2026-04-01', planEnd: '2026-05-15', planEffort: '220 hrs' },
+        { name: 'Scalability & Cloud Arch', planStart: '2026-09-01', planEnd: '2026-09-25', planEffort: '70 hrs' }
+      ],
       modules: [
         {
           name: 'Blueprint Design',
@@ -204,6 +230,10 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT003',
       status: true,
       setupCount: 5,
+      bars: [
+        { name: 'UX Wireframe Sprint', planStart: '2026-01-11', planEnd: '2026-01-19', planEffort: '75 hrs' },
+        { name: 'Detail Specification & UX', planStart: '2026-05-16', planEnd: '2026-06-30', planEffort: '200 hrs' }
+      ],
       modules: [
         {
           name: 'UX Mockups',
@@ -241,6 +271,11 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT004',
       status: true,
       setupCount: 5,
+      bars: [
+        { name: 'Early Tooling Setup', planStart: '2026-02-01', planEnd: '2026-02-25', planEffort: '40 hrs' },
+        { name: 'Prototype & Tooling', planStart: '2026-07-01', planEnd: '2026-07-31', planEffort: '150 hrs' },
+        { name: 'Field Hardware Tooling', planStart: '2026-11-01', planEnd: '2026-11-25', planEffort: '50 hrs' }
+      ],
       modules: [
         {
           name: 'Project Initiation & Planning',
@@ -278,6 +313,12 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT005',
       status: true,
       setupCount: 6,
+      bars: [
+        { name: 'Core PoC Sprint 1', planStart: '2026-01-08', planEnd: '2026-01-14', planEffort: '60 hrs' },
+        { name: 'Core PoC Sprint 2 (Overlap)', planStart: '2026-01-12', planEnd: '2026-01-21', planEffort: '90 hrs' },
+        { name: 'Core PoC Development', planStart: '2026-03-01', planEnd: '2026-03-25', planEffort: '80 hrs' },
+        { name: 'Core Development', planStart: '2026-08-01', planEnd: '2026-09-15', planEffort: '450 hrs' }
+      ],
       modules: [
         {
           name: 'Frontend Development',
@@ -316,6 +357,10 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT006',
       status: true,
       setupCount: 5,
+      bars: [
+        { name: 'Early QA Automation', planStart: '2026-01-16', planEnd: '2026-01-24', planEffort: '55 hrs' },
+        { name: 'Integration & QA', planStart: '2026-09-16', planEnd: '2026-10-31', planEffort: '200 hrs' }
+      ],
       modules: [
         {
           name: 'Unit & Integration Testing',
@@ -353,6 +398,12 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT007',
       status: true,
       setupCount: 4,
+      bars: [
+        { name: 'Compliance Pre-Audit', planStart: '2026-01-14', planEnd: '2026-01-23', planEffort: '65 hrs' },
+        { name: 'Compliance Audit Phase 2', planStart: '2026-03-01', planEnd: '2026-03-25', planEffort: '35 hrs' },
+        { name: 'Mid-Year Security Audit', planStart: '2026-06-01', planEnd: '2026-06-25', planEffort: '45 hrs' },
+        { name: 'UAT & Compliance Audit', planStart: '2026-11-01', planEnd: '2026-11-30', planEffort: '140 hrs' }
+      ],
       modules: [
         {
           name: 'UAT Testing',
@@ -389,6 +440,10 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       gateCode: 'GT008',
       status: true,
       setupCount: 3,
+      bars: [
+        { name: 'Release Prep Kickoff', planStart: '2026-01-22', planEnd: '2026-01-28', planEffort: '40 hrs' },
+        { name: 'Final Release & Deployment', planStart: '2026-12-01', planEnd: '2026-12-25', planEffort: '100 hrs' }
+      ],
       modules: [
         {
           name: 'Go-Live Release',
@@ -473,13 +528,16 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
     let maxDate: Date | null = null;
 
     for (const s of this.stages) {
-      if (!s.planStart || !s.planEnd) continue;
-      const start = new Date(s.planStart);
-      const finish = new Date(s.planEnd);
-      if (isNaN(start.getTime()) || isNaN(finish.getTime())) continue;
+      const bars = this.getStageBars(s);
+      for (const bar of bars) {
+        if (!bar.planStart || !bar.planEnd) continue;
+        const start = new Date(bar.planStart);
+        const finish = new Date(bar.planEnd);
+        if (isNaN(start.getTime()) || isNaN(finish.getTime())) continue;
 
-      if (!minDate || start < minDate) minDate = start;
-      if (!maxDate || finish > maxDate) maxDate = finish;
+        if (!minDate || start < minDate) minDate = start;
+        if (!maxDate || finish > maxDate) maxDate = finish;
+      }
     }
 
     if (!minDate || !maxDate) return [];
@@ -499,12 +557,26 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
     return new Date(year, monthIndex + 1, 0).getDate();
   }
 
-  getGanttBarStyle(s: StageItem): any {
-    if (!s.planStart || !s.planEnd) return { display: 'none' };
+  getStageBars(s: StageItem): GanttBar[] {
+    if (s.bars && s.bars.length > 0) {
+      return s.bars;
+    }
+    return [{
+      name: s.name,
+      planStart: s.planStart,
+      planEnd: s.planEnd,
+      planEffort: s.planEffort
+    }];
+  }
+
+  getGanttBarStyle(s: { planStart?: string; planEnd?: string }, index: number = 0): any {
+    if (!s || !s.planStart || !s.planEnd) return { display: 'none' };
 
     const start = new Date(s.planStart);
     const finish = new Date(s.planEnd);
     if (isNaN(start.getTime()) || isNaN(finish.getTime())) return { display: 'none' };
+
+    let styleObj: any = {};
 
     if (this.ganttScale === 'monthly') {
       const totalMonths = 12;
@@ -521,7 +593,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       const leftPercent = (startVal / totalMonths) * 100;
       const widthPercent = Math.max(0.5, ((finishVal - startVal) / totalMonths) * 100);
 
-      return {
+      styleObj = {
         left: `${leftPercent.toFixed(2)}%`,
         width: `${widthPercent.toFixed(2)}%`
       };
@@ -540,7 +612,7 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       const leftPercent = (startWeekVal / totalWeeks) * 100;
       const widthPercent = Math.max(0.5, ((finishWeekVal - startWeekVal) / totalWeeks) * 100);
 
-      return {
+      styleObj = {
         left: `${leftPercent.toFixed(2)}%`,
         width: `${widthPercent.toFixed(2)}%`
       };
@@ -578,11 +650,21 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
       const leftPercent = (startIndex / totalDays) * 100;
       const widthPercent = (spanDays / totalDays) * 100;
 
-      return {
+      styleObj = {
         left: `${leftPercent.toFixed(2)}%`,
         width: `${widthPercent.toFixed(2)}%`
       };
     }
+
+    if (index > 0) {
+      styleObj.top = `${6 + (index % 3) * 12}px`;
+      styleObj.height = '26px';
+      styleObj.zIndex = `${index + 1}`;
+      styleObj.opacity = '0.94';
+      styleObj.boxShadow = '-2px 2px 6px rgba(0,0,0,0.12)';
+    }
+
+    return styleObj;
   }
 
   getStageGanttClass(stageName: string): string {
@@ -590,8 +672,8 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
     if (name.includes('feasibility') || name.includes('concept') || name.includes('requirement')) return 'gantt-bar-feasibility';
     if (name.includes('design') || name.includes('architecture') || name.includes('specification')) return 'gantt-bar-design';
     if (name.includes('development') || name.includes('implementation') || name.includes('core')) return 'gantt-bar-development';
-    if (name.includes('testing') || name.includes('qa') || name.includes('uat')) return 'gantt-bar-testing';
-    if (name.includes('deployment') || name.includes('release') || name.includes('prototype')) return 'gantt-bar-deployment';
+    if (name.includes('testing') || name.includes('qa') || name.includes('uat') || name.includes('audit') || name.includes('compliance')) return 'gantt-bar-testing';
+    if (name.includes('deployment') || name.includes('release') || name.includes('prototype') || name.includes('tooling')) return 'gantt-bar-deployment';
     return 'gantt-bar-default';
   }
 
@@ -732,6 +814,8 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
   // Stimulation (Add Module) Modal state
   showStimulationModal = false;
   newModuleName = '';
+  newModulePlanStart = '';
+  newModulePlanEnd = '';
 
   private subs = new Subscription();
 
@@ -954,6 +1038,8 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
   // --- Modules (Stimulation) CRUD ---
   openStimulationModal() {
     this.newModuleName = '';
+    this.newModulePlanStart = '2026-01-05';
+    this.newModulePlanEnd = '2026-01-25';
     this.showStimulationModal = true;
     this.setBodyScrollLock(true);
   }
@@ -973,6 +1059,8 @@ export class ProjectStagesComponent implements OnInit, OnDestroy {
 
     this.activeStage.modules.push({
       name,
+      planStart: this.newModulePlanStart,
+      planEnd: this.newModulePlanEnd,
       count: 0,
       tasks: []
     });

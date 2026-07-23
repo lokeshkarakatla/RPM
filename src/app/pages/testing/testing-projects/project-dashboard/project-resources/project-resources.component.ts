@@ -39,6 +39,10 @@ export class ProjectResourcesComponent implements OnInit {
   isCalendarView: boolean = false;
   showWeekend: boolean = false;
 
+  // Timeline modal
+  showTimelineModal: boolean = false;
+  selectedScheduleItem: ResourceScheduleItem | null = null;
+
   availableResources: ResourceItem[] = [];
   allocatedResources: ResourceItem[] = [];
   schedules: ResourceScheduleItem[] = [];
@@ -80,86 +84,89 @@ export class ProjectResourcesComponent implements OnInit {
 
     this.schedules = [
       {
-        resource: 'Ravi Sharma',
-        initials: 'RS',
-        stage: 'Feasibility',
-        module: 'Project Management',
-        task: 'Client Meeting',
-        fromDate: '2026-06-02',
-        fromTime: '09:00 AM',
-        toDate: '2026-06-02',
-        toTime: '11:00 AM',
-        planDuration: '2 hours',
-        actualDuration: '2 hours',
-        status: 'Completed',
-        dayPlacement: 'Monday',
-        color: '#e0f2fe'
+        resource: 'Ravi Sharma', initials: 'RS', stage: 'Feasibility', module: 'Project Management',
+        task: 'Client Meeting', fromDate: '2026-06-02', fromTime: '09:00 AM', toDate: '2026-06-02',
+        toTime: '11:00 AM', planDuration: '2 hours', actualDuration: '2 hours',
+        status: 'Completed', dayPlacement: 'Monday', color: '#e0f2fe'
       },
       {
-        resource: 'Priya Singh',
-        initials: 'PS',
-        stage: 'Design',
-        module: 'Design',
-        task: 'UI Design Implementation',
-        fromDate: '2026-06-03',
-        fromTime: '10:00 AM',
-        toDate: '2026-06-03',
-        toTime: '01:00 PM',
-        planDuration: '3 hours',
-        actualDuration: '3 hours',
-        status: 'Active',
-        dayPlacement: 'Tuesday',
-        color: '#dcfce7'
+        resource: 'Priya Singh', initials: 'PS', stage: 'Design', module: 'Design',
+        task: 'UI Design Implementation', fromDate: '2026-06-03', fromTime: '10:00 AM', toDate: '2026-06-03',
+        toTime: '01:00 PM', planDuration: '3 hours', actualDuration: '3 hours',
+        status: 'Active', dayPlacement: 'Tuesday', color: '#dcfce7'
       },
       {
-        resource: 'Amit Kumar',
-        initials: 'AK',
-        stage: 'Testing',
-        module: 'Quality Assurance',
-        task: 'Integration Testing',
-        fromDate: '2026-06-04',
-        fromTime: '11:00 AM',
-        toDate: '2026-06-04',
-        toTime: '03:00 PM',
-        planDuration: '4 hours',
-        actualDuration: 'N/A',
-        status: 'Pending',
-        dayPlacement: 'Wednesday',
-        color: '#f3e8ff'
+        resource: 'Amit Kumar', initials: 'AK', stage: 'Testing', module: 'Quality Assurance',
+        task: 'Integration Testing', fromDate: '2026-06-04', fromTime: '11:00 AM', toDate: '2026-06-04',
+        toTime: '03:00 PM', planDuration: '4 hours', actualDuration: 'N/A',
+        status: 'Pending', dayPlacement: 'Wednesday', color: '#f3e8ff'
       },
       {
-        resource: 'Neha Sharma',
-        initials: 'NS',
-        stage: 'Testing',
-        module: 'Tool & Software',
-        task: 'Database Setup',
-        fromDate: '2026-06-05',
-        fromTime: '01:00 PM',
-        toDate: '2026-06-05',
-        toTime: '04:00 PM',
-        planDuration: '3 hours',
-        actualDuration: '3 hours',
-        status: 'Completed',
-        dayPlacement: 'Thursday',
-        color: '#fef08a'
+        resource: 'Neha Sharma', initials: 'NS', stage: 'Testing', module: 'Tool & Software',
+        task: 'Database Setup', fromDate: '2026-06-05', fromTime: '01:00 PM', toDate: '2026-06-05',
+        toTime: '04:00 PM', planDuration: '3 hours', actualDuration: '3 hours',
+        status: 'Completed', dayPlacement: 'Thursday', color: '#fef08a'
       },
       {
-        resource: 'Vikram Joshi',
-        initials: 'VJ',
-        stage: 'Review',
-        module: 'Administration',
-        task: 'Budget Review Q3',
-        fromDate: '2026-06-06',
-        fromTime: '02:00 PM',
-        toDate: '2026-06-06',
-        toTime: '04:00 PM',
-        planDuration: '2 hours',
-        actualDuration: 'N/A',
-        status: 'Active',
-        dayPlacement: 'Friday',
-        color: '#cffafe'
+        resource: 'Vikram Joshi', initials: 'VJ', stage: 'Review', module: 'Administration',
+        task: 'Budget Review Q3', fromDate: '2026-06-06', fromTime: '02:00 PM', toDate: '2026-06-06',
+        toTime: '04:00 PM', planDuration: '2 hours', actualDuration: 'N/A',
+        status: 'Active', dayPlacement: 'Friday', color: '#cffafe'
+      },
+      {
+        resource: 'Sneha Kapoor', initials: 'SK', stage: 'Development', module: 'Backend',
+        task: 'API Integration', fromDate: '2026-06-09', fromTime: '09:30 AM', toDate: '2026-06-09',
+        toTime: '12:30 PM', planDuration: '3 hours', actualDuration: '3.5 hours',
+        status: 'Completed', dayPlacement: 'Monday', color: '#fce7f3'
+      },
+      {
+        resource: 'Manish Jain', initials: 'MJ', stage: 'Deployment', module: 'DevOps',
+        task: 'CI/CD Pipeline Setup', fromDate: '2026-06-10', fromTime: '08:00 AM', toDate: '2026-06-10',
+        toTime: '05:00 PM', planDuration: '9 hours', actualDuration: '9 hours',
+        status: 'Completed', dayPlacement: 'Tuesday', color: '#e0f2fe'
+      },
+      {
+        resource: 'Anjali Patel', initials: 'AP', stage: 'Design', module: 'UI/UX',
+        task: 'Wireframe Review', fromDate: '2026-06-11', fromTime: '10:00 AM', toDate: '2026-06-11',
+        toTime: '12:00 PM', planDuration: '2 hours', actualDuration: 'N/A',
+        status: 'Pending', dayPlacement: 'Wednesday', color: '#f3e8ff'
+      },
+      {
+        resource: 'Ravi Sharma', initials: 'RS', stage: 'Development', module: 'Frontend',
+        task: 'Component Refactoring', fromDate: '2026-06-12', fromTime: '09:00 AM', toDate: '2026-06-12',
+        toTime: '01:00 PM', planDuration: '4 hours', actualDuration: '4 hours',
+        status: 'Completed', dayPlacement: 'Thursday', color: '#dcfce7'
+      },
+      {
+        resource: 'Priya Singh', initials: 'PS', stage: 'Testing', module: 'QA',
+        task: 'Regression Testing', fromDate: '2026-06-13', fromTime: '11:00 AM', toDate: '2026-06-13',
+        toTime: '03:00 PM', planDuration: '4 hours', actualDuration: '4.5 hours',
+        status: 'Active', dayPlacement: 'Friday', color: '#cffafe'
+      },
+      {
+        resource: 'Amit Kumar', initials: 'AK', stage: 'Feasibility', module: 'Analysis',
+        task: 'Requirement Gathering', fromDate: '2026-06-16', fromTime: '10:00 AM', toDate: '2026-06-17',
+        toTime: '05:00 PM', planDuration: '14 hours', actualDuration: 'N/A',
+        status: 'Pending', dayPlacement: 'Monday', color: '#fef08a'
+      },
+      {
+        resource: 'Neha Sharma', initials: 'NS', stage: 'Deployment', module: 'Infrastructure',
+        task: 'Server Configuration', fromDate: '2026-06-17', fromTime: '08:00 AM', toDate: '2026-06-17',
+        toTime: '04:00 PM', planDuration: '8 hours', actualDuration: '7 hours',
+        status: 'Completed', dayPlacement: 'Tuesday', color: '#e0f2fe'
       }
     ];
+  }
+
+  // Timeline modal
+  openTimelineModal(item: ResourceScheduleItem): void {
+    this.selectedScheduleItem = item;
+    this.showTimelineModal = true;
+  }
+
+  closeTimelineModal(): void {
+    this.showTimelineModal = false;
+    this.selectedScheduleItem = null;
   }
 
   updatePagination(): void {

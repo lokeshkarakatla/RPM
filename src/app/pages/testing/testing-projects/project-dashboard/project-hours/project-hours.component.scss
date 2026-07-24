@@ -296,14 +296,14 @@ $bg-light: #f9fafb;
 
   .table-responsive {
     width: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
     scroll-behavior: smooth; // Allows the scrolling jump to look fluid
   }
 
   .expenses-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 850px;
+    min-width: 100%;
 
     th,
     td {

@@ -104,8 +104,6 @@
               <th class="text-left" style="color: white;">Stage</th>
               <th class="text-left" style="color: white;">Module</th>
               <th class="text-left" style="color: white;">Task</th>
-              <th class="text-center" style="color: white;">From Time</th>
-              <th class="text-center" style="color: white;">To Time</th>
               <th class="text-center" style="color: white;">Plan Duration</th>
               <th class="text-center" style="color: white;">Actual Duration</th>
               <th class="text-center" style="color: white;">Status</th>
@@ -126,8 +124,6 @@
               <td class="text-left" style="vertical-align: middle;">{{ s.stage }}</td>
               <td class="text-left" style="vertical-align: middle;">{{ s.module }}</td>
               <td class="text-left" style="vertical-align: middle; font-weight: 500; color: #1e3a8a;">{{ s.task }}</td>
-              <td class="text-center" style="vertical-align: middle;">{{ s.fromTime }}</td>
-              <td class="text-center" style="vertical-align: middle;">{{ s.toTime }}</td>
               <td class="text-center" style="vertical-align: middle;">{{ s.planDuration }}</td>
               <td class="text-center" style="vertical-align: middle;">{{ s.actualDuration }}</td>
               <td class="text-center" style="vertical-align: middle;">
@@ -150,7 +146,7 @@
               </td>
             </tr>
             <tr *ngIf="paginatedSchedules.length === 0">
-              <td colspan="11" class="text-center" style="padding: 20px;">No schedules available.</td>
+              <td colspan="9" class="text-center" style="padding: 20px;">No schedules available.</td>
             </tr>
           </tbody>
         </table>
@@ -362,6 +358,20 @@
           <div class="timeline-date-col timeline-date-col--last">
             <div class="timeline-date-label">To Date</div>
             <div class="timeline-date-value">{{ selectedScheduleItem?.toDate || '&mdash;' }}</div>
+          </div>
+        </div>
+
+        <div class="timeline-row-divider"></div>
+
+        <!-- Row 2: From Time, To Time -->
+        <div class="timeline-grid-row">
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">From Time</div>
+            <div class="timeline-date-value">{{ selectedScheduleItem?.fromTime || '&mdash;' }}</div>
+          </div>
+          <div class="timeline-date-col timeline-date-col--last">
+            <div class="timeline-date-label">To Time</div>
+            <div class="timeline-date-value">{{ selectedScheduleItem?.toTime || '&mdash;' }}</div>
           </div>
         </div>
       </div>

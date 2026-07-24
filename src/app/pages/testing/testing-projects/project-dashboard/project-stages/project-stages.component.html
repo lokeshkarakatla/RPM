@@ -327,10 +327,8 @@
                 <th class="text-center" style="width: 112px !important">Actions</th>
                 <th class="text-left">Task</th>
                 <th class="text-center">Job Code</th>
-                <th class="text-center">Effort</th>
                 <th class="text-left">Department</th>
                 <th class="text-left">Responsibility</th>
-                <th class="text-left">Section</th>
                 <th class="text-center">Expenses</th>
                 <th class="text-center">Priority</th>
                 <th class="text-center">Timeline</th>
@@ -352,10 +350,8 @@
 
                     <td class="text-left"><strong>{{ t.task }}</strong></td>
                     <td class="text-center"><span class="code-badge">{{ t.jobCode }}</span></td>
-                    <td class="text-center">{{ t.effort }}h</td>
                     <td class="text-left">{{ t.department }}</td>
                     <td class="text-left">{{ t.role }}</td>
-                    <td class="text-left">{{ t.section || '—' }}</td>
                     <td class="text-center">{{ t.expenses }}</td>
                     <td class="text-center">
                       <span class="priority-label" [class]="'priority-label--' + t.priority.toLowerCase()">
@@ -374,12 +370,12 @@
                   </tr>
                 </ng-container>
                 <tr *ngIf="getFilteredTasks(currentMod.tasks).length === 0">
-                  <td colspan="10" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
+                  <td colspan="8" class="empty-table-cell">No tasks match the filters inside this module. Click "Add Task" to create one.
                   </td>
                 </tr>
               </ng-container>
               <tr *ngIf="!activeStage.modules || activeStage.modules.length === 0">
-                <td colspan="10" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
+                <td colspan="8" class="empty-table-cell">Please add a Stimulation module from the sidebar first.</td>
               </tr>
             </tbody>
           </table>
@@ -999,18 +995,29 @@
           </div>
         </div>
 
-        <!-- Row 3: Task Code -->
-        <ng-container *ngIf="selectedTimelineItem?.taskCode">
-          <div class="timeline-row-divider"></div>
-          <div class="timeline-grid-row">
-            <div class="timeline-date-col">
-              <div class="timeline-date-label">Task Code</div>
-              <div class="timeline-date-value">
-                <span class="code-badge">{{ selectedTimelineItem.taskCode }}</span>
-              </div>
+        <!-- Row 3: Section, Task Code, Effort -->
+        <div class="timeline-row-divider"></div>
+        <div class="timeline-grid-row">
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Section</div>
+            <div class="timeline-date-value">
+              {{ selectedTimelineItem?.section || 'Section A' }}
             </div>
           </div>
-        </ng-container>
+          <div class="timeline-date-col">
+            <div class="timeline-date-label">Task Code</div>
+            <div class="timeline-date-value">
+              <span class="code-badge" *ngIf="selectedTimelineItem?.taskCode">{{ selectedTimelineItem.taskCode }}</span>
+              <span *ngIf="!selectedTimelineItem?.taskCode">&mdash;</span>
+            </div>
+          </div>
+          <div class="timeline-date-col timeline-date-col--last">
+            <div class="timeline-date-label">Effort</div>
+            <div class="timeline-date-value">
+              {{ (selectedTimelineItem?.effort !== undefined && selectedTimelineItem?.effort !== null) ? selectedTimelineItem.effort + 'h' : '—' }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

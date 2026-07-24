@@ -348,7 +348,7 @@
   .view-toggle-btn {
     background-color: #000;
     color: #fff;
-    margin-left: auto; /* Pushes toggle to the right */
+    margin-left: 0;
   }
 }
 
@@ -424,6 +424,18 @@
       text-align: center;
       padding: 12px;
       vertical-align: middle;
+    }
+
+    th.mat-table-sticky,
+    th.mat-mdc-table-sticky {
+      z-index: 20 !important;
+      background-color: #3f3f3f !important;
+    }
+
+    td.mat-table-sticky,
+    td.mat-mdc-table-sticky {
+      z-index: 9 !important;
+      background-color: #ffffff !important;
     }
   }
 }

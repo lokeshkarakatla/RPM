@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AddResourcePopComponent } from './add-resource-pop/add-resource-pop.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 export interface ResourceItem {
   code: string;
@@ -236,19 +237,66 @@ export class ProjectResourcesComponent implements OnInit {
 
   openAddResourceDialog(): void {
     const dialogRef = this.dialog.open(AddResourcePopComponent, {
-      width: '500px',
+      width: '850px',
       height: 'auto',
       data: null
     });
 
-    dialogRef.afterClosed().subscribe((result: { code: string; name: string } | undefined) => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         const newRes: ResourceItem = {
           code: result.code,
-          name: result.name,
+          name: result.name || result.resource,
           selected: false
         };
         this.availableResources.push(newRes);
+      }
+    });
+  }
+
+  openAddResourceScheduleDialog(): void {
+    const dialogRef = this.dialog.open(AddResourcePopComponent, {
+      width: '850px',
+      height: 'auto',
+      data: null
+    });
+
+    dialogRef.afterClosed().subscribe((result: ResourceScheduleItem | undefined) => {
+      if (result) {
+        this.schedules.unshift(result);
+        this.updatePagination();
+      }
+    });
+  }
+
+  editSchedule(item: ResourceScheduleItem): void {
+    const dialogRef = this.dialog.open(AddResourcePopComponent, {
+      width: '850px',
+      height: 'auto',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe((result: ResourceScheduleItem | undefined) => {
+      if (result) {
+        Object.assign(item, result);
+        this.updatePagination();
+      }
+    });
+  }
+
+  deleteSchedule(item: ResourceScheduleItem): void {
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: 'auto',
+      data: {
+        title: 'Delete Confirmation',
+        content: 'Are you sure you want to delete this record?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.schedules = this.schedules.filter(s => s !== item);
+        this.updatePagination();
       }
     });
   }
